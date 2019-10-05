@@ -2,17 +2,17 @@ import React from "react";
 
 function Header() {
   return (
-    <footer className="bg-gray-900">
+    <footer>
       <nav className="flex justify-between max-w-4xl mx-auto p-4 md:p-8 text-sm">
         <p className="text-white">
-          <a className="font-bold no-underline text-white" href="#">
+          <a className="font-bold no-underline text-gray-700" href="#">
             Imprint
           </a>
         </p>
 
         <p>
           <a
-            className="font-bold no-underline text-white"
+            className="font-bold no-underline text-gray-700"
             href="https://github.com/wirtzdan"
           >
             GitHub

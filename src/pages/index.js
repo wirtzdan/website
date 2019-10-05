@@ -11,7 +11,15 @@ function IndexPage() {
         title="Home"
       />
 
-      <section className="text-center"></section>
+      <section>
+        <h1 class="text-6xl">
+          I’m Daniel Wirtz. German Product Designer. Founder at{" "}
+          <a class="underline text-green-500" href="https://crisp.studio">
+            Crisp Studio
+          </a>
+          .
+        </h1>
+      </section>
     </Layout>
   );
 }
