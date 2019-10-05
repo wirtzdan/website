@@ -12,9 +12,13 @@ function IndexPage() {
       />
 
       <section>
-        <h1 class="text-6xl">
+        <p class="text-gray-600 text-4xl">Hello! 👋</p>
+        <h1 class="text-6xl leading-tight">
           I’m Daniel Wirtz. German Product Designer. Founder at{" "}
-          <a class="underline text-green-500" href="https://crisp.studio">
+          <a
+            class="text-blue-400 hover:underline hover:text-blue-500"
+            href="https://crisp.studio"
+          >
             Crisp Studio
           </a>
           .
