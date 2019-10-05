@@ -9,7 +9,6 @@ function Header() {
             Imprint
           </a>
         </p>
-
         <p>
           <a
             className="font-bold no-underline text-gray-700"

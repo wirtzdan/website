@@ -13,9 +13,16 @@ module.exports = {
         short_name: `Daniel Wirtz`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `##15B897`,
+        theme_color: `#15B897`,
         display: `minimal-ui`,
         icon: `src/images/dw-favicon.png`
+      }
+    },
+    {
+      resolve: "@jamesdanylik/gatsby-source-goodreads",
+      options: {
+        key: "a7FiLMTtB3s835j3whTPUQ",
+        id: "53134379"
       }
     },
     `gatsby-plugin-postcss`,

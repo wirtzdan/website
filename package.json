@@ -4,6 +4,8 @@
   "version": "3.0.141",
   "author": "Taylor Bryant <taylor@bryant.io>",
   "dependencies": {
+    "@jamesdanylik/gatsby-source-goodreads": "^0.1.0",
+    "framer-motion": "^1.6.8",
     "gatsby": "2.15.28",
     "gatsby-plugin-manifest": "2.2.20",
     "gatsby-plugin-offline": "3.0.11",
