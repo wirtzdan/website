@@ -1,0 +1,63 @@
+{
+  "name": "gatsby-starter-tailwind",
+  "description": "Gatsby starter styled with Tailwind",
+  "version": "3.0.141",
+  "author": "Taylor Bryant <taylor@bryant.io>",
+  "dependencies": {
+    "gatsby": "2.15.28",
+    "gatsby-plugin-manifest": "2.2.20",
+    "gatsby-plugin-offline": "3.0.11",
+    "gatsby-plugin-postcss": "2.1.10",
+    "gatsby-plugin-purgecss": "4.0.1",
+    "gatsby-plugin-react-helmet": "3.1.10",
+    "graphql": "14.5.8",
+    "prop-types": "15.7.2",
+    "react": "16.10.1",
+    "react-dom": "16.10.1",
+    "react-helmet": "5.2.1"
+  },
+  "keywords": [
+    "gatsby",
+    "tailwind",
+    "tailwindcss",
+    "purgecss"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "analyze:lint": "eslint --ext .jsx --ext .js .",
+    "analyze:prettier": "prettier --list-different '**/*.{js,css,md,json}'",
+    "analyze": "npm run analyze:lint && npm run analyze:prettier",
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "fix:lint": "eslint --ext .jsx --ext .js . --fix",
+    "fix:prettier": "prettier --write '**/*.{js,css,md,json}'",
+    "fix": "npm run fix:lint && npm run fix:prettier",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "2.3.2",
+    "@typescript-eslint/parser": "2.3.2",
+    "babel-eslint": "10.0.3",
+    "cssnano": "^4.1.10",
+    "eslint": "6.5.0",
+    "eslint-config-react-app": "5.0.2",
+    "eslint-plugin-flowtype": "4.3.0",
+    "eslint-plugin-import": "2.18.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.14.3",
+    "eslint-plugin-react-hooks": "2.1.1",
+    "prettier": "1.18.2",
+    "tailwindcss": "1.1.2",
+    "tailwindcss-dark-mode": "^1.0.3",
+    "typescript": "3.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taylorbryant/gatsby-starter-tailwind"
+  },
+  "bugs": {
+    "url": "https://github.com/taylorbryant/gatsby-starter-tailwind/issues"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "impulse",
+      "name": "impulse",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/8146736?v=4",
+      "profile": "http://impuls.dev",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "gandreadis",
+      "name": "Georgios Andreadis",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/5272244?v=4",
+      "profile": "https://gandreadis.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "altruisticsoftware",
+      "name": "Chris",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/12105346?v=4",
+      "profile": "https://github.com/altruisticsoftware",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dalwadani",
+      "name": "Dhaifallah Alwadani",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/4618082?v=4",
+      "profile": "https://github.com/dalwadani",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "nigelb135",
+      "name": "Nigel Ball",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/815408?v=4",
+      "profile": "http://nigelball.org",
+      "contributions": [
+        "ideas",
+        "code"
+      ]
+    },
+    {
+      "login": "monte-hayward",
+      "name": "Monte Hayward",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3780422?v=4",
+      "profile": "https://github.com/monte-hayward",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "lukebennett88",
+      "name": "Luke Bennett",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3422401?v=4",
+      "profile": "https://lukebennett.com.au",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "gatsby-starter-tailwind",
+  "projectOwner": "Oddstronaut",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
