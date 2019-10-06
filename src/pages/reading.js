@@ -1,26 +1,27 @@
 import React from "react";
 
-import Layout from "../components/layout";
-import SEO from "../components/seo";
-import BookList from "../components/booklist";
+import { Layout, SEO, Section } from "../components/common";
+import BookList from "../components/bookList";
 
-function BooksPage() {
+function ReadingPage() {
   return (
     <Layout>
       <SEO
         keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
         title="Books"
       />
-      <section class="my-10">
-        <h1 class="text-6xl">Books</h1>
+      <Section>
+        <h1 class="text-4xl md:text-6xl leading-tight ">What I'm Reading</h1>
         <p class="text-2xl text-gray-700">
           I like reading books with different topics, here are some of the ones
           I read recently.
         </p>
-      </section>
-      <BookList />
+      </Section>
+      <Section>
+        <BookList />
+      </Section>
     </Layout>
   );
 }
 
-export default BooksPage;
+export default ReadingPage;

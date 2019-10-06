@@ -1,7 +1,7 @@
 import React from "react";
-import Book from "../components/book";
+import Book from "./book";
 import { graphql, useStaticQuery } from "gatsby";
-import { getBookImageUrl } from "../utils";
+import { getBookImageUrl } from "../../utils";
 
 function BookList() {
   const data = useStaticQuery(graphql`
