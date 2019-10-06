@@ -30,6 +30,7 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         tailwind: true,
+        whitelist: ["mode-dark"],
         purgeOnly: [`src/css/style.css`]
       }
     },
