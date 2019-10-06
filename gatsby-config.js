@@ -13,8 +13,8 @@ module.exports = {
         short_name: `Daniel Wirtz`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#15B897`,
-        display: `minimal-ui`,
+        theme_color: `#48BB78`,
+        display: `standalone`,
         icon: `src/images/dw-favicon.png`
       }
     },

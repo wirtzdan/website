@@ -12,7 +12,7 @@ function ReadingPage() {
       />
       <Section>
         <h1 class="text-4xl md:text-6xl leading-tight ">What I'm Reading</h1>
-        <p class="text-2xl text-gray-700">
+        <p class="text-2xl text-gray-700 dark:text-gray-300">
           I like reading books with different topics, here are some of the ones
           I read recently.
         </p>
