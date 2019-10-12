@@ -1,6 +1,7 @@
 import { Link } from "gatsby";
 import React from "react";
-import { Container, ThemeToggle } from "./index";
+import { Container } from "../common/index";
+import { ThemeToggle } from "./index";
 
 function MDHeader() {
   return (

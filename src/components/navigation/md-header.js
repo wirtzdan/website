@@ -9,7 +9,11 @@ function MDHeader() {
   useEffect(() => console.log(menuIsOpen), [menuIsOpen]);
 
   return (
-    <header class="flex flex-col h-100 fixed inset-x-0 inset-y-0 lg:hidden block ">
+    <header
+      class={`flex flex-col h-100 fixed inset-x-0 inset-y-0 lg:hidden block overflow-y-auto ${
+        menuIsOpen ? "" : "h-16 mt-auto"
+      }`}
+    >
       <div
         class={`flex-grow bg-gray-200 dark:bg-gray-800 ${
           menuIsOpen ? "" : "hidden"
