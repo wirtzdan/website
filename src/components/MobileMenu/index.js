@@ -22,9 +22,7 @@ function MobileMenu() {
     <motion.div
       initial={false}
       animate={isOpen ? "open" : "closed"}
-      class={`flex flex-col h-100 fixed inset-x-0 inset-y-0 lg:hidden block overflow-y-auto ${
-        isOpen ? "" : "h-16 mt-auto"
-      }`}
+      class="flex flex-col h-100 fixed inset-x-0 inset-y-0 lg:hidden block overflow-y-auto"
     >
       <Navigation isOpen={isOpen} links={links} />
       <BottomBar toggle={() => toggleOpen()} />
