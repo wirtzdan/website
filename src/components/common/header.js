@@ -2,9 +2,9 @@ import { Link } from "gatsby";
 import React from "react";
 import { Container, ThemeToggle } from "./index";
 
-function Header() {
+function MDHeader() {
   return (
-    <header class="">
+    <header class="lg:block hidden">
       <Container class="border-b-2 dark:border-gray-800">
         <div class="mt-10">
           <Link to="/">
@@ -40,4 +40,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default MDHeader;

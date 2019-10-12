@@ -30,14 +30,14 @@ export default class ThemeToggle extends Component {
         title="Set dark theme"
         onClick={() => this.setTheme("dark")}
       >
-        <Sun class="w-6 dark:hidden" />
+        <Moon class="w-8 dark:hidden" />
       </button>
       <button
         className="focus:outline-none hidden dark:block"
         title="Set light theme"
         onClick={() => this.setTheme("light")}
       >
-        <Moon class="w-6" />
+        <Sun class="w-8 " />
       </button>
     </div>
   );

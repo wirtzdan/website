@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import Header from "./header";
+import { MDHeader, Header } from "./index";
 
 function Layout({ children }) {
   return (
     <div className="flex flex-col font-sans min-h-screen text-gray-800 dark:text-gray-200 antialiased bg-gray-100 dark:bg-gray-900">
+      <MDHeader />
       <Header />
       <main className="flex flex-col flex-1 md:justify-center mx-auto w-full">
         {children}
