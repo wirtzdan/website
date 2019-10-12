@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-
-import { MDHeader, Header } from "../navigation";
+import { AnimatePresence } from "framer-motion";
+import Header from "../MobileMenu/header";
+import MDHeader from "../MobileMenu";
 
 function Layout({ children }) {
   return (

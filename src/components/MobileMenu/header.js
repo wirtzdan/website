@@ -1,15 +1,15 @@
 import { Link } from "gatsby";
 import React from "react";
 import { Container } from "../common/index";
-import { ThemeToggle } from "./index";
+import ThemeToggle from "./ThemeToggle";
 
 function MDHeader() {
   return (
     <header class="lg:block hidden">
       <Container class="border-b-2 dark:border-gray-800">
-        <div class="mt-10">
+        <div className="mt-10">
           <Link to="/">
-            <span class="text-4xl font-medium">Daniel Wirtz</span>
+            <span className="text-4xl font-medium">Daniel Wirtz</span>
           </Link>
         </div>
         <div class="flex justify-between items-center my-6 -ml-4">
