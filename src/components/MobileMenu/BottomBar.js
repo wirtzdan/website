@@ -10,7 +10,9 @@ function BottomBar({ toggle }) {
         <Mail class="h-6 w-auto" />
       </div>
       <MenuToggle toggle={toggle} />
-      <ThemeToggle />
+      <div class="w-1/3 flex justify-center">
+        <ThemeToggle />
+      </div>
     </div>
   );
 }
