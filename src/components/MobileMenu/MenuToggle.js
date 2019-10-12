@@ -2,17 +2,12 @@ import * as React from "react";
 import { motion } from "framer-motion";
 
 const Path = props => (
-  <motion.path
-    fill="transparent"
-    strokeWidth="2"
-    strokeLinecap="round"
-    {...props}
-  />
+  <motion.path strokeWidth="2" strokeLinecap="round" {...props} />
 );
 
 function MenuToggle({ toggle }) {
   return (
-    <button onClick={toggle}>
+    <div onClick={toggle} class="focus:outline-none w-1/3 flex justify-center">
       <svg
         class="stroke-current text-gray-800 dark:text-gray-100"
         width="23"
@@ -33,7 +28,7 @@ function MenuToggle({ toggle }) {
           }}
         />
       </svg>
-    </button>
+    </div>
   );
 }
 
