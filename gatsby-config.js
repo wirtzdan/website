@@ -5,6 +5,13 @@ module.exports = {
     author: `@wirtzdan`
   },
   plugins: [
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/blog`,
+        name: `blog`
+      }
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -14,8 +21,8 @@ module.exports = {
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#48BB78`,
-        display: `standalone`,
-        icon: `src/images/dw-favicon.png`
+        display: `minimal-ui`,
+        icon: `${__dirname}/content/assets/favicon.png`
       }
     },
     {
