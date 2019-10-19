@@ -9,15 +9,17 @@ const variants = {
     opacity: 1,
     transition: {
       y: { stiffness: 1000, velocity: -100 }
-    }
+    },
+    height: "auto"
   },
   closed: {
     y: -50,
     rotateZ: 10,
-    opacity: 0,
+    opacity: 0.5,
     transition: {
       y: { stiffness: 1000 }
-    }
+    },
+    height: 0
   }
 };
 

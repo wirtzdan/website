@@ -1,6 +1,6 @@
 import React from "react";
 import MenuItem from "./MenuItem";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const variants = {
   open: {
@@ -10,7 +10,7 @@ const variants = {
   },
   closed: {
     opacity: 0,
-    y: "50",
+    y: "200",
     transition: {
       staggerChildren: 0.1,
       staggerDirection: -1
@@ -20,15 +20,19 @@ const variants = {
 
 function Navigation({ links, isOpen }) {
   return (
-    <div class="flex-grow">
-      <motion.nav
-        class="flex-grow bg-gray-200 dark:bg-gray-800 flex flex-col items-center justify-center h-full"
-        variants={variants}
-      >
-        {links.map(link => (
-          <MenuItem key={link.title} to={link.route} title={link.title} />
-        ))}
-      </motion.nav>
+    <div class="h-full">
+      <AnimatePresence exitBeforeEnter>
+        <motion.nav
+          class={`flex-grow bg-gray-200 dark:bg-gray-800 flex flex-col items-center justify-center h-full ${
+            isOpen ? "" : "pointer-events-none"
+          }`}
+          variants={variants}
+        >
+          {links.map(link => (
+            <MenuItem key={link.title} to={link.route} title={link.title} />
+          ))}
+        </motion.nav>
+      </AnimatePresence>
     </div>
   );
 }
