@@ -22,6 +22,10 @@ function MDHeader() {
               {
                 route: `/reading`,
                 title: `Reading`
+              },
+              {
+                route: `/writing`,
+                title: `Writing`
               }
             ].map(link => (
               <Link
