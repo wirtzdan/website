@@ -15,6 +15,10 @@ function MobileMenu() {
     {
       route: `/reading`,
       title: `Reading`
+    },
+    {
+      route: `/writing`,
+      title: `Writing`
     }
   ];
 

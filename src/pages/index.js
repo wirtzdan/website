@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Layout, SEO, Section } from "../components/common";
+import { Layout, SEO, Section, Button } from "../components/common";
+import { Twitter } from "react-feather";
 
 function IndexPage() {
   return (
@@ -11,17 +12,19 @@ function IndexPage() {
       />
 
       <Section>
-        <p class="text-gray-600 dark:text-gray-400 text-4xl">Hello! 👋</p>
-        <h1 class="text-4xl md:text-6xl leading-tight font-bold dark:text-gray-200">
+        <p class="text-neutral-500 dark:text-neutral-300 text-4xl">Hello! 👋</p>
+        <h2 class="text-4xl md:text-6xl leading-tight font-bold dark:text-neutral-10 mb-8">
           I’m Daniel Wirtz. German Product Designer. Founder at{" "}
-          <a
-            class="text-green-400 hover:underline hover:text-green-500"
-            href="https://crisp.studio"
-          >
+          <a class="link-underline" href="https://crisp.studio">
             Crisp Studio
           </a>
           .
-        </h1>
+        </h2>
+        <Button
+          text="Follow me"
+          icon={<Twitter />}
+          to="https://twitter.com/wirtzdan"
+        />
       </Section>
     </Layout>
   );
