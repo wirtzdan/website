@@ -1,7 +1,36 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 .leading-0 {
   line-height: 0;
+}
+
+.tracking-p {
+  letter-spacing: 0.25px;
+}
+
+h1 {
+  @apply text-4xl leading-tight mb-6 font-bold border-b-2 pb-4 font-display border-dashed;
+}
+
+h2 {
+  @apply text-3xl leading-tight mb-4 font-bold font-display;
+}
+
+h3 {
+  @apply text-2xl leading-tight mb-4 font-bold font-display;
+}
+
+p {
+  @apply text-2xl leading-snug mb-6 tracking-p;
+}
+
+@tailwind components;
+@tailwind utilities;
+
+.link-underline {
+  @apply border-b-2 -mb-2;
+}
+
+hover:link-underline {
+  border-color: red;
 }

@@ -6,12 +6,10 @@ import MDHeader from "../MobileMenu";
 
 function Layout({ children }) {
   return (
-    <div className="flex flex-col font-sans min-h-screen text-gray-800 dark:text-gray-200 antialiased bg-gray-100 dark:bg-gray-900">
+    <div className="flex flex-col font-body min-h-screen text-neutral-700 dark:text-neutral-100 antialiased bg-neutral-50 dark:bg-neutral-900">
       <Header />
       <MDHeader />
-      <main className="flex flex-col flex-1 md:justify-center mx-auto w-full">
-        {children}
-      </main>
+      <main className="flex flex-col flex-1 mx-auto w-full">{children}</main>
     </div>
   );
 }

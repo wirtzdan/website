@@ -1,19 +1,19 @@
 import { Link } from "gatsby";
 import React from "react";
-import { Container } from "../common/index";
+import { Section } from "../common";
 import ThemeToggle from "./ThemeToggle";
 
 function MDHeader() {
   return (
     <header class="lg:block hidden">
-      <Container class="border-b-2 dark:border-gray-800">
+      <Section>
         <div className="mt-10">
           <Link to="/">
-            <span className="text-4xl font-medium">Daniel Wirtz</span>
+            <span className="text-4xl font-bold">Daniel Wirtz</span>
           </Link>
         </div>
-        <div class="flex justify-between items-center my-6 -ml-4">
-          <nav>
+        <div class="flex justify-between items-center my-6 border-b-2 border-primary-400 pb-6">
+          <nav class="-ml-4">
             {[
               {
                 route: `/`,
@@ -25,10 +25,10 @@ function MDHeader() {
               }
             ].map(link => (
               <Link
-                className="text-2xl text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark-hover:bg-gray-800 rounded px-4 py-2 mr-2"
+                className="text-2xl hover:bg-neutral-100 dark-hover:bg-neutral-800 rounded px-4 py-2 mr-2"
                 key={link.title}
                 to={link.route}
-                activeClassName="font-semibold text-green-500 dark:text-green-500"
+                activeClassName="font-semibold text-primary-400"
               >
                 {link.title}
               </Link>
@@ -36,7 +36,7 @@ function MDHeader() {
           </nav>
           <ThemeToggle />
         </div>
-      </Container>
+      </Section>
     </header>
   );
 }

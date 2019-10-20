@@ -12,6 +12,43 @@ module.exports = {
         name: `blog`
       }
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/assets`,
+        name: `assets`
+      }
+    },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: "gatsby-transformer-remark",
+      options: {
+        plugins: [
+          {
+            resolve: "gatsby-remark-relative-images",
+            options: {
+              name: "assets"
+            }
+          },
+          {
+            resolve: "gatsby-remark-images",
+            options: {
+              maxWidth: 700,
+              quality: 80
+            }
+          },
+          {
+            resolve: "gatsby-remark-copy-linked-files",
+            options: {
+              destinationDir: "static"
+            }
+          },
+          "gatsby-remark-external-links",
+          "gatsby-remark-prismjs"
+        ]
+      }
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-manifest`,
@@ -23,6 +60,22 @@ module.exports = {
         theme_color: `#48BB78`,
         display: `minimal-ui`,
         icon: `${__dirname}/content/assets/favicon.png`
+      }
+    },
+    {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Red Hat Display`,
+            subsets: [`latin`]
+          },
+          {
+            family: `Red Hat Text`,
+            subsets: [`latin`],
+            variants: ["400", "400i", "700", "900"]
+          }
+        ]
       }
     },
     {
