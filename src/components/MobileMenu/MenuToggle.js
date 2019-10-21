@@ -7,8 +7,16 @@ const Path = props => (
 
 function MenuToggle({ toggle }) {
   return (
-    <div onClick={toggle} class="focus:outline-none w-1/3 flex justify-center">
-      <svg class="stroke-current" width="23" height="23" viewBox="0 0 23 23">
+    <div
+      onClick={toggle}
+      className="focus:outline-none w-1/3 flex justify-center"
+    >
+      <svg
+        className="stroke-current"
+        width="23"
+        height="23"
+        viewBox="0 0 23 23"
+      >
         <Path
           variants={{
             closed: { d: "M 2 2.5 L 20 2.5" },
