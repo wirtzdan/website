@@ -12,10 +12,12 @@ function IndexPage() {
       />
 
       <Section>
-        <p class="text-neutral-500 dark:text-neutral-300 text-4xl">Hello! 👋</p>
-        <h2 class="text-4xl md:text-6xl leading-tight font-bold dark:text-neutral-10 mb-8">
+        <p className="text-neutral-500 dark:text-neutral-300 text-4xl">
+          Hello! 👋
+        </p>
+        <h2 className="text-4xl md:text-6xl leading-tight font-bold dark:text-neutral-10 mb-8">
           I’m Daniel Wirtz. German Product Designer. Founder at{" "}
-          <a class="link-underline" href="https://crisp.studio">
+          <a className="link-underline" href="https://crisp.studio">
             Crisp Studio
           </a>
           .

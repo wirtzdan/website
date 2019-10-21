@@ -25,7 +25,7 @@ function BookList() {
   `);
 
   return (
-    <div class="flex flex-wrap mb-4">
+    <div className="flex flex-wrap mb-4">
       {data.goodreadsShelf.reviews
         .filter(review => !review.book.image_url.includes("/nophoto/"))
         .map(review => (

@@ -15,15 +15,15 @@ class BlogPostTemplate extends React.Component {
       <Layout>
         <SEO title={post.frontmatter.title} description={post.excerpt} />
         <Section>
-          <article class="mb-10">
+          <article className="mb-10">
             <header>
-              <h1 class="text-5xl">{post.frontmatter.title}</h1>
+              <h1 className="text-5xl">{post.frontmatter.title}</h1>
             </header>
             <section dangerouslySetInnerHTML={{ __html: post.html }} />
           </article>
 
           <nav>
-            <ul class="flex justify-between">
+            <ul className="flex justify-between">
               <li>
                 {previous && (
                   <Link to={previous.fields.slug} rel="prev">

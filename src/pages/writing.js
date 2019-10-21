@@ -21,7 +21,7 @@ function WritingPage({ data }) {
         </p>
       </Section>
 
-      <Section class="flex flex-wrap mb-4">
+      <Section className="flex flex-wrap mb-4">
         {posts.map(({ node }) => {
           const title = node.frontmatter.title;
           const timeToRead = node.timeToRead;
