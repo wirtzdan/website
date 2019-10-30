@@ -20,6 +20,10 @@ h3 {
   @apply text-2xl leading-tight mb-4 font-bold font-display;
 }
 
+body  {
+  @apply text-2xl;
+}
+
 p {
   @apply text-2xl leading-snug mb-6 tracking-p;
 }
@@ -31,10 +35,44 @@ p {
   @apply border-b-2 -mb-2;
 }
 
-hover:link-underline {
-  border-color: red;
-}
-
 .bottom-16 {
   bottom: 4rem;
+}
+
+p a {
+  @apply link-underline text-primary-900 border-neutral-100;
+}
+
+.mode-dark p a {
+  @apply text-white text-primary-50 border-neutral-800;
+}
+
+p a:hover {
+  @apply border-primary-200;
+}
+
+blockquote {
+  @apply my-8 py-4 px-4 border-l-2 border-primary-700 text-primary-900 shadow rounded-sm;
+}
+
+.mode-dark blockquote {
+  @apply border-l-2 border-primary-400 bg-neutral-800 text-primary-50;
+}
+
+blockquote p  {
+  @apply mb-0;
+}
+
+ul,
+ol {
+  @apply list-disc bg-white text-primary-900 my-6 py-4 pl-12 pr-6 rounded-sm;
+}
+
+.mode-dark ul,
+.mode-dark ol {
+  @apply bg-neutral-800 text-primary-50;
+}
+
+li {
+  @apply my-4 pl-2 leading-snug;
 }
