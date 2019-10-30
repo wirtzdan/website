@@ -57,7 +57,7 @@ module.exports = {
         short_name: `Daniel Wirtz`,
         start_url: `/`,
         background_color: `#ffffff`,
-        theme_color: `#48BB78`,
+        theme_color: `#2BB0ED`,
         display: `minimal-ui`,
         icon: `${__dirname}/content/assets/favicon.png`
       }
