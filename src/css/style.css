@@ -1,5 +1,7 @@
 @tailwind base;
 
+/* purgecss start ignore */
+
 .leading-0 {
   line-height: 0;
 }
@@ -73,6 +75,8 @@ ol {
 li {
   @apply my-4 pl-2 leading-snug;
 }
+
+/* purgecss end ignore */
 
 @tailwind components;
 @tailwind utilities;
