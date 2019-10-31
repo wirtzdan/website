@@ -27,6 +27,13 @@ function WritingPage({ data }) {
           const timeToRead = node.timeToRead;
           const subtitle = node.frontmatter.subtitle;
           const slug = node.fields.slug;
+      <Section>
+        <div className="flex flex-wrap -mx-2">
+          {posts.map(({ node }) => {
+            const title = node.frontmatter.title;
+            const timeToRead = node.timeToRead;
+            const subtitle = node.frontmatter.subtitle;
+            const slug = node.fields.slug;
 
           return (
             <BlogPostCard
@@ -37,6 +44,16 @@ function WritingPage({ data }) {
             />
           );
         })}
+            return (
+              <BlogPostCard
+                title={title}
+                subtitle={subtitle}
+                timeToRead={timeToRead}
+                slug={slug}
+              />
+            );
+          })}
+        </div>
       </Section>
     </Layout>
   );

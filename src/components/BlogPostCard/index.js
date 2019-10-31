@@ -3,7 +3,10 @@ import { Link } from "gatsby";
 
 function BlogPostCard({ title, subtitle, timeToRead, slug }) {
   return (
-    <Link className="md:w-1/2 w-1/1 h-65 p-2" to={slug}>
+    <Link
+      className="my-2 px-2 w-full overflow-hidden md:my-2 md:px-2 md:w-1/2 h-65"
+      to={slug}
+    >
       <article className="h-full flex flex-col justify-between items-start bg-white dark:bg-neutral-700 rounded-lg p-6 shadow">
         <div>
           <h2 className="text-3xl leading-tight text font-bold mb-3">

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 function Book(props) {
   return (
-    <div className="md:w-1/4 p-3 w-1/2">
+    <div className="md:w-1/4 my-2 px-2 w-1/2">
       <a href={props.link} className="w-full h-full">
         <motion.img
           whileHover={{ scale: 1.015, rotate: 2 }}
