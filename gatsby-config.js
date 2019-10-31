@@ -90,7 +90,7 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         tailwind: true,
-        whitelist: ["mode-dark"],
+        whitelist: ["mode-dark", "ol", "ul", "blockquote"],
         purgeOnly: [`src/css/style.css`]
       }
     },

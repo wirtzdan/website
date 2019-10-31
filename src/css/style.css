@@ -1,13 +1,11 @@
 @tailwind base;
 
-/* purgecss start ignore */
-
-/* Disable tracking */
+/* No line height */
 .leading-0 {
   line-height: 0;
 }
 
-/* Smaller tracking */
+/* Smaller text tracking */
 .tracking-p {
   letter-spacing: 0.25px;
 }
@@ -27,7 +25,7 @@
   max-width: 20em;
 }
 
-/* Design System  */
+/* Design System */
 h1 {
   @apply text-4xl leading-tight mb-6 font-bold border-b-2 pb-4 font-display inline-block;
 }
@@ -98,8 +96,6 @@ article ol {
 article li {
   @apply my-4 pl-2 leading-snug;
 }
-
-/* purgecss end ignore */
 
 @tailwind components;
 @tailwind utilities;
