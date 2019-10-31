@@ -86,14 +86,14 @@ module.exports = {
       }
     },
     `gatsby-plugin-postcss`,
-    {
-      resolve: `gatsby-plugin-purgecss`,
-      options: {
-        tailwind: true,
-        whitelist: ["mode-dark"],
-        purgeOnly: [`src/css/style.css`]
-      }
-    },
+    // {
+    //   resolve: `gatsby-plugin-purgecss`,
+    //   options: {
+    //     tailwind: true,
+    //     whitelist: ["mode-dark"],
+    //     purgeOnly: [`src/css/style.css`]
+    //   }
+    // },
     `gatsby-plugin-offline`
   ]
 };
