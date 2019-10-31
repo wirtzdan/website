@@ -12,7 +12,7 @@ function ReadingPage() {
       />
       <Section>
         <h1>What I'm Reading</h1>
-        <p>
+        <p className="measure">
           I like reading books with different topics, here are some of the ones
           I read recently.
         </p>

@@ -13,20 +13,13 @@ function WritingPage({ data }) {
         title="Books"
       />
       <Section>
-        <h1>What I'm writing</h1>
-        <p>
-          Faucibus arcu primis tristique litora massa commodo pulvinar nisl, est
-          consectetur non elit iaculis id risus integer, lectus nec rhoncus
-          imperdiet pretium quam dapibus.
+        <h1>What I'm Writing</h1>
+        <p className="measure">
+          My personal blog. What to expect: Random topics and personal thoughts.
+          Let me know what you think!
         </p>
       </Section>
 
-      <Section className="flex flex-wrap mb-4">
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title;
-          const timeToRead = node.timeToRead;
-          const subtitle = node.frontmatter.subtitle;
-          const slug = node.fields.slug;
       <Section>
         <div className="flex flex-wrap -mx-2">
           {posts.map(({ node }) => {
@@ -35,15 +28,6 @@ function WritingPage({ data }) {
             const subtitle = node.frontmatter.subtitle;
             const slug = node.fields.slug;
 
-          return (
-            <BlogPostCard
-              title={title}
-              subtitle={subtitle}
-              timeToRead={timeToRead}
-              slug={slug}
-            />
-          );
-        })}
             return (
               <BlogPostCard
                 title={title}
