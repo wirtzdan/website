@@ -9,7 +9,9 @@ function Layout({ children }) {
     <div className="flex flex-col font-body min-h-screen text-neutral-700 dark:text-neutral-100 antialiased bg-neutral-50 dark:bg-neutral-900">
       <Header />
       <MDHeader />
-      <main className="flex flex-col flex-1 mx-auto w-full">{children}</main>
+      <main className="flex flex-col flex-1 mx-auto w-full mb-20 md:mb-6">
+        {children}
+      </main>
     </div>
   );
 }
