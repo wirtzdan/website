@@ -17,7 +17,7 @@ function ReadingPage() {
           I read recently.
         </p>
       </Section>
-      <Section>
+      <Section extend="mt-0">
         <BookList />
       </Section>
     </Layout>

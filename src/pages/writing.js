@@ -20,7 +20,7 @@ function WritingPage({ data }) {
         </p>
       </Section>
 
-      <Section>
+      <Section extend="mt-0 ">
         <div className="flex flex-wrap -mx-2">
           {posts.map(({ node }) => {
             const title = node.frontmatter.title;

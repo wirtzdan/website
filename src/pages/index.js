@@ -26,6 +26,7 @@ function IndexPage() {
           text="Follow me"
           icon={<Twitter />}
           to="https://twitter.com/wirtzdan"
+          extend="bg-primary-500"
         />
       </Section>
     </Layout>
