@@ -32,5 +32,3 @@ Some things I want to work on:
 2. Building a small managable Design System
 3. Getting advanced in Framer Motion and TailwindCSS
 4. Making this site accessible
-
-I created a small newsletter, where I'm going to send out updates and new blog posts.
