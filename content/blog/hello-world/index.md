@@ -34,5 +34,3 @@ Some things I want to work on:
 4. Making this site accessible
 
 I created a small newsletter, where I'm going to send out updates and new blog posts.
-
-You can join [here](http://eepurl.com/gHSWgD).
