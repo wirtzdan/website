@@ -7,10 +7,10 @@ function Newsletter() {
     <Section extend="mt-0">
       <div className="bg-green-500 px-8 py-12 rounded-lg">
         <div class="text-white">
-          <h3>Join my personal email list</h3>
+          <h3>Don't want to miss a post?</h3>
           <p>
-            Don't want to miss a post? Join my personal email list and get
-            notified for new posts and fresh thoughts.
+            Join my personal email list and get notified for new posts and fresh
+            thoughts.
           </p>
         </div>
         <div className="flex flex-wrap items-end -mx-2 overflow-hidden">
@@ -19,7 +19,7 @@ function Newsletter() {
             <input
               class="bg-white focus:outline-none text-gray-800 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal w-full"
               type="text"
-              placeholder="Justin"
+              placeholder="Hans"
             ></input>
           </label>
           <label className="my-2 px-2 md:w-1/2">
@@ -27,7 +27,7 @@ function Newsletter() {
             <input
               className="bg-white focus:outline-none text-gray-800  focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal w-full"
               type="email"
-              placeholder="justincase@gmail.com"
+              placeholder="hansdown@gmail.com"
             ></input>
           </label>
           <div className="my-4 md:my-2 px-2 w-full md:w-1/4">
