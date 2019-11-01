@@ -7,6 +7,9 @@ module.exports = {
         display: ['"Red Hat Display"'],
         body: ['"Red Hat Text"']
       },
+      boxShadow: {
+        outline: "0 0 0 2px rgba(65, 195, 247,0.8)"
+      },
       colors: {
         primary: {
           50: "#E3F8FF",
