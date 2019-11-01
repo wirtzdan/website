@@ -20,6 +20,10 @@ function MDHeader() {
                 title: `Home`
               },
               {
+                route: `/about`,
+                title: `About`
+              },
+              {
                 route: `/reading`,
                 title: `Reading`
               },

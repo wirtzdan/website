@@ -13,6 +13,10 @@ function MobileMenu() {
       title: `Home`
     },
     {
+      route: `/about`,
+      title: `About`
+    },
+    {
       route: `/reading`,
       title: `Reading`
     },
