@@ -2,7 +2,7 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 import "../css/prism-duotone.css";
 
-import { Layout, Section } from "../components/common";
+import { Layout, Section, Newsletter } from "../components/common";
 import SEO from "../components/common/seo";
 
 class BlogPostTemplate extends React.Component {
@@ -41,6 +41,8 @@ class BlogPostTemplate extends React.Component {
             </ul>
           </nav>
         </Section>
+
+        <Newsletter></Newsletter>
       </Layout>
     );
   }

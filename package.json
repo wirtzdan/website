@@ -8,6 +8,7 @@
     "autoprefixer": "^9.6.4",
     "framer-motion": "^1.6.8",
     "gatsby": "2.15.28",
+    "gatsby-plugin-mailchimp": "^5.1.2",
     "gatsby-plugin-manifest": "2.2.20",
     "gatsby-plugin-offline": "3.0.11",
     "gatsby-plugin-postcss": "2.1.10",
