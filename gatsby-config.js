@@ -1,3 +1,5 @@
+require("dotenv-safe").config();
+
 module.exports = {
   siteMetadata: {
     title: `Daniel Wirtz`,
@@ -81,7 +83,7 @@ module.exports = {
     {
       resolve: "@jamesdanylik/gatsby-source-goodreads",
       options: {
-        key: "a7FiLMTtB3s835j3whTPUQ",
+        key: process.env.GOODREADS_API_KEY,
         id: "53134379"
       }
     },
@@ -92,6 +94,12 @@ module.exports = {
         tailwind: true,
         whitelist: ["mode-dark", "ol", "ul", "blockquote"],
         purgeOnly: [`src/css/style.css`]
+      }
+    },
+    {
+      resolve: "gatsby-plugin-mailchimp",
+      options: {
+        endpoint: "" // add your MC list endpoint here; see instructions below
       }
     },
     `gatsby-plugin-offline`
