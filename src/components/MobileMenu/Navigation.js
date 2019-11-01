@@ -5,14 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 const variants = {
   open: {
     opacity: 1,
-    y: 0,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.25 }
   },
   closed: {
     opacity: 0,
-    y: "200",
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
       staggerDirection: -1
     }
   }
