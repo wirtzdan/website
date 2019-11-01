@@ -6,6 +6,7 @@
   "dependencies": {
     "@jamesdanylik/gatsby-source-goodreads": "^0.1.0",
     "autoprefixer": "^9.6.4",
+    "dotenv-safe": "^8.1.0",
     "framer-motion": "^1.6.8",
     "gatsby": "2.15.28",
     "gatsby-plugin-mailchimp": "^5.1.2",

@@ -99,7 +99,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-mailchimp",
       options: {
-        endpoint: "" // add your MC list endpoint here; see instructions below
+        endpoint: process.env.MAILCHIMP_ENDPOINT
       }
     },
     `gatsby-plugin-offline`
