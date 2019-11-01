@@ -29,6 +29,6 @@ Solving code problems and UI problems is very fulfilling. It's similar to having
 Some things I want to work on:
 
 1. Sourcing and displaying data (e.g Instagram Posts, Goodreads Books, Movies I watched)
-2. Building a small managable Design System
+2. Building a small manageable Design System
 3. Getting advanced in Framer Motion and TailwindCSS
 4. Making this site accessible
