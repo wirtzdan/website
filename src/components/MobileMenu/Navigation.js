@@ -1,15 +1,22 @@
 import React from "react";
 import MenuItem from "./MenuItem";
+import { Link } from "gatsby";
 import { motion, AnimatePresence } from "framer-motion";
 
-const variants = {
+const menuvariants = {
   open: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.25 }
+    opacity: 1
   },
   closed: {
     opacity: 0
   }
+};
+
+const navvariants = {
+  open: {
+    transition: { staggerChildren: 0.15, delayChildren: 0.25 }
+  },
+  closed: {}
 };
 
 function Navigation({ links, isOpen }) {
@@ -19,16 +26,32 @@ function Navigation({ links, isOpen }) {
         isOpen ? "" : "pointer-events-none"
       }`}
     >
-      <motion.nav
-        className={`flex-grow bg-neutral-100 dark:bg-neutral-700 flex flex-col items-center justify-center h-full ${
-          isOpen ? "" : "pointer-events-none"
-        }`}
-        variants={variants}
+      <motion.div
+        className="relative h-full w-full flex flex-col justify-center items-center bg-neutral-100 dark:bg-neutral-700 p-4"
+        variants={menuvariants}
       >
-        {links.map(link => (
-          <MenuItem key={link.title} to={link.route} title={link.title} />
-        ))}
-      </motion.nav>
+        <motion.nav
+          className={`flex flex-col justify-center ${
+            isOpen ? "" : "pointer-events-none"
+          }`}
+          variants={navvariants}
+        >
+          {links.map(link => (
+            <MenuItem key={link.title} to={link.route} title={link.title} />
+          ))}
+        </motion.nav>
+        <div className="absolute bottom-0 right-0 mb-8 w-full flex justify-between px-8">
+          <Link to="/imprint" className="opacity-25 text-base hover:opacity-75">
+            Imprint
+          </Link>
+          <Link
+            to="/privacy"
+            className="opacity-25 text-base hover:opacity-75 "
+          >
+            Privacy
+          </Link>
+        </div>
+      </motion.div>
     </div>
   );
 }

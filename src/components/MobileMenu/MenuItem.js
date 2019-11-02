@@ -22,7 +22,7 @@ const variants = {
 function MenuItem({ to, title }) {
   return (
     <Link
-      className="text-3xl px-4 py-2 mr-2"
+      className="text-3xl px-4 py-2 mr-2 no-select"
       to={to}
       activeclassName="font-semibold text-primary-400"
     >

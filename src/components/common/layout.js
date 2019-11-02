@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { AnimatePresence } from "framer-motion";
 import Header from "../MobileMenu/header";
 import MDHeader from "../MobileMenu";
+import { Footer } from "./index";
 
 function Layout({ children }) {
   return (
@@ -12,6 +12,7 @@ function Layout({ children }) {
       <main className="flex flex-col flex-1 mx-auto w-full mb-20 md:mb-6">
         {children}
       </main>
+      <Footer />
     </div>
   );
 }
