@@ -43,7 +43,7 @@ function AboutPage() {
           ))}
         </div>
       </Section>
-      <Section extend="md:mb-10">
+      <Section extend="mb-10">
         <h2 className="block">☹️</h2>
         <div className="-my-2">
           {interests.dislike.map(el => (
