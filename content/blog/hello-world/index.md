@@ -1,10 +1,8 @@
 ---
-title: "Hello world, this is a new blog"
+title: "Hello world, this is my new blog"
 date: "2015-05-01T22:12:03.284Z"
 subtitle: "Why I'm writing here and what goals I have"
 ---
-
-Hello Internet, this is my first blog.
 
 It all started when a friend of mine got excited about building [his first website](https://www.quechup.me/). I joined along to help him and was intrigued to work on my website at the same time.
 
@@ -32,3 +30,11 @@ Some things I want to work on:
 2. Building a small manageable Design System
 3. Getting advanced in Framer Motion and TailwindCSS
 4. Making this site accessible
+
+You can track the development of the website on [my github](https://github.com/wirtzdan).
+
+## Newsletter
+
+I created a small email list on MailChimp. The main purpose is to send out notifications when I write a new blog post. I will probably add some of my thoughts to the newsletter, depending on how this project moves forward.
+
+You can sign up for the newsletter below. Thanks!
