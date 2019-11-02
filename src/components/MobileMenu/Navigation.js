@@ -8,11 +8,7 @@ const variants = {
     transition: { staggerChildren: 0.15, delayChildren: 0.25 }
   },
   closed: {
-    opacity: 0,
-    transition: {
-      staggerChildren: 0.15,
-      staggerDirection: -1
-    }
+    opacity: 0
   }
 };
 
