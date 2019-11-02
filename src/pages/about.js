@@ -7,10 +7,7 @@ import Portrait from "../../content/assets/daniel-wirtz.jpg";
 function AboutPage() {
   return (
     <Layout>
-      <SEO
-        keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-        title="Home"
-      />
+      <SEO keywords={[]} title="About" />
       <Section>
         <h1>About Me</h1>
         <div className="flex flex-wrap">

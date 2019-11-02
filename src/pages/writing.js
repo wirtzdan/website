@@ -8,10 +8,7 @@ function WritingPage({ data }) {
   const posts = data.allMarkdownRemark.edges;
   return (
     <Layout>
-      <SEO
-        keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-        title="Books"
-      />
+      <SEO keywords={[]} title="Writing" />
       <Section>
         <h1>What I'm Writing</h1>
         <p className="measure">

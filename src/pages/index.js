@@ -6,10 +6,7 @@ import { Twitter } from "react-feather";
 function IndexPage() {
   return (
     <Layout>
-      <SEO
-        keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-        title="Home"
-      />
+      <SEO keywords={[]} title="Home" />
 
       <Section>
         <p className="text-neutral-500 dark:text-neutral-300 text-4xl">

@@ -6,10 +6,7 @@ import BookList from "../components/bookList";
 function ReadingPage() {
   return (
     <Layout>
-      <SEO
-        keywords={[`gatsby`, `tailwind`, `react`, `tailwindcss`]}
-        title="Books"
-      />
+      <SEO keywords={[]} title="Reading" />
       <Section>
         <h1>What I'm Reading</h1>
         <p className="measure">
