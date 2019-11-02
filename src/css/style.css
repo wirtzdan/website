@@ -25,9 +25,21 @@
   max-width: 20em;
 }
 
+/* Smooth transition to dark mode */
 .dark-transition {
   transition: background 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955),
     color 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+/* No button selection on click */
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Design System */
@@ -57,6 +69,10 @@ p {
 
 .link-underline {
   @apply border-b-2 -mb-2;
+}
+
+.mode-dark .link-underline {
+  @apply border-neutral-800;
 }
 
 .bottom-16 {
