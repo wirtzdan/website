@@ -39,8 +39,7 @@ function AboutPage() {
         </p>
       </Section>
       <Section>
-        <h2>😁</h2>
-        <hr className="my-4"></hr>
+        <h2 className="block">😁</h2>
         <div className="-my-2">
           {interests.like.map(el => (
             <Tag text={el} />
@@ -48,8 +47,7 @@ function AboutPage() {
         </div>
       </Section>
       <Section extend="md:mb-10">
-        <h2>☹️</h2>
-        <hr className="my-4"></hr>
+        <h2 className="block">☹️</h2>
         <div className="-my-2">
           {interests.dislike.map(el => (
             <Tag text={el} />
