@@ -25,24 +25,29 @@
   max-width: 20em;
 }
 
-/* Design System */
-h1 {
-  @apply text-4xl leading-tight mb-6 font-bold border-b-2 pb-4 font-display inline-block;
+.dark-transition {
+  transition: background 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955),
+    color 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
-.mode-dark h1 {
+/* Design System */
+h1 {
+  @apply text-4xl leading-tight mb-6 font-bold font-display inline-block;
+}
+
+.mode-dark h2 {
   @apply border-neutral-700;
 }
 
 h2 {
-  @apply text-3xl leading-tight mb-4 font-bold font-display;
+  @apply text-3xl leading-tight mb-4 border-b-2 pb-2 font-bold font-display inline-block;
 }
 
 h3 {
   @apply text-2xl leading-tight mb-4 font-bold font-display;
 }
 
-body  {
+body {
   @apply text-2xl;
 }
 
@@ -60,7 +65,7 @@ p {
 
 p a {
   @apply link-underline text-neutral-900 border-neutral-100;
-  transition: all 115ms ease, color 0.2s ease;
+  transition: border-color 0.25s ease;
 }
 
 .mode-dark p a {
@@ -72,7 +77,7 @@ p a:hover {
 }
 
 article blockquote {
-  @apply my-8 py-4 px-4 bg-white border-l-2 border-primary-700 text-primary-900 shadow rounded-sm;
+  @apply my-8 py-4 px-4 bg-white border-l-2 border-primary-700 text-primary-900 shadow rounded-lg;
 }
 
 .mode-dark article blockquote {
@@ -85,7 +90,7 @@ article blockquote p  {
 
 article ul,
 article ol {
-  @apply list-disc bg-white text-primary-900 my-6 py-4 pl-12 pr-6 rounded-sm shadow;
+  @apply list-disc bg-white text-primary-900 my-6 py-4 pl-12 pr-6 rounded-lg shadow;
 }
 
 .mode-dark article ul,
