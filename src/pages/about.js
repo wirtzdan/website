@@ -18,10 +18,7 @@ function AboutPage() {
             my life. I studied Media and Communications for Digital Business
             (Heck, that's long...) in Aachen and still, live there today.
           </p>
-          <img
-            class="md:h-full md:w-1/4 w-3/4 rounded-lg shadow"
-            src={Portrait}
-          />
+          <img class="h-full md:w-1/4 w-3/4 rounded-lg shadow" src={Portrait} />
         </div>
       </Section>
       <Section>
