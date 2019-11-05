@@ -60,7 +60,7 @@ module.exports = {
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#2BB0ED`,
-        display: `minimal-ui`,
+        display: `browser`,
         icon: `${__dirname}/content/assets/favicon.png`
       }
     },
@@ -101,7 +101,6 @@ module.exports = {
       options: {
         endpoint: process.env.MAILCHIMP_ENDPOINT
       }
-    },
-    `gatsby-plugin-offline`
+    }
   ]
 };
