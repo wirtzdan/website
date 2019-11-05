@@ -31,7 +31,7 @@ function Navigation({ links, isOpen }) {
         variants={menuvariants}
       >
         <motion.nav
-          className={`flex flex-col justify-center ${
+          className={`flex flex-col justify-center items-center ${
             isOpen ? "" : "pointer-events-none"
           }`}
           variants={navvariants}
