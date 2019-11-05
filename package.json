@@ -9,6 +9,7 @@
     "dotenv-safe": "^8.1.0",
     "framer-motion": "^1.6.8",
     "gatsby": "2.15.28",
+    "gatsby-plugin-google-analytics": "^2.1.24",
     "gatsby-plugin-mailchimp": "^5.1.2",
     "gatsby-plugin-manifest": "2.2.20",
     "gatsby-plugin-offline": "3.0.11",
