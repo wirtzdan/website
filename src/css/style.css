@@ -31,6 +31,15 @@
     color 0.25s cubic-bezier(0.455, 0.03, 0.515, 0.955);
 }
 
+/* Custom reading bar */
+.h-05 {
+  height: 0.125rem;
+}
+
+.mb-rb {
+  margin-bottom: 3.9rem;
+}
+
 /* No button selection on click */
 .no-select {
   -webkit-touch-callout: none;

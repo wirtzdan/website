@@ -7,6 +7,7 @@ import Newsletter from "./newsletter";
 import Tag from "./tag";
 import Divider from "./divider";
 import Footer from "./footer";
+import ReadingProgress from "./reading-progress";
 
 export {
   Section,
@@ -17,5 +18,6 @@ export {
   Newsletter,
   Tag,
   Divider,
-  Footer
+  Footer,
+  ReadingProgress
 };

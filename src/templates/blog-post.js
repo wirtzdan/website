@@ -2,8 +2,14 @@ import React from "react";
 import { Link, graphql } from "gatsby";
 import "../css/prism-duotone.css";
 
-import { Layout, Section, Newsletter, Divider } from "../components/common";
-import SEO from "../components/common/seo";
+import {
+  Layout,
+  Section,
+  Newsletter,
+  Divider,
+  SEO,
+  ReadingProgress
+} from "../components/common";
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -11,11 +17,14 @@ class BlogPostTemplate extends React.Component {
     const siteTitle = this.props.data.site.siteMetadata.title;
     const { previous, next } = this.props.pageContext;
 
+    const target = React.createRef();
+
     return (
       <Layout>
         <SEO title={post.frontmatter.title} description={post.excerpt} />
+        <ReadingProgress target={target} />
         <Section>
-          <article className="mb-10">
+          <article className="mb-10" ref={target}>
             <header>
               <h1 className="text-5xl">{post.frontmatter.title}</h1>
             </header>
