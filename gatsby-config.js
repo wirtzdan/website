@@ -102,11 +102,12 @@ module.exports = {
         endpoint: process.env.MAILCHIMP_ENDPOINT
       }
     },
-     {
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-151613278-1",
-        anonymize: true,
-      },
+        anonymize: true
+      }
+    }
   ]
 };
