@@ -20,7 +20,7 @@ Therefore I want to use this blog to practice the art of writing. Publishing the
 
 ## Playing around and coding stuff
 
-Have you noticed that this site is blazing fast? That's because it's running on [GatsbyJS](<[https://www.gatsbyjs.org](https://www.gatsbyjs.org/)>). A [React](https://reactjs.org/) framework to build websites that have incredibly fast page loads by using only static sites. You can check out and track the development here.
+Have you noticed that this site is blazing fast? That's because it's running on [GatsbyJS](https://www.gatsbyjs.org/). A [React](https://reactjs.org/) framework to build websites that have incredibly fast page loads by using only static sites. You can check out and track the development here.
 
 Solving code problems and UI problems is very fulfilling. It's similar to having a tidy kitchen, that is very functional. I'm planning to invest more time into experiments and new features that help me to deepen my front-end skills.
 
