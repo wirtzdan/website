@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Section from "./section";
-import { Button } from "./index";
 import addToMailchimp from "gatsby-plugin-mailchimp";
 
 function Newsletter() {
@@ -15,7 +14,7 @@ function Newsletter() {
 
     addToMailchimp(state.mail)
       .then(({ msg, result }) => {
-        if (result !== "success") {
+        if (result === "success") {
           setState({ status: "success" });
           setState({ msg: msg });
           throw msg;
@@ -24,7 +23,6 @@ function Newsletter() {
       .catch(err => {
         setState({ status: "error" });
         setState({ msg: err });
-        console.log(state);
       });
   };
 
@@ -61,7 +59,7 @@ function Newsletter() {
             </button>
           </div>
         </form>
-        <div className="text-white my-2 text-base ">{state.msg}</div>
+        <div className="text-white my-4 text-base">{state.msg}</div>
       </div>
     </Section>
   );
