@@ -9,9 +9,7 @@ function BlogPostCard({ title, subtitle, timeToRead, slug }) {
     >
       <article className="h-full flex flex-col justify-between items-start bg-white dark:bg-neutral-700 rounded-lg p-6 shadow">
         <div>
-          <h2 className="text-3xl leading-tight text font-bold mb-3">
-            {title}
-          </h2>
+          <h3 className="text-3xl mt-0">{title}</h3>
           <p className="text-xl text-neutral-500 dark:text-neutral-200 leading-tight">
             {subtitle}
           </p>

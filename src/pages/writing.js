@@ -12,8 +12,8 @@ function WritingPage({ data }) {
       <Section>
         <h1>What I'm Writing</h1>
         <p className="measure">
-          My personal blog. What to expect: Random topics and personal thoughts.
-          Let me know what you think!
+          My personal blog. A mixed bag with articles about Design, Development
+          and my own thoughts.
         </p>
       </Section>
 
