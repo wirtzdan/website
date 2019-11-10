@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 import "../css/prism-theme.css";
+import "../css/markdown.css";
 
 import {
   Layout,
@@ -24,7 +25,7 @@ class BlogPostTemplate extends React.Component {
         <SEO title={post.frontmatter.title} description={post.excerpt} />
         <ReadingProgress target={target} />
         <Section>
-          <article className="mb-10" ref={target}>
+          <article className="mb-10" ref={target} className="markdown">
             <header>
               <h1 className="text-5xl">{post.frontmatter.title}</h1>
             </header>

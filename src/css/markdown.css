@@ -1,0 +1,134 @@
+.py-05 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
+.link-underline {
+  @apply border-b-2 -mb-2 border-primary-100;
+}
+
+.mode-dark .link-underline {
+  @apply border-primary-800;
+}
+
+.markdown {
+  @apply text-neutral-800 leading-normal break-words;
+}
+
+.mode-dark .markdown {
+  @apply text-neutral-100;
+}
+
+.markdown > * + * {
+  @apply mt-0 mb-4;
+}
+
+.markdown li + li {
+  @apply mt-1;
+}
+
+.markdown li > p + p {
+  @apply mt-6;
+}
+
+.markdown strong {
+  @apply font-semibold;
+}
+
+.markdown a {
+  @apply link-underline;
+  transition: border-color 0.25s ease;
+}
+
+.markdown a:hover {
+  @apply text-black border-primary-500;
+  transition: border-color 0.25s ease;
+}
+
+.mode-dark .markdown a {
+  @apply text-neutral-50;
+}
+
+.mode-dark .markdown a:hover {
+  @apply text-white;
+}
+
+.markdown strong a {
+  @apply font-bold;
+}
+
+.markdown h1 {
+  @apply leading-tight border-b text-5xl font-semibold mb-6 mt-6 pb-2 inline-block;
+}
+
+.markdown h2 {
+  @apply leading-tight border-b text-4xl  mb-4 mt-10 pb-2;
+}
+
+.mode-dark .markdown h1,
+.mode-dark .markdown h2 {
+  @apply border-neutral-700;
+}
+
+.markdown h3 {
+  @apply leading-snug text-lg font-semibold mb-4 mt-6;
+}
+
+.markdown h4 {
+  @apply leading-none text-base font-semibold mb-4 mt-6;
+}
+
+.markdown h5 {
+  @apply leading-tight text-sm font-semibold mb-4 mt-6;
+}
+
+.markdown h6 {
+  @apply leading-tight text-sm font-semibold text-neutral-600 mb-4 mt-6;
+}
+
+.markdown blockquote {
+  @apply my-8 py-4 px-4 bg-white border-l-2 border-primary-700 text-primary-900 shadow rounded-lg;
+}
+
+.mode-dark blockquote {
+  @apply border-l-2 bg-neutral-800 border-primary-400 bg-neutral-800 text-primary-50;
+}
+
+.markdown blockquote p  {
+  @apply mb-0;
+}
+
+.markdown ul,
+.markdown ol {
+  @apply list-disc bg-white text-primary-900 my-6 py-4 pl-12 pr-6 rounded-lg shadow;
+}
+
+.mode-dark .markdown ul,
+.mode-dark .markdown ol {
+  @apply bg-neutral-800 text-primary-50;
+}
+
+.markdown li {
+  @apply my-4 pl-2 leading-snug;
+}
+
+*/ .markdown kbd {
+  @apply text-xs inline-block rounded border px-1 py-05 align-middle font-normal font-mono shadow;
+}
+
+.markdown table {
+  @apply text-base border-neutral-600;
+}
+
+.markdown th {
+  @apply border py-1 px-3;
+}
+
+.markdown td {
+  @apply border py-1 px-3;
+}
+
+/* Override pygments style background color. */
+.markdown .highlight pre {
+  @apply bg-neutral-100 !important;
+}
