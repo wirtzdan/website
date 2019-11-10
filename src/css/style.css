@@ -40,6 +40,10 @@
   margin-bottom: 3.9rem;
 }
 
+.bottom-16 {
+  bottom: 4rem;
+}
+
 /* No button selection on click */
 .no-select {
   -webkit-touch-callout: none;
@@ -52,21 +56,6 @@
 }
 
 /* Design System */
-h1 {
-  @apply text-4xl leading-tight mb-6 font-bold font-display inline-block;
-}
-
-.mode-dark h2 {
-  @apply border-neutral-700;
-}
-
-h2 {
-  @apply text-3xl leading-tight mb-4 border-b-2 pb-2 font-bold font-display inline-block;
-}
-
-h3 {
-  @apply text-2xl leading-tight mb-4 font-bold font-display;
-}
 
 body {
   @apply text-2xl;
@@ -84,47 +73,63 @@ p {
   @apply border-neutral-800;
 }
 
-.bottom-16 {
-  bottom: 4rem;
+strong {
+  @apply font-semibold;
+}
+
+a {
+  @apply no-select;
 }
 
 p a {
-  @apply link-underline text-neutral-900 border-neutral-100;
+  @apply link-underline no-select;
+  transition: border-color 0.25s ease;
+}
+
+p a:hover {
+  @apply text-black border-primary-500;
   transition: border-color 0.25s ease;
 }
 
 .mode-dark p a {
-  @apply text-neutral-200 border-neutral-800;
+  @apply text-neutral-50;
 }
 
-p a:hover {
-  @apply border-primary-400;
+.mode-dark p a:hover {
+  @apply text-white;
 }
 
-article blockquote {
-  @apply my-8 py-4 px-4 bg-white border-l-2 border-primary-700 text-primary-900 shadow rounded-lg;
+strong a {
+  @apply font-bold;
 }
 
-.mode-dark article blockquote {
-  @apply border-l-2 bg-neutral-800 border-primary-400 bg-neutral-800 text-primary-50;
+h1 {
+  @apply leading-tight border-b text-5xl font-semibold mb-4 mt-6 pb-2 inline-block;
 }
 
-article blockquote p  {
-  @apply mb-0;
+h2 {
+  @apply leading-tight border-b text-4xl mb-4 mt-6 pb-2;
 }
 
-article ul,
-article ol {
-  @apply list-disc bg-white text-primary-900 my-6 py-4 pl-12 pr-6 rounded-lg shadow;
+.mode-dark h1,
+.mode-dark h2 {
+  @apply border-neutral-700;
 }
 
-.mode-dark article ul,
-.mode-dark article ol {
-  @apply bg-neutral-800 text-primary-50;
+h3 {
+  @apply leading-none text-lg font-semibold mb-4 mt-6;
 }
 
-article li {
-  @apply my-4 pl-2 leading-snug;
+h4 {
+  @apply leading-none text-base font-semibold mb-4 mt-6;
+}
+
+h5 {
+  @apply leading-tight text-sm font-semibold mb-4 mt-6;
+}
+
+h6 {
+  @apply leading-tight text-sm font-semibold text-neutral-600 mb-4 mt-6;
 }
 
 @tailwind components;
