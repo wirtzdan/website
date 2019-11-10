@@ -4,7 +4,7 @@ date: "2019-11-10"
 subtitle: "A list with all the tools and products I use for work and at home"
 ---
 
-Tools and come and go. But some things just stick. In the list below I grouped all the tools that I use for work and at home. If you have questions about anything on this list, feel free to contact me.
+Tools come and go. But some things just stick. In the list below I grouped all the tools that I use for work and at home. If you have questions about anything on this list, feel free to [message me](mailto:hello@danielwirtz.com).
 
 ## Productivity
 
@@ -32,15 +32,15 @@ LastPass is the biggest time saver. I use it both personally and at work to mana
 
 **[SIP](https://sipapp.io/)**
 
-SIP is a beautiful color picker. I only use the colour picker feature, but the rest of the app is pretty nice too. My custom shortcut is `CMD + SHIFT + "-"`.
-
-**[Figma](https://www.figma.com/)**
-
-Figma is the standard for collaborative design. It's intuitive to use, has a plugin ecosystem and the performance is unmatched. I use it when I need to work with other designers or developers in one file.
+SIP is a beautiful color picker. I only use the colour picker feature, but the rest of the app is pretty nice too. My custom shortcut is `⌥ + SHIFT + -`.
 
 **[Framer](https://www.framer.com/)**
 
 Framer lets you design and code in one project. This means that prototypes can use real data, be interactive and much more detailed. I find this extremely appealing and try to use Framer whenever I can. The only drawback at the moment is the missing web version.
+
+**[Figma](https://www.figma.com/)**
+
+Figma is the standard for collaborative design. It's intuitive to use, has a plugin ecosystem and the performance is unmatched. I use it when I need to work with other designers or developers in one file.
 
 **[Adobe Creative Cloud](https://www.adobe.com/creativecloud.html)**
 
@@ -90,10 +90,6 @@ My on-the-go workstation and backpack companion. I spend the majority of my time
 
 I have a special connection to this camera since I bought it at the beginning of university. It's small, clicky and always impresses me with the image quality. I constantly switch between two prime lenses (23mm F2 & 50mm F2).
 
-**[Logitech K380](https://www.logitech.com/en-us/product/multi-device-keyboard-k380)**
-
-This keyboard [fits perfectly](https://twitter.com/wirtzdan/status/1193482720615243776?s=19) into the top department of my backpack. That alone is very satisfying. In combination with my laptop-stand, mouse and backpack I have a very flexible workstation.
-
 **[Magic Mouse 2](https://www.apple.com/de/shop/product/MLA02Z/A/magic-mouse-2-silber)**
 
 Apple Magic Mouse 2 that I snatched on eBay for 30€. Works like a charm on any surface. The only complain that I have is that it needs batteries. I often forget to pack an extra pack when I'm on the road.
@@ -101,3 +97,7 @@ Apple Magic Mouse 2 that I snatched on eBay for 30€. Works like a charm on any
 **[Ergonomic Laptop Stand](https://www.amazon.de/dp/B01N99IGMQ/ref=sr_1_5?crid=2XJA82MXCVRRC&keywords=mobiler+laptop+st%C3%A4nder&qid=1573384409&sprefix=mobile+laptop%2Caps%2C200&sr=8-5)**
 
 This is the smallest and most lightweight laptop stand that I found. Always attached to the side of my backpack and fast to set up.
+
+**[Logitech K380](https://www.logitech.com/en-us/product/multi-device-keyboard-k380)**
+
+This keyboard [fits perfectly](https://twitter.com/wirtzdan/status/1193482720615243776?s=19) into the top department of my backpack. That alone is very satisfying. In combination with my laptop-stand, mouse and backpack I have a very flexible workstation.
