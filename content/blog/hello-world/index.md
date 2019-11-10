@@ -1,7 +1,7 @@
 ---
-title: "Hello world, this is my new blog"
-date: "2015-05-01T22:12:03.284Z"
-subtitle: "Why I'm writing here and what goals I have"
+title: "Hello world"
+date: "2019-10-30"
+subtitle: "The story behind this blog and what I want to do with it"
 ---
 
 It all started when a friend of mine got excited about building [his first website](https://www.quechup.me/). I joined along to help him and was intrigued to work on my website at the same time.
