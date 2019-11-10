@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
-import "../css/prism-duotone.css";
+import "../css/prism-theme.css";
 
 import {
   Layout,
