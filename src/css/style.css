@@ -55,6 +55,14 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+/* Book fold styling */
+.book-fold {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 60%, rgba(0, 0, 0, 0.075) 100%);
+  border-color: rgba(200, 200, 200, 0.015);
+  border-width: 1.25px;
+}
+
 /* Design System */
 
 body {
