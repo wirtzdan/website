@@ -19,7 +19,7 @@ module.exports = ({ markdownNode }) => {
     image
       .resize(WIDTH, HEIGHT)
       .print(
-        rh80,
+        rh120,
         PADDING,
         140 + PADDING,
         frontmatter.title,
