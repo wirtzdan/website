@@ -22,7 +22,11 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout>
-        <SEO title={post.frontmatter.title} description={post.excerpt} />
+        <SEO
+          title={post.frontmatter.title}
+          description={post.excerpt}
+          slug={post.fields.slug}
+        />
         <ReadingProgress target={target} />
         <Section>
           <article className="mb-10" ref={target} className="markdown">
@@ -76,6 +80,9 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         subtitle
+      }
+      fields {
+        slug
       }
     }
   }
