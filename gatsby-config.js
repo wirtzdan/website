@@ -2,9 +2,13 @@ require("dotenv-safe").config();
 
 module.exports = {
   siteMetadata: {
-    title: `Daniel Wirtz`,
-    description: `Website`,
-    author: `@wirtzdan`
+    title: "Daniel Wirtz",
+    description: "Personal Blog",
+    author: `@wirtzdan`,
+    siteUrl: `https://danielwirtz.com`,
+    social: {
+      twitter: "@wirtzdan"
+    }
   },
   plugins: [
     {
@@ -47,7 +51,8 @@ module.exports = {
             }
           },
           "gatsby-remark-external-links",
-          "gatsby-remark-prismjs"
+          "gatsby-remark-prismjs",
+          "gatsby-plugin-my-social-cards"
         ]
       }
     },

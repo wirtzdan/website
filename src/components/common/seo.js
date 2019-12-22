@@ -1,88 +1,113 @@
-import { useStaticQuery, graphql } from "gatsby";
-import PropTypes from "prop-types";
 import React from "react";
 import Helmet from "react-helmet";
+import PropTypes from "prop-types";
+import { StaticQuery, graphql } from "gatsby";
 
-function SEO({ description, lang, meta, keywords, title }) {
-  const { site } = useStaticQuery(graphql`
-    query DefaultSEOQuery {
-      site {
-        siteMetadata {
-          title
-          description
-          author
+const query = graphql`
+  query GetSiteMetadata {
+    site {
+      siteMetadata {
+        title
+        author
+        description
+        siteUrl
+        social {
+          twitter
         }
       }
     }
-  `);
+  }
+`;
 
-  const metaDescription = description || site.siteMetadata.description;
-
+function SEO({ meta, title, description, slug, lang = "en" }) {
   return (
-    <Helmet
-      htmlAttributes={{
-        lang
-      }}
-      meta={[
-        {
-          name: `description`,
-          content: metaDescription
-        },
-        {
-          property: `og:title`,
-          content: title
-        },
-        {
-          property: `og:description`,
-          content: metaDescription
-        },
-        {
-          property: `og:type`,
-          content: `website`
-        },
-        {
-          name: `twitter:card`,
-          content: `summary`
-        },
-        {
-          name: `twitter:creator`,
-          content: site.siteMetadata.author
-        },
-        {
-          name: `twitter:title`,
-          content: title
-        },
-        {
-          name: `twitter:description`,
-          content: metaDescription
-        }
-      ]
-        .concat(
-          keywords.length > 0
-            ? {
-                name: `keywords`,
-                content: keywords.join(`, `)
+    <StaticQuery
+      query={query}
+      render={data => {
+        const { siteMetadata } = data.site;
+        const metaDescription = description || siteMetadata.description;
+        const url = `${siteMetadata.siteUrl}${slug}`;
+        console.log(slug);
+        const metaImage = `${url}seo.jpg`;
+
+        return (
+          <Helmet
+            htmlAttributes={{ lang }}
+            {...(title
+              ? {
+                  titleTemplate: `%s — ${siteMetadata.title}`,
+                  title
+                }
+              : {
+                  title: `${siteMetadata.title}`
+                })}
+            meta={[
+              {
+                name: "description",
+                content: metaDescription
+              },
+              {
+                property: "og:url",
+                content: url
+              },
+              {
+                property: "og:title",
+                content: title || siteMetadata.title
+              },
+              {
+                name: "og:description",
+                content: metaDescription
+              },
+              {
+                name: "twitter:card",
+                content: "summary_large_image"
+              },
+              {
+                name: "twitter:creator",
+                content: siteMetadata.social.twitter
+              },
+              {
+                name: "twitter:title",
+                content: title || siteMetadata.title
+              },
+              {
+                name: "twitter:description",
+                content: metaDescription
               }
-            : []
-        )
-        .concat(meta)}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+            ]
+              .concat(
+                metaImage
+                  ? [
+                      {
+                        property: "og:image",
+                        content: metaImage
+                      },
+                      {
+                        name: "twitter:image",
+                        content: metaImage
+                      }
+                    ]
+                  : []
+              )
+              .concat(meta)}
+          />
+        );
+      }}
     />
   );
 }
 
 SEO.defaultProps = {
-  lang: `en`,
-  keywords: [],
-  meta: []
+  meta: [],
+  title: "",
+  slug: ""
 };
 
 SEO.propTypes = {
   description: PropTypes.string,
-  keywords: PropTypes.arrayOf(PropTypes.string),
-  lang: PropTypes.string,
+  image: PropTypes.string,
   meta: PropTypes.array,
+  slug: PropTypes.string,
   title: PropTypes.string.isRequired
 };
 
