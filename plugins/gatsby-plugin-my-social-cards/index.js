@@ -10,7 +10,7 @@ module.exports = ({ markdownNode }) => {
 
   return Promise.all([
     jimp.read(path.join(__dirname, "base.jpg")),
-    jimp.loadFont(path.join(__dirname, "fonts/red-hat-80.fnt"))
+    jimp.loadFont(path.join(__dirname, "fonts/rhd-80.fnt"))
   ]).then(([image, rh80]) => {
     const WIDTH = 1200;
     const HEIGHT = 630;
