@@ -10,7 +10,7 @@ module.exports = ({ markdownNode }) => {
 
   return Promise.all([
     jimp.read(path.join(__dirname, "base.jpg")),
-    jimp.loadFont(path.join(__dirname, "fonts/rhd-120.fnt"))
+    jimp.loadFont(path.join(__dirname, "fonts/rhd-120/rhd-120.fnt"))
   ]).then(([image, rhd120]) => {
     const WIDTH = 1200;
     const HEIGHT = 630;
@@ -18,13 +18,7 @@ module.exports = ({ markdownNode }) => {
 
     image
       .resize(WIDTH, HEIGHT)
-      .print(
-        rhd120,
-        PADDING,
-        60 + PADDING,
-        frontmatter.title,
-        WIDTH - PADDING * 4
-      )
+      .print(rhd120, PADDING, 40, frontmatter.title, WIDTH - PADDING * 2)
       .write(output);
   });
 };
