@@ -28,21 +28,21 @@ function Newsletter() {
 
   return (
     <Section extend="mt-0">
-      <div className="bg-green-500 p-12 rounded-lg">
+      <div className="p-12 bg-green-500 rounded-lg">
         <div class="text-white measure-narrow">
-          <h3>Don't want to miss a post?</h3>
+          <strong className="text-3xl">Subscribe to my blog</strong>
           <p>
-            Join my personal email list and get notified for new posts and fresh
-            thoughts.
+            Join my personal email list and get notified for new posts and
+            personal thoughts.
           </p>
         </div>
         <form
           className="flex flex-wrap items-end -mx-2 overflow-hidden"
           onSubmit={handleSubmit}
         >
-          <label className="my-2 w-full px-2 md:w-2/4">
+          <label className="w-full px-2 my-2 md:w-2/4">
             <input
-              className="bg-white focus:outline-none text-neutral-600 focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal w-full"
+              className="block w-full px-4 py-2 leading-normal bg-white border border-gray-300 rounded-lg appearance-none focus:outline-none text-neutral-600 focus:shadow-outline"
               name="email"
               type="text"
               placeholder="me@email.com"
@@ -50,16 +50,16 @@ function Newsletter() {
               value={state.mail}
             ></input>
           </label>
-          <div className="my-4 md:my-2 px-2 w-full md:w-1/4">
+          <div className="w-full px-2 my-4 md:my-2 md:w-1/4">
             <button
               type="submit"
-              className="inline-flex items-center justify-center py-3 px-6 rounded-lg font-bold text-xl text-white h-full w-full bg-white text-green-700"
+              className="inline-flex items-center justify-center w-full h-full px-6 py-3 text-xl font-bold text-white text-green-700 bg-white rounded-lg"
             >
               Subscribe
             </button>
           </div>
         </form>
-        <div className="text-white my-4 text-base">{state.msg}</div>
+        <div className="my-4 text-base text-white">{state.msg}</div>
       </div>
     </Section>
   );
