@@ -14,16 +14,16 @@ module.exports = ({ markdownNode }) => {
   ]).then(([image, rhd120]) => {
     const WIDTH = 1200;
     const HEIGHT = 630;
-    const PADDING = 40;
+    const PADDING = 60;
 
     image
       .resize(WIDTH, HEIGHT)
       .print(
         rhd120,
         PADDING,
-        140 + PADDING,
+        60 + PADDING,
         frontmatter.title,
-        WIDTH - PADDING * 2
+        WIDTH - PADDING * 4
       )
       .write(output);
   });
