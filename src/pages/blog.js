@@ -1,19 +1,19 @@
 import React from "react";
 
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import { Layout, SEO, Section } from "../components/common";
 import BlogPostCard from "../components/BlogPostCard";
 
-function WritingPage({ data }) {
+function Blog({ data }) {
   const posts = data.allMarkdownRemark.edges;
   return (
     <Layout>
       <SEO keywords={[]} title="Writing" />
       <Section>
-        <h1>What I'm Writing</h1>
+        <h1>Blog</h1>
         <p className="measure">
-          My personal blog. A mixed bag with articles about Design, Development
-          and my own thoughts.
+          My personal blog. A mixed bag with articles about Tech, Design and
+          some personal thoughts.
         </p>
       </Section>
 
@@ -24,6 +24,7 @@ function WritingPage({ data }) {
             const timeToRead = node.timeToRead;
             const subtitle = node.frontmatter.subtitle;
             const slug = node.fields.slug;
+            const date = node.frontmatter.date;
 
             return (
               <BlogPostCard
@@ -31,6 +32,7 @@ function WritingPage({ data }) {
                 subtitle={subtitle}
                 timeToRead={timeToRead}
                 slug={slug}
+                date={date}
               />
             );
           })}
@@ -66,4 +68,4 @@ export const pageQuery = graphql`
   }
 `;
 
-export default WritingPage;
+export default Blog;

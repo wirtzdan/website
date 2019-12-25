@@ -21,8 +21,8 @@ function MobileMenu() {
       title: `Reading`
     },
     {
-      route: `/writing`,
-      title: `Writing`
+      route: `/blog`,
+      title: `Blog`
     }
   ];
 
@@ -30,7 +30,7 @@ function MobileMenu() {
     <motion.div
       initial={false}
       animate={isOpen ? "open" : "closed"}
-      className="flex flex-col fixed inset-x-0 bottom-0 lg:hidden block"
+      className="fixed inset-x-0 bottom-0 flex flex-col block lg:hidden"
     >
       <Navigation isOpen={isOpen} links={links} />
       <BottomBar toggle={() => toggleOpen()} />

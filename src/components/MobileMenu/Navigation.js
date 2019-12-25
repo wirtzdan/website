@@ -27,7 +27,7 @@ function Navigation({ links, isOpen }) {
       }`}
     >
       <motion.div
-        className="relative h-full w-full flex flex-col justify-center items-center bg-neutral-100 dark:bg-neutral-700 p-4"
+        className="relative flex flex-col items-center justify-center w-full h-full p-4 bg-neutral-100 dark:bg-neutral-700"
         variants={menuvariants}
       >
         <motion.nav
@@ -40,13 +40,13 @@ function Navigation({ links, isOpen }) {
             <MenuItem key={link.title} to={link.route} title={link.title} />
           ))}
         </motion.nav>
-        <div className="absolute bottom-0 right-0 mb-8 w-full flex justify-between px-8">
-          <Link to="/imprint" className="opacity-25 text-base hover:opacity-75">
+        <div className="absolute bottom-0 right-0 flex justify-between w-full px-8 mb-8">
+          <Link to="/imprint" className="text-base opacity-25 hover:opacity-75">
             Imprint
           </Link>
           <Link
             to="/privacy"
-            className="opacity-25 text-base hover:opacity-75 "
+            className="text-base opacity-25 hover:opacity-75 "
           >
             Privacy
           </Link>
