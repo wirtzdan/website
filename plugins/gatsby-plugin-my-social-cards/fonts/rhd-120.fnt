@@ -1,5 +1,5 @@
 info face="Red Hat Display Black" size=120 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=1,1,1,1 spacing=-2,-2
-common lineHeight=160 base=123 scaleW=512 scaleH=512 pages=9 packed=0
+common lineHeight=140 base=80 scaleW=512 scaleH=512 pages=9 packed=0
 page id=0 file="rhd-1201.png"
 page id=1 file="rhd-1202.png"
 page id=2 file="rhd-1203.png"
