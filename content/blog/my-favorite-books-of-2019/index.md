@@ -1,7 +1,7 @@
 ---
-title: "My favourite books of 2019"
+title: "My favorite books of 2019"
 date: "2019-12-25"
-subtitle: "A list with my top 5 books of 2019"
+subtitle: "If read a lot this year, here are the books that really fascinated me"
 ---
 
 I've read more books this year than at any point in my lifetime. The [Goodreads Reading Challenge](https://www.goodreads.com/challenges/show/8863-2019-reading-challenge) played a significant role to achieve this. It sounds like a small gimmick, but it helped me to get into the daily habit of reading.
