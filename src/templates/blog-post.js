@@ -36,7 +36,7 @@ class BlogPostTemplate extends React.Component {
             <section dangerouslySetInnerHTML={{ __html: post.html }} />
           </article>
 
-          <nav>
+          <nav className="my-2 text-base md:text-xl opacity-5">
             <ul className="flex justify-between">
               <li>
                 {previous && (

@@ -75,11 +75,11 @@ body {
 }
 
 p {
-  @apply text-2xl leading-snug mb-6 tracking-p;
+  @apply mb-6 text-2xl leading-snug tracking-p;
 }
 
 .link-underline {
-  @apply border-b-2 -mb-2;
+  @apply -mb-2 border-b-2;
 }
 
 .mode-dark .link-underline {
@@ -92,6 +92,10 @@ strong {
 
 a {
   @apply no-select;
+}
+
+h2>a {
+  @apply border-none;
 }
 
 p a {
@@ -117,11 +121,11 @@ strong a {
 }
 
 h1 {
-  @apply leading-tight border-b text-5xl font-semibold mb-4 mt-6 pb-2 inline-block;
+  @apply inline-block pb-2 mt-6 mb-4 text-5xl font-semibold leading-tight border-b;
 }
 
 h2 {
-  @apply leading-tight border-b text-4xl mb-4 mt-6 pb-2;
+  @apply pb-2 mt-6 mb-4 text-4xl leading-tight border-b;
 }
 
 .mode-dark h1,
@@ -130,19 +134,19 @@ h2 {
 }
 
 h3 {
-  @apply leading-none text-lg font-semibold mb-4 mt-6;
+  @apply mt-6 mb-4 text-lg font-semibold leading-none;
 }
 
 h4 {
-  @apply leading-none text-base font-semibold mb-4 mt-6;
+  @apply mt-6 mb-4 text-base font-semibold leading-none;
 }
 
 h5 {
-  @apply leading-tight text-sm font-semibold mb-4 mt-6;
+  @apply mt-6 mb-4 text-sm font-semibold leading-tight;
 }
 
 h6 {
-  @apply leading-tight text-sm font-semibold text-neutral-600 mb-4 mt-6;
+  @apply mt-6 mb-4 text-sm font-semibold leading-tight text-neutral-600;
 }
 
 @tailwind components;
