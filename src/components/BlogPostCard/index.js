@@ -16,7 +16,7 @@ function BlogPostCard({ title, subtitle, timeToRead, slug, date }) {
         </div>
         <div className="flex items-center justify-between w-full mt-2">
           <button className="px-3 py-1 text-sm font-semibold uppercase rounded-lg bg-primary-50 text-primary-600 dark:bg-primary-500 dark:text-primary-50">
-            {timeToRead} minute
+            {timeToRead} min
           </button>
           <span className="my-auto text-sm font-semibold text-neutral-200">
             {date}
