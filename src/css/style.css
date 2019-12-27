@@ -75,7 +75,7 @@ body {
 }
 
 p {
-  @apply mb-6 text-2xl leading-snug tracking-p;
+  @apply mb-6 text-xl leading-snug tracking-p;
 }
 
 .link-underline {
