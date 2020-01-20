@@ -4,7 +4,7 @@ date: "2020-01-20"
 subtitle: "I made a small chrome extension to make it easier to highlight and curate snippets from around the web"
 ---
 
-Over Christmas, I thought about reorganizing my notetaking system. In the last years, I tested almost any app that is out there. To name a few: Evernote, Notion, Google Keep, Standart Notes and Coda. In the end, I stuck with an app called Dynalist.
+Over Christmas, I thought about reorganizing my notetaking system. In the last years, I tested almost any app that is out there. To name a few: Evernote, Notion, Google Keep, Standart Notes and Coda. In the end, I stuck with an app called [Dynalist](https://dynalist.io/).
 
 Dynalist is a smaller, geeky notetaking app that builds upon the idea of a [outliner](https://en.wikipedia.org/wiki/Outliner). A outliner is basically a text-editor where every piece of text is represented as a bullet-point.
 
