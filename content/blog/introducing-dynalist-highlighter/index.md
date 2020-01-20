@@ -32,6 +32,8 @@ I set myself out to solve this, by building a small chrome extension myself. I'v
 
 Dynalist Highlighter can be installed as a chrome extension and is disabled by per default. If you stumble upon something you like, you can fire up the extension and start highlighting a page. (Pro-Tip: Set yourself a Hotkey!)
 
+[You can download the extension here](https://dynalist-highlighter.danielwirtz.com/)
+
 The basic functionality is inspired by the way [Liner](https://getliner.com/c/all) and [Hypothes.is](https://web.hypothes.is/) works. After you select text, a small popup appears that offers you the option to highlight the selection.
 
 ![Dynalist Highlighter Demo](./dynalist-highlighter-demo.gif)
