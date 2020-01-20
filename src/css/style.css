@@ -149,5 +149,9 @@ h6 {
   @apply mt-6 mb-4 text-sm font-semibold leading-tight text-neutral-600;
 }
 
+article img {
+  @apply rounded-lg shadow;
+}
+
 @tailwind components;
 @tailwind utilities;
