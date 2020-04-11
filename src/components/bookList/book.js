@@ -6,16 +6,16 @@ const book = {
     scale: 1.1,
     rotate: -4,
     boxShadow:
-      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);"
+      "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);",
   },
   transition: {
-    staggerChildren: 0.5
-  }
+    staggerChildren: 0.5,
+  },
 };
 
 const pages = {
   open: { opacity: 1, x: 3, y: 3, rotate: 2 },
-  closed: { opacity: 0 }
+  closed: { opacity: 0 },
 };
 
 function Book(props) {
@@ -24,19 +24,19 @@ function Book(props) {
       variants={book}
       initial="closed"
       whileHover="open"
-      className="relative md:w-1/4 my-5 px-5 w-1/2"
+      className="relative w-1/2 px-5 my-5 md:w-1/4"
     >
       <motion.div
         variants={pages}
-        className="absolute inset-0 book-page-gradient rounded-sm rounded-r-lg ml-6 mr-4 shadow-sm border"
+        className="absolute inset-0 ml-6 mr-4 border rounded-sm rounded-r-lg shadow-sm book-page-gradient"
       ></motion.div>
-      <a href={props.link} className="relative w-full h-full z-50">
+      <a href={props.link} className="relative z-50 w-full h-full">
         <img
-          className="rounded-sm rounded-r-lg w-full h-full object-cover"
+          className="object-cover w-full h-full rounded-sm rounded-r-lg"
           src={props.imageUrl}
         ></img>
       </a>
-      <div class="absolute inset-y-0 left-0 w-4 ml-5 book-fold z-50"></div>
+      <div class="absolute inset-y-0 left-0 w-4 ml-5 book-fold"></div>
     </motion.div>
   );
 }
