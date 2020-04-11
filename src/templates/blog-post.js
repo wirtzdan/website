@@ -9,7 +9,7 @@ import {
   Newsletter,
   Divider,
   SEO,
-  ReadingProgress
+  ReadingProgress,
 } from "../components/common";
 
 class BlogPostTemplate extends React.Component {
@@ -21,43 +21,46 @@ class BlogPostTemplate extends React.Component {
     const target = React.createRef();
 
     return (
-      <Layout>
-        <SEO
-          title={post.frontmatter.title}
-          description={post.excerpt}
-          slug={post.fields.slug}
-        />
-        <ReadingProgress target={target} />
-        <Section>
-          <article className="mb-10" ref={target} className="markdown">
-            <header>
-              <h1 className="text-5xl">{post.frontmatter.title}</h1>
-            </header>
-            <section dangerouslySetInnerHTML={{ __html: post.html }} />
-          </article>
+      <>
+        <Layout>
+          <SEO
+            title={post.frontmatter.title}
+            description={post.excerpt}
+            slug={post.fields.slug}
+          />
 
-          <nav className="my-2 text-base md:text-xl opacity-5">
-            <ul className="flex justify-between">
-              <li>
-                {previous && (
-                  <Link to={previous.fields.slug} rel="prev">
-                    ← {previous.frontmatter.title}
-                  </Link>
-                )}
-              </li>
-              <li>
-                {next && (
-                  <Link to={next.fields.slug} rel="next">
-                    {next.frontmatter.title} →
-                  </Link>
-                )}
-              </li>
-            </ul>
-          </nav>
-        </Section>
-        <Divider />
-        <Newsletter />
-      </Layout>
+          <Section>
+            <article className="mb-10" ref={target} className="markdown">
+              <header>
+                <h1 className="text-5xl">{post.frontmatter.title}</h1>
+              </header>
+              <section dangerouslySetInnerHTML={{ __html: post.html }} />
+            </article>
+
+            <nav className="my-2 text-base md:text-xl opacity-5">
+              <ul className="flex justify-between">
+                <li>
+                  {previous && (
+                    <Link to={previous.fields.slug} rel="prev">
+                      ← {previous.frontmatter.title}
+                    </Link>
+                  )}
+                </li>
+                <li>
+                  {next && (
+                    <Link to={next.fields.slug} rel="next">
+                      {next.frontmatter.title} →
+                    </Link>
+                  )}
+                </li>
+              </ul>
+            </nav>
+          </Section>
+          <Divider />
+          <Newsletter />
+        </Layout>
+        <ReadingProgress target={target} />
+      </>
     );
   }
 }
