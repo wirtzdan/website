@@ -4,7 +4,7 @@
 }
 
 .link-underline {
-  @apply border-b-2 -mb-2 border-primary-100;
+  @apply -mb-2 border-b-2 border-primary-100;
 }
 
 .mode-dark .link-underline {
@@ -12,7 +12,7 @@
 }
 
 .markdown {
-  @apply text-neutral-800 leading-normal break-words;
+  @apply leading-normal break-words text-neutral-800;
 }
 
 .mode-dark .markdown {
@@ -58,11 +58,11 @@
 }
 
 .markdown h1 {
-  @apply leading-tight border-b text-5xl font-semibold mb-6 mt-6 pb-2 inline-block;
+  @apply inline-block pb-2 mt-6 mb-6 text-5xl font-semibold leading-tight border-b;
 }
 
 .markdown h2 {
-  @apply leading-tight border-b text-4xl  mb-4 mt-10 pb-2;
+  @apply pb-2 mt-10 mb-4 text-4xl leading-tight border-b;
 }
 
 .mode-dark .markdown h1,
@@ -71,27 +71,27 @@
 }
 
 .markdown h3 {
-  @apply leading-snug text-lg font-semibold mb-4 mt-6;
+  @apply mt-6 mb-4 text-lg font-semibold leading-snug;
 }
 
 .markdown h4 {
-  @apply leading-none text-base font-semibold mb-4 mt-6;
+  @apply mt-6 mb-4 text-base font-semibold leading-none;
 }
 
 .markdown h5 {
-  @apply leading-tight text-sm font-semibold mb-4 mt-6;
+  @apply mt-6 mb-4 text-sm font-semibold leading-tight;
 }
 
 .markdown h6 {
-  @apply leading-tight text-sm font-semibold text-neutral-600 mb-4 mt-6;
+  @apply mt-6 mb-4 text-sm font-semibold leading-tight text-neutral-600;
 }
 
 .markdown blockquote {
-  @apply my-8 py-4 px-4 bg-white border-l-2 border-primary-700 text-primary-900 shadow rounded-lg;
+  @apply px-4 py-4 my-8 bg-white border-l-2 rounded-lg shadow border-primary-700 text-primary-900;
 }
 
 .mode-dark blockquote {
-  @apply border-l-2 bg-neutral-800 border-primary-400 bg-neutral-800 text-primary-50;
+  @apply border-l-2 bg-neutral-800 border-primary-400 text-primary-50;
 }
 
 .markdown blockquote p  {
@@ -100,7 +100,7 @@
 
 .markdown ul,
 .markdown ol {
-  @apply list-disc bg-white text-primary-900 my-6 py-4 pl-12 pr-6 rounded-lg shadow;
+  @apply py-4 pl-12 pr-6 my-6 list-disc bg-white rounded-lg shadow text-primary-900;
 }
 
 .mode-dark .markdown ul,
@@ -109,11 +109,11 @@
 }
 
 .markdown li {
-  @apply my-4 pl-2 leading-snug;
+  @apply pl-2 my-4 text-xl leading-snug;
 }
 
 */ .markdown kbd {
-  @apply text-xs inline-block rounded border px-1 py-05 align-middle font-normal font-mono shadow;
+  @apply inline-block px-1 font-mono text-xs font-normal align-middle border rounded shadow py-05;
 }
 
 .markdown table {
@@ -121,11 +121,11 @@
 }
 
 .markdown th {
-  @apply border py-1 px-3;
+  @apply px-3 py-1 border;
 }
 
 .markdown td {
-  @apply border py-1 px-3;
+  @apply px-3 py-1 border;
 }
 
 /* Override pygments style background color. */
