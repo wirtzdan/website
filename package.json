@@ -17,7 +17,7 @@
     "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
     "gatsby-plugin-purgecss": "4.0.1",
     "gatsby-plugin-react-helmet": "^3.1.13",
-    "gatsby-plugin-sharp": "^2.2.32",
+    "gatsby-plugin-sharp": "^2.6.17",
     "gatsby-remark-copy-linked-files": "^2.1.28",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-images": "^3.1.28",

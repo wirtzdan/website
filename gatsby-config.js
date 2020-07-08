@@ -1,118 +1,119 @@
-require("dotenv-safe").config();
+require(`dotenv-safe`).config();
 
 module.exports = {
   siteMetadata: {
-    title: "Daniel Wirtz",
-    description: "Personal Blog",
+    title: `Daniel Wirtz`,
+    description: `Personal Blog`,
     author: `@wirtzdan`,
     siteUrl: `https://danielwirtz.com`,
     social: {
-      twitter: "@wirtzdan"
-    }
+      twitter: `@wirtzdan`,
+    },
   },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
-        name: `blog`
-      }
+        name: `blog`,
+      },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/assets`,
-        name: `assets`
-      }
+        name: `assets`,
+      },
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
-      resolve: "gatsby-transformer-remark",
+      resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
           {
-            resolve: "gatsby-remark-relative-images",
+            resolve: `gatsby-remark-relative-images`,
             options: {
-              name: "assets"
-            }
+              name: `assets`,
+            },
           },
           {
-            resolve: "gatsby-remark-images",
+            resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 700,
-              quality: 80
-            }
+              quality: 80,
+            },
           },
           {
-            resolve: "gatsby-remark-copy-linked-files",
+            resolve: `gatsby-remark-copy-linked-files`,
             options: {
-              destinationDir: "static"
-            }
+              destinationDir: `static`,
+            },
           },
-          "gatsby-remark-external-links",
-          "gatsby-remark-prismjs",
-          "gatsby-plugin-my-social-cards"
-        ]
-      }
+          `gatsby-remark-external-links`,
+          `gatsby-remark-prismjs`,
+          `gatsby-plugin-my-social-cards`,
+        ],
+      },
     },
     `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `Daniel Wirtz`,
-        short_name: `Daniel Wirtz`,
-        start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#2BB0ED`,
-        display: `browser`,
-        icon: `${__dirname}/content/assets/favicon.png`
-      }
-    },
+    // ! This here throws an error that I couldn't solve
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: `Daniel Wirtz`,
+    //     short_name: `Daniel Wirtz`,
+    //     start_url: `/`,
+    //     background_color: `#ffffff`,
+    //     theme_color: `#2BB0ED`,
+    //     display: `browser`,
+    //     icon: `${__dirname}/content/assets/favicon.png`,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-prefetch-google-fonts`,
       options: {
         fonts: [
           {
             family: `Red Hat Display`,
-            subsets: [`latin`]
+            subsets: [`latin`],
           },
           {
             family: `Red Hat Text`,
             subsets: [`latin`],
-            variants: ["400", "400i", "700", "900"]
-          }
-        ]
-      }
+            variants: [`400`, `400i`, `700`, `900`],
+          },
+        ],
+      },
     },
     {
-      resolve: "@jamesdanylik/gatsby-source-goodreads",
+      resolve: `@jamesdanylik/gatsby-source-goodreads`,
       options: {
         key: process.env.GOODREADS_API_KEY,
-        id: "53134379"
-      }
+        id: `53134379`,
+      },
     },
     `gatsby-plugin-postcss`,
     {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         tailwind: true,
-        whitelist: ["mode-dark", "ol", "ul", "blockquote"],
-        purgeOnly: [`src/css/style.css`]
-      }
+        whitelist: [`mode-dark`, `ol`, `ul`, `blockquote`],
+        purgeOnly: [`src/css/style.css`],
+      },
     },
     {
-      resolve: "gatsby-plugin-mailchimp",
+      resolve: `gatsby-plugin-mailchimp`,
       options: {
-        endpoint: process.env.MAILCHIMP_ENDPOINT
-      }
+        endpoint: process.env.MAILCHIMP_ENDPOINT,
+      },
     },
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: "UA-151613278-1",
-        anonymize: true
-      }
-    }
-  ]
+        trackingId: `UA-151613278-1`,
+        anonymize: true,
+      },
+    },
+  ],
 };
