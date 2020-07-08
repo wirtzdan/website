@@ -5,10 +5,10 @@ module.exports = {
     extend: {
       fontFamily: {
         display: ['"Red Hat Display"'],
-        body: ['"Red Hat Text"']
+        body: ['"Red Hat Text"'],
       },
       boxShadow: {
-        outline: "0 0 0 2px rgba(65, 195, 247,0.8)"
+        outline: "0 0 0 2px rgba(65, 195, 247,0.8)",
       },
       colors: {
         primary: {
@@ -21,7 +21,19 @@ module.exports = {
           600: "#1992D4",
           700: "#127FBF",
           800: "#0B69A3",
-          900: "#035388"
+          900: "#035388",
+        },
+        accent: {
+          50: "#FFFBEA",
+          100: "#FFF3C4",
+          200: "#FCE588",
+          300: "#FADB5F",
+          400: "#F7C948",
+          500: "#F0B429",
+          600: "#DE911D",
+          700: "#CB6E17",
+          800: "#B44D12",
+          900: "#8D2B0B",
         },
         neutral: {
           50: "#F5F7FA",
@@ -33,10 +45,10 @@ module.exports = {
           600: "#52606D",
           700: "#3E4C59",
           800: "#323F4B",
-          900: "#1F2933"
-        }
-      }
-    }
+          900: "#1F2933",
+        },
+      },
+    },
   },
   variants: {
     backgroundColor: [
@@ -44,7 +56,7 @@ module.exports = {
       "hover",
       "dark",
       "dark-hover",
-      "dark-group-hover"
+      "dark-group-hover",
     ],
     padding: ["dark", "dark-focus", "dark-focus-within"],
     borderWidth: ["dark", "dark-focus", "dark-focus-within", "hover"],
@@ -54,10 +66,10 @@ module.exports = {
       "hover",
       "dark",
       "dark-hover",
-      "dark-group-hover"
+      "dark-group-hover",
     ],
     display: ["responsive", "dark"],
-    opacity: ["responsive", "group-hover", "hover", "focus"]
+    opacity: ["responsive", "group-hover", "hover", "focus"],
   },
-  plugins: [require("tailwindcss-dark-mode")()]
+  plugins: [require("tailwindcss-dark-mode")()],
 };
