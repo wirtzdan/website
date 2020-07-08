@@ -13,6 +13,14 @@ import {
 } from "../components/common";
 
 class BlogPostTemplate extends React.Component {
+  componentDidMount() {
+    const script = document.createElement(`script`);
+    script.async = true;
+    script.setAttribute(`data-uid`, `17b2acc0f1`);
+    script.src = `https://daniels-newsletter.ck.page/17b2acc0f1/index.js`;
+    this.div.appendChild(script);
+  }
+
   render() {
     const post = this.props.data.markdownRemark;
     const siteTitle = this.props.data.site.siteMetadata.title;
@@ -37,7 +45,7 @@ class BlogPostTemplate extends React.Component {
               <section dangerouslySetInnerHTML={{ __html: post.html }} />
             </article>
 
-            <nav className="my-2 text-base md:text-xl opacity-5">
+            {/* <nav className="my-2 text-base md:text-xl opacity-5">
               <ul className="flex justify-between">
                 <li>
                   {previous && (
@@ -54,10 +62,10 @@ class BlogPostTemplate extends React.Component {
                   )}
                 </li>
               </ul>
-            </nav>
+            </nav> */}
+            <Divider />
+            <div ref={(el) => (this.div = el)}></div>
           </Section>
-          <Divider />
-          <Newsletter />
         </Layout>
         <ReadingProgress target={target} />
       </>
