@@ -10,20 +10,20 @@ function MobileMenu() {
   const links = [
     {
       route: `/`,
-      title: `Home`
+      title: `Home`,
     },
     {
       route: `/about`,
-      title: `About`
+      title: `About`,
     },
     {
       route: `/reading`,
-      title: `Reading`
+      title: `Reading`,
     },
     {
       route: `/blog`,
-      title: `Blog`
-    }
+      title: `Blog`,
+    },
   ];
 
   return (
