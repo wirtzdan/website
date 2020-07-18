@@ -36,7 +36,7 @@ function MDHeader() {
                 className="px-4 py-2 mr-2 text-2xl rounded hover:bg-neutral-100 dark-hover:bg-neutral-800"
                 key={link.title}
                 to={link.route}
-                activeclassName="font-semibold text-primary-400"
+                activeClassName="font-semibold"
               >
                 {link.title}
               </Link>

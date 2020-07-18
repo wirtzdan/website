@@ -7,24 +7,24 @@ const variants = {
     y: 0,
     opacity: 1,
     transition: {
-      y: { stiffness: 1000, velocity: -100 }
-    }
+      y: { stiffness: 1000, velocity: -100 },
+    },
   },
   closed: {
     y: 20,
     opacity: 0,
     transition: {
-      y: { stiffness: 1000 }
-    }
-  }
+      y: { stiffness: 1000 },
+    },
+  },
 };
 
 function MenuItem({ to, title }) {
   return (
     <Link
-      className="text-3xl px-4 py-2 mr-2 no-select"
+      className="px-4 py-2 mr-2 text-3xl no-select"
       to={to}
-      activeclassName="font-semibold text-primary-400"
+      activeClassName="font-semibold"
     >
       <motion.div variants={variants}>{title}</motion.div>
     </Link>
