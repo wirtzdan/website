@@ -8,12 +8,12 @@ function Blog({ data }) {
   const posts = data.allMarkdownRemark.edges;
   return (
     <Layout>
-      <SEO keywords={[]} title="Writing" />
+      <SEO keywords={[]} title="Blog" />
       <Section>
         <h1>Blog</h1>
-        <p className="measure">
-          My personal blog. A mixed bag with articles about Tech, Design and
-          some personal thoughts.
+        <p className="text-2xl measure">
+          Welcome to my blog. Here I share some of my thinking, insights and
+          views on life.
         </p>
       </Section>
 

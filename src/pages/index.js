@@ -9,24 +9,21 @@ function IndexPage() {
       <SEO keywords={[]} title="Home" />
 
       <Section>
-        <p className="text-neutral-500 dark:text-neutral-300 text-4xl">
-          Hello! 👋
+        <p className="text-4xl text-neutral-500 dark:text-neutral-300">
+          Hey, I'm Daniel 👋
         </p>
-        <h2 className="text-4xl md:text-6xl leading-tight font-bold dark:text-neutral-10 mb-8 border-b-0">
-          I’m Daniel Wirtz. German Product Designer. Founder at{" "}
-          <a
-            className="link-underline dark:border-neutral-700"
-            href="https://crisp.studio"
-          >
+        <h2 className="mb-8 text-4xl font-bold leading-tight border-b-0 md:text-6xl dark:text-neutral-10">
+          Designer and Co-Founder of{" "}
+          <a className="link-underline no-select " href="https://crisp.studio/">
             Crisp Studio
           </a>
-          .
+          . I grew up in Germany and now live in Utrecht, the Netherlands.
         </h2>
         <Button
-          text="Follow me"
+          text="Say hello"
           icon={<Twitter />}
           to="https://twitter.com/wirtzdan"
-          extend="bg-primary-500"
+          extend="bg-primary-500 hover:bg-primary-600"
         />
       </Section>
     </Layout>
