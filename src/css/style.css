@@ -59,13 +59,22 @@
 .book-fold {
   @apply bg-white border;
   background: rgb(255, 255, 255);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.10) 60%, rgba(0, 0, 0, 0.075) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.1) 60%,
+    rgba(0, 0, 0, 0.075) 100%
+  );
   border-color: rgba(200, 200, 200, 0.015);
 }
 
 .book-page-gradient {
   @apply bg-white;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 100) 0%, rgba(230, 230, 230, 100) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 100) 0%,
+    rgba(230, 230, 230, 100) 100%
+  );
 }
 
 /* Design System */
@@ -79,7 +88,7 @@ p {
 }
 
 .link-underline {
-  @apply -mb-2 border-b-2;
+  @apply -mb-2 border-b-2 border-primary-100;
 }
 
 .mode-dark .link-underline {
@@ -94,7 +103,7 @@ a {
   @apply no-select;
 }
 
-h2>a {
+h2 > a {
   @apply border-none;
 }
 
