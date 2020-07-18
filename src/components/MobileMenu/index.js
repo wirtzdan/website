@@ -17,12 +17,12 @@ function MobileMenu() {
       title: `About`,
     },
     {
-      route: `/reading`,
-      title: `Reading`,
-    },
-    {
       route: `/blog`,
       title: `Blog`,
+    },
+    {
+      route: `/books`,
+      title: `Books`,
     },
   ];
 

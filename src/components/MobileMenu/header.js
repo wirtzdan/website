@@ -17,21 +17,21 @@ function MDHeader() {
             {[
               {
                 route: `/`,
-                title: `Home`
+                title: `Home`,
               },
               {
                 route: `/about`,
-                title: `About`
-              },
-              {
-                route: `/reading`,
-                title: `Reading`
+                title: `About`,
               },
               {
                 route: `/blog`,
-                title: `Blog`
-              }
-            ].map(link => (
+                title: `Blog`,
+              },
+              {
+                route: `/books`,
+                title: `Books`,
+              },
+            ].map((link) => (
               <Link
                 className="px-4 py-2 mr-2 text-2xl rounded hover:bg-neutral-100 dark-hover:bg-neutral-800"
                 key={link.title}
