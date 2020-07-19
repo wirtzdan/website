@@ -11,7 +11,7 @@ function AboutPage() {
       <Section>
         <h1>About Me</h1>
         <div className="flex flex-wrap">
-          <p className="pr-12 measure md:w-3/4">
+          <p className="md:pr-12 measure md:w-3/4">
             After school, I studied Media and Communications for Digital
             Business in Aachen, Germany. It was at that time, where I found my
             passion for Design, Technology and being an Entrepreneur. In my free
