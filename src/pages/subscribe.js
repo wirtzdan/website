@@ -19,10 +19,12 @@ function ReadingPage() {
         <p className="text-2xl measure">
           Hey there! This newsletter is my way of sharing what I think, write
           and learn with a small group of interesting people. Straight from my
-          desk to yours. Send, whenever I have something interesting to show
-          you.
+          desk to yours. Subscribe below.
         </p>
         <div id="newsletter"></div>
+        <p className="text-sm text-neutral-400 ">
+          No Spam. Send only when I have something interesting to show you.
+        </p>
       </Section>
     </Layout>
   );
