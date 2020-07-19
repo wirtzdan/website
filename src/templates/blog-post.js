@@ -1,12 +1,11 @@
 import React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 import "../css/prism-theme.css";
 import "../css/markdown.css";
 
 import {
   Layout,
   Section,
-  Newsletter,
   Divider,
   SEO,
   ReadingProgress,
@@ -23,8 +22,8 @@ class BlogPostTemplate extends React.Component {
 
   render() {
     const post = this.props.data.markdownRemark;
-    const siteTitle = this.props.data.site.siteMetadata.title;
-    const { previous, next } = this.props.pageContext;
+    // const siteTitle = this.props.data.site.siteMetadata.title;
+    // const { previous, next } = this.props.pageContext;
 
     const target = React.createRef();
 
