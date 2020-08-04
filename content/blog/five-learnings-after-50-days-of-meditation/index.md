@@ -6,11 +6,9 @@ subtitle: "My insights and observations after 50 days of meditation"
 
 Two months ago my mind wasn't in the best shape. My thoughts were always drifting in different directions. When I woke up once, I immediately started to think about my daily agenda and how I should handle an important call at work. Even though I even prepared breakfast or brushed my teeth.
 
-My mind felt a little bit like a bar fight in a western movie. A scene of chaos, with things flying around in all directions.
+My mind felt a little bit like a bar fight in a western movie. A scene of chaos, with things flying around in all directions. Something had to change.
 
-In the past, I made good experience with meditation. While I was studying I was introduced to meditation by listening to Tim Ferris podcast. I hesitated at first. Meditation always appeared to me as something for monks, spiritual people and hippies.
-
-But when I started with practice it helped me to calm down from the hectic life a university student. When I had the feeling that I attained more calmness, I somehow stopped to meditate.
+In the past, I made good experience with meditation. While I was studying I was introduced to meditation by listening to the Tim Ferris podcast. I hesitated at first. Meditation always appeared to me as something for monks, spiritual people and hippies. But when I started with practice it helped me to calm down from the hectic life a university student. When I had the feeling that I attained more calmness, I somehow stopped to meditate.
 
 Something I always wanted to try was the [Waking Up](https://www.wakingup.com) app by Sam Harris. Sam Harris is a philosopher, neuroscientist and host of the [Making Sense](https://samharris.org/podcast/) podcast. I always admired his way of speaking. He presents often complex topics in simple, yet powerful clarity. And someone who is able to speak clearly also thinks clearly. One can't go without the other.
 
