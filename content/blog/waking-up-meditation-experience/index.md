@@ -1,7 +1,7 @@
 ---
 title: "What I learned after 50 days of meditation"
 date: "2020-08-04"
-subtitle: "My insights and observations after 50 days of meditation"
+subtitle: "Learnings and observations after meditating for 50 days with the Waking Up app"
 ---
 
 Two months ago my mind wasn't in the best shape. My thoughts were always drifting in different directions. When I woke up once, I immediately started to think about my daily agenda and how I should handle an important call at work. Even though I even prepared breakfast or brushed my teeth.
