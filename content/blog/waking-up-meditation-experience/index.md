@@ -47,7 +47,7 @@ The most profound insight for me was that the quality of my mind is at the base 
 
 On days where I had a good meditation session, I felt more aware, productive and fulfilled. This was most visible at work, where I often was forced to listen carefully to clients and where everything has to make sense that I verbalise. Before meditating with Waking up, I sometimes zoned out of conversations, got distracted and felt guilty afterwards.
 
-Of course, this still happens. Getting distracted is the natural state of the mind. But now that I meditate frequently, it happens less and for me, this improved the what Sam Harris often calls the quality of mind.
+Of course, this still happens. Getting distracted is the natural state of the mind. But now that I meditate frequently, it happens less and for me, this improved what Sam Harris often calls the quality of mind.
 
 ## What's next
 
