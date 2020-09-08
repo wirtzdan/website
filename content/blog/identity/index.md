@@ -22,7 +22,7 @@ I'm pondering about the topic of identity for the better half of the last month.
 
 ## Keep Your Identity Small
 
-Back in 2009, Paul Graham wrote an essay titled [Keep Your Identity Small](http://www.paulgraham.com/identity.html). He makes the argument to purposely leave out specific topics from your identity and not to label yourself with them. Why? The reason is that people are often unable to think rationally about something that they count as part of their identity.
+Back in 2009, Paul Graham wrote an essay titled [Keep Your Identity Small](http://www.paulgraham.com/identity.html). He makes the argument to purposely leave out specific topics from your identity and not to label yourself with them. Why? The reason is that **people are often unable to think rationally about something that they count as part of their identity.**
 
 If you take the average discussion about religion or politics you can see this at play. People often communicate past each other. Which often leads to endless discussions.
 
@@ -40,7 +40,7 @@ The effort of producing content also acts as a filter: Only letting through the 
 
 ## Keeping it flexible
 
-Think about this for a second: Change will never be as slow as it at this moment. Do you agree? If so, then the consequences of this would be that the world in 10 years looks very different than the world we live in right now.
+Think about this for a second: **Change will never be as slow as it at this moment.** Do you agree? If so, then the consequences of this would be that the world in 10 years looks very different than the world we live in right now.
 
 When change happens at such a speed, it's unlikely that we will stick with the same identity for our entire lifetime. There will be new challenges, skills and job titles that we are not aware of at the moment.
 

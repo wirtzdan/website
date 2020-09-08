@@ -21,7 +21,7 @@ For me, that timeframe, felt exactly right, because you can always squeeze in te
 
 ## 2. Meditating with the morning sun
 
-Meditating in the morning was the key for me to stay consistent with the practice. Not because the morning has a better effect per see. But I have the most control over how I spend my mornings and I can't say this about evenings. Sometimes I stay home and go to bed earlier, but on another day I could go out with friends and come back later in the night. Meditating in the mornings helped me to stick to daily habit and when I forget it in the morning, I was still able to do it throughout the day or in the evening.
+Meditating in the morning was the key for me to **stay consistent with the practice**. Not because the morning has a better effect per see. But I have the most control over how I spend my mornings and I can't say this about evenings. Sometimes I stay home and go to bed earlier, but on another day I could go out with friends and come back later in the night. Meditating in the mornings helped me to stick to daily habit and when I forget it in the morning, I was still able to do it throughout the day or in the evening.
 
 ## 3. You don't need a silent spot to meditate
 
@@ -29,13 +29,13 @@ The meditations in the introduction course where guided meditation. Sam Harris p
 
 In one of the lessons, he addressed this, because many students give him that feedback. He explains that meditation isn't something you should only do when you are in a quiet environment. Meditation is about being mindful and in the best case this is a state of living. Rather than a ten minutes window once a day.
 
-That made total sense for me and I started to meditate in more lifelike environments. Sometimes the dishwasher was going, the window was open or I heard my girlfriend click around on her notebook. The challenge of staying undistracted in loud environments was a great challenge to practice mindfulness.
+That made total sense for me and I started to **meditate in more lifelike environments**. Sometimes the dishwasher was going, the window was open or I heard my girlfriend click around on her notebook. The challenge of staying undistracted in loud environments was a great challenge to practice mindfulness.
 
 ## 4. Who is the Thinker?
 
 Have you ever asked yourself if you can pick your next thought? Maybe you think this is a stupid question, but observe your mind for a minute.
 
-If you are like me, thoughts often just appear. Similar to how bubbles appear on the lake, thoughts appear in conscious.
+**If you are like me, thoughts often just appear.** Similar to how bubbles appear on the lake, thoughts appear in conscious.
 
 That's also why it's so hard to sit still and think about nothing for five minutes. It sounds simple, but in practice it's impossible. With effort you can keep your mind focused on the breath for 30 seconds, but once your attention slips your mind goes on a free ride.
 
@@ -47,7 +47,7 @@ The most profound insight for me was that the quality of my mind is at the base 
 
 On days where I had a good meditation session, I felt more aware, productive and fulfilled. This was most visible at work, where I often was forced to listen carefully to clients and where everything has to make sense that I verbalise. Before meditating with Waking up, I sometimes zoned out of conversations, got distracted and felt guilty afterwards.
 
-Of course, this still happens. Getting distracted is the natural state of the mind. But now that I meditate frequently, it happens less and for me, this improved what Sam Harris often calls the quality of mind.
+Of course, this still happens. **Getting distracted is the natural state of the mind.** But now that I meditate frequently, it happens less and for me, this improved what Sam Harris often calls the quality of mind.
 
 ## What's next
 
