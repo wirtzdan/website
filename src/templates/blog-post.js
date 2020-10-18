@@ -37,7 +37,7 @@ class BlogPostTemplate extends React.Component {
           />
 
           <Section>
-            <article className="mb-10" ref={target} className="markdown">
+            <article className="px-6 bg-white rounded shadow md:px-12 md:py-4 markdown dark:bg-neutral-700" ref={target}>
               <header>
                 <h1 className="text-5xl">{post.frontmatter.title}</h1>
               </header>
