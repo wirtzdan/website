@@ -107,10 +107,6 @@
   @apply mb-0;
 }
 
-.markdown strong {
-  @apply highlight;
-}
-
 .markdown ul,
 .markdown ol {
   @apply py-4 pl-12 pr-6 my-6 list-disc bg-white rounded-lg shadow text-primary-900;
