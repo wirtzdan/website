@@ -2664,6 +2664,11 @@ hoist-non-react-statics@^3.3.1:
   dependencies:
     react-is "^16.7.0"
 
+howler@^2.1.3:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/howler/-/howler-2.2.1.tgz#a521a9b495841e8bb9aa12e651bebba0affc179e"
+  integrity sha512-0iIXvuBO/81CcrQ/HSSweYmbT50fT2mIc9XMFb+kxIfk2pW/iKzDbX1n3fZmDXMEIpYvyyfrB+gXwPYSDqUxIQ==
+
 htmlparser2@4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/htmlparser2/-/htmlparser2-4.1.0.tgz#9a4ef161f2e4625ebf7dfbe6c0a2f52d18a59e78"
@@ -4913,6 +4918,13 @@ use-sidecar@^1.0.1:
   dependencies:
     detect-node-es "^1.0.0"
     tslib "^1.9.3"
+
+use-sound@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/use-sound/-/use-sound-2.0.1.tgz#72e70d4bfdda71a6959e5adab0c7e10ff4080a0a"
+  integrity sha512-wNwnyIOe8QPDQgWRZd3PqVEJ9BpLO+VJX+EpQSb6EvvjblHhnYMD7WIOTQ4hgloC2jC7Az6FhclHilC441De7A==
+  dependencies:
+    howler "^2.1.3"
 
 use-subscription@1.5.1:
   version "1.5.1"

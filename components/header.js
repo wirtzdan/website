@@ -10,9 +10,9 @@ import {
   Divider,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
-import { SunOutline, MoonOutline } from "heroicons-react";
 import Container from "./container";
 import { useRouter } from "next/router";
+import ThemeToggle from "./theme-toggle";
 
 function NavLink(props) {
   const { href, name, ...rest } = props;
@@ -31,9 +31,6 @@ function NavLink(props) {
 }
 
 const Header = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  console.log("🚀 ~ file: Header.js ~ line 14 ~ Header ~ colorMode", colorMode);
-
   return (
     <Container>
       <VStack align="start" spacing={4} display={{ base: "none", md: "flex" }}>
@@ -50,17 +47,7 @@ const Header = () => {
             <NavLink href="/about" name="About" />
             <NavLink href="/books" name="Books" />
           </HStack>
-          <IconButton
-            aria-label="Switch theme"
-            icon={
-              colorMode === "dark" ? (
-                <SunOutline size={18} />
-              ) : (
-                <MoonOutline size={18} />
-              )
-            }
-            onClick={toggleColorMode}
-          />{" "}
+          <ThemeToggle />
         </HStack>
         <Divider />
       </VStack>
