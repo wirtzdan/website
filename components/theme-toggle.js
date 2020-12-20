@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton, useColorMode, ScaleFade } from "@chakra-ui/react";
+import { IconButton, useColorMode, ScaleFade, Tooltip } from "@chakra-ui/react";
 import { SunOutline, MoonOutline } from "heroicons-react";
 import useSound from "use-sound";
 
@@ -19,22 +19,27 @@ const ThemeToggle = () => {
   };
 
   return (
-    <IconButton
-      isRound
-      aria-label="Switch theme"
-      icon={
-        colorMode === "dark" ? (
-          <ScaleFade in>
-            <SunOutline size={18} />
-          </ScaleFade>
-        ) : (
-          <ScaleFade in>
-            <MoonOutline size={18} />
-          </ScaleFade>
-        )
-      }
-      onClick={handleClick}
-    />
+    <Tooltip
+      label={colorMode === "dark" ? "Light mode" : "Dark mode"}
+      aria-label="A tooltip"
+    >
+      <IconButton
+        isRound
+        aria-label="Switch theme"
+        icon={
+          colorMode === "dark" ? (
+            <ScaleFade in>
+              <SunOutline size={18} />
+            </ScaleFade>
+          ) : (
+            <ScaleFade in>
+              <MoonOutline size={18} />
+            </ScaleFade>
+          )
+        }
+        onClick={handleClick}
+      />
+    </Tooltip>
   );
 };
 export default ThemeToggle;
