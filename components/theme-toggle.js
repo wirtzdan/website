@@ -6,7 +6,7 @@ import useSound from "use-sound";
 const ThemeToggle = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [play] = useSound("/lightswitch.mp3", {
-    volume: 0.1,
+    volume: 0.05,
     sprite: {
       on: [0, 300],
       off: [500, 300],
