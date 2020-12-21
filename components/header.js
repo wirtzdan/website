@@ -37,11 +37,18 @@ import Link from "next/link";
 
 function NavLink(props) {
   const { href, name, ...rest } = props;
+  var isActive = false;
   const { pathname } = useRouter();
 
-  const [, group] = href.split("/");
-  const isActive = pathname.includes(group);
-  console.log("🚀 ~ file: header.js ~ line 24 ~ NavLink ~ isActive", isActive);
+  if (href !== "/") {
+    const [, group] = href.split("/");
+
+    isActive = pathname.includes(group);
+  } else {
+    if (href === pathname) {
+      isActive = true;
+    }
+  }
 
   return (
     <NextLink href={href} passHref>

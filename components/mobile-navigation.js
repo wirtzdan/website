@@ -14,6 +14,7 @@ import { motion, useCycle } from "framer-motion";
 import MenuToggle from "./mobile-menu-toggle";
 import MobileMenuItem from "./mobile-menu-item";
 import ThemeToggle from "./theme-toggle";
+import NewsletterDrawer from "./newsletter-drawer";
 
 const MobileNavigation = () => {
   const [isOpen, toggleOpen] = useCycle(false, true);
@@ -86,12 +87,13 @@ const MobileNavigation = () => {
           p={4}
           display={isOpen ? "flex" : "none"}
         >
-          <MotionVStack variants={navvariants}>
+          <MotionVStack variants={navvariants} spacing={4}>
             {links.map((link) => (
               <MobileMenuItem
                 key={link.title}
                 href={link.route}
                 title={link.title}
+                toggle={() => toggleOpen()}
               ></MobileMenuItem>
             ))}
           </MotionVStack>
@@ -106,7 +108,7 @@ const MobileNavigation = () => {
         borderTopWidth="2px"
         borderTopColor={useColorModeValue("gray.100", "gray.700")}
       >
-        <IconButton icon={<Mail />}></IconButton>
+        <NewsletterDrawer />
         <MenuToggle toggle={() => toggleOpen()} />
         <ThemeToggle />
       </HStack>

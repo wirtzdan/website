@@ -1,7 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Button } from "@chakra-ui/react";
+import { Button, useColorModeValue } from "@chakra-ui/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const variants = {
   open: {
@@ -22,10 +23,34 @@ const variants = {
 
 const MotionButton = motion.custom(Button);
 
-function MobileMenuItem({ href, title }) {
+function MobileMenuItem({ href, title, toggle }) {
+  var isActive = false;
+  const { pathname } = useRouter();
+
+  if (href !== "/") {
+    const [, group] = href.split("/");
+
+    isActive = pathname.includes(group);
+  } else {
+    if (href === pathname) {
+      isActive = true;
+    }
+  }
+
   return (
     <Link href={href}>
-      <MotionButton size="lg" variants={variants}>
+      <MotionButton
+        aria-current={isActive ? "page" : undefined}
+        fontSize="3xl"
+        variant="ghost"
+        variants={variants}
+        px={6}
+        py={6}
+        _activeLink={{
+          color: useColorModeValue("blue.500", "blue.200"),
+        }}
+        onClick={toggle}
+      >
         {title}
       </MotionButton>
     </Link>
