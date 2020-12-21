@@ -3,7 +3,7 @@ import { IconButton, useColorMode, ScaleFade, Tooltip } from "@chakra-ui/react";
 import { SunOutline, MoonOutline } from "heroicons-react";
 import useSound from "use-sound";
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ mobile }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [play] = useSound("/lightswitch.mp3", {
     volume: 0.05,
@@ -26,14 +26,15 @@ const ThemeToggle = () => {
       <IconButton
         isRound
         aria-label="Switch theme"
+        variant={mobile ? "ghost" : undefined}
         icon={
           colorMode === "dark" ? (
             <ScaleFade in>
-              <SunOutline size={18} />
+              <SunOutline size={mobile ? 22 : 18} />
             </ScaleFade>
           ) : (
             <ScaleFade in>
-              <MoonOutline size={18} />
+              <MoonOutline size={mobile ? 22 : 18} />
             </ScaleFade>
           )
         }

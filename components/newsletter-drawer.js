@@ -24,7 +24,7 @@ import {
 import { Mail, MailOutline } from "heroicons-react";
 import { useForm } from "react-hook-form";
 
-const NewsletterDrawer = () => {
+const NewsletterDrawer = ({ mobile }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
@@ -42,7 +42,12 @@ const NewsletterDrawer = () => {
   return (
     <Box>
       <Tooltip label="Newsletter">
-        <IconButton onClick={onOpen} icon={<MailOutline />} variant="ghost" />
+        <IconButton
+          isRound
+          onClick={onOpen}
+          icon={<MailOutline />}
+          variant={mobile ? "ghost" : undefined}
+        />
       </Tooltip>
       <Drawer
         isOpen={isOpen}
@@ -55,7 +60,6 @@ const NewsletterDrawer = () => {
           <DrawerContent borderTopRadius="6px">
             <DrawerCloseButton />
             <DrawerHeader>Subscribe</DrawerHeader>
-
             <DrawerBody pb={4}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <VStack spacing={4}>
@@ -99,6 +103,7 @@ const NewsletterDrawer = () => {
                       type="submit"
                       w="100%"
                       isLoading={isSubmitting}
+                      isDisabled
                     >
                       Subscribe
                     </Button>

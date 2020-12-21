@@ -101,6 +101,7 @@ const MobileNavigation = () => {
       </Center>
       <HStack
         justify="space-around"
+        align="center"
         py={2}
         mt="auto"
         height={16}
@@ -108,9 +109,9 @@ const MobileNavigation = () => {
         borderTopWidth="2px"
         borderTopColor={useColorModeValue("gray.100", "gray.700")}
       >
-        <NewsletterDrawer />
+        <NewsletterDrawer mobile />
         <MenuToggle toggle={() => toggleOpen()} />
-        <ThemeToggle />
+        <ThemeToggle mobile />
       </HStack>
     </MotionBox>
   );

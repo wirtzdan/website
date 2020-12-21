@@ -25,7 +25,7 @@ export default function Blog({ posts }) {
 
   return (
     <PageTransition>
-      <Section py={16}>
+      <Section pt={16} pb={{ base: 32, md: 16 }}>
         <VStack spacing={8}>
           <VStack>
             <Heading as="h1">Blog</Heading>
