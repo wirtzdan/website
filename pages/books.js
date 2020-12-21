@@ -33,6 +33,7 @@ import {
   SimpleGrid,
   useTab,
   useStyles,
+  Link,
 } from "@chakra-ui/react";
 import Container from "../components/container";
 import PageTransition from "../components/page-transitions";
@@ -76,8 +77,11 @@ const Books = ({ books }) => {
               maxW="lg"
               textAlign="center"
             >
-              Welcome to my book corner. At the moment I'm reading Fish don't
-              exist by Lulu Miller.
+              Welcome to my book corner. At the moment I'm reading{" "}
+              <Link href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1">
+                Why Fish Don't Exist
+              </Link>{" "}
+              by Lulu Miller.
             </Text>
             <BookSuggestion />
           </VStack>
@@ -154,7 +158,6 @@ const Books = ({ books }) => {
 
 export async function getStaticProps() {
   const books = await getBooks();
-  console.log("🚀 ~ file: books.js ~ line 145 ~ getStaticProps ~ books", books);
 
   return {
     props: {
