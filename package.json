@@ -6,6 +6,7 @@
     "@chakra-ui/react": "^1.0.4",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
+    "airtable": "^0.10.1",
     "date-fns": "^2.16.1",
     "framer-motion": "^3.1.1",
     "fs": "^0.0.1-security",
@@ -18,17 +19,20 @@
     "next-seo": "^4.17.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-hook-form": "^6.13.1",
     "react-tweet-embed": "^1.2.2",
+    "react-use-pagination": "^1.1.0",
     "reading-time": "^1.2.1",
     "rehype": "^11.0.0",
     "remark-autolink-headings": "^6.0.1",
     "remark-code-titles": "^0.1.1",
     "remark-slug": "^6.0.0",
+    "swr": "^0.3.11",
     "use-sound": "^2.0.1"
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next dev"
   }
 }
