@@ -26,7 +26,7 @@ const CustomLink = (props) => {
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
 };
 
-const InlineCode = () => (
+const InlineCode = (props) => (
   <chakra.code
     apply="mdx.code"
     color={useColorModeValue("purple.500", "purple.200")}
