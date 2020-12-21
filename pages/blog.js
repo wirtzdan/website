@@ -26,13 +26,14 @@ export default function Blog({ posts }) {
   return (
     <PageTransition>
       <Section py={16}>
-        <VStack align="start" spacing={8}>
-          <VStack align="start">
+        <VStack spacing={8}>
+          <VStack>
             <Heading as="h1">Blog</Heading>
             <Text
               fontSize="2xl"
               color={useColorModeValue("gray.500", "gray.200")}
-              maxW="md"
+              maxW="lg"
+              textAlign="center"
             >
               Welcome to my blog. Here I share some of my thinking, insights and
               views on life.
