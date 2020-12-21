@@ -10,11 +10,30 @@ import {
   Box,
   Divider,
   useColorModeValue,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuItemOption,
+  MenuGroup,
+  MenuOptionGroup,
+  MenuCommand,
+  MenuDivider,
+  Icon,
+  Avatar,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Container from "./container";
 import { useRouter } from "next/router";
 import ThemeToggle from "./theme-toggle";
+import {
+  Bookmark,
+  BookOpen,
+  ChevronDown,
+  ChevronDownOutline,
+  Menu as MenuIcon,
+} from "heroicons-react";
+import Link from "next/link";
 
 function NavLink(props) {
   const { href, name, ...rest } = props;
@@ -58,13 +77,57 @@ const Header = () => {
             </chakra.a>
           </NextLink> */}
           <HStack justify="space-between" w="100%">
+            <Link href="/">
+              <Avatar
+                name="Daniel Wirtz"
+                size="sm"
+                src="/avatar-small.jpg"
+                cursor="pointer"
+              />
+            </Link>
             <HStack ml={-4} spacing={2}>
-              <NavLink href="/" name="Home" />
               <NavLink href="/about" name="About" />
               <NavLink href="/blog" name="Blog" />
-              <NavLink href="/books" name="Books" />
+              <Menu>
+                <MenuButton
+                  as={Button}
+                  variant="ghost"
+                  size="md"
+                  px={4}
+                  rightIcon={<ChevronDown size={18} />}
+                >
+                  Links
+                </MenuButton>
+                <MenuList>
+                  <Link href="/books">
+                    <MenuItem>
+                      <HStack>
+                        <Icon
+                          as={BookOpen}
+                          size={18}
+                          color={useColorModeValue("blue.500", "blue.200")}
+                        />
+                        <Text>Books</Text>
+                      </HStack>
+                    </MenuItem>
+                  </Link>
+
+                  <MenuItem isDisabled>
+                    <HStack>
+                      <Icon
+                        as={Bookmark}
+                        size={18}
+                        color={useColorModeValue("blue.500", "blue.200")}
+                      />
+                      <Text>Bookmarks</Text>
+                    </HStack>
+                  </MenuItem>
+                </MenuList>
+              </Menu>
             </HStack>
-            <ThemeToggle />
+            <HStack>
+              <ThemeToggle />
+            </HStack>
           </HStack>
         </VStack>
       </Container>

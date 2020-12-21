@@ -8,6 +8,7 @@ import SEO from "../next-seo.config";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import PageTransition from "../components/page-transitions";
+import MobileNavigation from "@/components/mobile-navigation";
 
 const App = ({ Component, pageProps }) => {
   return (
@@ -20,7 +21,10 @@ const App = ({ Component, pageProps }) => {
         </Head>
         <DefaultSeo {...SEO} />
         <Header />
-        <Component {...pageProps} />
+        <main>
+          <Component {...pageProps} />
+        </main>
+        <MobileNavigation />
         <Footer />
       </ChakraProvider>
       <FontFace />
