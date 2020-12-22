@@ -93,6 +93,7 @@ const BookSuggestion = () => {
                     type="submit"
                     w="100%"
                     isLoading={isSubmitting}
+                    isDisabled
                   >
                     Send suggestion
                   </Button>
