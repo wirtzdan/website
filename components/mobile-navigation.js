@@ -67,7 +67,7 @@ const MobileNavigation = () => {
       left="0"
       display={{ base: "block", md: "none" }}
     >
-      <Center
+      {/* <Center
         position="fixed"
         top={0}
         left={0}
@@ -98,7 +98,7 @@ const MobileNavigation = () => {
             ))}
           </MotionVStack>
         </MotionBox>
-      </Center>
+      </Center> */}
       <HStack
         justify="space-around"
         align="center"

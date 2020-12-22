@@ -49,7 +49,6 @@ const MobileMenuToggle = ({ mobile }) => {
       </Tooltip>
       <Drawer
         isOpen={isOpen}
-        size="md"
         placement="bottom"
         onClose={onClose}
         finalFocusRef={btnRef}
@@ -63,6 +62,7 @@ const MobileMenuToggle = ({ mobile }) => {
                 <MobileMenuItem href="/" title="Home" />
                 <MobileMenuItem href="/about" title="About" />
                 <MobileMenuItem href="/blog" title="Blog" />
+                <MobileMenuItem href="/books" title="Books" />
               </VStack>
             </DrawerBody>
           </DrawerContent>

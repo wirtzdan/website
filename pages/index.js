@@ -11,6 +11,10 @@ import {
 import Container from "../components/container";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
+console.log(
+  "🚀 ~ file: index.js ~ line 15 ~ process.env.AIRTABLE_API_KEY",
+  process.env.AIRTABLE_API_KEY
+);
 
 const Home = () => (
   <Box flexGrow="1">

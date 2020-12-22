@@ -46,8 +46,6 @@ import BookSuggestion from "@/components/book-suggestion";
 import { BookOpen, Heart } from "heroicons-react";
 
 const Books = ({ books }) => {
-  console.log("🚀 ~ file: books.js ~ line 39 ~ Books ~ books", books);
-
   const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
 
   const CustomTab = React.forwardRef((props, ref) => {
