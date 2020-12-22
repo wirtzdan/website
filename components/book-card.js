@@ -8,26 +8,55 @@ import {
   TagLabel,
   TagRightIcon,
   Box,
+  Image as ChakraImage,
+  Icon,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { Star } from "heroicons-react";
+import { Eye, EyeOutline, Star } from "heroicons-react";
 import StarRating from "./star-rating";
 
-const BookCard = ({ title, author, rating, isFavorite }) => {
+const BookCard = ({ title, author, rating, isFavorite, cover }) => {
+  console.log("🚀 ~ file: book-card.js ~ line 17 ~ BookCard ~ cover", cover);
+
   return (
     <HStack
       p={4}
       bg={useColorModeValue("white", "gray.800")}
       rounded="md"
-      shadow="xs"
+      borderWidth="1px"
+      borderColor={useColorModeValue("gray.100", "gray.700")}
       w="100%"
       textAlign="left"
-      justify="space-between"
       align="start"
+      spacing={4}
+      height={36}
+      position="relative"
     >
-      <VStack align="start" justify="flex-start" spacing={1} maxW="lg" h="100%">
-        <HStack></HStack>
-        <VStack flexGrow="1" spacing={0} align="start">
+      <Box
+        rounded="md"
+        h="144px"
+        w="90px"
+        overflow="hidden"
+        shadow="lg"
+        position="absolute"
+        bottom={4}
+      >
+        <Image
+          src={cover ? cover[0].thumbnails.large.url : "/"}
+          height={96}
+          width={60}
+          layout="responsive"
+        ></Image>
+      </Box>
+      <VStack
+        align="start"
+        justify="flex-start"
+        spacing={1}
+        maxW="lg"
+        pl={24}
+        h="100%"
+      >
+        <VStack spacing={0} align="start" flexGrow="1">
           <Text fontWeight="bold" fontSize="md" noOfLines={2}>
             {title}
           </Text>
@@ -35,15 +64,12 @@ const BookCard = ({ title, author, rating, isFavorite }) => {
             {author}
           </Text>
         </VStack>
-
-        {rating ? (
-          /* <Tag colorScheme="orange" size="lg">
-          {" "}
-          <TagLabel> {rating}</TagLabel>
-          <TagRightIcon ml={0} boxSize="16px" as={Star} />
-        </Tag> */
+        <VStack spacing={0} align="start">
           <StarRating rating={rating} />
-        ) : undefined}
+          <Text fontSize="xs" color="gray.400">
+            2 weeks ago
+          </Text>
+        </VStack>
       </VStack>
     </HStack>
   );

@@ -4,4 +4,7 @@ const withMDX = require("@next/mdx")({
 
 module.exports = withMDX({
   pageExtensions: ["js", "jsx", "mdx"],
+  images: {
+    domains: ["dl.airtable.com"],
+  },
 });

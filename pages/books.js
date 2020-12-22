@@ -67,12 +67,13 @@ const Books = ({ books }) => {
     <PageTransition>
       <VStack spacing={8} py={16}>
         <Section>
-          <VStack align="start">
+          <VStack>
             <Heading as="h1">Books</Heading>
             <Text
-              fontSize="2xl"
+              fontSize={["xl", "2xl"]}
               color={useColorModeValue("gray.500", "gray.200")}
               maxW="lg"
+              textAlign="center"
             >
               Welcome to my book corner. At the moment I'm reading{" "}
               <Link href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1">
@@ -84,7 +85,12 @@ const Books = ({ books }) => {
           </VStack>
         </Section>
         <Section>
-          <Tabs variant="soft-rounded" colorScheme="blue" align="left" w="100%">
+          <Tabs
+            variant="soft-rounded"
+            colorScheme="blue"
+            align="center"
+            w="100%"
+          >
             <TabList>
               <Tab
                 bg={useColorModeValue("gray.100", "gray.800")}
@@ -116,7 +122,7 @@ const Books = ({ books }) => {
             </TabList>
             <TabPanels>
               <TabPanel px={0}>
-                <SimpleGrid columns={2} spacing={4}>
+                <SimpleGrid columns={[1, 2]} spacingY={8} spacingX={4} mt={8}>
                   {books
                     .filter((b) => b.fields.Read === true)
                     .map((book) => (
@@ -126,12 +132,13 @@ const Books = ({ books }) => {
                         author={book.fields.Author}
                         rating={book.fields.Rating}
                         isFavorite={book.fields.Favorite}
+                        cover={book.fields.Cover}
                       />
                     ))}
                 </SimpleGrid>
               </TabPanel>
               <TabPanel px={0}>
-                <SimpleGrid columns={2} spacing={4}>
+                <SimpleGrid columns={2} spacingY={8} spacingX={4} mt={8}>
                   {books
                     .filter((b) => b.fields.Favorite == true)
                     .map((book) => (
@@ -141,6 +148,7 @@ const Books = ({ books }) => {
                         author={book.fields.Author}
                         rating={book.fields.Rating}
                         isFavorite={book.fields.Favorite}
+                        cover={book.fields.Cover}
                       />
                     ))}
                 </SimpleGrid>
