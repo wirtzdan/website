@@ -20,7 +20,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { sendSuggestion } from "@/lib/airtable";
+// import { sendSuggestion } from "@/lib/airtable";
 
 const BookSuggestion = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -32,7 +32,7 @@ const BookSuggestion = () => {
     formState: { isSubmitting, isSubmitSuccessful },
   } = useForm();
   const onSubmit = async (data) => {
-    await sendSuggestion(data);
+    // await sendSuggestion(data);
   };
 
   return (
