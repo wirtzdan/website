@@ -28,7 +28,7 @@ const BookCard = ({ title, author, rating, isFavorite }) => {
       <VStack align="start" justify="flex-start" spacing={1} maxW="lg" h="100%">
         <HStack></HStack>
         <VStack flexGrow="1" spacing={0} align="start">
-          <Text fontWeight="bold" fontSize="lg" noOfLines={2}>
+          <Text fontWeight="bold" fontSize="md" noOfLines={2}>
             {title}
           </Text>
           <Text fontSize="md" color={useColorModeValue("gray.500", "gray.200")}>

@@ -67,13 +67,12 @@ const Books = ({ books }) => {
     <PageTransition>
       <VStack spacing={8} py={16}>
         <Section>
-          <VStack>
+          <VStack align="start">
             <Heading as="h1">Books</Heading>
             <Text
               fontSize="2xl"
               color={useColorModeValue("gray.500", "gray.200")}
               maxW="lg"
-              textAlign="center"
             >
               Welcome to my book corner. At the moment I'm reading{" "}
               <Link href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1">
@@ -85,7 +84,7 @@ const Books = ({ books }) => {
           </VStack>
         </Section>
         <Section>
-          <Tabs variant="soft-rounded" colorScheme="blue" align="center">
+          <Tabs variant="soft-rounded" colorScheme="blue" align="left" w="100%">
             <TabList>
               <Tab
                 bg={useColorModeValue("gray.100", "gray.800")}
@@ -116,7 +115,7 @@ const Books = ({ books }) => {
               </Tab>
             </TabList>
             <TabPanels>
-              <TabPanel>
+              <TabPanel px={0}>
                 <SimpleGrid columns={2} spacing={4}>
                   {books
                     .filter((b) => b.fields.Read === true)
@@ -131,7 +130,7 @@ const Books = ({ books }) => {
                     ))}
                 </SimpleGrid>
               </TabPanel>
-              <TabPanel>
+              <TabPanel px={0}>
                 <SimpleGrid columns={2} spacing={4}>
                   {books
                     .filter((b) => b.fields.Favorite == true)
