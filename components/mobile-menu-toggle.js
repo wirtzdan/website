@@ -1,31 +1,75 @@
-import * as React from "react";
-import { motion } from "framer-motion";
-import { Box } from "@chakra-ui/react";
+import React from "react";
+import {
+  Box,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  IconButton,
+  useDisclosure,
+  Input,
+  Button,
+  VStack,
+  FormControl,
+  Alert,
+  AlertIcon,
+  FormLabel,
+  FormHelperText,
+  Textarea,
+  Tooltip,
+  SimpleGrid,
+} from "@chakra-ui/react";
+import { Mail, MailOutline, Menu } from "heroicons-react";
+import { useForm } from "react-hook-form";
+import MobileMenuButton from "./mobile-menu-button";
+import MobileMenuItem from "./mobile-menu-item";
 
-const Path = (props) => (
-  <motion.path strokeWidth="2" strokeLinecap="round" {...props} />
-);
+const MobileMenuToggle = ({ mobile }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = React.useRef();
 
-function MenuToggle({ toggle }) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    errors,
+    formState: { isSubmitting, isSubmitSuccessful },
+  } = useForm();
+  const onSubmit = async (data) => {
+    await sendSuggestion(data);
+  };
+
   return (
-    <Box onClick={toggle} zIndex="50">
-      <svg stroke="currentColor" width="23" height="23" viewBox="0 0 23 23">
-        <Path
-          variants={{
-            closed: { d: "M 2 2.5 L 20 2.5" },
-            open: { d: "M 3 16.5 L 17 2.5" },
-          }}
-        />
-
-        <Path
-          variants={{
-            closed: { d: "M 2 16.346 L 20 16.346" },
-            open: { d: "M 3 2.5 L 17 16.346" },
-          }}
-        />
-      </svg>
+    <Box>
+      <Tooltip label="Newsletter">
+        <MobileMenuButton label="Menu" icon={<Menu />} onClick={onOpen} />
+      </Tooltip>
+      <Drawer
+        isOpen={isOpen}
+        size="md"
+        placement="bottom"
+        onClose={onClose}
+        finalFocusRef={btnRef}
+      >
+        <DrawerOverlay>
+          <DrawerContent borderTopRadius="6px">
+            <DrawerCloseButton />
+            <DrawerHeader>Menu</DrawerHeader>
+            <DrawerBody pb={4}>
+              <VStack>
+                <MobileMenuItem href="/" title="Home" />
+                <MobileMenuItem href="/about" title="About" />
+                <MobileMenuItem href="/blog" title="Blog" />
+              </VStack>
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
     </Box>
   );
-}
+};
 
-export default MenuToggle;
+export default MobileMenuToggle;

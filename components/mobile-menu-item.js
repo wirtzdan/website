@@ -40,16 +40,13 @@ function MobileMenuItem({ href, title, toggle }) {
   return (
     <Link href={href}>
       <MotionButton
+        size="lg"
         aria-current={isActive ? "page" : undefined}
-        fontSize="3xl"
-        variant="ghost"
+        w="100%"
         variants={variants}
-        px={6}
-        py={6}
         _activeLink={{
           color: useColorModeValue("blue.500", "blue.200"),
         }}
-        onClick={toggle}
       >
         {title}
       </MotionButton>

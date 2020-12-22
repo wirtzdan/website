@@ -23,6 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { Mail, MailOutline } from "heroicons-react";
 import { useForm } from "react-hook-form";
+import MobileMenuButton from "./mobile-menu-button";
 
 const NewsletterDrawer = ({ mobile }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -42,11 +43,10 @@ const NewsletterDrawer = ({ mobile }) => {
   return (
     <Box>
       <Tooltip label="Newsletter">
-        <IconButton
-          isRound
-          onClick={onOpen}
+        <MobileMenuButton
+          label="Subscribe"
           icon={<MailOutline />}
-          variant={mobile ? "ghost" : undefined}
+          onClick={onOpen}
         />
       </Tooltip>
       <Drawer
