@@ -21,7 +21,42 @@ const customTheme = extendTheme({
           fontStyle: "normal !important",
         },
       },
+      a: {
+        color: mode("blue.500", "blue.200")(props),
+        transition: "color 0.15s",
+        transitionTimingFunction: "ease-out",
+        fontWeight: "500",
+        _hover: {
+          color: mode("blue.600", "blue.300")(props),
+        },
+      },
     }),
+  },
+  components: {
+    Heading: {
+      baseStyle: (props) => ({
+        borderBottom: "1px",
+        borderColor: mode("gray.200", "gray.700")(props),
+        pb: 2,
+        fontWeight: "500",
+      }),
+    },
+    Button: {
+      baseStyle: {
+        fontWeight: "500",
+      },
+    },
+    Link: {
+      baseStyle: (props) => ({
+        color: mode("blue.500", "blue.200")(props),
+        transition: "color 0.15s",
+        transitionTimingFunction: "ease-out",
+        fontWeight: "500",
+        _hover: {
+          color: mode("blue.600", "blue.300")(props),
+        },
+      }),
+    },
   },
   mdx: {
     h1: {
@@ -38,7 +73,6 @@ const customTheme = extendTheme({
       lineHeight: 1.3,
       fontWeight: "semibold",
       fontSize: "1.5rem",
-      letterSpacing: "-.025em",
       "& + h3": {
         mt: "1.5rem",
       },
@@ -49,7 +83,6 @@ const customTheme = extendTheme({
       lineHeight: 1.25,
       fontWeight: "semibold",
       fontSize: "1.25rem",
-      letterSpacing: "-.025em",
     },
     h4: {
       mt: "3rem",
@@ -57,15 +90,15 @@ const customTheme = extendTheme({
       fontWeight: "semibold",
       fontSize: "1.125rem",
     },
-    a: {
-      color: "blue.500",
-      fontWeight: "500",
+    a: (props) => ({
+      color: mode("blue.500", "blue.200")(props),
       transition: "color 0.15s",
+      fontWeight: "500",
       transitionTimingFunction: "ease-out",
       _hover: {
-        color: "blue.600",
+        color: mode("blue.600", "blue.300")(props),
       },
-    },
+    }),
     p: {
       mt: "1.25rem",
       lineHeight: 1.7,
