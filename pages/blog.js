@@ -14,6 +14,7 @@ import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import BlogPost from "@/components/blog-post";
 import { getAllFilesFrontMatter } from "@/lib/mdx";
+import sorter from "sort-isostring";
 
 export default function Blog({ posts }) {
   const filteredBlogPosts = posts.sort(
@@ -42,9 +43,11 @@ export default function Blog({ posts }) {
 
           {!filteredBlogPosts.length && "No posts found."}
           <VStack w="100%" align="start" spacing={4}>
-            {filteredBlogPosts.map((frontMatter) => (
-              <BlogPost key={frontMatter.title} {...frontMatter} />
-            ))}
+            {filteredBlogPosts
+              .sort((x, y) => sorter(y.lastUpdated, x.lastUpdated))
+              .map((frontMatter) => (
+                <BlogPost key={frontMatter.title} {...frontMatter} />
+              ))}
           </VStack>
         </VStack>
       </Section>
