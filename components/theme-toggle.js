@@ -6,15 +6,15 @@ import MobileMenuButton from "./mobile-menu-button";
 
 const ThemeToggle = ({ mobile }) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const [play] = useSound("/lightswitch.mp3", {
-    volume: 0.05,
-    sprite: {
-      on: [0, 300],
-      off: [500, 300],
-    },
-  });
 
   const handleClick = () => {
+    const [play] = useSound("/lightswitch.mp3", {
+      volume: 0.05,
+      sprite: {
+        on: [0, 300],
+        off: [500, 300],
+      },
+    });
     toggleColorMode();
     colorMode === "dark" ? play({ id: "on" }) : play({ id: "off" });
   };

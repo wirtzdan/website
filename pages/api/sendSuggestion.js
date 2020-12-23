@@ -29,7 +29,6 @@ export default function handler(req, res) {
         },
         function (err, record) {
           if (err) {
-            console.error(err);
             reject();
           }
           resolve();

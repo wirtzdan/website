@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Head from "next/head";
 import {
   chakra,
@@ -41,7 +41,8 @@ import { getBooks } from "@/lib/airtable";
 import Section from "@/components/section";
 import Image from "next/image";
 import BookCard from "@/components/book-card";
-import { usePagination } from "react-use-pagination";
+import usePagination from "lib/usePagination.js";
+
 import BookSuggestion from "@/components/book-suggestion";
 import { BookOpen, Heart } from "heroicons-react";
 import sorter from "sort-isostring";
@@ -63,6 +64,43 @@ const Books = ({ books }) => {
       </StyledTab>
     );
   });
+
+  const { next, currentPage, currentData, maxPage } = usePagination(books, 8);
+
+  const currentBooks = currentData();
+  const [element, setElement] = useState(null);
+
+  const observer = useRef();
+  const prevY = useRef(0);
+  useEffect(() => {
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        const firstEntry = entries[0];
+        const y = firstEntry.boundingClientRect.y;
+
+        if (prevY.current > y) {
+          next();
+        }
+        prevY.current = y;
+      },
+      { threshold: 0.5 }
+    );
+  }, []);
+
+  useEffect(() => {
+    const currentElement = element;
+    const currentObserver = observer.current;
+
+    if (currentElement) {
+      currentObserver.observe(currentElement);
+    }
+
+    return () => {
+      if (currentElement) {
+        currentObserver.unobserve(currentElement);
+      }
+    };
+  }, [element]);
 
   return (
     <PageTransition>
@@ -127,7 +165,7 @@ const Books = ({ books }) => {
             <TabPanels>
               <TabPanel px={0}>
                 <SimpleGrid columns={[1, 2]} spacingY={8} spacingX={4} mt={8}>
-                  {books
+                  {currentBooks
                     .filter((b) => b.fields.Read === true)
                     .sort((x, y) =>
                       sorter(y.fields["Date Read"], x.fields["Date Read"])
@@ -147,7 +185,7 @@ const Books = ({ books }) => {
               </TabPanel>
               <TabPanel px={0}>
                 <SimpleGrid columns={[1, 2]} spacingY={8} spacingX={4} mt={8}>
-                  {books
+                  {currentBooks
                     .filter((b) => b.fields.Favorite == true)
                     .sort((x, y) =>
                       sorter(y.fields["Date Read"], x.fields["Date Read"])
