@@ -1,6 +1,4 @@
-import Image from "next/image";
-import { parseISO, format } from "date-fns";
-
+import React from "react";
 import Section from "@/components/section";
 import { Heading } from "@chakra-ui/react";
 

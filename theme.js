@@ -58,12 +58,12 @@ const customTheme = extendTheme({
       fontSize: "1.125rem",
     },
     a: {
-      color: "teal.500",
-      fontWeight: "semibold",
+      color: "blue.500",
+      fontWeight: "500",
       transition: "color 0.15s",
       transitionTimingFunction: "ease-out",
       _hover: {
-        color: "teal.600",
+        color: "blue.600",
       },
     },
     p: {
