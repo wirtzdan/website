@@ -32,7 +32,10 @@ const BookSuggestion = () => {
     formState: { isSubmitting, isSubmitSuccessful },
   } = useForm();
   const onSubmit = async (data) => {
-    // await sendSuggestion(data);
+    await fetch("/api/sendSuggestion", {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
   };
 
   return (
@@ -52,7 +55,7 @@ const BookSuggestion = () => {
                   <FormLabel>Title</FormLabel>
                   <Input
                     name="title"
-                    placeholder="Tai-Pan"
+                    placeholder="Title"
                     ref={register({ required: true })}
                     isDisabled={isSubmitSuccessful}
                   />
@@ -64,7 +67,7 @@ const BookSuggestion = () => {
                   <FormLabel>Author</FormLabel>
                   <Input
                     name="author"
-                    placeholder="James Clavell"
+                    placeholder="Author"
                     ref={register({ required: true })}
                     isDisabled={isSubmitSuccessful}
                   />
@@ -93,7 +96,6 @@ const BookSuggestion = () => {
                     type="submit"
                     w="100%"
                     isLoading={isSubmitting}
-                    isDisabled
                   >
                     Send suggestion
                   </Button>

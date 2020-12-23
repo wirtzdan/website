@@ -30,12 +30,16 @@
     "remark-autolink-headings": "^6.0.1",
     "remark-code-titles": "^0.1.1",
     "remark-slug": "^6.0.0",
+    "sharp": "^0.27.0",
+    "sort-isostring": "^1.0.0",
     "swr": "^0.3.11",
+    "timeago.js": "^4.0.2",
     "use-sound": "^2.0.1"
   },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next dev"
+    "start": "next dev",
+    "inspect": "NODE_OPTIONS='--inspect' next dev"
   }
 }

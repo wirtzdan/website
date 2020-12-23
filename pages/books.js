@@ -44,6 +44,7 @@ import BookCard from "@/components/book-card";
 import { usePagination } from "react-use-pagination";
 import BookSuggestion from "@/components/book-suggestion";
 import { BookOpen, Heart } from "heroicons-react";
+import sorter from "sort-isostring";
 
 const Books = ({ books }) => {
   const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
@@ -75,8 +76,11 @@ const Books = ({ books }) => {
               maxW="lg"
               textAlign="center"
             >
-              Welcome to my book corner. At the moment I'm reading{" "}
-              <Link href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1">
+              Welcome to my book corner. Currently on my nightstand:{" "}
+              <Link
+                href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1"
+                textDecoration="underline"
+              >
                 Why Fish Don't Exist
               </Link>{" "}
               by Lulu Miller.
@@ -125,6 +129,9 @@ const Books = ({ books }) => {
                 <SimpleGrid columns={[1, 2]} spacingY={8} spacingX={4} mt={8}>
                   {books
                     .filter((b) => b.fields.Read === true)
+                    .sort((x, y) =>
+                      sorter(y.fields["Date Read"], x.fields["Date Read"])
+                    )
                     .map((book) => (
                       <BookCard
                         key={book.id}
@@ -133,6 +140,7 @@ const Books = ({ books }) => {
                         rating={book.fields.Rating}
                         isFavorite={book.fields.Favorite}
                         cover={book.fields.Cover}
+                        dateRead={book.fields["Date Read"]}
                       />
                     ))}
                 </SimpleGrid>
@@ -141,6 +149,9 @@ const Books = ({ books }) => {
                 <SimpleGrid columns={[1, 2]} spacingY={8} spacingX={4} mt={8}>
                   {books
                     .filter((b) => b.fields.Favorite == true)
+                    .sort((x, y) =>
+                      sorter(y.fields["Date Read"], x.fields["Date Read"])
+                    )
                     .map((book) => (
                       <BookCard
                         key={book.id}
@@ -149,6 +160,7 @@ const Books = ({ books }) => {
                         rating={book.fields.Rating}
                         isFavorite={book.fields.Favorite}
                         cover={book.fields.Cover}
+                        dateRead={book.fields["Date Read"]}
                       />
                     ))}
                 </SimpleGrid>

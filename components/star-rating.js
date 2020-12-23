@@ -6,7 +6,7 @@ const StarRating = ({ rating }) => {
   const [stars] = useState(rating);
 
   return (
-    <HStack spacing={0} align="center" ml={-1}>
+    <HStack spacing={0} align="center">
       {/* <Icon
         w={[2, 4]}
         height={[2, 4]}
