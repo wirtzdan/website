@@ -1,13 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
-import Head from "next/head";
+import React from "react";
 import {
   chakra,
   Icon,
-  Button,
   VStack,
   HStack,
   Text,
-  IconButton,
   Heading,
   Tabs,
   TabList,
@@ -15,34 +12,15 @@ import {
   Tab,
   TabPanel,
   useColorModeValue,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useDisclosure,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-  Input,
-  Textarea,
-  Box,
   SimpleGrid,
   useTab,
   useStyles,
   Link,
-  Skeleton,
 } from "@chakra-ui/react";
-import Container from "../components/container";
 import PageTransition from "../components/page-transitions";
 import { getBooks } from "@/lib/airtable";
 import Section from "@/components/section";
-import Image from "next/image";
 import BookCard from "@/components/book-card";
-import usePagination from "lib/usePagination.js";
 
 import BookSuggestion from "@/components/book-suggestion";
 import { BookOpen, Heart } from "heroicons-react";
@@ -50,21 +28,6 @@ import sorter from "sort-isostring";
 
 const Books = ({ books }) => {
   const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
-
-  const CustomTab = React.forwardRef((props, ref) => {
-    // 2. Reuse the `useTab` hook
-    const tabProps = useTab(props);
-    const isSelected = !!tabProps["aria-selected"];
-
-    // 3. Hook into the Tabs `size`, `variant`, props
-    const styles = useStyles();
-
-    return (
-      <StyledTab __css={styles.tab} {...tabProps}>
-        {tabProps.children}
-      </StyledTab>
-    );
-  });
 
   return (
     <PageTransition>
@@ -78,11 +41,8 @@ const Books = ({ books }) => {
               maxW="lg"
               textAlign="center"
             >
-              Welcome to my book corner. Currently on my nightstand:{" "}
-              <Link
-                href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1"
-                textDecoration="underline"
-              >
+              Welcome to my book corner. I'm currently reading{" "}
+              <Link href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1">
                 Why Fish Don't Exist
               </Link>{" "}
               by Lulu Miller.
