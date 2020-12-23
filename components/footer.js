@@ -27,7 +27,7 @@ const Footer = () => {
       >
         <Text>© {date} Daniel Wirtz </Text>
         <HStack spacing={4}>
-          <FooterLink href="/imprint" name="Imprint" />
+          <FooterLink href="/disclaimer" name="Disclaimer" />
           <FooterLink href="/privacy" name="Privacy" />
         </HStack>
       </HStack>
