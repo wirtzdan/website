@@ -19,7 +19,8 @@ const BlogPost = ({ title, summary, slug, lastUpdated }) => {
           p={4}
           bg={useColorModeValue("white", "gray.800")}
           rounded="xl"
-          shadow="xs"
+          borderWidth="1px"
+          borderColor={useColorModeValue("gray.100", "gray.700")}
           spacing={0}
         >
           <Text
@@ -32,7 +33,7 @@ const BlogPost = ({ title, summary, slug, lastUpdated }) => {
           <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.50")}>
             {summary}
           </Text>
-          <Text fontSize="md" color={useColorModeValue("gray.500", "gray.400")}>
+          <Text fontSize="xs" color={useColorModeValue("gray.500", "gray.400")}>
             Updated {format(lastUpdated)}
           </Text>
         </VStack>
