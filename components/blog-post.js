@@ -6,12 +6,19 @@ import { Box, VStack, Text, useColorModeValue } from "@chakra-ui/react";
 const BlogPost = ({ title, summary, slug, lastUpdated }) => {
   return (
     <Link href={`/blog/${slug}`}>
-      <Box as="a" cursor="pointer" w="100%">
+      <Box
+        as="a"
+        cursor="pointer"
+        w="100%"
+        transition="all 0.25s"
+        transition-timing-function="spring(1 100 10 10)"
+        _hover={{ transform: "translateY(-4px)", shadow: "sm" }}
+      >
         <VStack
           align="start"
           p={4}
           bg={useColorModeValue("white", "gray.800")}
-          rounded="md"
+          rounded="xl"
           shadow="xs"
           spacing={0}
         >

@@ -29,7 +29,7 @@ const BookCard = ({ title, author, rating, isFavorite, cover, dateRead }) => {
       <HStack
         p={4}
         bg={useColorModeValue("white", "gray.800")}
-        rounded="md"
+        rounded="xl"
         borderWidth="1px"
         borderColor={useColorModeValue("gray.100", "gray.700")}
         w="100%"

@@ -16,7 +16,7 @@ import InterestTag from "@/components/interest-tag";
 
 const About = () => (
   <PageTransition>
-    <VStack spacing={8} py={16}>
+    <VStack spacing={8} pt={16} pb={{ base: 24, md: 16 }}>
       <Section>
         <VStack align="start">
           <Heading as="h1">About</Heading>

@@ -20,6 +20,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { Mail } from "heroicons-react";
 // import { sendSuggestion } from "@/lib/airtable";
 
 const BookSuggestion = () => {
@@ -58,6 +59,7 @@ const BookSuggestion = () => {
                     placeholder="Title"
                     ref={register({ required: true })}
                     isDisabled={isSubmitSuccessful}
+                    rounded="lg"
                   />
                   {errors.title && (
                     <FormErrorMessage>"Title is required"</FormErrorMessage>
@@ -70,6 +72,7 @@ const BookSuggestion = () => {
                     placeholder="Author"
                     ref={register({ required: true })}
                     isDisabled={isSubmitSuccessful}
+                    rounded="lg"
                   />
                   {errors.author && (
                     <FormErrorMessage>"Author is required"</FormErrorMessage>
@@ -82,10 +85,11 @@ const BookSuggestion = () => {
                     placeholder="Write a message..."
                     ref={register}
                     isDisabled={isSubmitSuccessful}
+                    rounded="lg"
                   />
                 </FormControl>
                 {isSubmitSuccessful ? (
-                  <Alert status="success" rounded="md">
+                  <Alert status="success" rounded="xl">
                     <AlertIcon />
                     Thanks for the suggestion!
                   </Alert>
@@ -96,6 +100,7 @@ const BookSuggestion = () => {
                     type="submit"
                     w="100%"
                     isLoading={isSubmitting}
+                    leftIcon={<Mail size={18} />}
                   >
                     Send suggestion
                   </Button>

@@ -41,9 +41,25 @@ const customTheme = extendTheme({
         fontWeight: "500",
       }),
     },
+    DraweeContent: {
+      baseStyle: {
+        bg: "green.300",
+      },
+    },
     Button: {
       baseStyle: {
         fontWeight: "500",
+        rounded: "xl",
+      },
+    },
+    Tag: {
+      baseStyle: {
+        rounded: "lg",
+      },
+    },
+    textarea: {
+      baseStyle: {
+        background: "green.300",
       },
     },
     Link: {

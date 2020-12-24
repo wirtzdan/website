@@ -70,6 +70,7 @@ const NewsletterDrawer = ({ mobile }) => {
                       placeholder="Name"
                       ref={register({ required: true })}
                       isDisabled={isSubmitSuccessful}
+                      rounded="lg"
                     />
                     {errors.title && (
                       <FormErrorMessage>
@@ -85,6 +86,7 @@ const NewsletterDrawer = ({ mobile }) => {
                       type="email"
                       ref={register({ required: true })}
                       isDisabled={isSubmitSuccessful}
+                      rounded="lg"
                     />
                     {errors.author && (
                       <FormErrorMessage>"E-Mail is required"</FormErrorMessage>
@@ -103,7 +105,9 @@ const NewsletterDrawer = ({ mobile }) => {
                       type="submit"
                       w="100%"
                       isLoading={isSubmitting}
+                      leftIcon={<Mail size={18} />}
                       isDisabled
+                      rounded="xl"
                     >
                       Subscribe
                     </Button>
