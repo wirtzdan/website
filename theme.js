@@ -63,13 +63,20 @@ const customTheme = extendTheme({
       },
     },
     Link: {
-      baseStyle: (props) => ({
-        color: mode("blue.500", "blue.200")(props),
-        transition: "color 0.15s",
-        transitionTimingFunction: "ease-out",
-        fontWeight: "500",
+      baseStyle: {
         _hover: {
-          color: mode("blue.600", "blue.300")(props),
+          textDecoration: "none",
+        },
+      },
+      variants: (props) => ({
+        text: {
+          color: mode("blue.500", "blue.200")(props),
+          transition: "color 0.15s",
+          transitionTimingFunction: "ease-out",
+          fontWeight: "500",
+          _hover: {
+            color: mode("blue.600", "blue.300")(props),
+          },
         },
       }),
     },

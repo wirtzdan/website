@@ -63,6 +63,7 @@ const MobileMenuToggle = ({ mobile }) => {
                 <MobileMenuItem href="/about" title="About" />
                 <MobileMenuItem href="/blog" title="Blog" />
                 <MobileMenuItem href="/books" title="Books" />
+                <MobileMenuItem href="/bookmarks" title="Booksmarks" />
               </VStack>
             </DrawerBody>
           </DrawerContent>

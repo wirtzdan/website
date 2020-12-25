@@ -14,10 +14,6 @@ const getParams = (className = ``) => {
 };
 
 const SyntaxHiglight = (props) => {
-  console.log(
-    "🚀 ~ file: codeblock.js ~ line 17 ~ SyntaxHiglight ~ props",
-    props
-  );
   const className = props.children.props.className || "";
   const [language, { title = `` }] = getParams(className);
   return (

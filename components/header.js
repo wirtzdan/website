@@ -118,17 +118,18 @@ const Header = () => {
                       </HStack>
                     </MenuItem>
                   </Link>
-
-                  <MenuItem isDisabled>
-                    <HStack>
-                      <Icon
-                        as={Bookmark}
-                        size={18}
-                        color={useColorModeValue("blue.500", "blue.200")}
-                      />
-                      <Text>Bookmarks</Text>
-                    </HStack>
-                  </MenuItem>
+                  <Link href="/books">
+                    <MenuItem>
+                      <HStack>
+                        <Icon
+                          as={Bookmark}
+                          size={18}
+                          color={useColorModeValue("blue.500", "blue.200")}
+                        />
+                        <Text>Bookmarks</Text>
+                      </HStack>
+                    </MenuItem>
+                  </Link>
                 </MenuList>
               </Menu>
             </HStack>
