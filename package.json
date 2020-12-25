@@ -25,6 +25,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hook-form": "^6.13.1",
+    "react-player": "^2.7.2",
     "react-tweet-embed": "^1.2.2",
     "reading-time": "^1.2.1",
     "rehype": "^11.0.0",
@@ -41,6 +42,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next dev",
-    "inspect": "NODE_OPTIONS='--inspect' next dev"
+    "inspect": "NODE_OPTIONS='--inspect' next dev -p 5000"
   }
 }

@@ -41,11 +41,7 @@ const Books = ({ books }) => {
               maxW="lg"
               textAlign="center"
             >
-              Welcome to my book corner. I'm currently reading{" "}
-              <Link href="https://www.goodreads.com/book/show/50887097-why-fish-don-t-exist?ac=1&from_search=true&qid=oPyyw1DpGs&rank=1">
-                Why Fish Don't Exist
-              </Link>{" "}
-              by Lulu Miller.
+              Welcome to my book corner. Here I track my last books and reviews.
             </Text>
             <BookSuggestion />
           </VStack>
