@@ -118,7 +118,7 @@ const Header = () => {
                       </HStack>
                     </MenuItem>
                   </Link>
-                  <Link href="/books">
+                  <Link href="/bookmarks">
                     <MenuItem>
                       <HStack>
                         <Icon
