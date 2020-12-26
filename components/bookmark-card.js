@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import ReactPlayer from "react-player/lazy";
-import { Play } from "heroicons-react";
+import { LinkOutline, Play } from "heroicons-react";
 
 const BookmarkCard = (props) => {
   const { title, excerpt, cover, type, link, created } = props;
@@ -31,11 +31,12 @@ const BookmarkCard = (props) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
-    if (type == "link") {
-      window.open(link);
-    } else {
-      onOpen();
-    }
+    window.open(link);
+    // if (type == "link" || type == "article") {
+    //   window.open(link);
+    // } else {
+    //   onOpen();
+    // }
   };
 
   return (
@@ -72,20 +73,20 @@ const BookmarkCard = (props) => {
           >
             <Image src={cover} fallback={<Skeleton />} objectFit="cover" />
           </AspectRatio>
-          <Center
+          {/* <Center
             position="absolute"
             top="0"
             bottom="0"
             left="0"
             right="0"
+            bg="rgb(0,0,0)"
+            bg="linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.35) 100%)"
             transition="all 0.6s"
             transition-timing-function="spring(1 100 10 10)"
-            opacity={type == "video" && isHovered ? "1" : "0"}
+            opacity={isHovered ? "1" : "0"}
           >
-            <Fade in>
-              <Icon as={Play} w={12} h={12} color="white" />
-            </Fade>
-          </Center>
+            <Icon as={Play} w={12} h={12} color="white" />
+          </Center> */}
         </Box>
 
         <VStack py={2} px={4} spacing={0} align="start">
