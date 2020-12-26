@@ -53,6 +53,7 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.local
 
 # gatsby files
 .cache/
@@ -65,5 +66,10 @@ public
 yarn-error.log
 .pnp/
 .pnp.js
+
 # Yarn Integrity file
 .yarn-integrity
+
+# next.js
+/.next/
+/out/
