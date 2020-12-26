@@ -42,9 +42,9 @@ const BookmarkCard = (props) => {
   return (
     <Box
       onClick={handleClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      cursor={type == "image" ? "zoom-in" : "pointer"}
+      // onMouseEnter={() => setIsHovered(true)}
+      // onMouseLeave={() => setIsHovered(false)}
+      cursor="pointer"
     >
       <VStack
         w="100%"
