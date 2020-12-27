@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import NextImage from "next/image";
 import Tweet from "react-tweet-embed";
 // import Codeblock from "@/components/codeblock";
 import {
@@ -55,6 +55,14 @@ const CustomLink = (props) => {
   }
 
   return <a target="_blank" rel="noopener noreferrer" {...props} />;
+};
+
+const Image = (props) => {
+  return (
+    <Box mt={4} rounded="lg" shadow="sm" overflow="hidden" lineHeight={0}>
+      <NextImage {...props} />
+    </Box>
+  );
 };
 
 const InlineCode = (props) => (
