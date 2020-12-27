@@ -11,7 +11,7 @@ import { Heading } from "@chakra-ui/react";
 
 export default function BlogLayout({ children, frontMatter }) {
   return (
-    <Section py={16}>
+    <Section pt={16} pb={{ base: 24, md: 16 }}>
       {/* <BlogSeo
         url={`https://leerob.io/blog/${frontMatter.slug}`}
         {...frontMatter}
