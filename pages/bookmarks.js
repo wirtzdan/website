@@ -16,7 +16,7 @@ import BookmarkCard from "../components/bookmark-card";
 const Bookmarks = ({ bookmarks }) => {
   return (
     <PageTransition>
-      <VStack spacing={8} py={16} pb={{ base: 24, md: 16 }}>
+      <VStack spacing={8}>
         <Section>
           <VStack>
             <Heading as="h1">Bookmarks</Heading>

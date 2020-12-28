@@ -67,38 +67,6 @@ const MobileNavigation = () => {
       left="0"
       display={{ base: "block", md: "none" }}
     >
-      {/* <Center
-        position="fixed"
-        top={0}
-        left={0}
-        right={0}
-        bottom={16}
-        display={isOpen ? "flex" : "none"}
-      >
-        <MotionBox
-          variants={menuvariants}
-          position="relative"
-          alignItems="center"
-          justifyContent="center"
-          flexDirection="column"
-          w="100%"
-          h="100%"
-          bg={useColorModeValue("gray.100", "gray.700")}
-          p={4}
-          display={isOpen ? "flex" : "none"}
-        >
-          <MotionVStack variants={navvariants} spacing={4}>
-            {links.map((link) => (
-              <MobileMenuItem
-                key={link.title}
-                href={link.route}
-                title={link.title}
-                toggle={() => toggleOpen()}
-              ></MobileMenuItem>
-            ))}
-          </MotionVStack>
-        </MotionBox>
-      </Center> */}
       <HStack
         justify="space-around"
         align="center"
@@ -106,9 +74,9 @@ const MobileNavigation = () => {
         mt="auto"
         height={16}
         bg={useColorModeValue("white", "gray.800")}
-        borderTopWidth="1px"
-        shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
+        borderTopWidth="2px"
         borderTopColor={useColorModeValue("gray.100", "gray.700")}
+        shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
       >
         <NewsletterDrawer mobile />
         <MenuToggle toggle={() => toggleOpen()} />

@@ -15,9 +15,9 @@ import Section from "@/components/section";
 import { TwitterLogo } from "phosphor-react";
 
 const Home = () => (
-  <Box flexGrow="1">
+  <Box>
     <PageTransition>
-      <Section py={16} pb={{ base: 32, md: 16 }}>
+      <Section>
         <VStack spacing={2} align={["start", "center"]}>
           <Text fontSize="3xl">Hey, I'm Daniel 👋</Text>
           <Text

@@ -3,7 +3,7 @@ import Section from "@/components/section";
 
 export default function LegalLayout({ children }) {
   return (
-    <Section pt={16} pb={{ base: 24, md: 16 }}>
+    <Section>
       <div>{children}</div>
     </Section>
   );

@@ -73,8 +73,14 @@ const Header = () => {
     <Box
       bg={useColorModeValue("white", "gray.800")}
       display={{ base: "none", md: "block" }}
+      position="fixed"
+      w="100%"
+      zIndex={99}
+      borderBottomWidth="2px"
+      borderBottomColor={useColorModeValue("gray.100", "gray.700")}
+      shadow="0 0 10px 0 rgba(0,0,0, 0.035);"
     >
-      <Container py={2}>
+      <Container>
         <VStack align="start" spacing={0}>
           {/* <NextLink href="/" passHref>
             <chakra.a display="block" aria-label="Home">
@@ -83,7 +89,7 @@ const Header = () => {
               </Text>
             </chakra.a>
           </NextLink> */}
-          <HStack justify="space-between" w="100%">
+          <HStack justify="space-between" w="100%" h={16}>
             <Link href="/">
               <Avatar
                 name="Daniel Wirtz"
@@ -139,7 +145,6 @@ const Header = () => {
           </HStack>
         </VStack>
       </Container>
-      <Divider />
     </Box>
   );
 };

@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React from "react";
-import { ChakraProvider } from "@chakra-ui/react";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import customTheme from "theme";
 import FontFace from "components/font-face";
 import { DefaultSeo } from "next-seo";
@@ -33,9 +33,9 @@ const App = ({ Component, pageProps }) => {
             </Head>
             <DefaultSeo {...SEO} />
             <Header />
-            <main>
+            <Box as="main" pt={{ base: 16, md: 32 }} pb={{ base: 24, md: 16 }}>
               <Component {...pageProps} />
-            </main>
+            </Box>
             <MobileNavigation />
             <Footer />
           </MDXCompProvider>
