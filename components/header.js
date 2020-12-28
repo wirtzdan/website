@@ -31,9 +31,11 @@ import {
   BookOpen,
   ChevronDown,
   ChevronDownOutline,
+  LightningBolt,
   Menu as MenuIcon,
 } from "heroicons-react";
 import Link from "next/link";
+import AvatarNavigation from "./avatar-navigation";
 
 function NavLink(props) {
   const { href, name, ...rest } = props;
@@ -90,14 +92,7 @@ const Header = () => {
             </chakra.a>
           </NextLink> */}
           <HStack justify="space-between" w="100%" h={16}>
-            <Link href="/">
-              <Avatar
-                name="Daniel Wirtz"
-                size="sm"
-                src="/avatar-small.jpg"
-                cursor="pointer"
-              />
-            </Link>
+            <AvatarNavigation />
             <HStack ml={-4} spacing={2}>
               <NavLink href="/about" name="About" />
               <NavLink href="/blog" name="Blog" />
@@ -133,6 +128,18 @@ const Header = () => {
                           color={useColorModeValue("blue.500", "blue.200")}
                         />
                         <Text>Bookmarks</Text>
+                      </HStack>
+                    </MenuItem>
+                  </Link>
+                  <Link href="/tools">
+                    <MenuItem>
+                      <HStack>
+                        <Icon
+                          as={LightningBolt}
+                          size={18}
+                          color={useColorModeValue("blue.500", "blue.200")}
+                        />
+                        <Text>Tools</Text>
                       </HStack>
                     </MenuItem>
                   </Link>
