@@ -93,8 +93,7 @@ const Tools = ({ tools }) => {
                 }}
                 mr={2}
                 mt={2}
-                isDisabled
-                opacity={0.5}
+                s
               >
                 <HStack spacing={1}>
                   <Icon as={Chrome} weight="fill" />
@@ -110,8 +109,6 @@ const Tools = ({ tools }) => {
                 }}
                 mr={2}
                 mt={2}
-                isDisabled
-                opacity={0.5}
               >
                 <HStack spacing={1}>
                   <Icon as={DesktopComputer} />
@@ -142,6 +139,42 @@ const Tools = ({ tools }) => {
                 <SimpleGrid columns={[1, 2]} spacing={4} mt={8}>
                   {tools
                     .filter((t) => t.fields.Platform === "Android")
+                    .sort((x, y) => sorter(y.fields.ID, x.fields.ID))
+                    .map((tool) => (
+                      <ToolCard
+                        key={tool.id}
+                        name={tool.fields.Name}
+                        description={tool.fields.Description}
+                        image={tool.fields.Image}
+                        platform={tool.fields.Platform}
+                        isAffiliate={tool.fields.Affiliate}
+                        link={tool.fields.Link}
+                      />
+                    ))}
+                </SimpleGrid>
+              </TabPanel>
+              <TabPanel px={0}>
+                <SimpleGrid columns={[1, 2]} spacing={4} mt={8}>
+                  {tools
+                    .filter((t) => t.fields.Platform === "Chrome")
+                    .sort((x, y) => sorter(y.fields.ID, x.fields.ID))
+                    .map((tool) => (
+                      <ToolCard
+                        key={tool.id}
+                        name={tool.fields.Name}
+                        description={tool.fields.Description}
+                        image={tool.fields.Image}
+                        platform={tool.fields.Platform}
+                        isAffiliate={tool.fields.Affiliate}
+                        link={tool.fields.Link}
+                      />
+                    ))}
+                </SimpleGrid>
+              </TabPanel>
+              <TabPanel px={0}>
+                <SimpleGrid columns={[1, 2]} spacing={4} mt={8}>
+                  {tools
+                    .filter((t) => t.fields.Platform === "Web")
                     .sort((x, y) => sorter(y.fields.ID, x.fields.ID))
                     .map((tool) => (
                       <ToolCard
