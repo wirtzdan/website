@@ -64,6 +64,7 @@ const customTheme = extendTheme({
     },
     Link: {
       baseStyle: {
+        fontWeight: "inherit",
         _hover: {
           textDecoration: "none",
         },
