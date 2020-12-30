@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { NextSeo } from "next-seo";
-import { Center, Heading } from "@chakra-ui/react";
+import { Center, Heading, VStack, Text } from "@chakra-ui/react";
 import Container from "@/components/container";
 
 export default function NotFound() {
@@ -15,8 +15,11 @@ export default function NotFound() {
             title: "404 – Daniel Wirtz",
           }}
         />
-        <Heading>404</Heading>
-        <Link href="/">Return Home</Link>
+        <VStack>
+          <Heading size="3xl">404</Heading>
+          <Text mb={8}>Page not found</Text>
+          <Link href="/">Return home</Link>
+        </VStack>
       </Center>
     </Container>
   );
