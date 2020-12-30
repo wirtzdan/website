@@ -17,7 +17,7 @@ import {
   Wrap,
 } from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
-import { getTools } from "@/lib/airtable";
+import { getTable } from "@/lib/airtable";
 import Section from "@/components/section";
 import BookCard from "@/components/book-card";
 
@@ -198,7 +198,7 @@ const Tools = ({ tools }) => {
 };
 
 export async function getStaticProps() {
-  const tools = await getTools();
+  const tools = await getTable("Tools");
 
   return {
     props: {
