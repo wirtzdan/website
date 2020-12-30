@@ -34,7 +34,7 @@ const BlogCard = ({ title, summary, slug, publishedAt }) => {
             {summary}
           </Text>
           <Text fontSize="xs" color={useColorModeValue("gray.500", "gray.400")}>
-            Updated {format(publishedAt)}
+            {format(publishedAt)}
           </Text>
         </VStack>
       </Box>
