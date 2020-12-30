@@ -3,7 +3,7 @@ import Link from "next/link";
 import { format } from "timeago.js";
 
 import { Box, VStack, Text, useColorModeValue } from "@chakra-ui/react";
-const BlogPost = ({ title, summary, slug, lastUpdated }) => {
+const BlogCard = ({ title, summary, slug, publishedAt }) => {
   return (
     <Link href={`/blog/${slug}`}>
       <Box
@@ -34,7 +34,7 @@ const BlogPost = ({ title, summary, slug, lastUpdated }) => {
             {summary}
           </Text>
           <Text fontSize="xs" color={useColorModeValue("gray.500", "gray.400")}>
-            Updated {format(lastUpdated)}
+            Updated {format(publishedAt)}
           </Text>
         </VStack>
       </Box>
@@ -42,4 +42,4 @@ const BlogPost = ({ title, summary, slug, lastUpdated }) => {
   );
 };
 
-export default BlogPost;
+export default BlogCard;
