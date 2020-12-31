@@ -1,6 +1,5 @@
 const title = "Daniel Wirtz";
-const description =
-  "Designer and Co-Founder of Crisp Studio. I grew up in Germany and now live in Utrecht, the Netherlands.";
+const description = "Designer, developer and maker of things. ";
 
 const SEO = {
   title,
@@ -16,8 +15,8 @@ const SEO = {
       {
         url: "https://danielwirtz.com/static/images/banner.jpg",
         alt: title,
-        width: 1280,
-        height: 720,
+        width: 2240,
+        height: 1260,
       },
     ],
   },
