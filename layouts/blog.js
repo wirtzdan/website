@@ -29,25 +29,4 @@ class BlogLayout extends React.Component {
   }
 }
 
-// export default function BlogLayout({ children, frontMatter }) {
-//   const target = React.createRef();
-//   console.log("🚀 ~ file: blog.js ~ line 15 ~ BlogLayout ~ target", target);
-
-//   return (
-//     <>
-//       <Section pt={16} pb={{ base: 24, md: 16 }}>
-//         {/* <BlogSeo
-//         url={`https://leerob.io/blog/${frontMatter.slug}`}
-//         {...frontMatter}
-//       /> */}
-//         <article>
-//           <Heading as="h1">{frontMatter.title}</Heading>
-//           <div>{children}</div>
-//         </article>
-//       </Section>
-//       <ReadingProgress target={target} />
-//     </>
-//   );
-// }
-
 export default BlogLayout;
