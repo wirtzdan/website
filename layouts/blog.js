@@ -8,11 +8,16 @@ class BlogLayout extends React.Component {
   render() {
     const target = React.createRef();
 
+    console.log(
+      "🚀 ~ file: blog.js ~ line 20 ~ BlogLayout ~ render ~ this.props",
+      this.props
+    );
+
     return (
       <>
         <Section>
           <BlogSeo
-            url={`https://danielwirtz/blog/${this.props.slug}`}
+            url={`https://danielwirtz/blog/${this.props.frontMatter.slug}`}
             {...this.props.frontMatter}
           />
           <article ref={target}>

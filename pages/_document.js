@@ -34,11 +34,6 @@ class MyDocument extends Document {
             sizes="16x16"
             type="image/png"
           />
-          <link
-            color="#3182CE"
-            href="/static/favicons/safari-pinned-tab.svg"
-            rel="mask-icon"
-          />
           <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
           <meta content="#3182CE" name="theme-color" />
           <meta content="#3182CE" name="msapplication-TileColor" />
