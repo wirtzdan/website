@@ -114,15 +114,6 @@ const customTheme = extendTheme({
       fontWeight: "semibold",
       fontSize: "1.125rem",
     },
-    a: (props) => ({
-      color: mode("blue.500", "blue.200")(props),
-      transition: "color 0.15s",
-      fontWeight: "500",
-      transitionTimingFunction: "ease-out",
-      _hover: {
-        color: mode("blue.600", "blue.300")(props),
-      },
-    }),
     p: {
       mt: "1.25rem",
       lineHeight: 1.7,

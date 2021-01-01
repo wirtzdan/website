@@ -11,6 +11,7 @@ import {
   Kbd,
   useColorMode,
   useColorModeValue,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 const Table = (props) => (
@@ -46,15 +47,13 @@ const CustomLink = (props) => {
 
   if (isInternalLink) {
     return (
-      <Box color={useColorMode("blue.500", "blue.200")}>
-        <Link href={href}>
-          <a apply="mdx.a" {...props} />
-        </Link>
-      </Box>
+      <Link href={href}>
+        <a apply="mdx.a" {...props} />
+      </Link>
     );
+  } else {
+    return <a apply="mdx.a" {...props} />;
   }
-
-  return <a target="_blank" rel="noopener noreferrer" {...props} />;
 };
 
 const Image = (props) => {
@@ -92,6 +91,12 @@ const CustomFigure = (props) => {
   <Text></Text>;
 };
 
+const Embed = (props) => (
+  <Box my={4} rounded="lg" shadow="sm" overflow="hidden">
+    <iframe {...props}></iframe>
+  </Box>
+);
+
 // const Pre = (props) => <chakra.div my="2em" borderRadius="sm" {...props} />;
 
 const MDXComponents = {
@@ -124,14 +129,15 @@ const MDXComponents = {
   th: THead,
   td: TData,
   br: (props) => <Box height="24px" {...props} />,
-  a: (props) => <chakra.a apply="mdx.a" {...props} />,
+  // a: (props) => <chakra.a apply="mdx.a" {...props} />,
   p: (props) => <chakra.p apply="mdx.p" {...props} />,
   ul: (props) => <chakra.ul apply="mdx.ul" {...props} />,
   ol: (props) => <chakra.ol apply="mdx.ul" {...props} />,
   li: (props) => <chakra.li pb="4px" {...props} />,
   Image,
-  // a: CustomLink,
+  a: CustomLink,
   Tweet,
+  Embed,
 };
 
 export default MDXComponents;
