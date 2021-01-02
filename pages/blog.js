@@ -15,6 +15,7 @@ import Section from "@/components/section";
 import BlogCard from "@/components/blog-card";
 import { getAllFilesFrontMatter } from "@/lib/mdx";
 import sorter from "sort-isostring";
+import NewsletterDrawer from "@/components/newsletter-drawer";
 
 export default function Blog({ posts }) {
   const filteredBlogPosts = posts.sort(
@@ -39,6 +40,7 @@ export default function Blog({ posts }) {
               Welcome to my blog. Here I share some of my thinking, insights and
               views on life.
             </Text>
+            <NewsletterDrawer placement="blog" />
           </VStack>
 
           {!filteredBlogPosts.length && "No posts found."}
