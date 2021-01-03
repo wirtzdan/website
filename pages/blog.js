@@ -59,7 +59,6 @@ export default function Blog({ posts }) {
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter("blog");
   const rss = generateRss(posts);
-  console.log("🚀 ~ file: blog.js ~ line 62 ~ getStaticProps ~ rss", rss);
 
   fs.writeFileSync("./public/rss.xml", rss);
 
