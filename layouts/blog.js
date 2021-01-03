@@ -29,22 +29,23 @@ class BlogLayout extends React.Component {
           />
           <article ref={target}>
             <VStack w="100%" align="left" spacing={6}>
-              <Box
-                mt={4}
-                rounded="lg"
-                shadow="md"
-                overflow="hidden"
-                lineHeight={0}
-              >
-                {" "}
-                <Image
-                  alt={this.props.frontMatter.title}
-                  src={this.props.frontMatter.image}
-                  width={2240}
-                  height={1260}
-                />
-              </Box>
-
+              {this.props.frontMatter.showImage ? (
+                <Box
+                  mt={4}
+                  rounded="lg"
+                  shadow="md"
+                  overflow="hidden"
+                  lineHeight={0}
+                >
+                  {" "}
+                  <Image
+                    alt={this.props.frontMatter.title}
+                    src={this.props.frontMatter.image}
+                    width={2240}
+                    height={1260}
+                  />
+                </Box>
+              ) : undefined}
               <VStack align="stretch" spacing={4}>
                 <Heading as="h1">{this.props.frontMatter.title}</Heading>
                 <AuthorCard
