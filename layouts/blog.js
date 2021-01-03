@@ -8,22 +8,17 @@ import {
   Box,
   Button,
   Link,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import ReadingProgress from "@/components/reading-progress";
 import BlogSeo from "@/components/blog-seo";
+import TwitterCard from "@/components/twitter-card";
 import AuthorCard from "@/components/author-card";
 import Image from "next/image";
-import { TwitterLogo } from "phosphor-react";
-import { ArrowNarrowRight } from "heroicons-react";
 
 class BlogLayout extends React.Component {
   render() {
     const target = React.createRef();
-
-    const discussUrl = (slug) =>
-      `https://mobile.twitter.com/search?q=${encodeURIComponent(
-        `https://danielwirtz.com/blog/${slug}`
-      )}`;
 
     return (
       <>
@@ -64,15 +59,10 @@ class BlogLayout extends React.Component {
             </VStack>
             <div>{this.props.children}</div>
           </article>
-          <Link href={discussUrl(this.props.frontMatter.slug)} isExternal>
-            <Button
-              leftIcon={<TwitterLogo weight="fill" />}
-              colorScheme="blue"
-              mt={6}
-            >
-              Discuss on Twitter
-            </Button>
-          </Link>
+          <TwitterCard
+            title={this.props.frontMatter.title}
+            slug={this.props.frontMatter.slug}
+          />
           <div ref={(el) => (this.div = el)}></div>
         </Section>
         <ReadingProgress target={target} />
