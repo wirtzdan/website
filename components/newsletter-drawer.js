@@ -17,10 +17,12 @@ import {
   Tooltip,
   Collapse,
   Text,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { Rss } from "heroicons-react";
 import { useForm } from "react-hook-form";
 import MobileMenuButton from "./mobile-menu-button";
+import Link from "next/link";
 
 const NewsletterDrawer = ({ mobile, placement }) => {
   const [isSuccessful, setIsSuccessful] = useState(undefined);
@@ -92,8 +94,9 @@ const NewsletterDrawer = ({ mobile, placement }) => {
             <DrawerBody pb={4}>
               <VStack align="stretch" spacing={4}>
                 <Text>
-                  My way of sharing what I think, write and learn with a small
-                  group of interesting people. Straight from my desk to yours.
+                  Want to stay in loop on new articles and projects? Then drop
+                  your email below. Alternatively, you can{" "}
+                  <Link href="/rss.xml">subscribe with RSS</Link>.
                 </Text>
                 <form onSubmit={handleSubmit(onSubmit, onError)}>
                   <VStack spacing={4}>
@@ -107,6 +110,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
                         isLoading={isSubmitSuccessful}
                         rounded="lg"
                       />
+                      <FormHelperText>Send max. once per month</FormHelperText>
                       {errors.author && (
                         <FormErrorMessage>
                           "E-Mail is required"
@@ -129,7 +133,8 @@ const NewsletterDrawer = ({ mobile, placement }) => {
                     <Collapse in={isSuccessful} animateOpacity>
                       <Alert borderRadius="md" status="success">
                         <AlertIcon />
-                        Success! You are added to the list.
+                        Success! Now check your email to confirm your
+                        subscription.
                       </Alert>
                     </Collapse>
                   </VStack>
