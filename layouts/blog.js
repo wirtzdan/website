@@ -73,7 +73,6 @@ class BlogLayout extends React.Component {
               Discuss on Twitter
             </Button>
           </Link>
-
           <div ref={(el) => (this.div = el)}></div>
         </Section>
         <ReadingProgress target={target} />

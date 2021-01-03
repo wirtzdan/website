@@ -1,5 +1,6 @@
 import React from "react";
 import Head from "next/head";
+import fs from "fs";
 import {
   Button,
   VStack,
@@ -16,14 +17,12 @@ import BlogCard from "@/components/blog-card";
 import { getAllFilesFrontMatter } from "@/lib/mdx";
 import sorter from "sort-isostring";
 import NewsletterDrawer from "@/components/newsletter-drawer";
+import generateRss from "@/lib/rss";
 
 export default function Blog({ posts }) {
   const filteredBlogPosts = posts.sort(
     (a, b) => Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
   );
-  // .filter((frontMatter) =>
-  //   frontMatter.title.toLowerCase().includes(searchValue.toLowerCase())
-  // );
 
   return (
     <PageTransition>
@@ -59,6 +58,10 @@ export default function Blog({ posts }) {
 
 export async function getStaticProps() {
   const posts = await getAllFilesFrontMatter("blog");
+  const rss = generateRss(posts);
+  console.log("🚀 ~ file: blog.js ~ line 62 ~ getStaticProps ~ rss", rss);
+
+  fs.writeFileSync("./public/rss.xml", rss);
 
   return { props: { posts } };
 }
