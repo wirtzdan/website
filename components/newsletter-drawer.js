@@ -32,7 +32,6 @@ const NewsletterDrawer = ({ mobile, placement }) => {
   const {
     register,
     handleSubmit,
-    watch,
     errors,
     formState: { isSubmitting, isSubmitSuccessful },
   } = useForm();

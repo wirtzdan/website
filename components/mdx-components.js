@@ -1,7 +1,9 @@
+import react, { useState } from "react";
 import Link from "next/link";
 import NextImage from "next/image";
 import Tweet from "react-tweet-embed";
-// import Codeblock from "@/components/codeblock";
+import Codeblock from "./codeblock/codeblock";
+
 import {
   Alert,
   Box,
@@ -12,6 +14,10 @@ import {
   useColorMode,
   useColorModeValue,
   Link as ChakraLink,
+  HStack,
+  useClipboard,
+  Button,
+  Text,
 } from "@chakra-ui/react";
 
 const Table = (props) => (
@@ -67,29 +73,14 @@ const Image = (props) => {
 const InlineCode = (props) => (
   <Code
     apply="mdx.code"
-    bg={useColorModeValue("gray.200", "gray.700")}
-    rounded="md"
-    fontWeight="bold"
+    bg={useColorModeValue("blue.50", "blue.900")}
+    color={useColorModeValue("blue.600", "blue.200")}
+    rounded="lg"
     {...props}
   />
 );
 
-const Codeblock = (props) => (
-  <Box
-    apply="mdx.code"
-    borderWidth="1px"
-    borderColor={useColorModeValue("gray.100", "gray.800")}
-    bg={useColorModeValue("gray.800", "gray.200")}
-    color={useColorModeValue("white", "gray.800")}
-    rounded="md"
-    p={4}
-    {...props}
-  />
-);
-
-const CustomFigure = (props) => {
-  <Text></Text>;
-};
+const Pre = (props) => <chakra.div my="2em" borderRadius="sm" {...props} />;
 
 const Embed = (props) => (
   <Box my={4} rounded="lg" shadow="sm" overflow="hidden">
@@ -107,9 +98,9 @@ const MDXComponents = {
   hr: (props) => <chakra.hr apply="mdx.hr" {...props} />,
   strong: (props) => <Box as="strong" fontWeight="semibold" {...props} />,
   inlineCode: InlineCode,
-  // code: InlineCode,
-  // pre: Codeblock,
-  pre: Codeblock,
+  code: Codeblock,
+  pre: Pre,
+  // pre: (props) => console.log("Codeblock props", props),
   kbd: Kbd,
   blockquote: (props) => (
     <Alert
