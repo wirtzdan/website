@@ -30,9 +30,7 @@ const TwitterCard = ({ title, slug }) => {
       position="relative"
       mt={6}
     >
-      <Text>
-        If you liked this article, then consider sharing it on Twitter.
-      </Text>
+      <Text>Did you like the article?</Text>
       <Link
         href={`https://twitter.com/intent/tweet?text=${
           encodeURIComponent(title) + " " + "by @wirtzdan"

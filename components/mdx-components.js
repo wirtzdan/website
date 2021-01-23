@@ -111,8 +111,7 @@ const MDXComponents = {
       as="blockquote"
       rounded="4px"
       my="1.5rem"
-      bg={useColorModeValue("blue.50", "gray.800")}
-      fontWeight="500"
+      bg={useColorModeValue("blue.50", "#1A273B")}
       {...props}
     />
   ),
