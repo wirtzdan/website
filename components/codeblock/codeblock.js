@@ -9,7 +9,7 @@ import {
   IconButton,
 } from "@chakra-ui/react";
 import Highlight from "./highlight";
-import { Check, Duplicate, DuplicateOutline, Link } from "heroicons-react";
+import { Check, DuplicateOutline } from "heroicons-react";
 
 const Codeblock = (props) => {
   const showLines = true;

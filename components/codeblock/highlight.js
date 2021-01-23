@@ -1,5 +1,5 @@
 import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import BaseHighlight, { defaultProps, Language } from "prism-react-renderer";
+import BaseHighlight, { defaultProps } from "prism-react-renderer";
 import { prismDark, prismLight } from "./themes";
 
 import React from "react";
@@ -16,7 +16,7 @@ const calculateLinesToHighlight = (meta) => {
     .map((v) => v.split(`-`).map((x) => parseInt(x, 10)));
 
   return (index) => {
-    const lineNumber = index + 1;
+    const lineNumber = index;
     const inRange = lineNumbers.some(([start, end]) =>
       end ? lineNumber >= start && lineNumber <= end : lineNumber === start
     );
@@ -32,6 +32,7 @@ function Highlight({
   ln,
   ...props
 }) {
+  console.log("🚀 ~ file: highlight.js ~ line 35 ~ codeString", codeString);
   const baseTheme = useColorModeValue(prismLight, prismDark);
 
   const { colorMode } = useColorMode();
@@ -43,9 +44,6 @@ function Highlight({
       fontFamily: "Fira Code",
       fontSize: "14px",
       lineHeight: "26px",
-      overflowWrap: "normal",
-      position: "relative",
-      overflowX: "auto",
     },
   };
 
@@ -57,16 +55,16 @@ function Highlight({
       code={codeString}
       language={language}
       theme={customTheme}
-      {...props}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <chakra.div data-language={language} py={2}>
+        <chakra.div data-language={language} py={2} overflowX="auto">
           <pre className={className} style={style}>
-            {tokens.map((line, i) => {
+            {tokens.splice(0, tokens.length - 1).map((line, i) => {
               const lineProps = getLineProps({ line, key: i });
               return (
                 <chakra.div
-                  px="3"
+                  px={4}
+                  mr={4}
                   bg={
                     shouldHighlightLine(i)
                       ? colorMode === "light"
@@ -81,15 +79,18 @@ function Highlight({
                         : "inset 3px 0px 0px 0px #90CDF4"
                       : undefined
                   }
+                  _hover={{
+                    bg: colorMode === "light" ? "gray.50" : "gray.700",
+                  }}
                   {...lineProps}
                 >
                   {showLines && (
-                    <chakra.span opacity={0.3} mr="6" fontSize="xs">
+                    <chakra.span opacity={0.5} mr={4} fontSize="xs">
                       {i + 1}
                     </chakra.span>
                   )}
                   {line.map((token, key) => (
-                    <span {...getTokenProps({ token, key })} />
+                    <chakra.span {...getTokenProps({ token, key })} />
                   ))}
                 </chakra.div>
               );

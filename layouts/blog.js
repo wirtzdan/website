@@ -15,59 +15,62 @@ import BlogSeo from "@/components/blog-seo";
 import TwitterCard from "@/components/twitter-card";
 import AuthorCard from "@/components/author-card";
 import Image from "next/image";
+import PageTransition from "../components/page-transitions";
 
 class BlogLayout extends React.Component {
   render() {
     const target = React.createRef();
 
     return (
-      <>
-        <Section>
-          <BlogSeo
-            url={`https://danielwirtz/blog/${this.props.frontMatter.slug}`}
-            {...this.props.frontMatter}
-          />
-          <article ref={target}>
-            <VStack w="100%" align="left" spacing={6}>
-              {this.props.frontMatter.showImage ? (
-                <Box
-                  mt={4}
-                  rounded="lg"
-                  shadow="md"
-                  overflow="hidden"
-                  lineHeight={0}
-                >
-                  {" "}
-                  <Image
-                    alt={this.props.frontMatter.title}
-                    src={this.props.frontMatter.image}
-                    width={2240}
-                    height={1260}
+      <PageTransition>
+        <>
+          <Section>
+            <BlogSeo
+              url={`https://danielwirtz/blog/${this.props.frontMatter.slug}`}
+              {...this.props.frontMatter}
+            />
+            <article ref={target}>
+              <VStack w="100%" align="left" spacing={6}>
+                {this.props.frontMatter.showImage ? (
+                  <Box
+                    mt={4}
+                    rounded="lg"
+                    shadow="md"
+                    overflow="hidden"
+                    lineHeight={0}
+                  >
+                    {" "}
+                    <Image
+                      alt={this.props.frontMatter.title}
+                      src={this.props.frontMatter.image}
+                      width={2240}
+                      height={1260}
+                    />
+                  </Box>
+                ) : undefined}
+                <VStack align="stretch" spacing={4}>
+                  <Heading as="h1">{this.props.frontMatter.title}</Heading>
+                  <AuthorCard
+                    publishedAt={this.props.frontMatter.publishedAt}
+                    url={
+                      "https://danielwirtz.com/blog/" +
+                      this.props.frontMatter.slug
+                    }
+                    readingTime={this.props.frontMatter.readingTime.text}
                   />
-                </Box>
-              ) : undefined}
-              <VStack align="stretch" spacing={4}>
-                <Heading as="h1">{this.props.frontMatter.title}</Heading>
-                <AuthorCard
-                  publishedAt={this.props.frontMatter.publishedAt}
-                  url={
-                    "https://danielwirtz.com/blog/" +
-                    this.props.frontMatter.slug
-                  }
-                  readingTime={this.props.frontMatter.readingTime.text}
-                />
+                </VStack>
               </VStack>
-            </VStack>
-            <div>{this.props.children}</div>
-          </article>
-          <TwitterCard
-            title={this.props.frontMatter.title}
-            slug={this.props.frontMatter.slug}
-          />
-          <div ref={(el) => (this.div = el)}></div>
-        </Section>
-        <ReadingProgress target={target} />
-      </>
+              <div>{this.props.children}</div>
+            </article>
+            <TwitterCard
+              title={this.props.frontMatter.title}
+              slug={this.props.frontMatter.slug}
+            />
+            <div ref={(el) => (this.div = el)}></div>
+          </Section>
+          <ReadingProgress target={target} />
+        </>
+      </PageTransition>
     );
   }
 }
