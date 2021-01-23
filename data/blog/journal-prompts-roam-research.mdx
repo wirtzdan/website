@@ -1,0 +1,47 @@
+---
+title: "Journal Prompts in Roam Research"
+publishedAt: "2021-01-23"
+summary: "A step by step tutorial"
+image: "/static/images/journal-prompts-roam-research/banner.jpg"
+---
+
+Keeping a journal is a great habit to cultivate. But sometimes it's not easy to know what to write about. To solve this, you could write down prompts on a piece of paper and put them into a glass jar. Then when you want to journal, you can take out a writing prompt and answer the question.
+
+What I like about this approach, is that it introduces some randomness into your journaling and self-reflection. As I'm doing my journal in Roam Research I wondered, if something like this would be possible to replicate in Roam Research.
+
+And yes, it does! So let's dive into it.
+
+## Step 1: Fill a page with journal/writing prompts
+
+If you want to follow my approach, then create a page in your graph named "Journal Prompts". Then fill that page in with some writing prompts.
+
+You can also search for journal prompts and writing prompts online. There are many blogs with prompts for different themes and topics. To get you started, here is a massive list of [1000 journal prompts](https://www.reddit.com/r/JournalingIsArt/comments/13njgp/1000_prompts/) that someone collected on Reddit.
+
+> **Tip:** If you right-click on the page title, you can display the whole page as a "numbered list"
+
+## Step 2: Install Roam42
+
+[Roam42](https://roamresearch.com/#/app/roamhacker/page/-1s5kPhyX) is the Swiss Army knife for Roam Research and adds a range of powerful features to your graph. Among them is a feature called Smartblocks, which we will using for our journal prompts.
+
+To install Roam42, open the [official documentation](https://roamresearch.com/#/app/roamhacker/page/UeoxCm8rm) and then follow the installation instructions. This should only take a couple of minutes. The installation was successful when you type <kbd>jj</kbd> into Roam and you see that a popup opens.
+
+## Step 3: Create a random journal prompt template
+
+Now that we have Roam42 ready, we can put our attention on the random journal prompt template. Smartblocks allows us to create templates inside Roam, that we can make dynamic by using predefined commands.
+
+To start off, I would suggest that you create a separate "Smartblocks Template" page. This can be helpful if you create multiple templates and want to maintain them all in one place. Now copy, the text below into your template page.
+
+```md title="Journal Template"
+- Random Journal Prompt #42SmartBlock
+  - <%RANDOMBLOCKFROM:Journal Prompts%>
+```
+
+By using #42SmartBlock tag, Roam42 will see everything that is nested below the line with the tag as the template. And "Random Journal Prompt" becomes the title of the workflow. (This is how templates are called in Smartblock language)
+
+`<%RANDOMBLOCKFROM:Journal Prompts%>` is smartblocks command and will be replaced with a random block from the "Journal Prompts" page. If you called your page differently, make sure that you also change the page name inside the command.
+
+> **Idea:** You could also pull in questions from different categories of journal prompts by creating individual sites for every category and then adding one random block command for each page.
+
+## Step 4: Use the template for your journal habit
+
+Now we are ready to go! If you type <kbd>jj</kbd> you should see the Smartblocks popup and the possibility to execute the "Random Journal Prompt" workflow. The journal prompt will also be pulled in as a block reference, which is also nice because you can always reference your answers to the prompt from the "Journal Prompts" page.
