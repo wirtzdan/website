@@ -5,55 +5,39 @@
       <link>https://danielwirtz.com/blog</link>
       <description>Designer, developer and maker of things.</description>
       <language>en</language>
-      <lastBuildDate>Fri, 01 Jan 2021 10:56:09 GMT</lastBuildDate>
+      <lastBuildDate>Sat, 23 Jan 2021 09:07:00 GMT</lastBuildDate>
       <atom:link href="https://danielwirtz.com/rss.xml" rel="self" type="application/rss+xml"/>
       
-  <item>
-    <guid>https://danielwirtz.com/blog/website-rebuild-nextjs-chakra-ui-airtable</guid>
-    <title>Rebuilding my website with NextJS, Chakra UI and Airtable</title>
-    <link>https://danielwirtz.com/blog/website-rebuild-nextjs-chakra-ui-airtable</link>
-    <description>Thoughts about my new website setup</description>
-    <pubDate>Fri, 01 Jan 2021 10:56:09 GMT</pubDate>
-  </item>
-
-  <item>
-    <guid>https://danielwirtz.com/blog/waking-up-app</guid>
-    <title>50 days of meditation</title>
-    <link>https://danielwirtz.com/blog/waking-up-app</link>
-    <description>Reflections on 50 days of meditation</description>
-    <pubDate>Tue, 04 Aug 2020 00:00:00 GMT</pubDate>
-  </item>
-
-  <item>
-    <guid>https://danielwirtz.com/blog/uses</guid>
-    <title>Uses</title>
-    <link>https://danielwirtz.com/blog/uses</link>
-    <description>Tools and products that I use everyday</description>
-    <pubDate>Sun, 10 Nov 2019 00:00:00 GMT</pubDate>
-  </item>
-
   <item>
     <guid>https://danielwirtz.com/blog/journal-prompts-roam-research</guid>
     <title>Journal Prompts in Roam Research</title>
     <link>https://danielwirtz.com/blog/journal-prompts-roam-research</link>
     <description>A step by step tutorial</description>
-    <pubDate>Sat, 23 Jan 2021 00:00:00 GMT</pubDate>
+    <pubDate>Sat, 23 Jan 2021 09:07:00 GMT</pubDate>
   </item>
 
   <item>
-    <guid>https://danielwirtz.com/blog/identity-and-labels</guid>
-    <title>Identity and Labels</title>
-    <link>https://danielwirtz.com/blog/identity-and-labels</link>
-    <description>Musings on identities and labels</description>
-    <pubDate>Tue, 14 Jul 2020 00:00:00 GMT</pubDate>
+    <guid>https://danielwirtz.com/blog/website-rebuild-nextjs-chakra-ui-airtable</guid>
+    <title>Rebuilding my website with NextJS, Chakra UI and Airtable</title>
+    <link>https://danielwirtz.com/blog/website-rebuild-nextjs-chakra-ui-airtable</link>
+    <description>Thoughts about my new website setup</description>
+    <pubDate>Fri, 01 Jan 2021 09:09:00 GMT</pubDate>
   </item>
 
   <item>
-    <guid>https://danielwirtz.com/blog/hello-world</guid>
-    <title>Hello World</title>
-    <link>https://danielwirtz.com/blog/hello-world</link>
-    <description>Some thoughts about my first blog post</description>
-    <pubDate>Wed, 30 Oct 2019 00:00:00 GMT</pubDate>
+    <guid>https://danielwirtz.com/blog/annual-review-2020</guid>
+    <title>Annual Review 2020</title>
+    <link>https://danielwirtz.com/blog/annual-review-2020</link>
+    <description>Reflecting on the last year</description>
+    <pubDate>Sat, 26 Dec 2020 22:02:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <guid>https://danielwirtz.com/blog/Reflections on 50 days of meditation</guid>
+    <title>50 days of meditation</title>
+    <link>https://danielwirtz.com/blog/Reflections on 50 days of meditation</link>
+    <description>Reflections on 50 days of meditation</description>
+    <pubDate>Tue, 04 Aug 2020 08:08:00 GMT</pubDate>
   </item>
 
   <item>
@@ -61,15 +45,7 @@
     <title>Favorite Books of 2019</title>
     <link>https://danielwirtz.com/blog/favorite-books-2019</link>
     <description>Wrapping up my best reads of the year</description>
-    <pubDate>Wed, 25 Dec 2019 00:00:00 GMT</pubDate>
-  </item>
-
-  <item>
-    <guid>https://danielwirtz.com/blog/annual-review-2020</guid>
-    <title>Annual Review 2020</title>
-    <link>https://danielwirtz.com/blog/annual-review-2020</link>
-    <description>Taking time to reflect</description>
-    <pubDate>Sun, 27 Dec 2020 00:00:00 GMT</pubDate>
+    <pubDate>Wed, 25 Dec 2019 09:03:00 GMT</pubDate>
   </item>
 
     </channel>

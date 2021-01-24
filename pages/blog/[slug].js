@@ -1,11 +1,12 @@
+import renderToString from "next-mdx-remote/render-to-string";
 import hydrate from "next-mdx-remote/hydrate";
-
-import { getFiles, getFileBySlug } from "@/lib/mdx";
-import BlogLayout from "@/layouts/blog";
+import BlogLayout from "@/layouts/blog-2";
 import MDXComponents from "@/components/mdx-components";
+import { getAllPostsPaths, getPostData } from "../../lib/airtable";
+import readingTime from "reading-time";
 
-export default function Blog({ mdxSource, frontMatter }) {
-  const content = hydrate(mdxSource, {
+export default function Blog({ source, frontMatter }) {
+  const content = hydrate(source, {
     components: MDXComponents,
   });
 
@@ -13,20 +14,36 @@ export default function Blog({ mdxSource, frontMatter }) {
 }
 
 export async function getStaticPaths() {
-  const posts = await getFiles("blog");
+  const paths = await getAllPostsPaths();
 
   return {
-    paths: posts.map((p) => ({
-      params: {
-        slug: p.replace(/\.mdx/, ""),
-      },
-    })),
+    paths,
     fallback: false,
   };
 }
 
 export async function getStaticProps({ params }) {
-  const post = await getFileBySlug("blog", params.slug);
+  const postData = await getPostData(params.slug);
 
-  return { props: post };
+  const mdxSource = await renderToString(postData.post[0].fields.mdx, {
+    components: MDXComponents,
+    mdxOptions: {
+      remarkPlugins: [
+        require("remark-autolink-headings"),
+        require("remark-slug"),
+        require("remark-code-titles"),
+      ],
+    },
+  });
+
+  return {
+    props: {
+      source: mdxSource,
+      frontMatter: {
+        wordCount: postData.post[0].fields.mdx.split(/\s+/gu).length,
+        readingTime: readingTime(postData.post[0].fields.mdx),
+        ...postData.post[0].fields,
+      },
+    },
+  };
 }

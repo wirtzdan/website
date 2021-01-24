@@ -65,10 +65,6 @@ export async function getStaticProps() {
   });
 
   const bookmarks = await res.json();
-  console.log(
-    "🚀 ~ file: bookmarks.js ~ line 88 ~ getStaticProps ~ bookmarks",
-    bookmarks
-  );
 
   if (!bookmarks) {
     return {

@@ -32,7 +32,6 @@ function Highlight({
   ln,
   ...props
 }) {
-  console.log("🚀 ~ file: highlight.js ~ line 35 ~ codeString", codeString);
   const baseTheme = useColorModeValue(prismLight, prismDark);
 
   const { colorMode } = useColorMode();

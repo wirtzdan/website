@@ -1,7 +1,7 @@
 import { NextSeo, ArticleJsonLd } from "next-seo";
 
-const BlogSeo = ({ title, summary, publishedAt, url, image }) => {
-  const date = new Date(publishedAt).toISOString();
+const BlogSeo = ({ title, summary, publishDate, url, image }) => {
+  const date = new Date(publishDate).toISOString();
   const featuredImage = {
     url: `https://danielwirtz.com${image}`,
     alt: title,

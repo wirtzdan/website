@@ -100,7 +100,6 @@ const MDXComponents = {
   inlineCode: InlineCode,
   code: Codeblock,
   pre: Pre,
-  // pre: (props) => console.log("Codeblock props", props),
   kbd: Kbd,
   blockquote: (props) => (
     <Alert

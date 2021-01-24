@@ -53,10 +53,6 @@ const NewsletterDrawer = ({ mobile, placement }) => {
 
     if (responseJson.status === "success") {
       setIsSuccessful(true);
-      console.log(
-        "🚀 ~ file: newsletter-drawer.js ~ line 69 ~ onSubmit ~ isSuccessful",
-        isSuccessful
-      );
     } else {
       setIsSuccessful(false);
     }

@@ -24,7 +24,6 @@ const ToolCard = ({
   description,
 }) => {
   const { data, loading, error } = usePalette(image[0].thumbnails.large.url);
-  console.log("🚀 ~ file: tool-card.js ~ line 19 ~ ToolCard ~ data", data);
 
   return (
     <Link href={link}>
