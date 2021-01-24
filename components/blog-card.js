@@ -36,11 +36,13 @@ const BlogCard = ({ slug, publishDate, summary, title }) => {
               fontWeight="bold"
               fontSize="xl"
             >
-              {title}
+              {title}{" "}
+              {new Date() - new Date(publishDate) < 1000 * 60 * 60 * 24 * 7 ? (
+                <Tag size="md" mt={1} ml={1} colorScheme="purple">
+                  New
+                </Tag>
+              ) : undefined}
             </Text>
-            {new Date() - new Date(publishDate) < 1000 * 60 * 60 * 24 * 7 ? (
-              <Tag colorScheme="purple">New</Tag>
-            ) : undefined}
           </HStack>
 
           <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.50")}>
