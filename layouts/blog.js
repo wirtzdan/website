@@ -27,6 +27,7 @@ class BlogLayout extends React.Component {
           <Section>
             <BlogSeo
               url={`https://danielwirtz/blog/${this.props.frontMatter.slug}`}
+              image={this.props.frontMatter.banner[0].thumbnails.large.url}
               {...this.props.frontMatter}
             />
             <article ref={target}>
@@ -42,7 +43,9 @@ class BlogLayout extends React.Component {
                     {" "}
                     <Image
                       alt={this.props.frontMatter.title}
-                      src={this.props.frontMatter.image}
+                      src={
+                        this.props.frontMatter.banner[0].thumbnails.large.url
+                      }
                       width={2240}
                       height={1260}
                     />
@@ -51,7 +54,7 @@ class BlogLayout extends React.Component {
                 <VStack align="stretch" spacing={4}>
                   <Heading as="h1">{this.props.frontMatter.title}</Heading>
                   <AuthorCard
-                    publishedAt={this.props.frontMatter.publishedAt}
+                    publishedAt={this.props.frontMatter.publishDate}
                     url={
                       "https://danielwirtz.com/blog/" +
                       this.props.frontMatter.slug

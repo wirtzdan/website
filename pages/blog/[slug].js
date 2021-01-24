@@ -1,6 +1,6 @@
 import renderToString from "next-mdx-remote/render-to-string";
 import hydrate from "next-mdx-remote/hydrate";
-import BlogLayout from "@/layouts/blog-2";
+import BlogLayout from "@/layouts/blog";
 import MDXComponents from "@/components/mdx-components";
 import { getAllPostsPaths, getPostData } from "../../lib/airtable";
 import readingTime from "reading-time";
