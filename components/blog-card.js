@@ -1,8 +1,15 @@
 import React from "react";
 import Link from "next/link";
 import { format } from "timeago.js";
+import {
+  Box,
+  VStack,
+  Text,
+  useColorModeValue,
+  Tag,
+  HStack,
+} from "@chakra-ui/react";
 
-import { Box, VStack, Text, useColorModeValue } from "@chakra-ui/react";
 const BlogCard = ({ slug, publishDate, summary, title }) => {
   return (
     <Link href={`/blog/${slug}`}>
@@ -23,13 +30,19 @@ const BlogCard = ({ slug, publishDate, summary, title }) => {
           borderColor={useColorModeValue("gray.100", "gray.700")}
           spacing={0}
         >
-          <Text
-            color={useColorModeValue("blue.500", "blue.200")}
-            fontWeight="bold"
-            fontSize="xl"
-          >
-            {title}
-          </Text>
+          <HStack>
+            <Text
+              color={useColorModeValue("blue.500", "blue.200")}
+              fontWeight="bold"
+              fontSize="xl"
+            >
+              {title}
+            </Text>
+            {new Date() - new Date(publishDate) < 1000 * 60 * 60 * 24 * 7 ? (
+              <Tag colorScheme="purple">New</Tag>
+            ) : undefined}
+          </HStack>
+
           <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.50")}>
             {summary}
           </Text>
