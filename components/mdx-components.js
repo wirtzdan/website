@@ -3,21 +3,16 @@ import Link from "next/link";
 import NextImage from "next/image";
 import Tweet from "react-tweet-embed";
 import Codeblock from "./codeblock/codeblock";
+import ReactPlayer from "react-player/youtube";
 
 import {
   Alert,
   Box,
   chakra,
   Code,
-  HTMLChakraProps,
   Kbd,
-  useColorMode,
   useColorModeValue,
   Link as ChakraLink,
-  HStack,
-  useClipboard,
-  Button,
-  Text,
 } from "@chakra-ui/react";
 
 const Table = (props) => (
@@ -34,6 +29,10 @@ const THead = (props) => (
     fontSize="sm"
     {...props}
   />
+);
+
+const VideoPlayer = (props) => (
+  <Box as={ReactPlayer} overflow="hidden" rounded="md" my={6} {...props}></Box>
 );
 
 const TData = (props) => (
@@ -127,6 +126,7 @@ const MDXComponents = {
   a: CustomLink,
   Tweet,
   Embed,
+  VideoPlayer,
 };
 
 export default MDXComponents;
