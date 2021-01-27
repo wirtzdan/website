@@ -45,5 +45,6 @@ export async function getStaticProps({ params }) {
         ...postData.post[0].fields,
       },
     },
+    revalidate: 1,
   };
 }
