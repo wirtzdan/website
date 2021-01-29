@@ -34,7 +34,12 @@ const THead = (props) => (
 
 const VideoPlayer = (props) => (
   <AspectRatio overflow="hidden" rounded="md" my={6} ratio={16 / 9}>
-    <ReactPlayer width="100%" height="100%" {...props}></ReactPlayer>
+    <ReactPlayer
+      width="100%"
+      height="100%"
+      controls={true}
+      {...props}
+    ></ReactPlayer>
   </AspectRatio>
 );
 
