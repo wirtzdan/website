@@ -13,6 +13,7 @@ import {
   Kbd,
   useColorModeValue,
   Link as ChakraLink,
+  AspectRatio,
 } from "@chakra-ui/react";
 
 const Table = (props) => (
@@ -32,7 +33,9 @@ const THead = (props) => (
 );
 
 const VideoPlayer = (props) => (
-  <Box as={ReactPlayer} overflow="hidden" rounded="md" my={6} {...props}></Box>
+  <AspectRatio overflow="hidden" rounded="md" my={6} ratio={16 / 9}>
+    <ReactPlayer width="100%" height="100%" {...props}></ReactPlayer>
+  </AspectRatio>
 );
 
 const TData = (props) => (
