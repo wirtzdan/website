@@ -26,7 +26,7 @@ const ToolCard = ({
   const { data, loading, error } = usePalette(image[0].thumbnails.large.url);
 
   return (
-    <Link href={link}>
+    <Link href={link} isExternal>
       <HStack
         p={4}
         bg={useColorModeValue("white", "gray.800")}
