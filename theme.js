@@ -41,11 +41,6 @@ const customTheme = extendTheme({
         fontWeight: "500",
       }),
     },
-    DraweeContent: {
-      baseStyle: {
-        bg: "green.300",
-      },
-    },
     Button: {
       baseStyle: {
         fontWeight: "500",
@@ -69,17 +64,26 @@ const customTheme = extendTheme({
           textDecoration: "none",
         },
       },
-      variants: (props) => ({
+      variants: {
         text: {
-          color: mode("blue.500", "blue.200")(props),
+          color: "blue.400",
           transition: "color 0.15s",
           transitionTimingFunction: "ease-out",
           fontWeight: "500",
           _hover: {
-            color: mode("blue.600", "blue.300")(props),
+            color: "blue.300",
           },
         },
-      }),
+        gradient: {
+          bgGradient: "linear(to-br, blue.400,blue.300)",
+          bgClip: "text",
+          fontWeight: "500",
+          _hover: {
+            bgGradient: "linear(to-br, blue.500,blue.300)",
+            bgClip: "text",
+          },
+        },
+      },
     },
   },
   mdx: {
