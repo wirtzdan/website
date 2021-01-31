@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "author": "Daniel Wirtz",
   "dependencies": {
-    "@chakra-ui/react": "^1.0.4",
+    "@chakra-ui/react": "^1.2.1",
     "@emotion/react": "^11.1.2",
     "@emotion/styled": "^11.0.0",
     "@next/mdx": "^10.0.3",
