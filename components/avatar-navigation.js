@@ -18,9 +18,9 @@ import {
   SimpleGrid,
   Button,
   Box,
-  Link,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import Link from "next/link";
 
 const AvatarNavigation = () => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -28,10 +28,17 @@ const AvatarNavigation = () => {
   const close = () => setIsOpen(false);
 
   return (
-    <Popover
-    //   isOpen={isOpen}
-    //   onClose={close}
-    //   placement="right"
+    <Link href="/">
+      <Avatar
+        name="Daniel Wirtz"
+        size="sm"
+        src="/avatar-small.jpg"
+        cursor="pointer"
+      />
+    </Link>
+  );
+  {
+    /* <Popover
     >
       <PopoverTrigger>
         <Avatar
@@ -125,8 +132,8 @@ const AvatarNavigation = () => {
           </VStack>
         </PopoverBody>
       </PopoverContent>
-    </Popover>
-  );
+    </Popover> */
+  }
 };
 
 export default AvatarNavigation;
