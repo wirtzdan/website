@@ -46,7 +46,7 @@ const Home = ({ projects }) => (
                   href="https://www.facilitator.school/masterclass"
                   isExternal
                 >
-                  transformatial online course
+                  transformational online course
                 </Link>
                 .
               </Text>
