@@ -31,8 +31,12 @@ const Home = ({ projects }) => (
                 raised in Germany and now living in the Netherlands.
               </Text>
               <Text>
-                By day, I'm helping managers and creatives to run better digital
-                workshops with the{" "}
+                By day, I'm working at{" "}
+                <Link variant="text" href="https://crisp.studio" isExternal>
+                  Crisp Studio
+                </Link>{" "}
+                where I'm currently building the education platform and
+                community at{" "}
                 <Link
                   variant="text"
                   href="https://www.facilitator.school"
@@ -40,18 +44,10 @@ const Home = ({ projects }) => (
                 >
                   Facilitator School
                 </Link>
-                . We are also working on a{" "}
-                <Link
-                  variant="text"
-                  href="https://www.facilitator.school/masterclass"
-                  isExternal
-                >
-                  transformational online course
-                </Link>
                 .
               </Text>
               <Text>
-                In my spare time, I work on small web apps and{" "}
+                In my spare time, I develop small web apps and{" "}
                 <Link
                   variant="text"
                   href="https://chrome.google.com/webstore/detail/roam-highlighter/hponfflfgcjikmehlcdcnpapicnljkkc?hl=en"
@@ -108,10 +104,6 @@ const Home = ({ projects }) => (
 
 export async function getStaticProps() {
   const projects = await getTable("Projects");
-  console.log(
-    "🚀 ~ file: index.js ~ line 74 ~ getStaticProps ~ projects",
-    projects
-  );
 
   return {
     props: {
