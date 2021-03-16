@@ -1,5 +1,5 @@
 const title = "Daniel Wirtz";
-const description = "Designer, developer and maker of things. ";
+const description = "Designer, tech enthusiast and entrepreneur of sorts";
 
 const SEO = {
   title,
