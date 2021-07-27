@@ -21,7 +21,7 @@ const variants = {
   },
 };
 
-const MotionButton = motion.custom(Button);
+const MotionButton = motion(Button);
 
 function MobileMenuItem({ href, title, toggle }) {
   var isActive = false;

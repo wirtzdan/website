@@ -54,8 +54,8 @@ const MobileNavigation = () => {
     closed: {},
   };
 
-  const MotionBox = motion.custom(Box);
-  const MotionVStack = motion.custom(VStack);
+  const MotionBox = motion(Box);
+  const MotionVStack = motion(VStack);
 
   return (
     <MotionBox
