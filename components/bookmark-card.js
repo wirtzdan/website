@@ -24,6 +24,20 @@ import {
 import { format } from "timeago.js";
 import ReactPlayer from "react-player/lazy";
 import { LinkOutline, Play } from "heroicons-react";
+import { ImageSquare } from "phosphor-react";
+
+const ImageFallback = () => {
+  return (
+    <Box bg={useColorModeValue("gray.200", "gray.700")}>
+      <Icon
+        w={10}
+        h={10}
+        as={ImageSquare}
+        color={useColorModeValue("gray.300", "gray.800")}
+      />
+    </Box>
+  );
+};
 
 const BookmarkCard = (props) => {
   const { title, excerpt, cover, type, link, created } = props;
@@ -71,7 +85,7 @@ const BookmarkCard = (props) => {
             borderBottomWidth="1px"
             borderColor={useColorModeValue("gray.100", "gray.700")}
           >
-            <Image src={cover} fallback={<Skeleton />} objectFit="cover" />
+            <Image src={cover} fallback={<ImageFallback />} objectFit="cover" />
           </AspectRatio>
           {/* <Center
             position="absolute"
