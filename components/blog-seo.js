@@ -2,10 +2,6 @@ import { NextSeo, ArticleJsonLd } from "next-seo";
 
 const BlogSeo = ({ title, summary, publishDate, url, image }) => {
   const date = new Date(publishDate).toISOString();
-  const featuredImage = {
-    url: `https://danielwirtz.com${image}`,
-    alt: title,
-  };
 
   return (
     <>
@@ -21,7 +17,14 @@ const BlogSeo = ({ title, summary, publishDate, url, image }) => {
           url,
           title,
           description: summary,
-          images: [featuredImage],
+          images: [
+            {
+              url: image,
+              width: 2240,
+              height: 1260,
+              alt: title,
+            },
+          ],
         }}
       />
       <ArticleJsonLd
@@ -29,7 +32,7 @@ const BlogSeo = ({ title, summary, publishDate, url, image }) => {
         dateModified={date}
         datePublished={date}
         description={summary}
-        images={[featuredImage]}
+        images={[image]}
         publisherLogo="/static/favicons/android-chrome-192x192.png"
         publisherName="Daniel Wirtz"
         title={title}

@@ -40,7 +40,6 @@ class BlogLayout extends React.Component {
                     overflow="hidden"
                     lineHeight={0}
                   >
-                    {" "}
                     <Image
                       alt={this.props.frontMatter.title}
                       src={

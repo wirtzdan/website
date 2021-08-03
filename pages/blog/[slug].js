@@ -1,16 +1,16 @@
-import renderToString from "next-mdx-remote/render-to-string";
-import hydrate from "next-mdx-remote/hydrate";
+import { serialize } from "next-mdx-remote/serialize";
+import { MDXRemote } from "next-mdx-remote";
 import BlogLayout from "@/layouts/blog";
 import MDXComponents from "@/components/mdx-components";
 import { getAllPostsPaths, getPostData } from "../../lib/airtable";
 import readingTime from "reading-time";
 
 export default function Blog({ source, frontMatter }) {
-  const content = hydrate(source, {
-    components: MDXComponents,
-  });
-
-  return <BlogLayout frontMatter={frontMatter}>{content}</BlogLayout>;
+  return (
+    <BlogLayout frontMatter={frontMatter}>
+      <MDXRemote {...source} components={MDXComponents} />
+    </BlogLayout>
+  );
 }
 
 export async function getStaticPaths() {
@@ -25,8 +25,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const postData = await getPostData(params.slug);
 
-  const mdxSource = await renderToString(postData.post[0].fields.mdx, {
-    components: MDXComponents,
+  const mdxSource = await serialize(postData.post[0].fields.mdx, {
     mdxOptions: {
       remarkPlugins: [
         require("remark-autolink-headings"),

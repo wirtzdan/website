@@ -5,9 +5,17 @@
       <link>https://danielwirtz.com/blog</link>
       <description>Designer, developer and maker of things.</description>
       <language>en</language>
-      <lastBuildDate>Tue, 26 Jan 2021 22:00:00 GMT</lastBuildDate>
+      <lastBuildDate>Mon, 26 Jul 2021 19:10:00 GMT</lastBuildDate>
       <atom:link href="https://danielwirtz.com/rss.xml" rel="self" type="application/rss+xml"/>
       
+  <item>
+    <guid>https://danielwirtz.com/blog/roamflow</guid>
+    <title>Pulling the plug on Roamflow</title>
+    <link>https://danielwirtz.com/blog/roamflow</link>
+    <description>Why I'm stopping my work on Roamflow</description>
+    <pubDate>Mon, 26 Jul 2021 19:10:00 GMT</pubDate>
+  </item>
+
   <item>
     <guid>https://danielwirtz.com/blog/roam-research-task-management</guid>
     <title>How I manage my tasks in Roam Research</title>
