@@ -53,8 +53,7 @@ const Bookmarks = ({ bookmarks }) => {
 };
 
 export async function getStaticProps() {
-  const url = `https://api.raindrop.io/rest/v1/raindrops/0?search=[{"key":"important","val":"true"},{"key":"broken","val":"false"}]&sort="-created"&perpage=30
-`;
+  const url = `https://api.raindrop.io/rest/v1/raindrops/0?search=[{"key":"important","val":"true"}]&sort="-created"&perpage=30`;
 
   const res = await fetch(url, {
     method: "get",
