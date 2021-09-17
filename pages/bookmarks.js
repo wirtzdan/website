@@ -75,7 +75,7 @@ export async function getStaticProps() {
     props: {
       bookmarks,
     },
-    revalidate: 60,
+    revalidate: 10,
   };
 }
 
