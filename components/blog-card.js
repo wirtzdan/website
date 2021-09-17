@@ -8,6 +8,8 @@ import {
   useColorModeValue,
   Tag,
   HStack,
+  AspectRatio,
+  Image,
 } from "@chakra-ui/react";
 
 const BlogCard = ({ slug, publishDate, summary, title }) => {
@@ -23,7 +25,7 @@ const BlogCard = ({ slug, publishDate, summary, title }) => {
       >
         <VStack
           align="start"
-          p={4}
+          p={6}
           bg={useColorModeValue("white", "gray.800")}
           rounded="xl"
           borderWidth="1px"
@@ -32,23 +34,20 @@ const BlogCard = ({ slug, publishDate, summary, title }) => {
         >
           <HStack>
             <Text
-              color={useColorModeValue("blue.500", "blue.200")}
-              fontWeight="bold"
               fontSize="xl"
+              color={useColorModeValue("gray.800", "gray.200")}
+              pb={1}
             >
               {title}{" "}
               {new Date() - new Date(publishDate) < 1000 * 60 * 60 * 24 * 7 ? (
-                <Tag size="md" mt={1} ml={1} colorScheme="purple">
+                <Tag size="md" mt={1} ml={1} colorScheme="green">
                   New
                 </Tag>
               ) : undefined}
             </Text>
           </HStack>
 
-          <Text fontSize="lg" color={useColorModeValue("gray.700", "gray.50")}>
-            {summary}
-          </Text>
-          <Text fontSize="xs" color={useColorModeValue("gray.500", "gray.400")}>
+          <Text fontSize="md" color={useColorModeValue("gray.500", "gray.400")}>
             {format(publishDate)}
           </Text>
         </VStack>

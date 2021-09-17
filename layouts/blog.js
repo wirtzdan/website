@@ -50,7 +50,7 @@ class BlogLayout extends React.Component {
                     />
                   </Box>
                 ) : undefined}
-                <VStack align="stretch" spacing={4}>
+                <VStack align="stretch" spacing={6} mb={4}>
                   <Heading as="h1">{this.props.frontMatter.title}</Heading>
                   <AuthorCard
                     publishedAt={this.props.frontMatter.publishDate}
