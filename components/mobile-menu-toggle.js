@@ -21,6 +21,7 @@ import {
   Textarea,
   Tooltip,
   SimpleGrid,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { Mail, MailOutline, Menu } from "heroicons-react";
 import { useForm } from "react-hook-form";
@@ -54,7 +55,10 @@ const MobileMenuToggle = ({ mobile }) => {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay>
-          <DrawerContent borderTopRadius="6px">
+          <DrawerContent
+            borderTopRadius="6px"
+            bg={useColorModeValue("neutral.50", "neutralD.50")}
+          >
             <DrawerCloseButton />
             <DrawerHeader>Menu</DrawerHeader>
             <DrawerBody pb={4}>

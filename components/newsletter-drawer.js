@@ -8,6 +8,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
+  useColorModeValue,
   Input,
   Button,
   VStack,
@@ -83,7 +84,10 @@ const NewsletterDrawer = ({ mobile, placement }) => {
         finalFocusRef={btnRef}
       >
         <DrawerOverlay>
-          <DrawerContent borderTopRadius="6px">
+          <DrawerContent
+            borderTopRadius="6px"
+            bg={useColorModeValue("white", "neutralD.50")}
+          >
             <DrawerCloseButton />
             <DrawerHeader>Subscribe</DrawerHeader>
             <DrawerBody pb={4}>

@@ -73,9 +73,9 @@ const MobileNavigation = () => {
         py={2}
         mt="auto"
         height={16}
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("white", "neutralD.100")}
         borderTopWidth="2px"
-        borderTopColor={useColorModeValue("gray.100", "gray.700")}
+        borderTopColor={useColorModeValue("neutral.400", "neutralD.400")}
         shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
       >
         <NewsletterDrawer mobile />

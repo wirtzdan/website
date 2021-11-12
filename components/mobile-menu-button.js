@@ -15,7 +15,7 @@ const MobileMenuButton = ({ label, icon, ...rest }) => {
       <Text
         fontSize="xs"
         fontWeight="500"
-        color={useColorModeValue("gray.600", "gray.200")}
+        color={useColorModeValue("neutral.1000", "neutralD.1000")}
       >
         {label}
       </Text>

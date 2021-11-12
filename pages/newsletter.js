@@ -43,7 +43,7 @@ export default function Newsletter() {
                     // ref={register({ required: true })}
                     // isDisabled={isSuccessful}
                     // isLoading={isSubmitSuccessful}
-                    bg={useColorModeValue("white", "gray.800")}
+                    bg={useColorModeValue("white", "neutralD.100")}
                     rounded="lg"
                   />
                   {/* <FormHelperText>Send max. once per month</FormHelperText> */}
@@ -79,7 +79,10 @@ export default function Newsletter() {
                 rounded="lg"
                 overflow="hidden"
               >
-                <Box w="100%" bg={useColorModeValue("gray.100", "gray.800")}>
+                <Box
+                  w="100%"
+                  bg={useColorModeValue("gray.100", "neutralD.100")}
+                >
                   <HStack p={4} fontSize="sm" spacing={4}>
                     <Avatar src="/avatar-small.jpg" h={8} w={8}></Avatar>
                     <VStack spacing={0} alignItems="left">

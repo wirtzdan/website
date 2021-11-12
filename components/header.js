@@ -73,13 +73,13 @@ function NavLink(props) {
 const Header = () => {
   return (
     <Box
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "neutralD.100")}
       display={{ base: "none", md: "block" }}
       position="fixed"
       w="100%"
       zIndex={99}
       borderBottomWidth="2px"
-      borderBottomColor={useColorModeValue("gray.100", "gray.700")}
+      borderBottomColor={useColorModeValue("neutral.400", "neutralD.400")}
       shadow="0 0 10px 0 rgba(0,0,0, 0.035);"
     >
       <Container>
@@ -106,7 +106,10 @@ const Header = () => {
                 >
                   Links
                 </MenuButton>
-                <MenuList>
+                <MenuList
+                  bg={useColorModeValue("neutral.100", "neutralD.100")}
+                  borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+                >
                   <Link href="/books">
                     <MenuItem>
                       <HStack>

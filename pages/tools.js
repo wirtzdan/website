@@ -37,7 +37,7 @@ const Tools = ({ tools }) => {
             <Heading as="h1">Tools</Heading>
             <Text
               fontSize={["xl", "2xl"]}
-              color={useColorModeValue("gray.500", "gray.200")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
               maxW="lg"
               textAlign="center"
             >
@@ -55,10 +55,10 @@ const Tools = ({ tools }) => {
           >
             <TabList display="flex" flexWrap="wrap">
               <Tab
-                bg={useColorModeValue("gray.100", "gray.800")}
-                color={useColorModeValue("gray.500", "gray.500")}
+                bg={useColorModeValue("neutral.300", "neutralD.300")}
+                color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
-                  color: useColorModeValue("gray.100", "gray.800"),
+                  color: useColorModeValue("gray.100", "neutralD.100"),
                   bg: useColorModeValue("gray.900", "gray.100"),
                 }}
                 mr={2}
@@ -70,8 +70,8 @@ const Tools = ({ tools }) => {
                 </HStack>
               </Tab>
               <Tab
-                bg={useColorModeValue("gray.100", "gray.800")}
-                color={useColorModeValue("gray.600", "gray.500")}
+                bg={useColorModeValue("neutral.300", "neutralD.300")}
+                color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
                   color: "green.800",
                   bg: "green.100",
@@ -85,8 +85,8 @@ const Tools = ({ tools }) => {
                 </HStack>
               </Tab>
               <Tab
-                bg={useColorModeValue("gray.100", "gray.800")}
-                color={useColorModeValue("gray.600", "gray.500")}
+                bg={useColorModeValue("neutral.300", "neutralD.300")}
+                color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
                   color: "red.800",
                   bg: "red.100",
@@ -101,8 +101,8 @@ const Tools = ({ tools }) => {
                 </HStack>
               </Tab>
               <Tab
-                bg={useColorModeValue("gray.100", "gray.800")}
-                color={useColorModeValue("gray.600", "gray.500")}
+                bg={useColorModeValue("neutral.300", "neutralD.300")}
+                color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
                   color: "blue.800",
                   bg: "blue.100",

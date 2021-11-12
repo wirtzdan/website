@@ -26,16 +26,16 @@ const BlogCard = ({ slug, publishDate, summary, title }) => {
         <VStack
           align="start"
           p={6}
-          bg={useColorModeValue("white", "gray.800")}
+          bg={useColorModeValue("white", "neutralD.100")}
           rounded="xl"
           borderWidth="1px"
-          borderColor={useColorModeValue("gray.100", "gray.700")}
+          borderColor={useColorModeValue("neutral.400", "neutralD.400")}
           spacing={0}
         >
           <HStack>
             <Text
               fontSize="xl"
-              color={useColorModeValue("gray.800", "gray.200")}
+              color={useColorModeValue("neutral.1100", "neutralD.1100")}
               pb={1}
             >
               {title}{" "}
@@ -47,7 +47,10 @@ const BlogCard = ({ slug, publishDate, summary, title }) => {
             </Text>
           </HStack>
 
-          <Text fontSize="md" color={useColorModeValue("gray.500", "gray.400")}>
+          <Text
+            fontSize="md"
+            color={useColorModeValue("neutral.900", "neutralD.900")}
+          >
             {format(publishDate)}
           </Text>
         </VStack>

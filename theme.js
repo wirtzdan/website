@@ -1,16 +1,60 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
+import { gray, blue, sand, sandDark, mauve, mauveDark } from "@radix-ui/colors";
+
+const transformRadixToChakraFormat = (scale) => {
+  console.log("scale →", scale.gray1);
+
+  const output = Object.values(scale).reduce(
+    (accumulator, currentValue, index) => {
+      if (index === 0) {
+        accumulator[`50`] = currentValue;
+      } else {
+        accumulator[`${index}00`] = currentValue;
+      }
+      return accumulator;
+    },
+    {}
+  );
+
+  return output;
+};
+
+const radixNeutral = transformRadixToChakraFormat(sand);
+const radixNeutralDark = transformRadixToChakraFormat(sandDark);
+
+console.log("radixNeutral →", radixNeutral);
 
 const customTheme = extendTheme({
   fonts: {
-    heading: "'Red Hat Display', sans-serif",
-    body: "'Red Hat Text', sans-serif",
+    heading: '"IBM Plex Sans"',
+    body: "IBM Plex Sans",
+  },
+  colors: {
+    neutral: {
+      ...radixNeutral,
+    },
+    neutralD: {
+      ...radixNeutralDark,
+    },
+    gray: {
+      50: "hsl(50 20.0% 99.0%)",
+      100: "hsl(60 7.7% 97.5%)",
+      200: "hsl(58 6.1% 92.9%)",
+      300: "hsl(51 6.0% 77.1%)",
+      400: "hsl(50 3.8% 30.6%)",
+      500: "hsl(50 4.0% 42.7%)",
+      600: "hsl(52 3.1% 48.3%)",
+      700: "hsl(58 3.7% 13.1%)",
+      800: "hsl(58 3.7% 13.1%)",
+      900: "hsl(61 2.0% 8.3%)",
+    },
   },
   styles: {
     global: (props) => ({
       body: {
-        color: mode("gray.700", "whiteAlpha.900")(props),
-        bg: mode("gray.50", "gray.900")(props),
+        color: mode("neutral.1100", "neutralD.1100")(props),
+        bg: mode("neutral.100", "neutralD.50")(props),
         fontSize: "1.2em",
         ".deleted": {
           color: "#ff8383 !important",
@@ -21,22 +65,25 @@ const customTheme = extendTheme({
           fontStyle: "normal !important",
         },
       },
-      a: {
-        color: mode("blue.500", "blue.200")(props),
-        transition: "color 0.15s",
-        transitionTimingFunction: "ease-out",
-        fontWeight: "500",
-        _hover: {
-          color: mode("blue.600", "blue.300")(props),
-        },
-      },
+      // a: {
+      //   borderBottom: "2px",
+      //   borderColor: "yellow.400",
+      //   backgroundColor: "RGBA(235, 201, 74, 0.1)",
+      //   // color: mode("blue.500", "blue.200")(props),
+      //   transition: "color 0.15s",
+      //   transitionTimingFunction: "ease-out",
+      //   fontWeight: "400",
+      //   _hover: {
+      //     backgroundColor: "RGBA(235, 201, 74, 0.2)",
+      //   },
+      // },
     }),
   },
   components: {
     Heading: {
       baseStyle: (props) => ({
-        borderBottom: "1px",
-        borderColor: mode("gray.200", "gray.700")(props),
+        borderBottom: "2px",
+        borderColor: mode("neutral.500", "neutralD.500")(props),
         pb: 2,
         fontWeight: "500",
       }),
@@ -66,12 +113,16 @@ const customTheme = extendTheme({
       },
       variants: {
         text: {
-          color: "blue.400",
+          borderBottom: "2px",
+          borderColor: "yellow.400",
+          backgroundColor: "RGBA(235, 201, 74, 0.1)",
+          // color: "blue.400",
           transition: "color 0.15s",
           transitionTimingFunction: "ease-out",
-          fontWeight: "500",
+          fontWeight: "400",
+          borderRadius: "1px",
           _hover: {
-            color: "blue.300",
+            backgroundColor: "RGBA(235, 201, 74, 0.2)",
           },
         },
         gradient: {

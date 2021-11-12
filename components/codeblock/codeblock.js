@@ -28,10 +28,10 @@ const Codeblock = (props) => {
     <Box
       rounded="md"
       overflow="hidden"
-      bg={useColorModeValue("white", "gray.800")}
+      bg={useColorModeValue("white", "neutralD.100")}
       my={4}
       borderWidth="1px"
-      borderColor={useColorModeValue("gray.200", "gray.700")}
+      borderColor={useColorModeValue("neutral.400", "neutralD.400")}
     >
       {title ? (
         <HStack
@@ -40,12 +40,12 @@ const Codeblock = (props) => {
           justifyContent="space-between"
           alignItems="center"
           borderBottomWidth="1px"
-          borderBottomColor={useColorModeValue("gray.200", "gray.700")}
+          borderBottomColor={useColorModeValue("neutral.400", "neutralD.400")}
         >
           <Text
             fontSize="sm"
             fontWeight="500"
-            color={useColorModeValue("gray.500", "gray.300")}
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
           >
             {title}
           </Text>
@@ -57,7 +57,7 @@ const Codeblock = (props) => {
             color={
               hasCopied
                 ? useColorModeValue("green.600", "green.100")
-                : useColorModeValue("gray.500", "gray.300")
+                : useColorModeValue("neutral.1000", "neutralD.1000")
             }
             bg={
               hasCopied ? useColorModeValue("green.50", "green.800") : undefined

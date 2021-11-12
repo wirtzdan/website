@@ -94,8 +94,8 @@ const prismLight = {
 
 const prismDark = {
   plain: {
-    color: "#F7FAFC",
-    backgroundColor: "#1A202C",
+    color: "#EDEDEC",
+    backgroundColor: "#1C1C1A",
   },
   styles: [
     {

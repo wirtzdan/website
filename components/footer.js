@@ -20,8 +20,8 @@ const Footer = () => {
         <Button
           variant="unstyled"
           {...rest}
-          color={useColorModeValue("gray.500", "gray.600")}
-          _hover={{ color: useColorModeValue("gray.600", "gray.500") }}
+          color={useColorModeValue("neutral.800", "neutralD.800")}
+          _hover={{ color: useColorModeValue("neutral.1000", "neutralD.1000") }}
         >
           {name}
         </Button>
@@ -37,7 +37,10 @@ const Footer = () => {
         display={{ base: "none", md: "flex" }}
         py={4}
       >
-        <Text fontSize="sm" color={useColorModeValue("gray.500", "gray.600")}>
+        <Text
+          fontSize="sm"
+          color={useColorModeValue("neutral.800", "neutralD.800")}
+        >
           © {date} Daniel Wirtz{" "}
         </Text>
         <HStack spacing={4}>

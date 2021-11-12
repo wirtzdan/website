@@ -22,7 +22,7 @@ const Bookmarks = ({ bookmarks }) => {
             <Heading as="h1">Bookmarks</Heading>
             <Text
               fontSize={["xl", "2xl"]}
-              color={useColorModeValue("gray.500", "gray.200")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
               maxW="lg"
               textAlign="center"
             >

@@ -32,10 +32,10 @@ const ProjectCard = ({ name, description, logo, link, type }) => {
     <Link href={link} isExternal>
       <HStack
         p={4}
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("white", "neutralD.100")}
         rounded="xl"
         borderWidth="1px"
-        borderColor={useColorModeValue("gray.100", "gray.700")}
+        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
         w="100%"
         h="100%"
         textAlign="left"
@@ -84,7 +84,7 @@ const ProjectCard = ({ name, description, logo, link, type }) => {
 
             <Text
               fontSize="sm"
-              color={useColorModeValue("gray.500", "gray.200")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               {description}
             </Text>

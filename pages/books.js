@@ -37,7 +37,7 @@ const Books = ({ books }) => {
             <Heading as="h1">Books</Heading>
             <Text
               fontSize={["xl", "2xl"]}
-              color={useColorModeValue("gray.500", "gray.200")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
               maxW="lg"
               textAlign="center"
             >
@@ -55,8 +55,8 @@ const Books = ({ books }) => {
           >
             <TabList>
               <Tab
-                bg={useColorModeValue("gray.100", "gray.800")}
-                color={useColorModeValue("gray.500", "gray.500")}
+                bg={useColorModeValue("neutral.300", "neutralD.300")}
+                color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
                   color: "blue.800",
                   bg: "blue.100",
@@ -69,8 +69,8 @@ const Books = ({ books }) => {
                 </HStack>
               </Tab>
               <Tab
-                bg={useColorModeValue("gray.100", "gray.800")}
-                color={useColorModeValue("gray.600", "gray.500")}
+                bg={useColorModeValue("neutral.300", "neutralD.300")}
+                color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
                   color: "red.800",
                   bg: "red.100",

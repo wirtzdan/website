@@ -34,13 +34,15 @@ function Highlight({
 }) {
   const baseTheme = useColorModeValue(prismLight, prismDark);
 
+  console.log("baseTheme →", baseTheme.plain);
+
   const { colorMode } = useColorMode();
 
   const customTheme = {
     ...baseTheme,
     plain: {
       ...baseTheme.plain,
-      fontFamily: "Fira Code",
+      fontFamily: "IBM Plex Mono",
       fontSize: "14px",
       lineHeight: "26px",
     },

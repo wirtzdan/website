@@ -33,7 +33,7 @@ const ImageFallback = () => {
         w={10}
         h={10}
         as={ImageSquare}
-        color={useColorModeValue("gray.300", "gray.800")}
+        color={useColorModeValue("gray.300", "neutralD.100")}
       />
     </Box>
   );
@@ -64,8 +64,8 @@ const BookmarkCard = (props) => {
         w="100%"
         rounded="xl"
         borderWidth="1px"
-        bg={useColorModeValue("white", "gray.800")}
-        borderColor={useColorModeValue("gray.100", "gray.700")}
+        bg={useColorModeValue("white", "neutralD.100")}
+        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
         transition="all 0.25s"
         transition-timing-function="spring(1 100 10 10)"
         _hover={{
@@ -83,7 +83,7 @@ const BookmarkCard = (props) => {
             maxW="400px"
             w="100%"
             borderBottomWidth="1px"
-            borderColor={useColorModeValue("gray.100", "gray.700")}
+            borderColor={useColorModeValue("neutral.400", "neutralD.400")}
           >
             <Image src={cover} fallback={<ImageFallback />} objectFit="cover" />
           </AspectRatio>
@@ -111,7 +111,7 @@ const BookmarkCard = (props) => {
             <Text
               fontSize="xs"
               fontWeight="500"
-              color={useColorModeValue("gray.500", "gray.400")}
+              color={useColorModeValue("neutral.900", "neutralD.900")}
               textTransform="capitalize"
             >
               {type}
@@ -122,7 +122,7 @@ const BookmarkCard = (props) => {
             <Text
               fontSize="xs"
               fontWeight="400"
-              color={useColorModeValue("gray.400", "gray.500")}
+              color={useColorModeValue("neutral.900", "neutralD.900")}
             >
               – {format(created)}
             </Text>

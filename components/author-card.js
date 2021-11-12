@@ -44,9 +44,9 @@ const AuthorCard = ({ readingTime, publishedAt, url }) => {
           color={
             hasCopied
               ? useColorModeValue("green.600", "green.200")
-              : useColorModeValue("gray.800", "gray.100")
+              : useColorModeValue("neutralD.100", "gray.100")
           }
-          bg={useColorModeValue("white", "gray.800")}
+          bg={useColorModeValue("white", "neutralD.100")}
           leftIcon={hasCopied ? <Check size={18} /> : <Link size={18} />}
         >
           {hasCopied ? "Copied" : "Copy link"}

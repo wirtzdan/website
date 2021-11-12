@@ -28,10 +28,10 @@ const BookCard = ({ title, author, rating, isFavorite, cover, dateRead }) => {
     >
       <HStack
         p={4}
-        bg={useColorModeValue("white", "gray.800")}
+        bg={useColorModeValue("white", "neutralD.100")}
         rounded="xl"
         borderWidth="1px"
-        borderColor={useColorModeValue("gray.100", "gray.700")}
+        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
         w="100%"
         textAlign="left"
         align="start"
@@ -72,14 +72,14 @@ const BookCard = ({ title, author, rating, isFavorite, cover, dateRead }) => {
             </Text>
             <Text
               fontSize="md"
-              color={useColorModeValue("gray.500", "gray.200")}
+              color={useColorModeValue("neutral.900", "neutralD.1000")}
             >
               {author}
             </Text>
           </VStack>
           <VStack spacing={0} align="start">
             <StarRating rating={rating} />
-            <Text fontSize="xs" color="gray.400">
+            <Text fontSize="xs" color="neutral.800">
               {format(dateRead)}
             </Text>
           </VStack>
