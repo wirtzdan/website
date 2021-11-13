@@ -12,8 +12,6 @@ import {
 } from "@radix-ui/colors";
 
 const transformRadixToChakraFormat = (scale) => {
-  console.log("scale →", scale.gray1);
-
   const output = Object.values(scale).reduce(
     (accumulator, currentValue, index) => {
       if (index === 0) {
@@ -33,8 +31,6 @@ const radixNeutral = transformRadixToChakraFormat(sand);
 const radixNeutralDark = transformRadixToChakraFormat(sandDark);
 const radixPrimary = transformRadixToChakraFormat(blue);
 const radixPrimaryD = transformRadixToChakraFormat(blueDark);
-
-console.log("radixNeutral →", radixNeutral);
 
 const customTheme = extendTheme({
   fonts: {
