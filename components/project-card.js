@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "./image";
 import { usePalette } from "react-palette";
-import Link from "@/components/Link";
+import Link from "@/components/link";
 
 const ProjectCard = ({ name, description, logo, link, type }) => {
   const { data, loading, error } = usePalette(logo[0].thumbnails.large.url);

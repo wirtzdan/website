@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "./image";
 import { usePalette } from "react-palette";
-import Link from "@/components/Link";
+import Link from "@/components/link";
 
 const ToolCard = ({
   name,
