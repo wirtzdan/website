@@ -5,15 +5,12 @@ import {
   Text,
   useColorModeValue,
   Tag,
-  TagLabel,
-  TagRightIcon,
   Box,
-  AspectRatio,
-  Link,
   Image as ChakraImage,
 } from "@chakra-ui/react";
 import Image from "./image";
 import { usePalette } from "react-palette";
+import Link from "@/components/Link";
 
 const ProjectCard = ({ name, description, logo, link, type }) => {
   const { data, loading, error } = usePalette(logo[0].thumbnails.large.url);
@@ -29,7 +26,7 @@ const ProjectCard = ({ name, description, logo, link, type }) => {
   };
 
   return (
-    <Link href={link} isExternal>
+    <Link href={link} unstyled>
       <HStack
         p={4}
         bg={useColorModeValue("white", "neutralD.100")}
@@ -43,7 +40,7 @@ const ProjectCard = ({ name, description, logo, link, type }) => {
         spacing={4}
         transition="all 0.25s"
         transition-timing-function="spring(1 100 10 10)"
-        _hover={{ transform: "translateY(-4px)", shadow: "sm" }}
+        _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
       >
         <Box
           rounded="lg"

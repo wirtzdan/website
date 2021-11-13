@@ -38,9 +38,9 @@ const BookCard = ({ title, author, rating, isFavorite, cover, dateRead }) => {
         spacing={4}
         height={36}
         position="relative"
-        transition="all 0.25s"
+        transition="all 0.3s"
         transition-timing-function="spring(1 100 10 10)"
-        _hover={{ transform: "translateY(-4px)", shadow: "sm" }}
+        _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
       >
         <Box
           rounded="md"

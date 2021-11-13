@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Box,
   HStack,
   Avatar,
   VStack,
@@ -11,13 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
-import {
-  ClipboardCheckOutline,
-  ClipboardCopyOutline,
-  Duplicate,
-  Link,
-  Check,
-} from "heroicons-react";
+import { Link, Check } from "heroicons-react";
 
 const AuthorCard = ({ readingTime, publishedAt, url }) => {
   const { hasCopied, onCopy } = useClipboard(url);

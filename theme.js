@@ -45,7 +45,7 @@ const customTheme = extendTheme({
   colors: {
     neutral: {
       ...radixNeutral,
-      100: "hsl(41, 100%, 99%)",
+      // 100: "hsl(41, 100%, 99%)",
     },
     neutralD: {
       ...radixNeutralDark,

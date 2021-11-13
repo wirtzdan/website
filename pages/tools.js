@@ -27,25 +27,16 @@ import sorter from "sort-isostring";
 import { AndroidLogo, AppleLogo, Globe, Monitor } from "phosphor-react";
 import ToolCard from "../components/tool-card";
 import { Chrome } from "react-feather";
+import Hero from "@/components/hero";
 
 const Tools = ({ tools }) => {
   return (
     <PageTransition>
       <VStack spacing={8}>
-        <Section>
-          <VStack>
-            <Heading as="h1">Tools</Heading>
-            <Text
-              fontSize={["xl", "2xl"]}
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-              maxW="lg"
-              textAlign="center"
-            >
-              A list of my favorite tools that I use on a regular basis and that
-              I would recommend to try.
-            </Text>
-          </VStack>
-        </Section>
+        <Hero
+          title="Tools"
+          subtitle="A list of my favorite tools that I use on a regular basis and that I would recommend to try."
+        ></Hero>
         <Section>
           <Tabs
             variant="soft-rounded"

@@ -107,7 +107,7 @@ const Header = () => {
                   Links
                 </MenuButton>
                 <MenuList
-                  bg={useColorModeValue("neutral.100", "neutralD.100")}
+                  bg={useColorModeValue("white", "neutralD.100")}
                   borderColor={useColorModeValue("neutral.400", "neutralD.400")}
                 >
                   <Link href="/books">

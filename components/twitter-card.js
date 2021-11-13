@@ -35,7 +35,7 @@ const TwitterCard = ({ title, slug }) => {
         href={`https://twitter.com/intent/tweet?text=${
           encodeURIComponent(title) + " " + "by @wirtzdan"
         }&url=${encodeURIComponent(url)}`}
-        isExternal
+        unstyled
       >
         <LightMode>
           <Button

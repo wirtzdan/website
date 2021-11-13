@@ -8,26 +8,14 @@ import sorter from "sort-isostring";
 import NewsletterDrawer from "@/components/newsletter-drawer";
 import generateRss from "@/lib/rss";
 import { getAllPosts } from "../lib/airtable";
+import Hero from "@/components/hero";
 
 export default function Blog({ posts }) {
   return (
     <PageTransition>
       <Section>
         <VStack spacing={8}>
-          <VStack>
-            <Heading as="h1">Blog</Heading>
-            <Text
-              fontSize="2xl"
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-              maxW="lg"
-              textAlign="center"
-            >
-              Welcome to my blog. Here I share some of my thinking, insights and
-              views on life.
-            </Text>
-            <NewsletterDrawer placement="blog" />
-          </VStack>
-
+          <Hero title="Blog" />
           {!posts.length && "No posts found."}
           <VStack w="100%" align="start" spacing={4}>
             {posts

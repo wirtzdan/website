@@ -21,10 +21,10 @@ import PageTransition from "../components/page-transitions";
 import { getTable } from "@/lib/airtable";
 import Section from "@/components/section";
 import BookCard from "@/components/book-card";
-
 import BookSuggestion from "@/components/book-suggestion";
 import { BookOpen, Heart } from "heroicons-react";
 import sorter from "sort-isostring";
+import Hero from "@/components/hero";
 
 const Books = ({ books }) => {
   const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
@@ -32,20 +32,7 @@ const Books = ({ books }) => {
   return (
     <PageTransition>
       <VStack spacing={8}>
-        <Section>
-          <VStack>
-            <Heading as="h1">Books</Heading>
-            <Text
-              fontSize={["xl", "2xl"]}
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-              maxW="lg"
-              textAlign="center"
-            >
-              Welcome to my book corner. Here I track my last books and reviews.
-            </Text>
-            <BookSuggestion />
-          </VStack>
-        </Section>
+        <Hero title="Books"></Hero>
         <Section>
           <Tabs
             variant="soft-rounded"

@@ -70,7 +70,7 @@ const BookmarkCard = (props) => {
         transition-timing-function="spring(1 100 10 10)"
         _hover={{
           transform: "translateY(-4px)",
-          shadow: "sm",
+          shadow: "lg",
           textDecoration: "none",
         }}
         overflow="hidden"

@@ -25,32 +25,25 @@ const Home = ({ projects }) => (
             <VStack>
               <Text>
                 I'm a designer, developer and entrepreneur of sorts. Born and
-                raised in Germany and now living in the Netherlands. The focus
-                of my work is the{" "}
-                <Link
-                  variant="text"
-                  href="https://www.facilitator.school"
-                  isExternal
-                >
+                raised in Germany and now living in the Netherlands.
+              </Text>
+              <Text>
+                The focus of my work is the{" "}
+                <Link variant="text" href="https://www.facilitator.school">
                   Facilitator School
                 </Link>
                 . In my spare time, I work on{" "}
-                <Link variant="text" href="https://markway.io" isExternal>
+                <Link variant="text" href="https://markway.io">
                   Markway
                 </Link>
                 . I also hang out on{" "}
-                <Link
-                  variant="text"
-                  href="https://twitter.com/wirtzdan"
-                  isExternal
-                >
+                <Link variant="text" href="https://twitter.com/wirtzdan">
                   Twitter
                 </Link>{" "}
                 and{" "}
                 <Link
                   variant="text"
                   href="https://www.linkedin.com/in/wirtzdan/"
-                  isExternal
                 >
                   LinkedIn
                 </Link>

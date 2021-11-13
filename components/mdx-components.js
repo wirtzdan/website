@@ -56,7 +56,14 @@ const TData = (props) => (
 
 const Image = (props) => {
   return (
-    <Box mt={4} rounded="lg" shadow="sm" overflow="hidden" lineHeight={0}>
+    <Box
+      mt={4}
+      rounded="lg"
+      borderWidth="1px"
+      borderColor={useColorModeValue("neutral.500", "neutralD.500")}
+      overflow="hidden"
+      lineHeight={0}
+    >
       <NextImage {...props} />
     </Box>
   );

@@ -1,15 +1,9 @@
 import React from "react";
-import {
-  VStack,
-  Text,
-  Heading,
-  useColorModeValue,
-  SimpleGrid,
-  Grid,
-} from "@chakra-ui/react";
+import { VStack, SimpleGrid } from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import sorter from "sort-isostring";
+import Hero from "@/components/hero";
 
 import BookmarkCard from "../components/bookmark-card";
 
@@ -17,19 +11,10 @@ const Bookmarks = ({ bookmarks }) => {
   return (
     <PageTransition>
       <VStack spacing={8}>
-        <Section>
-          <VStack>
-            <Heading as="h1">Bookmarks</Heading>
-            <Text
-              fontSize={["xl", "2xl"]}
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-              maxW="lg"
-              textAlign="center"
-            >
-              Discoveries from the World Wide Web.
-            </Text>
-          </VStack>
-        </Section>
+        <Hero
+          title="Bookmarks"
+          // subtitle="Discoveries from the World Wide Web"
+        />
         <Section>
           <SimpleGrid columns={[2, 3]} spacing={4}>
             {bookmarks.items
