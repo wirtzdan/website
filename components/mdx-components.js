@@ -1,9 +1,9 @@
 import react, { useState } from "react";
-import Link from "next/link";
 import NextImage from "next/image";
 import Tweet from "react-tweet-embed";
 import Codeblock from "./codeblock/codeblock";
 import ReactPlayer from "react-player/youtube";
+import Link from "./link";
 
 import {
   Alert,
@@ -53,21 +53,6 @@ const TData = (props) => (
     {...props}
   />
 );
-
-const CustomLink = (props) => {
-  const href = props.href;
-  const isInternalLink = href && (href.startsWith("/") || href.startsWith("#"));
-
-  if (isInternalLink) {
-    return (
-      <Link href={href}>
-        <a apply="mdx.a" {...props} />
-      </Link>
-    );
-  } else {
-    return <a apply="mdx.a" {...props} />;
-  }
-};
 
 const Image = (props) => {
   return (
@@ -125,13 +110,13 @@ const MDXComponents = {
   th: THead,
   td: TData,
   br: (props) => <Box height="24px" {...props} />,
-  // a: (props) => <chakra.a apply="mdx.a" {...props} />,
   p: (props) => <chakra.p apply="mdx.p" {...props} />,
   ul: (props) => <chakra.ul apply="mdx.ul" {...props} />,
   ol: (props) => <chakra.ol apply="mdx.ul" {...props} />,
   li: (props) => <chakra.li pb="4px" {...props} />,
   Image,
-  a: CustomLink,
+  // a: (props) => <Link apply="mdx.a" {...props} />,
+  a: Link,
   Tweet,
   Embed,
   VideoPlayer,

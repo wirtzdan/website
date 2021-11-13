@@ -4,19 +4,16 @@ import {
   Button,
   Box,
   VStack,
-  HStack,
   Text,
-  IconButton,
-  Link,
   Heading,
   SimpleGrid,
 } from "@chakra-ui/react";
-import Container from "../components/container";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import { TwitterLogo } from "phosphor-react";
 import ProjectCard from "@/components/project-card";
 import { getTable } from "@/lib/airtable";
+import Link from "@/components/link";
 
 const Home = ({ projects }) => (
   <Box>
@@ -28,15 +25,8 @@ const Home = ({ projects }) => (
             <VStack>
               <Text>
                 I'm a designer, developer and entrepreneur of sorts. Born and
-                raised in Germany and now living in the Netherlands.
-              </Text>
-              <Text>
-                By day, I'm working at{" "}
-                <Link variant="text" href="https://crisp.studio" isExternal>
-                  Crisp Studio
-                </Link>{" "}
-                where I'm currently building the education platform and
-                community at{" "}
+                raised in Germany and now living in the Netherlands. The focus
+                of my work is the{" "}
                 <Link
                   variant="text"
                   href="https://www.facilitator.school"
@@ -44,29 +34,30 @@ const Home = ({ projects }) => (
                 >
                   Facilitator School
                 </Link>
-                .
-              </Text>
-              <Text>
-                In my spare time, I develop small web apps and{" "}
-                <Link
-                  variant="text"
-                  href="https://chrome.google.com/webstore/detail/roam-highlighter/hponfflfgcjikmehlcdcnpapicnljkkc?hl=en"
-                  isExternal
-                >
-                  browser extensions
-                </Link>{" "}
-                that make life easier for other people. I also hang out on{" "}
+                . In my spare time, I work on{" "}
+                <Link variant="text" href="https://markway.io" isExternal>
+                  Markway
+                </Link>
+                . I also hang out on{" "}
                 <Link
                   variant="text"
                   href="https://twitter.com/wirtzdan"
                   isExternal
                 >
                   Twitter
+                </Link>{" "}
+                and{" "}
+                <Link
+                  variant="text"
+                  href="https://www.linkedin.com/in/wirtzdan/"
+                  isExternal
+                >
+                  LinkedIn
                 </Link>
                 , where I learn, think and work in public.
               </Text>
             </VStack>
-            <Link href="https://twitter.com/wirtzdan" isExternal>
+            <Link href="https://twitter.com/wirtzdan" unstyled>
               <Button
                 colorScheme="blue"
                 rounded="xl"

@@ -1,6 +1,15 @@
 import { extendTheme } from "@chakra-ui/react";
 import { mode } from "@chakra-ui/theme-tools";
-import { gray, blue, sand, sandDark, mauve, mauveDark } from "@radix-ui/colors";
+import {
+  sand,
+  sandDark,
+  blue,
+  blueDark,
+  yellow,
+  yellowDark,
+  amber,
+  amberDark,
+} from "@radix-ui/colors";
 
 const transformRadixToChakraFormat = (scale) => {
   console.log("scale →", scale.gray1);
@@ -22,17 +31,21 @@ const transformRadixToChakraFormat = (scale) => {
 
 const radixNeutral = transformRadixToChakraFormat(sand);
 const radixNeutralDark = transformRadixToChakraFormat(sandDark);
+const radixPrimary = transformRadixToChakraFormat(blue);
+const radixPrimaryD = transformRadixToChakraFormat(blueDark);
 
 console.log("radixNeutral →", radixNeutral);
 
 const customTheme = extendTheme({
   fonts: {
-    heading: '"IBM Plex Sans"',
-    body: "IBM Plex Sans",
+    heading:
+      '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+    body: '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
   },
   colors: {
     neutral: {
       ...radixNeutral,
+      100: "hsl(41, 100%, 99%)",
     },
     neutralD: {
       ...radixNeutralDark,
@@ -49,9 +62,18 @@ const customTheme = extendTheme({
       800: "hsl(58 3.7% 13.1%)",
       900: "hsl(61 2.0% 8.3%)",
     },
+    primary: {
+      ...radixPrimary,
+    },
+    primaryD: {
+      ...radixPrimaryD,
+    },
   },
   styles: {
     global: (props) => ({
+      html: {
+        scrollBehavior: "smooth",
+      },
       body: {
         color: mode("neutral.1100", "neutralD.1100")(props),
         bg: mode("neutral.100", "neutralD.50")(props),
@@ -64,19 +86,10 @@ const customTheme = extendTheme({
           color: "#b5f4a5 !important",
           fontStyle: "normal !important",
         },
+        MozOsxFontSmoothing: "grayscale",
+        WebkitFontSmoothing: "antialiased",
+        textRendering: "optimizeLegibility",
       },
-      // a: {
-      //   borderBottom: "2px",
-      //   borderColor: "yellow.400",
-      //   backgroundColor: "RGBA(235, 201, 74, 0.1)",
-      //   // color: mode("blue.500", "blue.200")(props),
-      //   transition: "color 0.15s",
-      //   transitionTimingFunction: "ease-out",
-      //   fontWeight: "400",
-      //   _hover: {
-      //     backgroundColor: "RGBA(235, 201, 74, 0.2)",
-      //   },
-      // },
     }),
   },
   components: {
@@ -111,30 +124,29 @@ const customTheme = extendTheme({
           textDecoration: "none",
         },
       },
-      variants: {
-        text: {
-          borderBottom: "2px",
-          borderColor: "yellow.400",
-          backgroundColor: "RGBA(235, 201, 74, 0.1)",
-          // color: "blue.400",
-          transition: "color 0.15s",
-          transitionTimingFunction: "ease-out",
-          fontWeight: "400",
-          borderRadius: "1px",
-          _hover: {
-            backgroundColor: "RGBA(235, 201, 74, 0.2)",
-          },
-        },
-        gradient: {
-          bgGradient: "linear(to-br, blue.400,blue.300)",
-          bgClip: "text",
-          fontWeight: "500",
-          _hover: {
-            bgGradient: "linear(to-br, blue.500,blue.300)",
-            bgClip: "text",
-          },
-        },
-      },
+      // variants: {
+      //   text: {
+      //     borderBottom: "2px",
+      //     borderColor: "primary.400",
+      //     color: "primaryD.600",
+      //     transition: "all 0.3s",
+      //     transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+      //     borderRadius: "1px",
+      //     _hover: {
+      //       color: "primary.1100",
+      //       backgroundColor: "primary.400",
+      //     },
+      //   },
+      //   gradient: {
+      //     bgGradient: "linear(to-br, blue.400,blue.300)",
+      //     bgClip: "text",
+      //     fontWeight: "500",
+      //     _hover: {
+      //       bgGradient: "linear(to-br, blue.500,blue.300)",
+      //       bgClip: "text",
+      //     },
+      //   },
+      // },
     },
   },
   mdx: {
@@ -176,6 +188,12 @@ const customTheme = extendTheme({
         mt: 0,
       },
     },
+    // a: {
+    //   borderBottom: "2px",
+    //   transition: "all 0.3s",
+    //   transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+    //   borderRadius: "1px",
+    // },
     hr: {
       my: "4rem",
     },
