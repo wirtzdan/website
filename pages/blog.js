@@ -24,18 +24,18 @@ export default function Blog({ posts }) {
         <VStack spacing={8}>
           <Hero title="Blog" />
           {!posts.length && "No posts found."}
-          <Section>
-            <SimpleGrid columns={[2, 2]} spacing={4}>
-              {posts
-                .filter((p) => p.fields.status === "Published")
-                .sort((x, y) =>
-                  sorter(y.fields.publishDate, x.fields.publishDate)
-                )
-                .map((post) => {
-                  return <BlogCard key={post.id} {...post.fields} />;
-                })}
-            </SimpleGrid>
-          </Section>
+
+          <SimpleGrid columns={[1, 2]} spacing={4}>
+            {posts
+              .filter((p) => p.fields.status === "Published")
+              .sort((x, y) =>
+                sorter(y.fields.publishDate, x.fields.publishDate)
+              )
+              .map((post) => {
+                return <BlogCard key={post.id} {...post.fields} />;
+              })}
+          </SimpleGrid>
+
           {/* <VStack
             w="100%"
             align="start"
