@@ -1,6 +1,13 @@
 import React from "react";
 import fs from "fs";
-import { VStack, Text, Heading, useColorModeValue } from "@chakra-ui/react";
+import {
+  VStack,
+  Text,
+  Heading,
+  useColorModeValue,
+  SimpleGrid,
+  StackDivider,
+} from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import BlogCard from "@/components/blog-card";
@@ -17,7 +24,28 @@ export default function Blog({ posts }) {
         <VStack spacing={8}>
           <Hero title="Blog" />
           {!posts.length && "No posts found."}
-          <VStack w="100%" align="start" spacing={4}>
+          <Section>
+            <SimpleGrid columns={[2, 2]} spacing={4}>
+              {posts
+                .filter((p) => p.fields.status === "Published")
+                .sort((x, y) =>
+                  sorter(y.fields.publishDate, x.fields.publishDate)
+                )
+                .map((post) => {
+                  return <BlogCard key={post.id} {...post.fields} />;
+                })}
+            </SimpleGrid>
+          </Section>
+          {/* <VStack
+            w="100%"
+            align="start"
+            spacing={6}
+            divider={
+              <StackDivider
+                borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+              />
+            }
+          >
             {posts
               .filter((p) => p.fields.status === "Published")
               .sort((x, y) =>
@@ -26,7 +54,7 @@ export default function Blog({ posts }) {
               .map((post) => {
                 return <BlogCard key={post.id} {...post.fields} />;
               })}
-          </VStack>
+          </VStack> */}
         </VStack>
       </Section>
     </PageTransition>
