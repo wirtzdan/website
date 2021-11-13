@@ -60,9 +60,13 @@ function NavLink(props) {
         size="md"
         {...rest}
         _activeLink={{
-          color: useColorModeValue("blue.500", "blue.200"),
+          color: useColorModeValue("neutral.1100", "neutralD.1100"),
+          bg: useColorModeValue("neutral.200", "neutralD.300"),
         }}
-        px={4}
+        _hover={{
+          bg: useColorModeValue("neutral.200", "neutralD.200"),
+        }}
+        px={8}
       >
         {name}
       </Button>
@@ -84,13 +88,6 @@ const Header = () => {
     >
       <Container>
         <VStack align="start" spacing={0}>
-          {/* <NextLink href="/" passHref>
-            <chakra.a display="block" aria-label="Home">
-              <Text fontSize="2xl" fontWeight="bold">
-                Daniel Wirtz
-              </Text>
-            </chakra.a>
-          </NextLink> */}
           <HStack justify="space-between" w="100%" h={16}>
             <AvatarNavigation />
             <HStack ml={-4} spacing={2}>
@@ -101,8 +98,11 @@ const Header = () => {
                   as={Button}
                   variant="ghost"
                   size="md"
-                  px={4}
+                  px={6}
                   rightIcon={<ChevronDown size={18} />}
+                  _hover={{
+                    bg: useColorModeValue("neutral.200", "neutralD.200"),
+                  }}
                 >
                   Links
                 </MenuButton>
@@ -111,7 +111,11 @@ const Header = () => {
                   borderColor={useColorModeValue("neutral.400", "neutralD.400")}
                 >
                   <Link href="/books">
-                    <MenuItem>
+                    <MenuItem
+                      _hover={{
+                        bg: useColorModeValue("neutral.200", "neutralD.200"),
+                      }}
+                    >
                       <HStack>
                         <Icon
                           as={BookOpen}
@@ -123,7 +127,11 @@ const Header = () => {
                     </MenuItem>
                   </Link>
                   <Link href="/bookmarks">
-                    <MenuItem>
+                    <MenuItem
+                      _hover={{
+                        bg: useColorModeValue("neutral.200", "neutralD.200"),
+                      }}
+                    >
                       <HStack>
                         <Icon
                           as={Bookmark}
@@ -135,7 +143,11 @@ const Header = () => {
                     </MenuItem>
                   </Link>
                   <Link href="/tools">
-                    <MenuItem>
+                    <MenuItem
+                      _hover={{
+                        bg: useColorModeValue("neutral.200", "neutralD.200"),
+                      }}
+                    >
                       <HStack>
                         <Icon
                           as={LightningBolt}

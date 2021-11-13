@@ -9,7 +9,7 @@ const MobileMenuButton = ({ label, icon, ...rest }) => {
       rounded="md"
       px={6}
       {...rest}
-      color={useColorModeValue("blue.600", "blue.200")}
+      color={useColorModeValue("neutral.1100", "neutralD.1100")}
     >
       {icon}
       <Text

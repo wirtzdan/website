@@ -89,7 +89,7 @@ const BookSuggestion = () => {
                   />
                 </FormControl>
                 {isSubmitSuccessful ? (
-                  <Alert status="success" rounded="xl">
+                  <Alert status="success" rounded="lg">
                     <AlertIcon />
                     Thanks for the suggestion!
                   </Alert>

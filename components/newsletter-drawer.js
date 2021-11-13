@@ -124,7 +124,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
                       isDisabled={isSuccessful}
                       isLoading={isSubmitting}
                       leftIcon={<Rss size={20} />}
-                      rounded="xl"
+                      rounded="lg"
                     >
                       Subscribe
                     </Button>

@@ -44,8 +44,12 @@ function MobileMenuItem({ href, title, toggle }) {
         aria-current={isActive ? "page" : undefined}
         w="100%"
         variants={variants}
+        backgroundColor={useColorModeValue("neutral.300", "neutralD.300")}
         _activeLink={{
           color: useColorModeValue("blue.500", "blue.200"),
+        }}
+        _hover={{
+          backgroundColor: useColorModeValue("neutral.500", "neutralD.500"),
         }}
       >
         {title}

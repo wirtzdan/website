@@ -53,7 +53,7 @@ const Home = ({ projects }) => (
             <Link href="https://twitter.com/wirtzdan" unstyled>
               <Button
                 colorScheme="blue"
-                rounded="xl"
+                rounded="lg"
                 size="lg"
                 leftIcon={<TwitterLogo weight="fill" />}
                 mt={4}

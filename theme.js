@@ -93,6 +93,13 @@ const customTheme = extendTheme({
     }),
   },
   components: {
+    MenuButton: {
+      baseStyle: (props) => ({
+        _hover: {
+          backgroundColor: mode("neutral.400", "neutralD.400")(props),
+        },
+      }),
+    },
     Heading: {
       baseStyle: (props) => ({
         borderBottom: "2px",
@@ -104,7 +111,7 @@ const customTheme = extendTheme({
     Button: {
       baseStyle: {
         fontWeight: "500",
-        rounded: "xl",
+        rounded: "lg",
       },
     },
     Tag: {

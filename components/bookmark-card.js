@@ -62,7 +62,7 @@ const BookmarkCard = (props) => {
     >
       <VStack
         w="100%"
-        rounded="xl"
+        rounded="lg"
         borderWidth="1px"
         bg={useColorModeValue("white", "neutralD.100")}
         borderColor={useColorModeValue("neutral.400", "neutralD.400")}

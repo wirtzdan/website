@@ -30,7 +30,7 @@ const ProjectCard = ({ name, description, logo, link, type }) => {
       <HStack
         p={4}
         bg={useColorModeValue("white", "neutralD.100")}
-        rounded="xl"
+        rounded="lg"
         borderWidth="1px"
         borderColor={useColorModeValue("neutral.400", "neutralD.400")}
         w="100%"

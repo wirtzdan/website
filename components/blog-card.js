@@ -27,7 +27,7 @@ const BlogCard = ({ slug, publishDate, summary, title }) => {
           align="start"
           p={6}
           bg={useColorModeValue("white", "neutralD.100")}
-          rounded="xl"
+          rounded="lg"
           borderWidth="1px"
           borderColor={useColorModeValue("neutral.400", "neutralD.400")}
           spacing={0}
