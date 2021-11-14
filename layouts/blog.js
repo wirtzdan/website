@@ -3,12 +3,10 @@ import Section from "@/components/section";
 import {
   Heading,
   VStack,
-  Text,
-  HStack,
   Box,
-  Button,
-  Link,
+  Icon,
   useColorModeValue,
+  AspectRatio,
 } from "@chakra-ui/react";
 import ReadingProgress from "@/components/reading-progress";
 import BlogSeo from "@/components/blog-seo";
@@ -16,6 +14,23 @@ import TwitterCard from "@/components/twitter-card";
 import AuthorCard from "@/components/author-card";
 import Image from "next/image";
 import PageTransition from "../components/page-transitions";
+import ReactPlayer from "react-player/youtube";
+import { PlayCircle } from "phosphor-react";
+
+const PlayIcon = () => {
+  return (
+    <Icon
+      as={PlayCircle}
+      w={16}
+      h={16}
+      color={useColorModeValue("neutral.900", "neutral.900")}
+      weight="fill"
+      background="white"
+      rounded="full"
+      shadow="lg"
+    />
+  );
+};
 
 class BlogLayout extends React.Component {
   render() {
@@ -49,6 +64,23 @@ class BlogLayout extends React.Component {
                       height={1260}
                     />
                   </Box>
+                ) : undefined}
+                {this.props.frontMatter.videoLink ? (
+                  <AspectRatio
+                    overflow="hidden"
+                    rounded="md"
+                    my={6}
+                    ratio={16 / 9}
+                  >
+                    <ReactPlayer
+                      width="100%"
+                      height="100%"
+                      url={this.props.frontMatter.videoLink}
+                      light
+                      controls
+                      playIcon={<PlayIcon />}
+                    ></ReactPlayer>
+                  </AspectRatio>
                 ) : undefined}
                 <VStack align="stretch" spacing={6} mb={4}>
                   <Heading as="h1">{this.props.frontMatter.title}</Heading>
