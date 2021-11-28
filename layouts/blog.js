@@ -16,6 +16,7 @@ import Image from "next/image";
 import PageTransition from "../components/page-transitions";
 import ReactPlayer from "react-player/youtube";
 import { PlayCircle } from "phosphor-react";
+import SubscribeCard from "@/components/subscribe-card";
 
 const PlayIcon = () => {
   return (
@@ -96,11 +97,18 @@ class BlogLayout extends React.Component {
               </VStack>
               <div>{this.props.children}</div>
             </article>
-            <TwitterCard
+
+            {/* <TwitterCard
               title={this.props.frontMatter.title}
               slug={this.props.frontMatter.slug}
-            />
+            /> */}
             <div ref={(el) => (this.div = el)}></div>
+          </Section>
+          <Section mt={8}>
+            <SubscribeCard
+              title="Subscribe to my newsletter"
+              description="Helpful tools, thoughtful articles and other findings from the web. From my desk to yours."
+            />
           </Section>
           <ReadingProgress target={target} />
         </>

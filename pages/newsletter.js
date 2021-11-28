@@ -115,13 +115,13 @@ export default function Newsletter() {
                     height="100%"
                     src="https://buttondown.email/letters-to-j/archive/026-pain-as-a-scalar?as_embed=true"
                   ></iframe>
-                  {/* <iframe
+                  <iframe
                     width="100%"
                     height="100%"
                     // scrolling="no"
                     // style="width:100%!important;height:220px;border:1px #ccc solid !important"
                     src="https://buttondown.email/dansjournal?as_embed=true"
-                  ></iframe> */}
+                  ></iframe>
                 </Box>
               </Box>
             </VStack>

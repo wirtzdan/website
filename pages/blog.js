@@ -35,7 +35,6 @@ export default function Blog({ posts }) {
                 return <BlogCard key={post.id} {...post.fields} />;
               })}
           </SimpleGrid>
-
           {/* <VStack
             w="100%"
             align="start"
