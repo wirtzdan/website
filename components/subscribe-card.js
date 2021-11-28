@@ -34,7 +34,7 @@ export const SubscribeCard = ({ title = "Subscribe", description }) => {
             {title}
           </Text>
           <Text
-            fontSize={{ base: "md", md: "lg" }}
+            fontSize={{ base: "sm", md: "lg" }}
             color={useColorModeValue("neutral.1000", "neutralD.1000")}
           >
             {description}

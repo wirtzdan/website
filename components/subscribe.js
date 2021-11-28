@@ -76,8 +76,8 @@ const Subscribe = ({ direction, ...props }) => {
                   isDisabled={isSuccessful}
                   isLoading={isSubmitSuccessful}
                   rounded="lg"
-                  w={64}
-                  a
+                  w="100%"
+                  minW={{ base: "48", md: "64" }}
                 />
                 {/* <FormHelperText>Send max. once per month</FormHelperText> */}
                 {errors.author && (
@@ -88,12 +88,14 @@ const Subscribe = ({ direction, ...props }) => {
                 mt={4}
                 colorScheme="blue"
                 type="submit"
-                w={"100%"}
+                w="100%"
+                minW={10}
                 isDisabled={isSuccessful}
                 // isDisabled={!isValid}
                 isLoading={isSubmitting}
                 leftIcon={<Rss size={20} />}
                 rounded="lg"
+                // size={{ base: "xs", md: "sm" }}
               >
                 Subscribe
               </Button>
