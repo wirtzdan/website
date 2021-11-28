@@ -21,11 +21,11 @@ export const SubscribeCard = ({ title = "Subscribe", description }) => {
       p={6}
       spacing={4}
     >
-      <HStack spacing={8}>
+      <HStack spacing={{ base: 4, md: 8 }}>
         <Image
           src="/newsletter-logo.png"
           borderRadius="full"
-          boxSize={{ base: "100px", md: "150px" }}
+          boxSize={{ base: "80px", md: "150px" }}
           boxShadow="xs"
           filter={useColorModeValue("none", "invert(1)")}
         />
