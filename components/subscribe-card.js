@@ -10,25 +10,34 @@ import {
 } from "@chakra-ui/react";
 import Subscribe from "@/components/subscribe";
 
-export const SubscribeCard = ({ title = "Subscribe", description }) => {
+export const SubscribeCard = ({
+  title = "From the Desk",
+  description = "Helpful tools, thoughtful articles and other findings from the web. From my desk to yours.",
+  card = true,
+  image = true,
+}) => {
   return (
     <Stack
       w="100%"
       rounded="lg"
-      borderWidth="1px"
-      bg={useColorModeValue("white", "neutralD.100")}
-      borderColor={useColorModeValue("neutral.400", "neutralD.400")}
-      p={6}
+      borderWidth={card ? "1px" : "0px"}
+      bg={card ? useColorModeValue("white", "neutralD.100") : "transparent"}
+      borderColor={
+        card ? useColorModeValue("neutral.400", "neutralD.400") : "transparent"
+      }
+      p={card ? 6 : 0}
       spacing={4}
     >
       <HStack spacing={{ base: 4, md: 8 }}>
-        <Image
-          src="/newsletter-logo.png"
-          borderRadius="full"
-          boxSize={{ base: "80px", md: "150px" }}
-          boxShadow="xs"
-          filter={useColorModeValue("none", "invert(1)")}
-        />
+        {image ? (
+          <Image
+            src="/newsletter-logo.png"
+            borderRadius="full"
+            boxSize={{ base: "80px", md: "150px" }}
+            boxShadow="xs"
+            filter={useColorModeValue("none", "invert(1)")}
+          />
+        ) : undefined}
         <VStack align="start">
           <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }}>
             {title}

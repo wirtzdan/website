@@ -24,42 +24,11 @@ import { Rss } from "heroicons-react";
 import { useForm } from "react-hook-form";
 import MobileMenuButton from "./mobile-menu-button";
 import Link from "next/link";
+import SubscribeCard from "@/components/subscribe-card";
 
 const NewsletterDrawer = ({ mobile, placement }) => {
-  const [isSuccessful, setIsSuccessful] = useState(undefined);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-
-  const {
-    register,
-    handleSubmit,
-    errors,
-    formState: { isSubmitting, isSubmitSuccessful },
-  } = useForm();
-
-  const onSubmit = async (data, e) => {
-    const response = await fetch(
-      "https://app.convertkit.com/forms/1925593/subscriptions",
-      {
-        method: "post",
-        body: JSON.stringify({ email_address: data.email_address }, null, 2),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    const responseJson = await response.json();
-
-    if (responseJson.status === "success") {
-      setIsSuccessful(true);
-    } else {
-      setIsSuccessful(false);
-    }
-  };
-
-  const onError = () => {};
 
   return (
     <Box>
@@ -91,7 +60,8 @@ const NewsletterDrawer = ({ mobile, placement }) => {
             <DrawerCloseButton />
             <DrawerHeader>Subscribe</DrawerHeader>
             <DrawerBody pb={4}>
-              <VStack align="stretch" spacing={4}>
+              <SubscribeCard card={false} />
+              {/* <VStack align="stretch" spacing={4}>
                 <Text>
                   Want to stay in loop on new articles and projects? Then drop
                   your email below. Alternatively, you can{" "}
@@ -138,7 +108,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
                     </Collapse>
                   </VStack>
                 </form>
-              </VStack>
+              </VStack> */}
             </DrawerBody>
           </DrawerContent>
         </DrawerOverlay>
