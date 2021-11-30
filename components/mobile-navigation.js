@@ -14,7 +14,7 @@ import { motion, useCycle } from "framer-motion";
 import MenuToggle from "./mobile-menu-toggle";
 import MobileMenuItem from "./mobile-menu-item";
 import ThemeToggle from "./theme-toggle";
-import NewsletterDrawer from "./newsletter-modal";
+import NewsletterDrawer from "./newsletter-drawer";
 
 const MobileNavigation = () => {
   const [isOpen, toggleOpen] = useCycle(false, true);
