@@ -26,36 +26,26 @@ const Subscribe = ({ direction, ...props }) => {
     mode: "onChange",
   });
 
-  console.log(
-    "process.env.BUTTONDOWN_API_KEY →",
-    process.env.BUTTONDOWN_API_KEY
-  );
-
   const onSubmit = async (data, e) => {
-    const response = await fetch(
-      "https://api.buttondown.email/v1/subscribers",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Token ${process.env.BUTTONDOWN_API_KEY}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: data.email_address,
-        }),
-      }
-    );
+    const res = await fetch("/api/addSubscriber", {
+      body: JSON.stringify({
+        email: data.email_address,
+        referrer_url: window.location.href,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
 
-    const status = await response.status;
+    const { error } = await res.json();
 
-    if (status === 201) {
+    if (error) {
+      setErrorMessage(error);
+      return;
+    } else {
       setIsSuccessful(true);
       setErrorMessage("");
-    } else {
-      setIsSuccessful(false);
-      const responseJson = await response.json();
-      setErrorMessage(responseJson[0]);
     }
   };
 
@@ -93,9 +83,9 @@ const Subscribe = ({ direction, ...props }) => {
                 isDisabled={isSuccessful}
                 // isDisabled={!isValid}
                 isLoading={isSubmitting}
-                leftIcon={<Rss size={20} />}
+                // leftIcon={<Rss size={20} />}
                 rounded="lg"
-                // size={{ base: "xs", md: "sm" }}
+                // size={{ base: "md", md: "" }}
               >
                 Subscribe
               </Button>
