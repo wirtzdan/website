@@ -77,7 +77,12 @@ class BlogLayout extends React.Component {
                       width="100%"
                       height="100%"
                       url={this.props.frontMatter.videoLink}
-                      light
+                      light={
+                        this.props.frontMatter.banner[0].thumbnails.large.url
+                          ? this.props.frontMatter.banner[0].thumbnails.large
+                              .url
+                          : true
+                      }
                       controls
                       playIcon={<PlayIcon />}
                     ></ReactPlayer>
