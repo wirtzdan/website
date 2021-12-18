@@ -5,9 +5,17 @@
       <link>https://danielwirtz.com/blog</link>
       <description>Designer, developer and maker of things.</description>
       <language>en</language>
-      <lastBuildDate>Tue, 12 Oct 2021 20:33:00 GMT</lastBuildDate>
+      <lastBuildDate>Thu, 09 Dec 2021 19:35:00 GMT</lastBuildDate>
       <atom:link href="https://danielwirtz.com/rss.xml" rel="self" type="application/rss+xml"/>
       
+  <item>
+    <guid>https://danielwirtz.com/blog/airtable-tool-library</guid>
+    <title>How to create a tool library in Airtable</title>
+    <link>https://danielwirtz.com/blog/airtable-tool-library</link>
+    <description>undefined</description>
+    <pubDate>Thu, 09 Dec 2021 19:35:00 GMT</pubDate>
+  </item>
+
   <item>
     <guid>https://danielwirtz.com/blog/logseq-web-highlighter</guid>
     <title>Using Roam Highlighter with Logseq</title>

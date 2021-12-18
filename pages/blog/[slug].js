@@ -4,6 +4,9 @@ import BlogLayout from "@/layouts/blog";
 import MDXComponents from "@/components/mdx-components";
 import { getAllPostsPaths, getPostData } from "../../lib/airtable";
 import readingTime from "reading-time";
+import remarkAutoLinkHeadings from "remark-autolink-headings";
+import remarkSlug from "remark-slug";
+import remarkCodeTitles from "remark-code-titles";
 
 export default function Blog({ source, frontMatter }) {
   return (
@@ -27,11 +30,7 @@ export async function getStaticProps({ params }) {
 
   const mdxSource = await serialize(postData.post[0].fields.mdx, {
     mdxOptions: {
-      remarkPlugins: [
-        require("remark-autolink-headings"),
-        require("remark-slug"),
-        require("remark-code-titles"),
-      ],
+      remarkPlugins: [remarkAutoLinkHeadings, remarkSlug, remarkCodeTitles],
     },
   });
 

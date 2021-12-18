@@ -84,6 +84,7 @@ class BlogLayout extends React.Component {
                           : true
                       }
                       controls
+                      playing
                       playIcon={<PlayIcon />}
                     ></ReactPlayer>
                   </AspectRatio>
