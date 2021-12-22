@@ -27,13 +27,12 @@ import Container from "./container";
 import { useRouter } from "next/router";
 import ThemeToggle from "./theme-toggle";
 import {
-  Bookmark,
-  BookOpen,
-  ChevronDown,
-  ChevronDownOutline,
-  LightningBolt,
-  Menu as MenuIcon,
-} from "heroicons-react";
+  BookmarkIcon,
+  BookOpenIcon,
+  ChevronDownIcon,
+  LightningBoltIcon,
+  MenuIcon,
+} from "@heroicons/react/solid";
 import Link from "next/link";
 import AvatarNavigation from "./avatar-navigation";
 
@@ -99,7 +98,7 @@ const Header = () => {
                   variant="ghost"
                   size="md"
                   px={6}
-                  rightIcon={<ChevronDown size={18} />}
+                  rightIcon={<ChevronDownIcon size={18} />}
                   _hover={{
                     bg: useColorModeValue("neutral.200", "neutralD.200"),
                   }}
@@ -118,7 +117,7 @@ const Header = () => {
                     >
                       <HStack>
                         <Icon
-                          as={BookOpen}
+                          as={BookOpenIcon}
                           size={18}
                           color={useColorModeValue("blue.500", "blue.200")}
                         />
@@ -134,7 +133,7 @@ const Header = () => {
                     >
                       <HStack>
                         <Icon
-                          as={Bookmark}
+                          as={BookmarkIcon}
                           size={18}
                           color={useColorModeValue("blue.500", "blue.200")}
                         />
@@ -150,7 +149,7 @@ const Header = () => {
                     >
                       <HStack>
                         <Icon
-                          as={LightningBolt}
+                          as={LightningBoltIcon}
                           size={18}
                           color={useColorModeValue("blue.500", "blue.200")}
                         />

@@ -13,7 +13,13 @@ import {
   Divider,
   Center,
 } from "@chakra-ui/react";
-import { VideoCamera, BookOpen, PlayCircle, Eye } from "phosphor-react";
+import {
+  BookOpenIcon,
+  EyeIcon,
+  VideoCameraIcon,
+  PlayIcon,
+  ClockIcon,
+} from "@heroicons/react/solid";
 import Link from "@/components/link";
 import readingTime from "reading-time";
 
@@ -76,7 +82,7 @@ const BlogCard = ({
                 // opacity={isHovered ? "1" : "0"}
               >
                 <Icon
-                  as={PlayCircle}
+                  as={PlayIcon}
                   w={10}
                   h={10}
                   color={useColorModeValue("neutral.900", "neutral.900")}
@@ -127,17 +133,17 @@ const BlogCard = ({
               </Tag>
             ) : undefined}
             <HStack spacing={1} mr={1}>
-              <Icon as={Eye} w={4} h={4} weight="duotone" />
+              <Icon as={EyeIcon} w={4} h={4} weight="duotone" />
               <Text>{views} views</Text>
             </HStack>
             {type === "Video" ? (
               <HStack>
-                <Icon as={VideoCamera} w={4} h={4} weight="duotone" />
+                <Icon as={ClockIcon} w={4} h={4} weight="duotone" />
                 <Text>{videoLength} min video</Text>
               </HStack>
             ) : (
               <HStack spacing={1}>
-                <Icon as={BookOpen} w={4} h={4} weight="duotone" />
+                <Icon as={ClockIcon} w={4} h={4} weight="duotone" />
                 <Text>{readingTime(mdx).text}</Text>
               </HStack>
             )}

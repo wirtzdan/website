@@ -22,7 +22,11 @@ import Section from "@/components/section";
 import BookCard from "@/components/book-card";
 
 import BookSuggestion from "@/components/book-suggestion";
-import { BookOpen, DesktopComputer, Heart } from "heroicons-react";
+import {
+  BookOpenIcon,
+  DesktopComputer,
+  HeartIcon,
+} from "@heroicons/react/solid";
 import sorter from "sort-isostring";
 import { AndroidLogo, AppleLogo, Globe, Monitor } from "phosphor-react";
 import ToolCard from "../components/tool-card";

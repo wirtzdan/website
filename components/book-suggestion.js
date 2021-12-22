@@ -20,7 +20,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { Mail } from "heroicons-react";
+import { MailIcon } from "@heroicons/react/solid";
 // import { sendSuggestion } from "@/lib/airtable";
 
 const BookSuggestion = () => {
@@ -100,7 +100,7 @@ const BookSuggestion = () => {
                     type="submit"
                     w="100%"
                     isLoading={isSubmitting}
-                    leftIcon={<Mail size={18} />}
+                    leftIcon={<MailIcon size={18} />}
                   >
                     Send suggestion
                   </Button>

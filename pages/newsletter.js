@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
-import { Rss } from "heroicons-react";
+import { RssIcon } from "@heroicons/react/solid";
 
 export default function Newsletter() {
   return (
@@ -58,7 +58,7 @@ export default function Newsletter() {
                   w="100%"
                   // isDisabled={isSuccessful}
                   // isLoading={isSubmitting}
-                  leftIcon={<Rss size={20} />}
+                  leftIcon={<RssIcon size={20} />}
                   rounded="lg"
                 >
                   Subscribe

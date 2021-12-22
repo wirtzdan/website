@@ -10,7 +10,7 @@ import {
   FormHelperText,
   chakra,
 } from "@chakra-ui/react";
-import { Rss } from "heroicons-react";
+import { RssIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 
 const Subscribe = ({ direction, ...props }) => {
@@ -83,7 +83,7 @@ const Subscribe = ({ direction, ...props }) => {
                 isDisabled={isSuccessful}
                 // isDisabled={!isValid}
                 isLoading={isSubmitting}
-                // leftIcon={<Rss size={20} />}
+                // leftIcon={<RssIcon size={20} />}
                 rounded="lg"
                 // size={{ base: "md", md: "" }}
               >

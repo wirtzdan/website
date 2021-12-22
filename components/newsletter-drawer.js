@@ -20,10 +20,9 @@ import {
   Text,
   FormHelperText,
 } from "@chakra-ui/react";
-import { Rss } from "heroicons-react";
+import { RssIcon, MailIcon, MenuIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 import MobileMenuButton from "./mobile-menu-button";
-import Link from "next/link";
 import SubscribeCard from "@/components/subscribe-card";
 
 const NewsletterDrawer = ({ mobile, placement }) => {
@@ -34,7 +33,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
     <Box>
       {placement === "blog" ? (
         <Button
-          leftIcon={<Rss size={20} />}
+          leftIcon={<RssIcon size={20} />}
           onClick={onOpen}
           colorScheme="purple"
         >
@@ -42,7 +41,11 @@ const NewsletterDrawer = ({ mobile, placement }) => {
         </Button>
       ) : (
         <Tooltip label="Newsletter">
-          <MobileMenuButton label="Subscribe" icon={<Rss />} onClick={onOpen} />
+          <MobileMenuButton
+            label="Subscribe"
+            icon={<MailIcon />}
+            onClick={onOpen}
+          />
         </Tooltip>
       )}
       <Drawer
@@ -82,7 +85,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
                       <FormHelperText>Send max. once per month</FormHelperText>
                       {errors.author && (
                         <FormErrorMessage>
-                          "E-Mail is required"
+                          "E-MailIcon is required"
                         </FormErrorMessage>
                       )}
                     </FormControl>
@@ -93,7 +96,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
                       w="100%"
                       isDisabled={isSuccessful}
                       isLoading={isSubmitting}
-                      leftIcon={<Rss size={20} />}
+                      leftIcon={<RssIcon size={20} />}
                       rounded="lg"
                     >
                       Subscribe

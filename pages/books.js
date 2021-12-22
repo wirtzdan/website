@@ -22,7 +22,7 @@ import { getTable } from "@/lib/airtable";
 import Section from "@/components/section";
 import BookCard from "@/components/book-card";
 import BookSuggestion from "@/components/book-suggestion";
-import { BookOpen, Heart } from "heroicons-react";
+import { BookOpenIcon, HeartIcon } from "@heroicons/react/solid";
 import sorter from "sort-isostring";
 import Hero from "@/components/hero";
 
@@ -51,7 +51,7 @@ const Books = ({ books }) => {
                 mr={2}
               >
                 <HStack spacing={1}>
-                  <Icon as={BookOpen} />
+                  <Icon as={BookOpenIcon} />
                   <Text>All</Text>
                 </HStack>
               </Tab>
@@ -64,7 +64,7 @@ const Books = ({ books }) => {
                 }}
               >
                 <HStack spacing={1}>
-                  <Icon as={Heart} />
+                  <Icon as={HeartIcon} />
                   <Text>Favorites</Text>
                 </HStack>
               </Tab>

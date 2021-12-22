@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
-import { Link, Check } from "heroicons-react";
+import { LinkIcon, CheckIcon } from "@heroicons/react/solid";
 
 const AuthorCard = ({ readingTime, publishedAt, url }) => {
   const { hasCopied, onCopy } = useClipboard(url);
@@ -40,7 +40,9 @@ const AuthorCard = ({ readingTime, publishedAt, url }) => {
               : useColorModeValue("neutralD.100", "gray.100")
           }
           bg={useColorModeValue("white", "neutralD.100")}
-          leftIcon={hasCopied ? <Check size={18} /> : <Link size={18} />}
+          leftIcon={
+            hasCopied ? <CheckIcon size={18} /> : <LinkIcon size={18} />
+          }
         >
           {hasCopied ? "Copied" : "Copy link"}
         </Button>

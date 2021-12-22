@@ -8,13 +8,14 @@ import {
   Button,
   VStack,
 } from "@chakra-ui/react";
-import { Mail } from "heroicons-react";
-
+import { PencilIcon } from "@heroicons/react/solid";
 import { motion, useCycle } from "framer-motion";
 import MenuToggle from "./mobile-menu-toggle";
 import MobileMenuItem from "./mobile-menu-item";
 import ThemeToggle from "./theme-toggle";
 import NewsletterDrawer from "./newsletter-drawer";
+import MobileMenuButton from "./mobile-menu-button";
+import Link from "next/link";
 
 const MobileNavigation = () => {
   const [isOpen, toggleOpen] = useCycle(false, true);
@@ -78,9 +79,15 @@ const MobileNavigation = () => {
         borderTopColor={useColorModeValue("neutral.400", "neutralD.400")}
         shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
       >
-        <NewsletterDrawer mobile />
+        <Link href="/blog">
+          <MobileMenuButton
+            label="Blog"
+            icon={<PencilIcon />}
+          ></MobileMenuButton>
+        </Link>
         <MenuToggle toggle={() => toggleOpen()} />
         <ThemeToggle mobile />
+        {/* <NewsletterDrawer mobile /> */}
       </HStack>
     </MotionBox>
   );

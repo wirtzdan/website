@@ -23,7 +23,7 @@ import {
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import ReactPlayer from "react-player/lazy";
-import { LinkOutline, Play } from "heroicons-react";
+// import { Link, Play } from "@heroicons/react/solid";
 import { ImageSquare } from "phosphor-react";
 
 const ImageFallback = () => {

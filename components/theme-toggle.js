@@ -1,6 +1,12 @@
 import React from "react";
-import { IconButton, useColorMode, ScaleFade, Tooltip } from "@chakra-ui/react";
-import { SunOutline, MoonOutline } from "heroicons-react";
+import {
+  IconButton,
+  Icon,
+  useColorMode,
+  ScaleFade,
+  Tooltip,
+} from "@chakra-ui/react";
+import { Sun, Moon } from "phosphor-react";
 import useSound from "use-sound";
 import MobileMenuButton from "./mobile-menu-button";
 
@@ -30,11 +36,11 @@ const ThemeToggle = ({ mobile }) => {
           icon={
             colorMode === "dark" ? (
               <ScaleFade in>
-                <SunOutline size={mobile ? 22 : 18} />
+                <Icon as={Sun} size={mobile ? 22 : 18} weight="fill" />
               </ScaleFade>
             ) : (
               <ScaleFade in>
-                <MoonOutline size={mobile ? 22 : 18} />
+                <Icon as={Moon} size={mobile ? 22 : 18} weight="fill" />
               </ScaleFade>
             )
           }
@@ -48,11 +54,11 @@ const ThemeToggle = ({ mobile }) => {
           icon={
             colorMode === "dark" ? (
               <ScaleFade in>
-                <SunOutline size={mobile ? 22 : 18} />
+                <Icon as={Sun} size={mobile ? 22 : 18} weight="fill" />
               </ScaleFade>
             ) : (
               <ScaleFade in>
-                <MoonOutline size={mobile ? 22 : 18} />
+                <Icon as={Moon} size={mobile ? 22 : 18} weight="fill" />
               </ScaleFade>
             )
           }

@@ -13,8 +13,8 @@ import {
   Link,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import { Eye, EyeOutline, Star } from "heroicons-react";
-import StarRating from "./star-rating";
+import { EyeIcon, StarIcon } from "@heroicons/react/solid";
+import StarIconRating from "./star-rating";
 import { format, render, cancel, register } from "timeago.js";
 
 const BookCard = ({ title, author, rating, isFavorite, cover, dateRead }) => {
@@ -78,7 +78,7 @@ const BookCard = ({ title, author, rating, isFavorite, cover, dateRead }) => {
             </Text>
           </VStack>
           <VStack spacing={0} align="start">
-            <StarRating rating={rating} />
+            <StarIconRating rating={rating} />
             <Text fontSize="xs" color="neutral.800">
               {format(dateRead)}
             </Text>

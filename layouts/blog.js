@@ -15,13 +15,13 @@ import AuthorCard from "@/components/author-card";
 import Image from "next/image";
 import PageTransition from "../components/page-transitions";
 import ReactPlayer from "react-player/youtube";
-import { PlayCircle } from "phosphor-react";
+import { PlayIcon } from "@heroicons/react/solid";
 import SubscribeCard from "@/components/subscribe-card";
 
-const PlayIcon = () => {
+const PlayIconWrapper = () => {
   return (
     <Icon
-      as={PlayCircle}
+      as={PlayIcon}
       w={16}
       h={16}
       color={useColorModeValue("neutral.900", "neutral.900")}
@@ -85,7 +85,7 @@ class BlogLayout extends React.Component {
                       }
                       controls
                       playing
-                      playIcon={<PlayIcon />}
+                      playIcon={<PlayIconWrapper />}
                     ></ReactPlayer>
                   </AspectRatio>
                 ) : undefined}
