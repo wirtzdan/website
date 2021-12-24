@@ -6,7 +6,7 @@ import {
   ScaleFade,
   Tooltip,
 } from "@chakra-ui/react";
-import { Sun, Moon } from "phosphor-react";
+import { SunIcon, MoonIcon } from "@heroicons/react/outline";
 import useSound from "use-sound";
 import MobileMenuButton from "./mobile-menu-button";
 
@@ -33,17 +33,18 @@ const ThemeToggle = ({ mobile }) => {
       {mobile ? (
         <MobileMenuButton
           label={colorMode === "dark" ? "Light Mode" : "Dark Mode"}
-          icon={
-            colorMode === "dark" ? (
-              <ScaleFade in>
-                <Icon as={Sun} size={mobile ? 22 : 18} weight="fill" />
-              </ScaleFade>
-            ) : (
-              <ScaleFade in>
-                <Icon as={Moon} size={mobile ? 22 : 18} weight="fill" />
-              </ScaleFade>
-            )
-          }
+          // icon={
+          //   colorMode === "dark" ? (
+          //     <ScaleFade in>
+          //       <Icon as={SunIcon}></Icon>
+          //     </ScaleFade>
+          //   ) : (
+          //     <ScaleFade in>
+          //       <Icon size={mobile ? 22 : 18}>{MoonIcon}</Icon>
+          //     </ScaleFade>
+          //   )
+          // }
+          icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
           onClick={handleClick}
         />
       ) : (
@@ -53,13 +54,9 @@ const ThemeToggle = ({ mobile }) => {
           variant={mobile ? "ghost" : undefined}
           icon={
             colorMode === "dark" ? (
-              <ScaleFade in>
-                <Icon as={Sun} size={mobile ? 22 : 18} weight="fill" />
-              </ScaleFade>
+              <Icon as={SunIcon} />
             ) : (
-              <ScaleFade in>
-                <Icon as={Moon} size={mobile ? 22 : 18} weight="fill" />
-              </ScaleFade>
+              <Icon as={MoonIcon} />
             )
           }
           onClick={handleClick}

@@ -20,7 +20,7 @@ import {
   Text,
   FormHelperText,
 } from "@chakra-ui/react";
-import { RssIcon, MailIcon, MenuIcon } from "@heroicons/react/solid";
+import { RssIcon, MailIcon, MenuIcon } from "@heroicons/react/outline";
 import { useForm } from "react-hook-form";
 import MobileMenuButton from "./mobile-menu-button";
 import SubscribeCard from "@/components/subscribe-card";
@@ -40,13 +40,11 @@ const NewsletterDrawer = ({ mobile, placement }) => {
           Subscribe
         </Button>
       ) : (
-        <Tooltip label="Newsletter">
-          <MobileMenuButton
-            label="Subscribe"
-            icon={<MailIcon />}
-            onClick={onOpen}
-          />
-        </Tooltip>
+        <MobileMenuButton
+          label="Subscribe"
+          icon={<MailIcon />}
+          onClick={onOpen}
+        />
       )}
       <Drawer
         isOpen={isOpen}

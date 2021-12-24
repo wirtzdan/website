@@ -1,5 +1,5 @@
 import React from "react";
-import { VStack, Text, useColorModeValue } from "@chakra-ui/react";
+import { VStack, Text, useColorModeValue, Icon } from "@chakra-ui/react";
 
 const MobileMenuButton = ({ label, icon, ...rest }) => {
   return (
@@ -11,7 +11,8 @@ const MobileMenuButton = ({ label, icon, ...rest }) => {
       {...rest}
       color={useColorModeValue("neutral.1100", "neutralD.1100")}
     >
-      {icon}
+      <Icon>{icon}</Icon>
+
       <Text
         fontSize="xs"
         fontWeight="500"

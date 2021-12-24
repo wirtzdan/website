@@ -79,14 +79,21 @@ const MobileNavigation = () => {
         borderTopColor={useColorModeValue("neutral.400", "neutralD.400")}
         shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
       >
-        <Link href="/blog">
+        {/* <Link href="/blog">
           <MobileMenuButton
             label="Blog"
             icon={<PencilIcon />}
           ></MobileMenuButton>
-        </Link>
-        <MenuToggle toggle={() => toggleOpen()} />
-        <ThemeToggle mobile />
+        </Link> */}
+        <Center w="100%">
+          <ThemeToggle mobile />
+        </Center>
+        <Center w="100%">
+          <MenuToggle toggle={() => toggleOpen()} />
+        </Center>
+        <Center w="100%">
+          <NewsletterDrawer mobile />
+        </Center>
         {/* <NewsletterDrawer mobile /> */}
       </HStack>
     </MotionBox>
