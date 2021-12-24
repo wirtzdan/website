@@ -8,7 +8,7 @@ import {
   Button,
   VStack,
 } from "@chakra-ui/react";
-import { PencilIcon } from "@heroicons/react/solid";
+import { PencilAltIcon } from "@heroicons/react/outline";
 import { motion, useCycle } from "framer-motion";
 import MenuToggle from "./mobile-menu-toggle";
 import MobileMenuItem from "./mobile-menu-item";
@@ -79,15 +79,18 @@ const MobileNavigation = () => {
         borderTopColor={useColorModeValue("neutral.400", "neutralD.400")}
         shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
       >
-        {/* <Link href="/blog">
-          <MobileMenuButton
-            label="Blog"
-            icon={<PencilIcon />}
-          ></MobileMenuButton>
-        </Link> */}
+        <Center w="100%">
+          <Link href="/blog" px={6}>
+            <MobileMenuButton
+              label="Blog"
+              icon={<PencilAltIcon />}
+            ></MobileMenuButton>
+          </Link>
+        </Center>
+        {/* 
         <Center w="100%">
           <ThemeToggle mobile />
-        </Center>
+        </Center> */}
         <Center w="100%">
           <MenuToggle toggle={() => toggleOpen()} />
         </Center>
