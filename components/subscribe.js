@@ -9,6 +9,10 @@ import {
   Collapse,
   FormHelperText,
   chakra,
+  useColorModeValue,
+  Box,
+  VStack,
+  Text,
 } from "@chakra-ui/react";
 import { RssIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
@@ -52,11 +56,11 @@ const Subscribe = ({ direction, ...props }) => {
   const onError = () => {};
 
   return (
-    <chakra.form onSubmit={handleSubmit(onSubmit, onError)} w="100%" {...props}>
+    <chakra.form onSubmit={handleSubmit(onSubmit, onError)} {...props} w="100%">
       <Stack direction="column" w="100%">
         {!isSuccessful ? (
           <>
-            <Stack spacing={2} direction={direction} justify="start">
+            <Stack spacing={2} direction={direction} justify="start" w="full">
               <FormControl w="unset">
                 <Input
                   name="email_address"
@@ -68,6 +72,7 @@ const Subscribe = ({ direction, ...props }) => {
                   rounded="lg"
                   w="100%"
                   minW={{ base: "48", md: "64" }}
+                  bg={useColorModeValue("white", "neutralD.100")}
                 />
                 {/* <FormHelperText>Send max. once per month</FormHelperText> */}
                 {errors.author && (

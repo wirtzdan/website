@@ -15,6 +15,7 @@ export const SubscribeCard = ({
   description = "Helpful tools, thoughtful articles and other findings from the web. From my desk to yours.",
   card = true,
   image = true,
+  center = false,
 }) => {
   return (
     <Stack
@@ -28,7 +29,11 @@ export const SubscribeCard = ({
       p={card ? 6 : 0}
       spacing={4}
     >
-      <HStack spacing={{ base: 4, md: 8 }}>
+      <HStack
+        spacing={{ base: 4, md: 8 }}
+        w="100%"
+        justifyContent={center ? "center" : "start"}
+      >
         {image ? (
           <Image
             src="/newsletter-logo.png"
@@ -39,15 +44,19 @@ export const SubscribeCard = ({
           />
         ) : undefined}
         <VStack align="start">
-          <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }}>
-            {title}
-          </Text>
-          <Text
-            fontSize={{ base: "sm", md: "lg" }}
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
-          >
-            {description}
-          </Text>
+          {title ? (
+            <Text fontWeight="bold" fontSize={{ base: "lg", md: "xl" }}>
+              {title}
+            </Text>
+          ) : undefined}
+          {description ? (
+            <Text
+              fontSize={{ base: "sm", md: "lg" }}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            >
+              {description}
+            </Text>
+          ) : undefined}
           <Subscribe
             direction="row"
             display={{ base: "none", md: "block" }}
@@ -58,6 +67,7 @@ export const SubscribeCard = ({
       <Subscribe
         direction={{ base: "column", md: "row" }}
         display={{ base: "block", md: "none" }}
+        w="100%"
       />
     </Stack>
   );
