@@ -126,6 +126,7 @@ export default function Newsletter({ posts }) {
                       <Link href={`/archive/${post.fields.Slug}`} unstyled>
                         <HStack>
                           <Text
+                            display={["none", "block"]}
                             fontSize="md"
                             color={useColorModeValue(
                               "neutral.800",
@@ -143,6 +144,7 @@ export default function Newsletter({ posts }) {
                         </HStack>
                       </Link>
                       <Text
+                        display={["none", "block"]}
                         color={useColorModeValue("neutral.800", "neutralD.800")}
                         fontSize="md"
                       >

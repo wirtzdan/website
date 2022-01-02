@@ -8,7 +8,7 @@ import {
   Button,
   VStack,
 } from "@chakra-ui/react";
-import { PencilAltIcon } from "@heroicons/react/outline";
+import { PencilAltIcon, MailIcon } from "@heroicons/react/outline";
 import { motion, useCycle } from "framer-motion";
 import MenuToggle from "./mobile-menu-toggle";
 import MobileMenuItem from "./mobile-menu-item";
@@ -95,9 +95,16 @@ const MobileNavigation = () => {
           <MenuToggle toggle={() => toggleOpen()} />
         </Center>
         <Center w="100%">
-          <NewsletterDrawer mobile />
+          <Link href="/newsletter" px={6}>
+            <MobileMenuButton
+              label="Newsletter"
+              icon={<MailIcon />}
+            ></MobileMenuButton>
+          </Link>
         </Center>
-        {/* <NewsletterDrawer mobile /> */}
+        {/* <Center w="100%">
+          <NewsletterDrawer mobile />
+        </Center> */}
       </HStack>
     </MotionBox>
   );
