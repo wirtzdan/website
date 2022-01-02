@@ -22,11 +22,21 @@ import {
   Tooltip,
   SimpleGrid,
   useColorModeValue,
+  Divider,
+  HStack,
 } from "@chakra-ui/react";
+import {
+  GithubLogo,
+  LinkedinLogo,
+  TwitterLogo,
+  YoutubeLogo,
+} from "phosphor-react";
 import { MailIcon, MenuIcon } from "@heroicons/react/solid";
 import { useForm } from "react-hook-form";
 import MobileMenuButton from "./mobile-menu-button";
 import MobileMenuItem from "./mobile-menu-item";
+import ThemeToggle from "./theme-toggle";
+import Link from "@/components/link";
 
 const MobileMenuToggle = ({ mobile }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -62,15 +72,81 @@ const MobileMenuToggle = ({ mobile }) => {
             <DrawerCloseButton />
             <DrawerHeader>Menu</DrawerHeader>
             <DrawerBody pb={4}>
-              <VStack>
-                <MobileMenuItem href="/" title="Home" />
-                <MobileMenuItem href="/about" title="About" />
-                <MobileMenuItem href="/blog" title="Blog" />
-                <MobileMenuItem href="/bookmarks" title="Bookmarks" />
-                <SimpleGrid columns={2} spacing={2} w="100%">
-                  <MobileMenuItem href="/books" title="Books" />
-                  <MobileMenuItem href="/tools" title="Tools" />
-                </SimpleGrid>
+              <VStack spacing={4}>
+                <VStack w="100%">
+                  <MobileMenuItem href="/" title="Home" />
+                  <SimpleGrid columns={2} spacing={2} w="100%">
+                    <MobileMenuItem href="/about" title="About" />
+                    <MobileMenuItem href="/blog" title="Blog" />
+                    <MobileMenuItem href="/newsletter" title="Newsletter" />
+                    <MobileMenuItem href="/bookmarks" title="Bookmarks" />
+                    <MobileMenuItem href="/books" title="Books" />
+                    <MobileMenuItem href="/tools" title="Tools" />
+                  </SimpleGrid>
+                </VStack>
+
+                <Divider />
+                <HStack justify="space-between" w="100%">
+                  <HStack spacing={2}>
+                    <Link
+                      href="https://twitter.com/wirtzdan/"
+                      isExternal
+                      unstyled
+                    >
+                      <IconButton
+                        size="sm"
+                        icon={<TwitterLogo weight="fill" />}
+                        color={useColorModeValue(
+                          "neutral.800",
+                          "neutralD.1000"
+                        )}
+                      ></IconButton>
+                    </Link>
+                    <Link
+                      href="https://www.linkedin.com/in/wirtzdan/"
+                      isExternal
+                      unstyled
+                    >
+                      <IconButton
+                        size="sm"
+                        icon={<LinkedinLogo weight="fill" />}
+                        color={useColorModeValue(
+                          "neutral.800",
+                          "neutralD.1000"
+                        )}
+                      ></IconButton>
+                    </Link>
+                    <Link
+                      href="https://github.com/wirtzdan"
+                      isExternal
+                      unstyled
+                    >
+                      <IconButton
+                        size="sm"
+                        icon={<GithubLogo weight="fill" />}
+                        color={useColorModeValue(
+                          "neutral.800",
+                          "neutralD.1000"
+                        )}
+                      ></IconButton>
+                    </Link>
+                    <Link
+                      href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA"
+                      unstyled
+                      isExternal
+                    >
+                      <IconButton
+                        size="sm"
+                        icon={<YoutubeLogo weight="fill" />}
+                        color={useColorModeValue(
+                          "neutral.800",
+                          "neutralD.1000"
+                        )}
+                      ></IconButton>
+                    </Link>
+                  </HStack>
+                  <ThemeToggle mobile />
+                </HStack>
               </VStack>
             </DrawerBody>
           </DrawerContent>

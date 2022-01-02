@@ -5,6 +5,7 @@ import {
   useColorMode,
   ScaleFade,
   Tooltip,
+  Button,
 } from "@chakra-ui/react";
 import { SunIcon, MoonIcon } from "@heroicons/react/outline";
 import useSound from "use-sound";
@@ -31,22 +32,19 @@ const ThemeToggle = ({ mobile }) => {
       aria-label="A tooltip"
     >
       {mobile ? (
-        <MobileMenuButton
-          label={colorMode === "dark" ? "Light Mode" : "Dark Mode"}
-          // icon={
-          //   colorMode === "dark" ? (
-          //     <ScaleFade in>
-          //       <Icon as={SunIcon}></Icon>
-          //     </ScaleFade>
-          //   ) : (
-          //     <ScaleFade in>
-          //       <Icon size={mobile ? 22 : 18}>{MoonIcon}</Icon>
-          //     </ScaleFade>
-          //   )
-          // }
-          icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+        <Button
+          size="sm"
+          leftIcon={
+            colorMode === "dark" ? (
+              <Icon as={SunIcon} />
+            ) : (
+              <Icon as={MoonIcon} />
+            )
+          }
           onClick={handleClick}
-        />
+        >
+          {colorMode === "dark" ? "Light Mode" : "Dark Mode"}
+        </Button>
       ) : (
         <IconButton
           isRound

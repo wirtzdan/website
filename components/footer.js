@@ -6,6 +6,7 @@ import {
   Text,
   useColorModeValue,
   IconButton,
+  Icon,
 } from "@chakra-ui/react";
 import Container from "../components/container";
 import NextLink from "next/link";
@@ -56,8 +57,9 @@ const Footer = () => {
         <HStack spacing={4}>
           <Link href="https://twitter.com/wirtzdan/" isExternal unstyled>
             <IconButton
-              icon={<TwitterLogo weight="fill" />}
-              color={useColorModeValue("neutral.800", "neutralD.800")}
+              size="sm"
+              icon={<Icon as={TwitterLogo} weight="fill" />}
+              color={useColorModeValue("neutral.800", "neutralD.1000")}
             ></IconButton>
           </Link>
           <Link
@@ -66,14 +68,16 @@ const Footer = () => {
             unstyled
           >
             <IconButton
+              size="sm"
               icon={<LinkedinLogo weight="fill" />}
-              color={useColorModeValue("neutral.800", "neutralD.800")}
+              color={useColorModeValue("neutral.800", "neutralD.1000")}
             ></IconButton>
           </Link>
           <Link href="https://github.com/wirtzdan" isExternal unstyled>
             <IconButton
+              size="sm"
               icon={<GithubLogo weight="fill" />}
-              color={useColorModeValue("neutral.800", "neutralD.800")}
+              color={useColorModeValue("neutral.800", "neutralD.1000")}
             ></IconButton>
           </Link>
           <Link
@@ -82,8 +86,9 @@ const Footer = () => {
             isExternal
           >
             <IconButton
+              size="sm"
               icon={<YoutubeLogo weight="fill" />}
-              color={useColorModeValue("neutral.800", "neutralD.800")}
+              color={useColorModeValue("neutral.800", "neutralD.1000")}
             ></IconButton>
           </Link>
         </HStack>
