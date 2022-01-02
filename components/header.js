@@ -21,6 +21,7 @@ import {
   MenuDivider,
   Icon,
   Avatar,
+  useDisclosure,
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import Container from "./container";
@@ -32,6 +33,7 @@ import {
   ChevronDownIcon,
   LightningBoltIcon,
   MenuIcon,
+  DotsHorizontalIcon,
 } from "@heroicons/react/solid";
 import Link from "next/link";
 import AvatarNavigation from "./avatar-navigation";
@@ -60,12 +62,12 @@ function NavLink(props) {
         {...rest}
         _activeLink={{
           color: useColorModeValue("neutral.1100", "neutralD.1100"),
-          bg: useColorModeValue("neutral.200", "neutralD.300"),
+          bg: useColorModeValue("neutral.100", "neutralD.300"),
         }}
         _hover={{
           bg: useColorModeValue("neutral.200", "neutralD.200"),
         }}
-        px={8}
+        px={4}
       >
         {name}
       </Button>
@@ -74,6 +76,8 @@ function NavLink(props) {
 }
 
 const Header = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Box
       bg={useColorModeValue("white", "neutralD.100")}
@@ -92,22 +96,28 @@ const Header = () => {
             <HStack ml={-4} spacing={2}>
               <NavLink href="/about" name="About" />
               <NavLink href="/blog" name="Blog" />
-              <Menu>
+              <NavLink href="/newsletter" name="Newsletter" />
+              <Menu isOpen={isOpen}>
                 <MenuButton
-                  as={Button}
-                  variant="ghost"
-                  size="md"
-                  px={6}
-                  rightIcon={<ChevronDownIcon size={18} />}
+                  bg={useColorModeValue("neutral.100", "neutralD.300")}
                   _hover={{
-                    bg: useColorModeValue("neutral.200", "neutralD.200"),
+                    bg: useColorModeValue("neutral.200", "neutralD.400"),
                   }}
+                  onMouseEnter={onOpen}
+                  onMouseLeave={onClose}
+                  rounded="full"
                 >
-                  Links
+                  <IconButton
+                    aria-label="Addtional Menu"
+                    variant="ghost"
+                    icon={<Icon as={DotsHorizontalIcon} />}
+                  />
                 </MenuButton>
                 <MenuList
                   bg={useColorModeValue("white", "neutralD.100")}
                   borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+                  onMouseEnter={onOpen}
+                  onMouseLeave={onClose}
                 >
                   <Link href="/books">
                     <MenuItem
