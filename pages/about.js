@@ -50,7 +50,7 @@ const About = () => (
             company from the ground up has been one of the most satisfying
             experiences in my life. Head over to my{" "}
             <a href="https://www.linkedin.com/in/wirtzdan/"> LinkedIn</a>, if
-            you want to connect with my professionally.
+            you want to connect with me professionally.
           </Text>
         </VStack>
       </Section>
