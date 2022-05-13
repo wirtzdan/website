@@ -9,9 +9,9 @@ import {
   TagRightIcon,
   Box,
   AspectRatio,
-  Image as ChakraImage,
+  Image,
 } from "@chakra-ui/react";
-import Image from "./image";
+// import Image from "./image";
 import { usePalette } from "react-palette";
 import Link from "@/components/link";
 
@@ -75,9 +75,7 @@ const ToolCard = ({
           ></ChakraImage> */}
           <Image
             src={image ? image[0].thumbnails.large.url : "/"}
-            height={36}
-            width={36}
-            layout="fixed"
+            boxSize="36px"
             rounded="md"
           ></Image>
         </Box>
