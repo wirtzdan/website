@@ -28,7 +28,15 @@ import {
   HeartIcon,
 } from "@heroicons/react/solid";
 import sorter from "sort-isostring";
-import { AndroidLogo, AppleLogo, Globe, Monitor } from "phosphor-react";
+import {
+  AndroidLogo,
+  AppleLogo,
+  Globe,
+  Monitor,
+  DeviceMobile,
+  Compass,
+  Desktop,
+} from "phosphor-react";
 import ToolCard from "../components/tool-card";
 import { Chrome } from "react-feather";
 import Hero from "@/components/hero";
@@ -60,7 +68,7 @@ const Tools = ({ tools }) => {
                 mt={2}
               >
                 <HStack spacing={1}>
-                  <Icon as={AppleLogo} weight="fill" />
+                  <Icon as={AppleLogo} weight="duotone" />
                   <Text>Mac</Text>
                 </HStack>
               </Tab>
@@ -68,45 +76,45 @@ const Tools = ({ tools }) => {
                 bg={useColorModeValue("neutral.300", "neutralD.300")}
                 color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
-                  color: "green.800",
-                  bg: "green.100",
+                  color: useColorModeValue("gray.100", "neutralD.100"),
+                  bg: useColorModeValue("gray.900", "gray.100"),
                 }}
                 mr={2}
                 mt={2}
               >
                 <HStack spacing={1}>
-                  <Icon as={AndroidLogo} weight="fill" />
-                  <Text>Android</Text>
+                  <Icon as={DeviceMobile} weight="duotone" />
+                  <Text>iOS</Text>
                 </HStack>
               </Tab>
               <Tab
                 bg={useColorModeValue("neutral.300", "neutralD.300")}
                 color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
-                  color: "red.800",
-                  bg: "red.100",
+                  color: useColorModeValue("gray.100", "neutralD.100"),
+                  bg: useColorModeValue("gray.900", "gray.100"),
                 }}
                 mr={2}
                 mt={2}
                 s
               >
                 <HStack spacing={1}>
-                  <Icon as={Chrome} weight="fill" />
-                  <Text>Chrome</Text>
+                  <Icon as={Compass} weight="duotone" />
+                  <Text>Safari</Text>
                 </HStack>
               </Tab>
               <Tab
                 bg={useColorModeValue("neutral.300", "neutralD.300")}
                 color={useColorModeValue("neutral.900", "neutralD.900")}
                 _selected={{
-                  color: "blue.800",
-                  bg: "blue.100",
+                  color: useColorModeValue("gray.100", "neutralD.100"),
+                  bg: useColorModeValue("gray.900", "gray.100"),
                 }}
                 mr={2}
                 mt={2}
               >
                 <HStack spacing={1}>
-                  <Icon as={DesktopComputer} />
+                  <Icon as={Desktop} />
                   <Text>Web</Text>
                 </HStack>
               </Tab>
