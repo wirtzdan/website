@@ -21,7 +21,7 @@ const Link = (props) => {
         borderRadius="1px"
         transition="all 0.3s"
         transitionTimingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
-        borderColor={useColorModeValue("primaryD.200", "primary.200")}
+        borderColor={useColorModeValue("primary.700", "primary.700")}
         color={useColorModeValue("primaryD.200", "primary.600")}
         _hover={{
           borderColor: useColorModeValue("primaryD.200", "primary.200"),
@@ -33,15 +33,14 @@ const Link = (props) => {
     </NextLink>
   ) : (
     <chakra.a
-      borderBottom="2px"
-      borderRadius="1px"
-      borderColor={useColorModeValue("primary.400", "primary.400")}
-      color={useColorModeValue("primaryD.300", "primary.300")}
-      transition="all 0.3s"
+      transition="all 0.25s"
+      textDecoration="underline"
+      textDecorationColor={useColorModeValue("primary.700", "primary.700")}
+      textDecorationThickness="0.125em"
       transitionTimingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
       _hover={{
         color: useColorModeValue("primaryD.50", "primaryD.200"),
-        backgroundColor: useColorModeValue("primary.400", "primary.400"),
+        backgroundColor: useColorModeValue("primary.700", "primary.700"),
       }}
       {...props}
     />
