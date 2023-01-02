@@ -87,21 +87,21 @@ const MobileNavigation = () => {
             ></MobileMenuButton>
           </Link>
         </Center>
-        {/* 
-        <Center w="100%">
-          <ThemeToggle mobile />
-        </Center> */}
+
         <Center w="100%">
           <MenuToggle toggle={() => toggleOpen()} />
         </Center>
         <Center w="100%">
+          <ThemeToggle mobile />
+        </Center>
+        {/*   <Center w="100%">
           <Link href="/newsletter" px={6}>
             <MobileMenuButton
               label="Newsletter"
               icon={<MailIcon />}
             ></MobileMenuButton>
           </Link>
-        </Center>
+        </Center> */}
         {/* <Center w="100%">
           <NewsletterDrawer mobile />
         </Center> */}

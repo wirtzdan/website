@@ -85,33 +85,25 @@ const Header = () => {
       position="fixed"
       w="100%"
       zIndex={99}
-      borderBottomWidth="2px"
+      borderBottomWidth="1px"
       borderBottomColor={useColorModeValue("neutral.400", "neutralD.400")}
-      shadow="0 0 10px 0 rgba(0,0,0, 0.035);"
+      shadow="0 0 10px 0 rgba(0,0,0, 0.025);"
     >
       <Container>
         <VStack align="start" spacing={0}>
           <HStack justify="space-between" w="100%" h={16}>
             <AvatarNavigation />
             <HStack ml={-4} spacing={2}>
-              <NavLink href="/about" name="About" />
               <NavLink href="/blog" name="Blog" />
-              <NavLink href="/newsletter" name="Newsletter" />
+              <NavLink href="/about" name="About" />
               <Menu isOpen={isOpen}>
                 <MenuButton
-                  bg={useColorModeValue("neutral.100", "neutralD.300")}
-                  _hover={{
-                    bg: useColorModeValue("neutral.200", "neutralD.400"),
-                  }}
                   onMouseEnter={onOpen}
                   onMouseLeave={onClose}
-                  rounded="full"
+                  as={Button}
+                  rightIcon={<Icon as={ChevronDownIcon} />}
                 >
-                  <IconButton
-                    aria-label="Addtional Menu"
-                    variant="ghost"
-                    icon={<Icon as={DotsHorizontalIcon} />}
-                  />
+                  More
                 </MenuButton>
                 <MenuList
                   bg={useColorModeValue("white", "neutralD.100")}

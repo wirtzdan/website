@@ -32,9 +32,9 @@ const ThemeToggle = ({ mobile }) => {
       aria-label="A tooltip"
     >
       {mobile ? (
-        <Button
-          size="sm"
-          leftIcon={
+        <MobileMenuButton
+          label={colorMode === "dark" ? "Light Mode" : "Dark Mode"}
+          icon={
             colorMode === "dark" ? (
               <Icon as={SunIcon} />
             ) : (
@@ -42,9 +42,7 @@ const ThemeToggle = ({ mobile }) => {
             )
           }
           onClick={handleClick}
-        >
-          {colorMode === "dark" ? "Light Mode" : "Dark Mode"}
-        </Button>
+        ></MobileMenuButton>
       ) : (
         <IconButton
           isRound

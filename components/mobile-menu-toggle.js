@@ -75,10 +75,9 @@ const MobileMenuToggle = ({ mobile }) => {
               <VStack spacing={4}>
                 <VStack w="100%">
                   <MobileMenuItem href="/" title="Home" />
-                  <SimpleGrid columns={2} spacing={2} w="100%">
+                  <SimpleGrid columns={1} spacing={2} w="100%">
                     <MobileMenuItem href="/about" title="About" />
                     <MobileMenuItem href="/blog" title="Blog" />
-                    <MobileMenuItem href="/newsletter" title="Newsletter" />
                     <MobileMenuItem href="/bookmarks" title="Bookmarks" />
                     <MobileMenuItem href="/books" title="Books" />
                     <MobileMenuItem href="/tools" title="Tools" />
@@ -86,7 +85,7 @@ const MobileMenuToggle = ({ mobile }) => {
                 </VStack>
 
                 <Divider />
-                <HStack justify="space-between" w="100%">
+                <HStack justifyContent="center" w="100%">
                   <HStack spacing={2}>
                     <Link
                       href="https://twitter.com/wirtzdan/"
@@ -145,7 +144,6 @@ const MobileMenuToggle = ({ mobile }) => {
                       ></IconButton>
                     </Link>
                   </HStack>
-                  <ThemeToggle mobile />
                 </HStack>
               </VStack>
             </DrawerBody>
