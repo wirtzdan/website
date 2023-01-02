@@ -53,7 +53,6 @@ export default function Newsletter({ posts }) {
                   overflow="hidden"
                   boxShadow="lg"
                   mt={8}
-                  w="100%"
                 >
                   <Box
                     w="100%"

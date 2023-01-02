@@ -13,7 +13,7 @@ const Bookmarks = ({ bookmarks }) => {
       <VStack spacing={8}>
         <Hero
           title="Bookmarks"
-          // subtitle="Discoveries from the World Wide Web"
+          subtitle="Discoveries from the World Wide Web"
         />
         <Section>
           <SimpleGrid columns={[2, 3]} spacing={4}>
@@ -48,6 +48,8 @@ export async function getStaticProps() {
     }),
   });
 
+  console.log("bookmarks", res);
+
   const bookmarks = await res.json();
 
   if (!bookmarks) {
@@ -62,6 +64,7 @@ export async function getStaticProps() {
     },
     revalidate: 10,
   };
+  s;
 }
 
 export default Bookmarks;
