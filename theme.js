@@ -29,13 +29,13 @@ const transformRadixToChakraFormat = (scale) => {
 
 const radixNeutral = transformRadixToChakraFormat(sand);
 const radixNeutralDark = transformRadixToChakraFormat(sandDark);
-const radixPrimary = transformRadixToChakraFormat(blue);
-const radixPrimaryD = transformRadixToChakraFormat(blueDark);
+const radixPrimary = transformRadixToChakraFormat(yellow);
+const radixPrimaryD = transformRadixToChakraFormat(yellowDark);
 
 const customTheme = extendTheme({
   fonts: {
     heading:
-      '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+      '"Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
     body: '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
   },
   colors: {
@@ -101,7 +101,7 @@ const customTheme = extendTheme({
         borderBottom: "2px",
         borderColor: mode("neutral.500", "neutralD.500")(props),
         pb: 2,
-        fontWeight: "500",
+        fontWeight: "600",
       }),
     },
     Button: {
@@ -159,6 +159,7 @@ const customTheme = extendTheme({
       lineHeight: 1.2,
       fontWeight: "bold",
       fontSize: "1.875rem",
+      fontFamily: "var(--chakra-fonts-heading)",
       letterSpacing: "-.025em",
     },
     h2: {
@@ -167,6 +168,7 @@ const customTheme = extendTheme({
       lineHeight: 1.3,
       fontWeight: "semibold",
       fontSize: "1.5rem",
+      fontFamily: "var(--chakra-fonts-heading)",
       "& + h3": {
         mt: "1.5rem",
       },
@@ -176,12 +178,14 @@ const customTheme = extendTheme({
       // mb: "0.5rem",
       lineHeight: 1.25,
       fontWeight: "semibold",
+      fontFamily: "var(--chakra-fonts-heading)",
       fontSize: "1.25rem",
     },
     h4: {
       mt: "3rem",
       lineHeight: 1.375,
       fontWeight: "semibold",
+      fontFamily: "var(--chakra-fonts-heading)",
       fontSize: "1.125rem",
     },
     p: {
