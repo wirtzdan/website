@@ -24,7 +24,7 @@ import {
 import Link from "@/components/link";
 import readingTime from "reading-time";
 
-const BlogCard = ({
+const BlogListItem = ({
   slug,
   publishDate,
   summary,
@@ -38,7 +38,7 @@ const BlogCard = ({
   console.log("banner →", readingTime(mdx));
   return (
     <Link href={`/blog/${slug}`} unstyled>
-      <VStack
+      <HStack
         w="100%"
         // spacing={8}
         rounded="lg"
@@ -56,8 +56,43 @@ const BlogCard = ({
         height="100%"
         // height={48}
       >
+        <VStack
+          align="start"
+          justifyContent="space-between"
+          w="100%"
+          h="100%"
+          p={2}
+        >
+          <VStack align="start">
+            <HStack>
+              <Heading fontSize="xl" borderBottom="0">
+                {title}
+              </Heading>
+            </HStack>
+          </VStack>
+          <HStack
+            fontSize="sm"
+            fontWeight="500"
+            spacing={2}
+            color={useColorModeValue("neutral.900", "neutralD.900")}
+          >
+            <Text>Posted {format(publishDate)}</Text>
+            <Text>·</Text>
+            {type === "Video" ? (
+              <HStack spacing={1}>
+                {/* <Icon as={ClockIcon} w={4} h={4} weight="duotone" /> */}
+                <Text>Video</Text>
+              </HStack>
+            ) : (
+              <HStack spacing={1}>
+                {/* <Icon as={ClockIcon} w={4} h={4} weight="duotone" /> */}
+                <Text>Article</Text>
+              </HStack>
+            )}
+          </HStack>
+        </VStack>
         {/* {banner ? (
-          <Box position="relative" w="100%" rounded="lg">
+          <Box position="relative" w="25%" rounded="lg">
             <AspectRatio
               ratio={1.85 / 1}
               w="100%"
@@ -96,80 +131,9 @@ const BlogCard = ({
             ) : undefined}
           </Box>
         ) : undefined} */}
-        <VStack
-          align="start"
-          justifyContent="space-between"
-          w="100%"
-          h="100%"
-          p={1}
-          pt={0}
-        >
-          <VStack align="start">
-            <HStack>
-              <Heading fontSize="xl" borderBottom="0">
-                {title}
-              </Heading>
-            </HStack>
-            {/* <Text
-              fontSize="sm"
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-            >
-              {summary}
-            </Text> */}
-          </VStack>
-          <HStack
-            fontSize="sm"
-            fontWeight="500"
-            spacing={2}
-            color={useColorModeValue("neutral.900", "neutralD.900")}
-          >
-            <Text>Posted {format(publishDate)}</Text>
-            <Text>·</Text>
-            {type === "Video" ? (
-              <HStack spacing={1}>
-                {/* <Icon as={ClockIcon} w={4} h={4} weight="duotone" /> */}
-                <Text>Video</Text>
-              </HStack>
-            ) : (
-              <HStack spacing={1}>
-                {/* <Icon as={ClockIcon} w={4} h={4} weight="duotone" /> */}
-                <Text>Article</Text>
-              </HStack>
-            )}
-          </HStack>
-          {/*  <HStack
-            fontSize="sm"
-            fontWeight="500"
-            spacing={3}
-            color={useColorModeValue("neutral.900", "neutralD.900")}
-          >
-            {new Date() - new Date(publishDate) < 1000 * 60 * 60 * 24 * 7 ? (
-              <Tag size="sm" colorScheme="green" mr={1}>
-                New
-              </Tag>
-            ) : undefined}
-
-            {type === "Video" ? (
-              <HStack spacing={1}>
-                <Icon as={ClockIcon} w={4} h={4} weight="duotone" />
-                <Text>{videoLength} min video</Text>
-              </HStack>
-            ) : (
-              <HStack spacing={1}>
-                <Icon as={ClockIcon} w={4} h={4} weight="duotone" />
-                <Text>{readingTime(mdx).text}</Text>
-              </HStack>
-            )}
-            <HStack spacing={1}>
-              <Icon as={EyeIcon} w={4} h={4} weight="duotone" />
-              <Text>{views} views</Text>
-            </HStack>
-             <Text>– {format(publishDate)}</Text>
-          </HStack> */}
-        </VStack>
-      </VStack>
+      </HStack>
     </Link>
   );
 };
 
-export default BlogCard;
+export default BlogListItem;
