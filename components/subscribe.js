@@ -81,7 +81,7 @@ const Subscribe = ({ direction, ...props }) => {
               </FormControl>
               <Button
                 mt={4}
-                colorScheme="yellow"
+                colorScheme="blue"
                 type="submit"
                 minW={10}
                 isDisabled={isSuccessful}

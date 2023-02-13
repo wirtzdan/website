@@ -103,7 +103,7 @@ const Header = () => {
                   as={Button}
                   rightIcon={<Icon as={ChevronDownIcon} />}
                 >
-                  More
+                  Lists
                 </MenuButton>
                 <MenuList
                   bg={useColorModeValue("white", "neutralD.100")}

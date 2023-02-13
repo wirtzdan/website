@@ -62,17 +62,18 @@ const BlogListItem = ({
           w="100%"
           h="100%"
           p={2}
+          spacing={0}
         >
           <VStack align="start">
             <HStack>
-              <Heading fontSize="xl" borderBottom="0">
+              <Heading fontSize="lg" borderBottom="0" fontWeight="500">
                 {title}
               </Heading>
             </HStack>
           </VStack>
           <HStack
             fontSize="sm"
-            fontWeight="500"
+            fontWeight="400"
             spacing={2}
             color={useColorModeValue("neutral.900", "neutralD.900")}
           >
