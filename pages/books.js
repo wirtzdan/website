@@ -32,8 +32,12 @@ const Books = ({ books }) => {
   return (
     <PageTransition>
       <VStack spacing={8}>
-        <Hero title="Books"></Hero>
-        <Section>
+        <Hero
+          title="Books"
+          subtitle="Take a stroll through my bookshelf"
+          mb={8}
+        ></Hero>
+        <Section >
           <Tabs
             variant="soft-rounded"
             colorScheme="blue"

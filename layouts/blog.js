@@ -111,10 +111,7 @@ class BlogLayout extends React.Component {
             <div ref={(el) => (this.div = el)}></div>
           </Section>
           <Section mt={8}>
-            <SubscribeCard
-              title="Subscribe to my newsletter"
-              description="Helpful tools, thoughtful articles and other findings from the web. From my desk to yours."
-            />
+            <SubscribeCard title="Subscribe to my blog" description="" />
           </Section>
           <ReadingProgress target={target} />
         </>

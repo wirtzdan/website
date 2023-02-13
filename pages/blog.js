@@ -36,8 +36,7 @@ export default function Blog({ posts }) {
         <VStack spacing={4}>
           <Hero
             title="Blog"
-            subtitle="Helpful tools, thoughtful articles and other findings from the web.
-            From my desk to yours."
+            subtitle="Helpful tools, thoughtful articles and other findings from the web."
           />
 
           <SubscribeCard
@@ -47,7 +46,7 @@ export default function Blog({ posts }) {
             card={false}
             center
           />
-          {isOpen ? (
+          {/* {isOpen ? (
             <Box w="100%">
               <Box
                 border="1px solid"
@@ -111,7 +110,7 @@ export default function Blog({ posts }) {
             <Button onClick={onOpen} variant="link">
               ... or take a look at a newsletter first
             </Button>
-          )}
+          )} */}
           {!posts.length && "No posts found."}
           <SimpleGrid columns={1} spacing={4} pt={8} w="100%">
             {posts

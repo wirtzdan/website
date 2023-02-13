@@ -21,6 +21,7 @@ import SubscribeCard from "@/components/subscribe-card";
 import BlogListItem from "@/components/blog-list-item";
 import generateRssIcon from "@/lib/rss";
 import Subscribe from "@/components/subscribe";
+import Hero from "@/components/hero";
 
 const Home = ({ posts }) => (
   <Box>
@@ -29,23 +30,25 @@ const Home = ({ posts }) => (
         <Section>
           <VStack spacing={4} align="start" fontSize="2xl">
             <VStack
-              w="100%"
-              // spacing={8}
-              rounded="lg"
-              borderWidth="1px"
-              bg={useColorModeValue("white", "neutralD.100")}
-              borderColor={useColorModeValue("neutral.400", "neutralD.400")}
-              p={8}
+              // w="100%"
+              spacing={4}
+              // rounded="lg"
+              // borderWidth="1px"
+              // bg={useColorModeValue("white", "neutralD.100")}
+              // borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+              // p={8}
               align="start"
-              // height={48}
+              // // height={48}
             >
-              <Heading size="lg">Hey, I'm Daniel. </Heading>
+              <Heading size="lg" align="left">
+                Hey, I'm Daniel.
+              </Heading>
               <Text fontSize={["lg", "2xl"]}>
-                I’m a designer, facilitator, creator and the co-founder of{" "}
-                <Link variant="text" href="https://www.facilitator.school">
-                  Facilitator School
-                </Link>
-                . This is my corner of the internet.
+                I'm a designer and entrepreneur. Particularly interested in
+                collaboration and visual design. I like to read{" "}
+                <Link href="/books"> books</Link>, save{" "}
+                <Link href="/bookmarks">bookmarks</Link> and to occasionally
+                write <Link href="/blog">articles</Link>.
               </Text>
             </VStack>
           </VStack>
@@ -67,7 +70,7 @@ const Home = ({ posts }) => (
           </VStack>
         </Section>
         <Section>
-          <SubscribeCard title="Subscribe to my newsletter" description="" />
+          <SubscribeCard title="Subscribe to my blog" description="" />
         </Section>
       </VStack>
     </PageTransition>

@@ -47,8 +47,8 @@ const Tools = ({ tools }) => {
       <VStack spacing={8}>
         <Hero
           title="Tools"
-          subtitle="A list of my favorite tools that I use on a regular basis and that I would recommend to try."
-        ></Hero>
+          subtitle="All the great apps and tools that make my life easier and more fun"
+        />
         <Section>
           <Tabs
             variant="soft-rounded"
