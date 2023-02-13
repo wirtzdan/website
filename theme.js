@@ -9,7 +9,10 @@ import {
   yellowDark,
   amber,
   amberDark,
+  slate,
+  slateDark,
 } from "@radix-ui/colors";
+import { Underline } from "react-feather";
 
 const transformRadixToChakraFormat = (scale) => {
   const output = Object.values(scale).reduce(
@@ -27,10 +30,10 @@ const transformRadixToChakraFormat = (scale) => {
   return output;
 };
 
-const radixNeutral = transformRadixToChakraFormat(sand);
-const radixNeutralDark = transformRadixToChakraFormat(sandDark);
-const radixPrimary = transformRadixToChakraFormat(yellow);
-const radixPrimaryD = transformRadixToChakraFormat(yellowDark);
+const radixNeutral = transformRadixToChakraFormat(slate);
+const radixNeutralDark = transformRadixToChakraFormat(slateDark);
+const radixPrimary = transformRadixToChakraFormat(blue);
+const radixPrimaryD = transformRadixToChakraFormat(blueDark);
 
 const customTheme = extendTheme({
   fonts: {
@@ -102,6 +105,7 @@ const customTheme = extendTheme({
         borderColor: mode("neutral.500", "neutralD.500")(props),
         pb: 2,
         fontWeight: "600",
+        color: mode("neutral.1100", "neutralD.1100")(props),
       }),
     },
     Button: {
