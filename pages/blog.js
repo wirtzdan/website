@@ -1,5 +1,5 @@
 import React from "react";
-import fs from "fs";
+// import fs from "fs";
 import {
   VStack,
   Text,
@@ -132,9 +132,8 @@ export default function Blog({ posts }) {
 export async function getStaticProps() {
   const posts = await getAllPosts();
 
-  const rss = await generateRssIcon(posts);
-
-  fs.writeFileSync("./public/rss.xml", rss);
+  // const rss = await generateRssIcon(posts);
+  // fs.writeFileSync("./public/rss.xml", rss);
 
   return {
     props: {
