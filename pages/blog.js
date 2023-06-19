@@ -139,6 +139,20 @@ export async function getStaticProps() {
     props: {
       posts,
     },
+    revalidate: 60,
+  };
+}
+
+
+export async function getStaticProps() {
+  const books = await getTable("Books");
+
+  return {
+    props: {
+      books,
+    },
     revalidate: 10,
   };
 }
+
+export default Books;
