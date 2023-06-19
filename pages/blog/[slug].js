@@ -43,6 +43,6 @@ export async function getStaticProps({ params }) {
         ...postData.post[0].fields,
       },
     },
-    revalidate: 30,
+    revalidate: 60,
   };
 }
