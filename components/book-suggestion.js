@@ -29,8 +29,12 @@ const BookSuggestion = () => {
     register,
     handleSubmit,
     watch,
-    errors,
-    formState: { isSubmitting, isSubmitSuccessful },
+
+    formState: {
+      isSubmitting,
+      isSubmitSuccessful,
+      errors,
+    },
   } = useForm();
   const onSubmit = async (data) => {
     await fetch("/api/sendSuggestion", {

@@ -24,8 +24,13 @@ const Subscribe = ({ direction, ...props }) => {
   const {
     register,
     handleSubmit,
-    errors,
-    formState: { isSubmitting, isSubmitSuccessful, isValid },
+
+    formState: {
+      isSubmitting,
+      isSubmitSuccessful,
+      isValid,
+      errors,
+    },
   } = useForm({
     mode: "onChange",
   });
