@@ -1,5 +1,5 @@
 import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import BaseHighlight, { defaultProps } from "prism-react-renderer";
+import { Highlight as BaseHighlight, defaultProps } from "prism-react-renderer";
 import { prismDark, prismLight } from "./themes";
 
 import React from "react";
