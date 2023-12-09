@@ -10,7 +10,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
-import { LinkIcon, CheckIcon } from "@heroicons/react/solid";
+import { LinkIcon, CheckIcon } from "@heroicons/react/24/solid";
 
 const AuthorCard = ({ readingTime, publishedAt, url }) => {
   const { hasCopied, onCopy } = useClipboard(url);

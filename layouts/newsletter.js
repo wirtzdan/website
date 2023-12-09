@@ -15,7 +15,7 @@ import AuthorCard from "@/components/author-card";
 import Image from "next/image";
 import PageTransition from "../components/page-transitions";
 import ReactPlayer from "react-player/youtube";
-import { PlayIcon } from "@heroicons/react/solid";
+import { PlayIcon } from "@heroicons/react/24/solid";
 import SubscribeCard from "@/components/subscribe-card";
 
 class NewsletterLayout extends React.Component {

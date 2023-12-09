@@ -31,7 +31,7 @@ import {
   TwitterLogo,
   YoutubeLogo,
 } from "phosphor-react";
-import { MailIcon, MenuIcon } from "@heroicons/react/solid";
+import { EnvelopeIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
 import MobileMenuButton from "./mobile-menu-button";
 import MobileMenuItem from "./mobile-menu-item";
@@ -56,7 +56,7 @@ const MobileMenuToggle = ({ mobile }) => {
   return (
     <Box>
       <Tooltip label="Newsletter">
-        <MobileMenuButton label="Menu" icon={<MenuIcon />} onClick={onOpen} />
+        <MobileMenuButton label="Menu" icon={<Bars3Icon />} onClick={onOpen} />
       </Tooltip>
       <Drawer
         isOpen={isOpen}

@@ -10,7 +10,7 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import Highlight from "./highlight";
-import { CheckIcon, DuplicateIcon } from "@heroicons/react/solid";
+import { CheckIcon, DuplicateIcon } from "@heroicons/react/24/solid";
 
 const Codeblock = (props) => {
   const showLines = true;

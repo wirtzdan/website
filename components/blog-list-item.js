@@ -20,7 +20,7 @@ import {
   VideoCameraIcon,
   PlayIcon,
   ClockIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/24/solid";
 import Link from "@/components/link";
 import readingTime from "reading-time";
 

@@ -20,7 +20,7 @@ import {
   Text,
   FormHelperText,
 } from "@chakra-ui/react";
-import { RssIcon, MailIcon, MenuIcon } from "@heroicons/react/outline";
+import { RssIcon, EnvelopeIcon, Bars3Icon } from "@heroicons/react/24/outline";
 import { useForm } from "react-hook-form";
 import MobileMenuButton from "./mobile-menu-button";
 import SubscribeCard from "@/components/subscribe-card";
@@ -42,7 +42,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
       ) : (
         <MobileMenuButton
           label="Subscribe"
-          icon={<MailIcon />}
+          icon={<EnvelopeIcon />}
           onClick={onOpen}
         />
       )}
@@ -83,7 +83,7 @@ const NewsletterDrawer = ({ mobile, placement }) => {
                       <FormHelperText>Send max. once per month</FormHelperText>
                       {errors.author && (
                         <FormErrorMessage>
-                          "E-MailIcon is required"
+                          "E-EnvelopeIcon is required"
                         </FormErrorMessage>
                       )}
                     </FormControl>

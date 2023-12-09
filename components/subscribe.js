@@ -14,7 +14,7 @@ import {
   VStack,
   Text,
 } from "@chakra-ui/react";
-import { RssIcon } from "@heroicons/react/solid";
+import { RssIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
 
 const Subscribe = ({ direction, ...props }) => {

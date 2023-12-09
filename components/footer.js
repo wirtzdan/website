@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import Container from "../components/container";
 import NextLink from "next/link";
-import { PencilAltIcon, MailIcon } from "@heroicons/react/outline";
 import {
   GithubLogo,
   LinkedinLogo,

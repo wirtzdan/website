@@ -1,26 +1,12 @@
 import React from "react";
 import { format } from "timeago.js";
 import {
-  Box,
   VStack,
   Text,
   useColorModeValue,
-  Tag,
   HStack,
-  AspectRatio,
-  Image,
-  Icon,
-  Divider,
-  Center,
   Heading,
 } from "@chakra-ui/react";
-import {
-  BookOpenIcon,
-  EyeIcon,
-  VideoCameraIcon,
-  PlayIcon,
-  ClockIcon,
-} from "@heroicons/react/solid";
 import Link from "@/components/link";
 import readingTime from "reading-time";
 

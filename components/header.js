@@ -32,9 +32,9 @@ import {
   BookOpenIcon,
   ChevronDownIcon,
   LightningBoltIcon,
-  MenuIcon,
+  Bars3Icon,
   DotsHorizontalIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/24/solid";
 import Link from "next/link";
 import AvatarNavigation from "./avatar-navigation";
 

@@ -7,7 +7,7 @@ import {
   Tooltip,
   Button,
 } from "@chakra-ui/react";
-import { SunIcon, MoonIcon } from "@heroicons/react/outline";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import useSound from "use-sound";
 import MobileMenuButton from "./mobile-menu-button";
 

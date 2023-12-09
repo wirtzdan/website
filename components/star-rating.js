@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box, HStack, Icon, useColorModeValue, Text } from "@chakra-ui/react";
-import { StarIcon } from "@heroicons/react/solid";
+import { StarIcon } from "@heroicons/react/24/solid";
 
 const StarIconRating = ({ rating }) => {
   const [stars] = useState(rating);

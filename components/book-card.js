@@ -13,7 +13,6 @@ import {
   Link,
   Image,
 } from "@chakra-ui/react";
-import { EyeIcon, StarIcon } from "@heroicons/react/solid";
 import StarIconRating from "./star-rating";
 import { format, render, cancel, register } from "timeago.js";
 
