@@ -25,7 +25,7 @@ const Footer = () => {
     const { href, name, ...rest } = props;
 
     return (
-      <NextLink href={href} passHref>
+      <NextLink href={href} passHref legacyBehavior>
         <Button
           variant="unstyled"
           {...rest}

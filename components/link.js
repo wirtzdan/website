@@ -8,14 +8,14 @@ const Link = (props) => {
 
   return props.unstyled ? (
     isInternalLink ? (
-      <NextLink href={href}>
+      <NextLink href={href} legacyBehavior>
         <chakra.a {...props} />
       </NextLink>
     ) : (
       <chakra.a {...props} />
     )
   ) : isInternalLink ? (
-    <NextLink href={href}>
+    <NextLink href={href} legacyBehavior>
       <chakra.a
         fontWeight="400"
         color={useColorModeValue("primary.900", "primaryD.900")}

@@ -38,7 +38,7 @@ function MobileMenuItem({ href, title, toggle }) {
   }
 
   return (
-    <Link href={href}>
+    <Link href={href} legacyBehavior>
       <MotionButton
         size="lg"
         aria-current={isActive ? "page" : undefined}

@@ -28,7 +28,7 @@ const AvatarNavigation = () => {
   const close = () => setIsOpen(false);
 
   return (
-    <Link href="/">
+    <Link href="/" legacyBehavior>
       <Avatar
         name="Daniel Wirtz"
         size="sm"

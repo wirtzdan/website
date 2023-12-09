@@ -54,7 +54,7 @@ function NavLink(props) {
   }
 
   return (
-    <NextLink href={href} passHref>
+    <NextLink href={href} passHref legacyBehavior>
       <Button
         aria-current={isActive ? "page" : undefined}
         variant="ghost"
@@ -111,7 +111,7 @@ const Header = () => {
                   onMouseEnter={onOpen}
                   onMouseLeave={onClose}
                 >
-                  <Link href="/books">
+                  <Link href="/books" legacyBehavior>
                     <MenuItem
                       _hover={{
                         bg: useColorModeValue("neutral.200", "neutralD.200"),
@@ -127,7 +127,7 @@ const Header = () => {
                       </HStack>
                     </MenuItem>
                   </Link>
-                  <Link href="/bookmarks">
+                  <Link href="/bookmarks" legacyBehavior>
                     <MenuItem
                       _hover={{
                         bg: useColorModeValue("neutral.200", "neutralD.200"),
@@ -143,7 +143,7 @@ const Header = () => {
                       </HStack>
                     </MenuItem>
                   </Link>
-                  <Link href="/tools">
+                  <Link href="/tools" legacyBehavior>
                     <MenuItem
                       _hover={{
                         bg: useColorModeValue("neutral.200", "neutralD.200"),

@@ -80,7 +80,7 @@ const MobileNavigation = () => {
         shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
       >
         <Center w="100%">
-          <Link href="/blog" px={6}>
+          <Link href="/blog" px={6} legacyBehavior>
             <MobileMenuButton
               label="Blog"
               icon={<PencilIcon />}
