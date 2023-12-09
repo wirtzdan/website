@@ -31,7 +31,7 @@ import {
   BookmarkIcon,
   BookOpenIcon,
   ChevronDownIcon,
-  LightningBoltIcon,
+  BoltIcon,
   Bars3Icon,
   DotsHorizontalIcon,
 } from "@heroicons/react/24/solid";
@@ -151,7 +151,7 @@ const Header = () => {
                     >
                       <HStack>
                         <Icon
-                          as={LightningBoltIcon}
+                          as={BoltIcon}
                           size={18}
                           color={useColorModeValue("blue.500", "blue.200")}
                         />
