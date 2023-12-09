@@ -12,7 +12,7 @@ import ReadingProgress from "@/components/reading-progress";
 import BlogSeo from "@/components/blog-seo";
 import TwitterCard from "@/components/twitter-card";
 import AuthorCard from "@/components/author-card";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import PageTransition from "../components/page-transitions";
 import ReactPlayer from "react-player/youtube";
 import { PlayIcon } from "@heroicons/react/24/solid";

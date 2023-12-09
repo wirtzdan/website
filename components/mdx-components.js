@@ -1,5 +1,5 @@
 import react, { useState } from "react";
-import NextImage from "next/image";
+import NextImage from "next/legacy/image";
 import Tweet from "react-tweet-embed";
 import Codeblock from "./codeblock/codeblock";
 import ReactPlayer from "react-player/youtube";

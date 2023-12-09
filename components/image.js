@@ -1,4 +1,4 @@
-import NextImage from "next/image";
+import NextImage from "next/legacy/image";
 import { chakra } from "@chakra-ui/react";
 
 const Image = chakra(NextImage, {
