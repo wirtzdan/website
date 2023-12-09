@@ -1,5 +1,5 @@
 import react, { useState } from "react";
-import NextImage from "next/legacy/image";
+import NextImage from "next/image";
 import Tweet from "react-tweet-embed";
 import Codeblock from "./codeblock/codeblock";
 import ReactPlayer from "react-player/youtube";
@@ -64,7 +64,12 @@ const Image = (props) => {
       overflow="hidden"
       lineHeight={0}
     >
-      <NextImage {...props} />
+      <NextImage
+        {...props}
+        style={{
+          maxWidth: "100%",
+          height: "auto"
+        }} />
     </Box>
   );
 };
