@@ -68,17 +68,15 @@ const Subscribe = ({ direction, ...props }) => {
             <Stack spacing={2} direction={direction} justify="start" w="full">
               <FormControl w="unset">
                 <Input
-                  name="email_address"
+                  {...register('email_address', { required: true })}
                   placeholder="you@email.com"
                   type="email"
-                  ref={register({ required: true })}
                   isDisabled={isSuccessful}
                   isLoading={isSubmitSuccessful}
                   rounded="lg"
                   w="100%"
                   minW={{ base: "48", md: "64" }}
-                  bg={useColorModeValue("white", "neutralD.100")}
-                />
+                  bg={useColorModeValue("white", "neutralD.100")} />
                 {/* <FormHelperText>Send max. once per month</FormHelperText> */}
                 {errors.author && (
                   <FormErrorMessage>"E-Mail is required"</FormErrorMessage>

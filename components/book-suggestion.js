@@ -59,12 +59,10 @@ const BookSuggestion = () => {
                 <FormControl w="100%">
                   <FormLabel>Title</FormLabel>
                   <Input
-                    name="title"
+                    {...register('title', { required: true })}
                     placeholder="Title"
-                    ref={register({ required: true })}
                     isDisabled={isSubmitSuccessful}
-                    rounded="lg"
-                  />
+                    rounded="lg" />
                   {errors.title && (
                     <FormErrorMessage>"Title is required"</FormErrorMessage>
                   )}
@@ -72,12 +70,10 @@ const BookSuggestion = () => {
                 <FormControl w="100%">
                   <FormLabel>Author</FormLabel>
                   <Input
-                    name="author"
+                    {...register('author', { required: true })}
                     placeholder="Author"
-                    ref={register({ required: true })}
                     isDisabled={isSubmitSuccessful}
-                    rounded="lg"
-                  />
+                    rounded="lg" />
                   {errors.author && (
                     <FormErrorMessage>"Author is required"</FormErrorMessage>
                   )}
@@ -85,12 +81,10 @@ const BookSuggestion = () => {
                 <FormControl w="100%">
                   <FormLabel>Message</FormLabel>
                   <Textarea
-                    name="message"
+                    {...register('message')}
                     placeholder="Write a message..."
-                    ref={register}
                     isDisabled={isSubmitSuccessful}
-                    rounded="lg"
-                  />
+                    rounded="lg" />
                 </FormControl>
                 {isSubmitSuccessful ? (
                   <Alert status="success" rounded="lg">
