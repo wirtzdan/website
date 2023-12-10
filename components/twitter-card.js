@@ -11,7 +11,6 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { TwitterLogo } from "phosphor-react";
-import { ArrowNarrowRight } from "@heroicons/react/24/solid";
 
 const TwitterCard = ({ title, slug }) => {
   const url = "https://danielwirtz.com/blog/" + slug;

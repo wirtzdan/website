@@ -25,7 +25,6 @@ import Hero from "@/components/hero";
 import NewsletterModal from "@/components/newsletter-modal";
 import BlogListItem from "@/components/blog-list-item";
 import SubscribeCard from "@/components/subscribe-card";
-import { XIcon } from "@heroicons/react/24/solid";
 
 export default function Blog({ posts }) {
   const { isOpen, onOpen, onClose } = useDisclosure();

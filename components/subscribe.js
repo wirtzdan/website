@@ -13,6 +13,7 @@ import {
   Box,
   VStack,
   Text,
+  Icon,
 } from "@chakra-ui/react";
 import { RssIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
@@ -25,15 +26,14 @@ const Subscribe = ({ direction, ...props }) => {
     register,
     handleSubmit,
 
-    formState: {
-      isSubmitting,
-      isSubmitSuccessful,
-      isValid,
-      errors,
-    },
+    formState: { isSubmitting, isSubmitSuccessful, isValid, errors },
   } = useForm({
     mode: "onChange",
   });
+
+  function ChakraRssIcon() {
+    return <Icon as={RssIcon} />;
+  }
 
   const onSubmit = async (data, e) => {
     const res = await fetch("/api/addSubscriber", {
@@ -68,7 +68,7 @@ const Subscribe = ({ direction, ...props }) => {
             <Stack spacing={2} direction={direction} justify="start" w="full">
               <FormControl w="unset">
                 <Input
-                  {...register('email_address', { required: true })}
+                  {...register("email_address", { required: true })}
                   placeholder="you@email.com"
                   type="email"
                   isDisabled={isSuccessful}
@@ -76,21 +76,21 @@ const Subscribe = ({ direction, ...props }) => {
                   rounded="lg"
                   w="100%"
                   minW={{ base: "48", md: "64" }}
-                  bg={useColorModeValue("white", "neutralD.100")} />
+                  bg={useColorModeValue("white", "neutralD.100")}
+                />
                 {/* <FormHelperText>Send max. once per month</FormHelperText> */}
                 {errors.author && (
                   <FormErrorMessage>"E-Mail is required"</FormErrorMessage>
                 )}
               </FormControl>
               <Button
-                mt={4}
                 colorScheme="blue"
                 type="submit"
                 minW={10}
                 isDisabled={isSuccessful}
                 // isDisabled={!isValid}
+                leftIcon={<ChakraRssIcon />}
                 isLoading={isSubmitting}
-                // leftIcon={<RssIcon size={20} />}
                 rounded="lg"
                 // size={{ base: "md", md: "" }}
               >
