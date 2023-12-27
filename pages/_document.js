@@ -44,6 +44,10 @@ class MyDocument extends Document {
           <meta content="#3182CE" name="theme-color" />
           <meta content="#3182CE" name="msapplication-TileColor" />
           <meta
+            name="impact-site-verification"
+            value="2096415d-8a81-4e03-9a1f-67bcd203a8c2"
+          ></meta>
+          <meta
             content="/static/favicons/browserconfig.xml"
             name="msapplication-config"
           />
