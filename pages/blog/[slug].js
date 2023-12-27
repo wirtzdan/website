@@ -5,8 +5,6 @@ import NotionPage from "@/components/notion-page";
 import dayjs from "dayjs";
 
 export default function Blog({ post, postRecordMap }) {
-  console.log("post → ", post);
-
   return (
     <BlogLayout post={post}>
       <NotionPage recordMap={postRecordMap} />

@@ -1,5 +1,5 @@
 import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react";
-import { Highlight as BaseHighlight, defaultProps } from "prism-react-renderer";
+import { Highlight as BaseHighlight } from "prism-react-renderer";
 import { prismDark, prismLight } from "./themes";
 
 import React from "react";
@@ -42,12 +42,7 @@ function Highlight({ codeString, language, showLines, ln, ...props }) {
   const shouldHighlightLine = calculateLinesToHighlight(ln);
 
   return (
-    <BaseHighlight
-      {...defaultProps}
-      code={codeString}
-      language={language}
-      theme={customTheme}
-    >
+    <BaseHighlight code={codeString} language={language} theme={customTheme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <chakra.div data-language={language} overflowX="auto">
           <pre className={className} style={style}>
