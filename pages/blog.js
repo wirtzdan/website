@@ -110,6 +110,7 @@ export default function Blog({ posts }) {
           {!posts.length && "No posts found."}
           <SimpleGrid columns={1} spacing={4} pt={8} w="100%">
             {posts.results
+              .filter((post) => post.isPublished)
               .sort((x, y) => new Date(y.publishDate) - new Date(x.publishDate))
               .map((post) => {
                 return <BlogListItem key={post.id} {...post} />;

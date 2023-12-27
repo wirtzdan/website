@@ -58,10 +58,11 @@ const Home = ({ posts }) => (
             <Heading size="lg">Recent Posts</Heading>
             <SimpleGrid columns={1} spacing={4} w="100%">
               {posts.results
-                .slice(0, 3)
+                .filter((post) => post.isPublished)
                 .sort(
                   (x, y) => new Date(y.publishDate) - new Date(x.publishDate)
                 )
+                .slice(0, 3)
                 .map((post) => {
                   return <BlogListItem key={post.id} {...post} />;
                 })}
