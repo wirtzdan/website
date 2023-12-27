@@ -1,7 +1,6 @@
 import { NextSeo, ArticleJsonLd } from "next-seo";
 
 const BlogSeo = ({ title, summary, publishDate, url, image }) => {
-  console.log("publishDate →", publishDate);
   const date = new Date(publishDate).toISOString();
 
   return (

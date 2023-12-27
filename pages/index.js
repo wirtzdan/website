@@ -15,7 +15,7 @@ import {
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import sorter from "sort-isostring";
-import { getAllPosts } from "../lib/airtable";
+import { getBlogPosts } from "@/lib/notion/api";
 import Link from "@/components/link";
 import SubscribeCard from "@/components/subscribe-card";
 import BlogListItem from "@/components/blog-list-item";
@@ -56,15 +56,14 @@ const Home = ({ posts }) => (
         <Section>
           <VStack align="start" spacing={8}>
             <Heading size="lg">Recent Posts</Heading>
-            <SimpleGrid columns={1} spacing={4} mt={8} w="100%">
-              {posts
+            <SimpleGrid columns={1} spacing={4} w="100%">
+              {posts.results
                 .slice(0, 3)
-                .filter((p) => p.fields.status === "Published")
-                .sort((x, y) =>
-                  sorter(y.fields.publishDate, x.fields.publishDate)
+                .sort(
+                  (x, y) => new Date(y.publishDate) - new Date(x.publishDate)
                 )
                 .map((post) => {
-                  return <BlogListItem key={post.id} {...post.fields} />;
+                  return <BlogListItem key={post.id} {...post} />;
                 })}
             </SimpleGrid>
           </VStack>
@@ -78,8 +77,7 @@ const Home = ({ posts }) => (
 );
 
 export async function getStaticProps() {
-  const posts = await getAllPosts();
-
+  const posts = await getBlogPosts(9999);
   //const rss = await generateRssIcon(posts);
   // fs.writeFileSync("./public/rss.xml", rss);
 

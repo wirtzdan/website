@@ -1,0 +1,3 @@
+{
+  "buildCommand": "npx upload-notion-images-to-cloudinary && npm run build"
+}

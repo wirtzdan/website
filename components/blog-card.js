@@ -21,7 +21,6 @@ const BlogCard = ({
   views,
   videoLength,
 }) => {
-  console.log("banner →", readingTime(mdx));
   return (
     <Link href={`/blog/${slug}`} unstyled>
       <VStack

@@ -167,8 +167,6 @@ export default function Newsletter({ posts }) {
 export async function getStaticProps() {
   const posts = await getAllNewsletters();
 
-  console.log("posts →", posts);
-
   return {
     props: {
       posts,

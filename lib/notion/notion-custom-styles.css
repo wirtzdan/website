@@ -1,0 +1,13 @@
+.notion-collection-page-properties {
+  display: none;
+}
+
+.notion-page {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.notion-inline-code {
+  background: var(--bg-color-2);
+  color: var(--chakra-colors-blue-500);
+}

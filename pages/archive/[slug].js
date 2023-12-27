@@ -8,9 +8,9 @@ import remarkAutoLinkHeadings from "remark-autolink-headings";
 import remarkSlug from "remark-slug";
 import remarkCodeTitles from "remark-code-titles";
 
-export default function Journal({ source, frontMatter }) {
+export default function Journal({ source, post }) {
   return (
-    <NewsletterLayout frontMatter={frontMatter}>
+    <NewsletterLayout post={post}>
       <MDXRemote {...source} components={MDXComponents} />
     </NewsletterLayout>
   );
@@ -40,7 +40,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       source: mdxSource,
-      frontMatter: {
+      post: {
         wordCount:
           newsletterData.newsletter[0].fields.Markdown.split(/\s+/gu).length,
         readingTime: readingTime(newsletterData.newsletter[0].fields.Markdown),

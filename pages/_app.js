@@ -9,8 +9,16 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import MobileNavigation from "@/components/mobile-navigation";
 import PlausibleProvider from "next-plausible";
+import "@/lib/notion/notion-renderer-styles.css";
+import "prismjs/themes/prism-tomorrow.css";
+import "@/lib/notion/notion-custom-styles.css";
+import { clarity } from "react-microsoft-clarity";
+import { useEffect } from "react";
 
 const App = ({ Component, pageProps }) => {
+  useEffect(() => {
+    clarity.init("kcefbongzq");
+  }, []);
   return (
     <>
       <ChakraProvider theme={customTheme}>

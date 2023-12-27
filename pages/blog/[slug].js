@@ -1,48 +1,85 @@
-import { serialize } from "next-mdx-remote/serialize";
-import { MDXRemote } from "next-mdx-remote";
 import BlogLayout from "@/layouts/blog";
-import MDXComponents from "@/components/mdx-components";
-import { getAllPostsPaths, getPostData } from "../../lib/airtable";
 import readingTime from "reading-time";
-import remarkAutoLinkHeadings from "remark-autolink-headings";
-import remarkSlug from "remark-slug";
-import remarkCodeTitles from "remark-code-titles";
+import { getBlogPosts, getPageByPageId } from "@/lib/notion/api";
+import NotionPage from "@/components/notion-page";
+import dayjs from "dayjs";
 
-export default function Blog({ source, frontMatter }) {
+export default function Blog({ post, postRecordMap }) {
+  console.log("post → ", post);
+
   return (
-    <BlogLayout frontMatter={frontMatter}>
-      <MDXRemote {...source} components={MDXComponents} />
+    <BlogLayout post={post}>
+      <NotionPage recordMap={postRecordMap} />
     </BlogLayout>
   );
 }
 
-export async function getStaticPaths() {
-  const paths = await getAllPostsPaths();
-
+export const getStaticPaths = async () => {
+  const posts = await getBlogPosts({ pageSize: 9999 });
   return {
-    paths,
-    fallback: false,
+    paths: posts.results.map((p) => {
+      const publishYear = dayjs(p.publishDate).format("YYYY");
+      return {
+        params: { slug: p.slug, year: publishYear },
+      };
+    }),
+    fallback: "blocking",
   };
-}
+};
 
-export async function getStaticProps({ params }) {
-  const postData = await getPostData(params.slug);
+export const getStaticProps = async ({ params }) => {
+  const { slug } = params;
+  const posts = await getBlogPosts({ pageSize: 9999 });
+  const post = posts.results.find((p) => p.slug === slug);
 
-  const mdxSource = await serialize(postData.post[0].fields.mdx, {
-    mdxOptions: {
-      remarkPlugins: [remarkAutoLinkHeadings, remarkSlug, remarkCodeTitles],
-    },
-  });
+  if (!post) {
+    return {
+      props: {
+        post: null,
+        postRecordMap: null,
+      },
+      revalidate: 100,
+    };
+  }
+
+  const postPage = await getPageByPageId(post.id);
 
   return {
     props: {
-      source: mdxSource,
-      frontMatter: {
-        wordCount: postData.post[0].fields.mdx.split(/\s+/gu).length,
-        readingTime: readingTime(postData.post[0].fields.mdx),
-        ...postData.post[0].fields,
-      },
+      post,
+      postRecordMap: postPage,
     },
-    revalidate: 60,
+    revalidate: 360,
   };
-}
+};
+
+// export async function getStaticPaths() {
+//   const paths = await getAllPostsPaths();
+
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
+
+// export async function getStaticProps({ params }) {
+//   const postData = await getPostData(params.slug);
+
+//   const mdxSource = await serialize(postData.post[0].fields.mdx, {
+//     mdxOptions: {
+//       remarkPlugins: [remarkAutoLinkHeadings, remarkSlug, remarkCodeTitles],
+//     },
+//   });
+
+//   return {
+//     props: {
+//       source: mdxSource,
+//       post: {
+//         wordCount: postData.post[0].fields.mdx.split(/\s+/gu).length,
+//         readingTime: readingTime(postData.post[0].fields.mdx),
+//         ...postData.post[0].fields,
+//       },
+//     },
+//     revalidate: 60,
+//   };
+// }

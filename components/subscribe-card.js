@@ -64,6 +64,7 @@ export const SubscribeCard = ({
           />
         </VStack>
       </HStack>
+
       <Subscribe
         direction={{ base: "column", md: "row" }}
         display={{ base: "block", md: "none" }}

@@ -10,20 +10,22 @@ import {
   Icon,
 } from "@chakra-ui/react";
 import Highlight from "./highlight";
-import { CheckIcon, DuplicateIcon } from "@heroicons/react/24/solid";
+import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import { getBlockTitle } from "notion-utils";
+import { useNotionContext } from "react-notion-x";
 
 const Codeblock = (props) => {
-  const showLines = true;
-
-  const { className, children, viewlines, metastring, ln, ...rest } = props;
-
-  const [editorCode] = useState(children);
-
+  const showLines = false;
+  // const { className, children, viewlines, metastring, ln, ...rest } = props;
+  const { block, defaultLanguage = "typescript", ln } = props;
+  const { recordMap } = useNotionContext();
+  const editorCode = getBlockTitle(block, recordMap);
+  const language = (
+    block.properties?.language?.[0]?.[0] || defaultLanguage
+  ).toLowerCase();
   const { hasCopied, onCopy } = useClipboard(editorCode);
 
-  const language = className?.replace(/language-/, "");
-
-  const title = metastring?.match(/title="(.*?)"/)[1];
+  const title = block.properties.caption;
 
   return (
     <Box
@@ -33,10 +35,11 @@ const Codeblock = (props) => {
       my={4}
       borderWidth="1px"
       borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+      w="100%"
     >
       {title ? (
         <HStack
-          px={4}
+          px={5}
           py={1}
           justifyContent="space-between"
           alignItems="center"
@@ -69,7 +72,7 @@ const Codeblock = (props) => {
                 hasCopied ? (
                   <Icon as={CheckIcon} size={18} />
                 ) : (
-                  <Icon as={DuplicateIcon} size={18} />
+                  <Icon as={DocumentDuplicateIcon} size={18} />
                 )
               }
             >
@@ -81,7 +84,6 @@ const Codeblock = (props) => {
       <Highlight
         codeString={editorCode}
         language={language}
-        metastring={metastring}
         showLines={showLines}
         ln={ln}
       />

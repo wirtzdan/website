@@ -1,30 +1,27 @@
 import React from "react";
-// import fs from "fs";
 import {
   VStack,
-  Text,
-  Heading,
-  useColorModeValue,
   SimpleGrid,
-  StackDivider,
-  Avatar,
   useDisclosure,
   Button,
+  Heading,
   Box,
+  useColorModeValue,
   HStack,
-  Icon,
+  Avatar,
   IconButton,
+  Icon,
+  Text,
 } from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
-import sorter from "sort-isostring";
 import NewsletterDrawer from "@/components/newsletter-modal";
-import generateRssIcon from "@/lib/rss";
-import { getAllPosts } from "../lib/airtable";
+import { getBlogPosts } from "@/lib/notion/api";
 import Hero from "@/components/hero";
 import NewsletterModal from "@/components/newsletter-modal";
 import BlogListItem from "@/components/blog-list-item";
 import SubscribeCard from "@/components/subscribe-card";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function Blog({ posts }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -92,7 +89,7 @@ export default function Blog({ posts }) {
                       aria-label="Close Preview"
                       onClick={onClose}
                       variant="ghost"
-                      icon={<Icon as={XIcon} />}
+                      icon={<Icon as={XMarkIcon} />}
                     />
                   </HStack>
                 </Box>
@@ -112,14 +109,10 @@ export default function Blog({ posts }) {
           )} */}
           {!posts.length && "No posts found."}
           <SimpleGrid columns={1} spacing={4} pt={8} w="100%">
-            {posts
-
-              .filter((p) => p.fields.status === "Published")
-              .sort((x, y) =>
-                sorter(y.fields.publishDate, x.fields.publishDate)
-              )
+            {posts.results
+              .sort((x, y) => new Date(y.publishDate) - new Date(x.publishDate))
               .map((post) => {
-                return <BlogListItem key={post.id} {...post.fields} />;
+                return <BlogListItem key={post.id} {...post} />;
               })}
           </SimpleGrid>
         </VStack>
@@ -129,7 +122,7 @@ export default function Blog({ posts }) {
 }
 
 export async function getStaticProps() {
-  const posts = await getAllPosts();
+  const posts = await getBlogPosts(9999);
 
   // const rss = await generateRssIcon(posts);
   // fs.writeFileSync("./public/rss.xml", rss);

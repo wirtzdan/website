@@ -48,8 +48,6 @@ export async function getStaticProps() {
     }),
   });
 
-  console.log("bookmarks", res);
-
   const bookmarks = await res.json();
 
   if (!bookmarks) {
