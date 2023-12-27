@@ -700,19 +700,22 @@ svg.notion-page-icon {
   border-color: var(--fg-color-0);
 }
 
+h1 .notion-link , h2 .notion-link , h3 .notion-link , h4 .notion-link , h5 .notion-link {
+font-weight: inherit;
+}
+
 .notion-link {
   font-weight: 400;
-    color: var(--chakra-colors-primary-900);
-    -webkit-transition: all 0.25s;
-    transition: all 0.25s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-
+  color: var(--chakra-colors-primary-900);
+  -webkit-transition: all 0.25s;
+  transition: all 0.25s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .notion-link:hover {
   color: var(--chakra-colors-primary-1000);
-    -webkit-text-decoration: underline;
-    text-decoration: underline;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .notion-collection .notion-link {
