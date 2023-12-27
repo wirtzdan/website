@@ -12,7 +12,6 @@ import {
   slate,
   slateDark,
 } from "@radix-ui/colors";
-import { Underline } from "react-feather";
 
 const transformRadixToChakraFormat = (scale) => {
   const output = Object.values(scale).reduce(

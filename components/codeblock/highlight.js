@@ -67,7 +67,7 @@ function Highlight({ codeString, language, showLines, ln, ...props }) {
                       : undefined
                   }
                   _hover={{
-                    bg: colorMode === "light" ? "gray.50" : "gray.700",
+                    bg: colorMode === "light" ? "neutral.100" : "neutralD.200",
                   }}
                   {...lineProps}
                 >

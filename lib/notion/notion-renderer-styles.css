@@ -1,4 +1,19 @@
 :root {
+
+
+  --slate-1: #fcfcfd;
+  --slate-2: #f9f9fb;
+  --slate-3: #f0f0f3;
+  --slate-4: #e8e8ec;
+  --slate-5: #e0e1e6;
+  --slate-6: #d9d9e0;
+  --slate-7: #cdced6;
+  --slate-8: #b9bbc6;
+  --slate-9: #8b8d98;
+  --slate-10: #80838d;
+  --slate-11: #60646c;
+  --slate-12: #1c2024;
+
   --notion-font: inherit
   --fg-color: rgb(55, 53, 47);
   --fg-color-0: rgba(55, 53, 47, 0.09);
@@ -6,7 +21,7 @@
   --fg-color-2: rgba(55, 53, 47, 0.4);
   --fg-color-3: rgba(55, 53, 47, 0.6);
   --fg-color-4: #000;
-  --fg-color-5: rgba(55, 53, 47, 0.024);
+  --fg-color-5: var(--chakra-colors-neutral-400);
   --fg-color-6: rgba(55, 53, 47, 0.8);
   --fg-color-icon: var(--fg-color);
 
@@ -64,14 +79,14 @@
   --notion-header-height: 45px;
 }
 
-.dark-mode {
+.chakra-ui-dark {
   --fg-color: rgba(255, 255, 255, 0.9);
-  --fg-color-0: var(--fg-color);
+  --fg-color-0: vvar(--chakra-colors-neutralD-400);
   --fg-color-1: var(--fg-color);
   --fg-color-2: var(--fg-color);
   --fg-color-3: var(--fg-color);
   --fg-color-4: var(--fg-color);
-  --fg-color-5: rgba(255, 255, 255, 0.7);
+  --fg-color-5: var(--chakra-colors-neutralD-400);
   --fg-color-6: #fff;
   --fg-color-icon: #fff;
 
@@ -686,18 +701,18 @@ svg.notion-page-icon {
 }
 
 .notion-link {
-  color: inherit;
-  word-break: break-word;
-  text-decoration: inherit;
-  border-bottom: 0.05em solid;
-  border-color: var(--fg-color-2);
-  opacity: 0.7;
-  transition: border-color 100ms ease-in, opacity 100ms ease-in;
+  font-weight: 400;
+    color: var(--chakra-colors-primary-900);
+    -webkit-transition: all 0.25s;
+    transition: all 0.25s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+
 }
 
 .notion-link:hover {
-  border-color: var(--fg-color-6);
-  opacity: 1;
+  color: var(--chakra-colors-primary-1000);
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
 }
 
 .notion-collection .notion-link {
