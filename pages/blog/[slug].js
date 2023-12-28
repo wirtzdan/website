@@ -36,7 +36,7 @@ export const getStaticProps = async ({ params }) => {
         post: null,
         postRecordMap: null,
       },
-      revalidate: 100,
+      revalidate: 10,
     };
   }
 
@@ -47,7 +47,7 @@ export const getStaticProps = async ({ params }) => {
       post,
       postRecordMap: postPage,
     },
-    revalidate: 360,
+    revalidate: 10,
   };
 };
 
