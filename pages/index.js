@@ -44,7 +44,7 @@ const Home = ({ posts }) => (
             >
               <HStack justify="space-between" w="100%" align="center">
                 <Heading size="lg" align="left">
-                  Hey, I'm Daniel. 👋
+                  Hey there. 👋
                 </Heading>
                 <Link href="/about" legacyBehavior>
                   <Button
@@ -57,7 +57,8 @@ const Home = ({ posts }) => (
                 </Link>
               </HStack>
               <Text fontSize={["lg", "2xl"]}>
-                I'm a designer and entrepreneur. Particularly interested in
+                I'm Daniel. I'm a german entrepreneur, facilitator and designer
+                based in The Netherlands. Particularly interested in
                 collaboration and visual design. I like to read{" "}
                 <Link href="/books"> books</Link>, save{" "}
                 <Link href="/bookmarks">bookmarks</Link> and to occasionally
