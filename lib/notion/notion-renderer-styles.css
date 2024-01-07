@@ -2690,6 +2690,8 @@ font-weight: inherit;
   background-position: center center;
   background-size: cover;
   cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .notion-yt-lite::before {

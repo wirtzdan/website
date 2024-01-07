@@ -11,6 +11,7 @@ import {
   Stack,
   HStack,
   useColorModeValue,
+  Icon,
 } from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
@@ -22,16 +23,17 @@ import BlogListItem from "@/components/blog-list-item";
 import generateRssIcon from "@/lib/rss";
 import Subscribe from "@/components/subscribe";
 import Hero from "@/components/hero";
+import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 
 const Home = ({ posts }) => (
   <Box>
     <PageTransition>
-      <VStack spacing={12}>
+      <VStack spacing={16}>
         <Section>
           <VStack spacing={4} align="start" fontSize="2xl">
             <VStack
               // w="100%"
-              spacing={4}
+              spacing={6}
               // rounded="lg"
               // borderWidth="1px"
               // bg={useColorModeValue("white", "neutralD.100")}
@@ -40,9 +42,19 @@ const Home = ({ posts }) => (
               align="start"
               // // height={48}
             >
-              <Heading size="lg" align="left">
-                Hey, I'm Daniel.
-              </Heading>
+              <HStack justify="space-between" w="100%">
+                <Heading size="lg" align="left">
+                  Hey, I'm Daniel. 👋
+                </Heading>
+                <Link href="/about" legacyBehavior>
+                  <Button
+                    variant="ghost"
+                    rightIcon={<Icon as={ArrowUpRightIcon} />}
+                  >
+                    Read more
+                  </Button>
+                </Link>
+              </HStack>
               <Text fontSize={["lg", "2xl"]}>
                 I'm a designer and entrepreneur. Particularly interested in
                 collaboration and visual design. I like to read{" "}
@@ -55,7 +67,17 @@ const Home = ({ posts }) => (
         </Section>
         <Section>
           <VStack align="start" spacing={8}>
-            <Heading size="lg">Recent Posts</Heading>
+            <HStack justify="space-between" w="100%">
+              <Heading size="lg">Latest Posts</Heading>
+              <Link href="/blog" legacyBehavior>
+                <Button
+                  variant="ghost"
+                  rightIcon={<Icon as={ArrowUpRightIcon} />}
+                >
+                  View all
+                </Button>
+              </Link>
+            </HStack>
             <SimpleGrid columns={1} spacing={4} w="100%">
               {posts.results
                 .filter((post) => post.isPublished)
@@ -70,7 +92,17 @@ const Home = ({ posts }) => (
           </VStack>
         </Section>
         <Section>
-          <SubscribeCard title="Subscribe to my blog" description="" />
+          <VStack align="start" spacing={8}>
+            <Heading size="lg">Subscribe</Heading>
+            <VStack spacing={4}>
+              <Text>
+                If you want to stay up to date with my latest posts you can sign
+                up to my newsletter. I promise I won't spam you. (To be honest,
+                I'm not the best at keeping up with a newsletter schedule...)
+              </Text>
+              <SubscribeCard card={false} title="" description="" />
+            </VStack>
+          </VStack>
         </Section>
       </VStack>
     </PageTransition>
