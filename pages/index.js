@@ -42,7 +42,7 @@ const Home = ({ posts }) => (
               align="start"
               // // height={48}
             >
-              <HStack justify="space-between" w="100%">
+              <HStack justify="space-between" w="100%" align="center">
                 <Heading size="lg" align="left">
                   Hey, I'm Daniel. 👋
                 </Heading>
@@ -50,6 +50,7 @@ const Home = ({ posts }) => (
                   <Button
                     variant="ghost"
                     rightIcon={<Icon as={ArrowUpRightIcon} />}
+                    size={["sm", "md"]}
                   >
                     Read more
                   </Button>
@@ -67,10 +68,11 @@ const Home = ({ posts }) => (
         </Section>
         <Section>
           <VStack align="start" spacing={8}>
-            <HStack justify="space-between" w="100%">
+            <HStack justify="space-between" w="100%" align="center">
               <Heading size="lg">Latest Posts</Heading>
               <Link href="/blog" legacyBehavior>
                 <Button
+                  size={["sm", "md"]}
                   variant="ghost"
                   rightIcon={<Icon as={ArrowUpRightIcon} />}
                 >
