@@ -57,12 +57,10 @@ const Home = ({ posts }) => (
                 </Link>
               </HStack>
               <Text fontSize={["lg", "2xl"]}>
-                I'm Daniel. I'm a german entrepreneur, facilitator and designer
-                based in the Netherlands. Particularly interested in
-                collaboration and visual design. I like to read{" "}
-                <Link href="/books"> books</Link>, save{" "}
-                <Link href="/bookmarks">bookmarks</Link> and to occasionally
-                write <Link href="/blog">articles</Link>.
+                I'm Daniel. I'm a german entrepreneur of sorts who lives in the
+                Netherlands. I like to read <Link href="/books"> books</Link>,
+                save <Link href="/bookmarks">bookmarks</Link> and to
+                occasionally write <Link href="/blog">articles</Link>.
               </Text>
             </VStack>
           </VStack>

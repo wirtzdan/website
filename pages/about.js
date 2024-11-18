@@ -28,9 +28,8 @@ const About = () => (
             questions.
           </Text>
           <Text>
-            I'm particularly interested in exploring better ways to collaborate
-            and tackle important challenges together. This has led me to create
-            the
+            I'm currently interested in exploring better ways to collaborate.
+            This has led me to create the
             <Link href="https://www.facilitator.school">
               {" "}
               Facilitator School
@@ -42,8 +41,8 @@ const About = () => (
           </Text>
           <Text>
             In my free time, you can usually find me reading books, cooking,
-            playing board games or badminton, and spending time with those
-            closest to me.
+            playing board games, outside with the bicycle or simply spending
+            time with those closest to me.
           </Text>
           <Text>
             I'm an advocate for writing and thinking in public, which I'm most
