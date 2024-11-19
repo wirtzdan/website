@@ -37,12 +37,7 @@ const App = ({ Component, pageProps }) => {
             <meta name="theme-color" content="#2BB0EC" />
           </Head>
           <DefaultSeo {...SEO} />
-          <Header />
-          <Box as="main" pt={{ base: 16, md: 32 }} pb={{ base: 24, md: 16 }}>
-            <Component {...pageProps} />
-          </Box>
-          <MobileNavigation />
-          <Footer />
+          <Component {...pageProps} />
         </PlausibleProvider>
       </ChakraProvider>
       <FontFace />

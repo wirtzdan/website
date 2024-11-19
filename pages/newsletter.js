@@ -17,12 +17,13 @@ import sorter from "sort-isostring";
 import { getAllNewsletters } from "../lib/airtable";
 import Link from "@/components/link";
 import SubscribeCard from "@/components/subscribe-card";
+import Layout from "@/layouts/layout";
 
 export default function Newsletter({ posts }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <PageTransition>
+    <Layout>
       <Section>
         <VStack spacing={16}>
           <VStack spacing={4}>
@@ -160,7 +161,7 @@ export default function Newsletter({ posts }) {
           </VStack>
         </VStack>
       </Section>
-    </PageTransition>
+    </Layout>
   );
 }
 

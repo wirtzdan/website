@@ -4,12 +4,13 @@ import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import sorter from "sort-isostring";
 import Hero from "@/components/hero";
+import Layout from "@/layouts/layout";
 
 import BookmarkCard from "../components/bookmark-card";
 
 const Bookmarks = ({ bookmarks }) => {
   return (
-    <PageTransition>
+    <Layout>
       <VStack spacing={8}>
         <Hero
           title="Bookmarks"
@@ -33,7 +34,7 @@ const Bookmarks = ({ bookmarks }) => {
           </SimpleGrid>
         </Section>
       </VStack>
-    </PageTransition>
+    </Layout>
   );
 };
 

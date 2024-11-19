@@ -40,10 +40,11 @@ import {
 import ToolCard from "../components/tool-card";
 import { Chrome } from "react-feather";
 import Hero from "@/components/hero";
+import Layout from "@/layouts/layout";
 
 const Tools = ({ tools }) => {
   return (
-    <PageTransition>
+    <Layout>
       <VStack spacing={8}>
         <Hero
           title="Tools"
@@ -196,7 +197,7 @@ const Tools = ({ tools }) => {
           </Tabs>
         </Section>
       </VStack>
-    </PageTransition>
+    </Layout>
   );
 };
 

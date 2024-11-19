@@ -17,6 +17,7 @@ import PageTransition from "../components/page-transitions";
 import ReactPlayer from "react-player/youtube";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import SubscribeCard from "@/components/subscribe-card";
+import Layout from "@/layouts/layout";
 
 const PlayIconWrapper = () => {
   return (
@@ -38,7 +39,7 @@ class BlogLayout extends React.Component {
     const target = React.createRef();
 
     return (
-      <PageTransition>
+      <Layout>
         <>
           <Section>
             <BlogSeo
@@ -131,7 +132,7 @@ class BlogLayout extends React.Component {
           </Section>
           <ReadingProgress target={target} />
         </>
-      </PageTransition>
+      </Layout>
     );
   }
 }

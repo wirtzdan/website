@@ -25,12 +25,13 @@ import BookSuggestion from "@/components/book-suggestion";
 import { BookOpenIcon, HeartIcon } from "@heroicons/react/24/solid";
 import sorter from "sort-isostring";
 import Hero from "@/components/hero";
+import Layout from "@/layouts/layout";
 
 const Books = ({ books }) => {
   const StyledTab = chakra("button", { themeKey: "Tabs.Tab" });
 
   return (
-    <PageTransition>
+    <Layout>
       <VStack spacing={8}>
         <Hero
           title="Books"
@@ -118,7 +119,7 @@ const Books = ({ books }) => {
           </Tabs>
         </Section>
       </VStack>
-    </PageTransition>
+    </Layout>
   );
 };
 

@@ -15,9 +15,10 @@ import interests from "../data/interests.json";
 import InterestTag from "@/components/interest-tag";
 import Hero from "@/components/hero";
 import Link from "@/components/link";
+import Layout from "@/layouts/layout";
 
 const About = () => (
-  <PageTransition>
+  <Layout>
     <Hero title="About" align="start" subtitle="Learn more about me" />
     <VStack spacing={12} mt={6}>
       <Section>
@@ -103,7 +104,7 @@ const About = () => (
         </VStack>
       </Section>
     </VStack>
-  </PageTransition>
+  </Layout>
 );
 
 export default About;

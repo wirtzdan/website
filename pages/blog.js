@@ -22,12 +22,13 @@ import NewsletterModal from "@/components/newsletter-modal";
 import BlogListItem from "@/components/blog-list-item";
 import SubscribeCard from "@/components/subscribe-card";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import Layout from "@/layouts/layout";
 
 export default function Blog({ posts }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <PageTransition>
+    <Layout>
       <Section>
         <VStack spacing={4}>
           <Hero
@@ -118,7 +119,7 @@ export default function Blog({ posts }) {
           </SimpleGrid>
         </VStack>
       </Section>
-    </PageTransition>
+    </Layout>
   );
 }
 
