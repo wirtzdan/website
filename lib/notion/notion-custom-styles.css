@@ -6,3 +6,28 @@
   padding-left: 0;
   padding-right: 0;
 }
+
+.notion-asset-wrapper-video {
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 0px;
+}
+
+.notion-callout .notion-page-icon-inline {
+  align-self: flex-start;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 1.3em;
+  max-width: 24px;
+  max-height: 24px;
+  margin: 4px 0px 0px 4px;
+}
+
+.notion-callout .notion-page-icon-inline svg {
+  display: none;
+}
+
+.notion-callout .notion-page-icon-inline.notion-page-icon-image:has(svg) {
+  display: none;
+}
