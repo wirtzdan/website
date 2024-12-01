@@ -27,7 +27,7 @@ import readingTime from "reading-time";
 const BlogListItem = ({
   slug,
   publishDate,
-  excerpt,
+  description,
   title,
   coverImage,
   // type,

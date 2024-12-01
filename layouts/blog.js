@@ -37,20 +37,22 @@ const PlayIconWrapper = () => {
 class BlogLayout extends React.Component {
   render() {
     const target = React.createRef();
+    const { post } = this.props;
+    const hasCoverImage = Boolean(post.coverImage);
+    const hasCoverVideo = Boolean(post.coverVideo);
 
     return (
       <Layout>
         <>
           <Section>
             <BlogSeo
-              url={`https://danielwirtz/blog/${this.props.post.slug}`}
-              image={this.props.post.coverImage}
-              socialImage={this.props.post.socialImage}
-              {...this.props.post}
+              url={`https://danielwirtz/blog/${post.slug}`}
+              socialImage={post.socialImage}
+              {...post}
             />
             <article ref={target}>
               <VStack w="100%" align="left" spacing={6}>
-                {this.props.post.showBanner ? (
+                {(hasCoverImage || hasCoverVideo) && (
                   <Box
                     mt={4}
                     rounded="lg"
@@ -58,72 +60,50 @@ class BlogLayout extends React.Component {
                     overflow="hidden"
                     lineHeight={0}
                   >
-                    <Image
-                      alt={this.props.post.title}
-                      src={this.props.post.coverImage}
-                      width={2240}
-                      height={1260}
-                      style={{
-                        maxWidth: "100%",
-                        height: "auto",
-                      }}
-                    />
-                  </Box>
-                ) : undefined}
-                {this.props.post.videoLink ? (
-                  <AspectRatio
-                    overflow="hidden"
-                    rounded="md"
-                    my={6}
-                    ratio={16 / 9}
-                  >
-                    {this.props.post.videoLink.includes("jmp.sh") ||
-                    this.props.post.videoLink.includes("facilitator.school") ? (
-                      <iframe
-                        src={this.props.post.videoLink}
-                        frameborder="0"
-                        webkitallowfullscreen
-                        mozallowfullscreen
-                        allowfullscreen
-                        style={{
-                          position: "absolute",
-                          top: "0",
-                          left: "0",
-                          width: "100%",
-                          height: "100%",
-                        }}
-                      ></iframe>
+                    {hasCoverVideo ? (
+                      <AspectRatio
+                        overflow="hidden"
+                        rounded="md"
+                        ratio={16 / 9}
+                      >
+                        <ReactPlayer
+                          width="100%"
+                          height="100%"
+                          url={post.coverVideo}
+                          light={post.coverImage || true}
+                          controls
+                          playing
+                          playIcon={<PlayIconWrapper />}
+                        />
+                      </AspectRatio>
                     ) : (
-                      <ReactPlayer
-                        width="100%"
-                        height="100%"
-                        url={this.props.post.videoLink}
-                        light={
-                          this.props.post.coverImage
-                            ? this.props.post.coverImage
-                            : true
-                        }
-                        controls
-                        playing
-                        playIcon={<PlayIconWrapper />}
-                      ></ReactPlayer>
+                      <Image
+                        alt={post.title}
+                        src={post.coverImage}
+                        width={2240}
+                        height={1260}
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto",
+                        }}
+                      />
                     )}
-                  </AspectRatio>
-                ) : undefined}
+                  </Box>
+                )}
                 <VStack align="stretch" spacing={6} mb={4}>
-                  <Heading as="h1">{this.props.post.title}</Heading>
+                  <Heading as="h1">{post.title}</Heading>
                   <AuthorCard
-                    publishedAt={this.props.post.publishDate}
-                    url={"https://danielwirtz.com/blog/" + this.props.post.slug}
-                    // readingTime={this.props.post.readingTime.text}
+                    publishedAt={post.publishDate}
+                    url={"https://danielwirtz.com/blog/" + post.slug}
+                    // readingTime={post.readingTime.text}
                   />
                 </VStack>
               </VStack>
               <div>{this.props.children}</div>
             </article>
             {/* <TwitterCard
-              title={this.props.post.title}
-              slug={this.props.post.slug}
+              title={post.title}
+              slug={post.slug}
             /> */}
             <div ref={(el) => (this.div = el)}></div>
           </Section>

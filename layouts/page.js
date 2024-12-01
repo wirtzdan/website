@@ -1,7 +1,6 @@
 import React from "react";
 import Section from "@/components/section";
 import { Heading, VStack, Box } from "@chakra-ui/react";
-import BlogSeo from "@/components/blog-seo";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import MobileNavigation from "@/components/mobile-navigation";
