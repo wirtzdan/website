@@ -48,6 +48,7 @@ class BlogLayout extends React.Component {
             <BlogSeo
               url={`https://danielwirtz/blog/${post.slug}`}
               socialImage={post.socialImage}
+              recordMap={this.props.children.props.recordMap}
               {...post}
             />
             <article ref={target}>
