@@ -10,11 +10,16 @@ const BlogSeo = ({ title, description, publishDate, url, socialImage, recordMap 
     const blocks = Object.values(recordMap.block);
     const firstTextBlock = blocks.find(block => 
       block.value?.type === 'text' && 
-      block.value?.properties?.title?.[0]?.[0]
+      block.value?.properties?.title
     );
     
     if (firstTextBlock) {
-      finalDescription = firstTextBlock.value.properties.title[0][0];
+      // Combine all text segments in the block
+      finalDescription = firstTextBlock.value.properties.title
+        .map(segment => segment[0])
+        .join('')
+        .trim();
+
       // Limit to ~160 characters for SEO
       if (finalDescription.length > 160) {
         finalDescription = finalDescription.substring(0, 157) + '...';
