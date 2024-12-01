@@ -45,6 +45,7 @@ class BlogLayout extends React.Component {
             <BlogSeo
               url={`https://danielwirtz/blog/${this.props.post.slug}`}
               image={this.props.post.coverImage}
+              socialImage={this.props.post.socialImage}
               {...this.props.post}
             />
             <article ref={target}>
@@ -120,7 +121,6 @@ class BlogLayout extends React.Component {
               </VStack>
               <div>{this.props.children}</div>
             </article>
-
             {/* <TwitterCard
               title={this.props.post.title}
               slug={this.props.post.slug}

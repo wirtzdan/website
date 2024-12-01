@@ -44,40 +44,12 @@ export const getStaticProps = async ({ params }) => {
 
   return {
     props: {
-      post,
+      post: {
+        ...post,
+        socialImage: post.socialImage || null,
+      },
       postRecordMap: postPage,
     },
     revalidate: 10,
   };
 };
-
-// export async function getStaticPaths() {
-//   const paths = await getAllPostsPaths();
-
-//   return {
-//     paths,
-//     fallback: false,
-//   };
-// }
-
-// export async function getStaticProps({ params }) {
-//   const postData = await getPostData(params.slug);
-
-//   const mdxSource = await serialize(postData.post[0].fields.mdx, {
-//     mdxOptions: {
-//       remarkPlugins: [remarkAutoLinkHeadings, remarkSlug, remarkCodeTitles],
-//     },
-//   });
-
-//   return {
-//     props: {
-//       source: mdxSource,
-//       post: {
-//         wordCount: postData.post[0].fields.mdx.split(/\s+/gu).length,
-//         readingTime: readingTime(postData.post[0].fields.mdx),
-//         ...postData.post[0].fields,
-//       },
-//     },
-//     revalidate: 60,
-//   };
-// }
