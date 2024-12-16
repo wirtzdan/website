@@ -875,7 +875,8 @@ h5 .notion-link {
 }
 
 .notion-text-children {
-  padding-left: 1.5em;
+  padding-top: 16px;
+  padding-left: 0.5em;
   display: flex;
   flex-direction: column;
 }
@@ -1165,6 +1166,10 @@ h5 .notion-link {
   white-space: pre-wrap;
   word-break: break-word;
   width: 100%;
+}
+
+.notion-callout-text > *:first-child {
+  margin-top: 0 !important;
 }
 
 .notion-toggle {
