@@ -98,7 +98,7 @@ export default function Blog({ posts }) {
                   <iframe
                     width="100%"
                     height="100%"
-                    src="https://buttondown.email/fromthedesk/archive/2-digital-christmas-cards-global-shipping-and/?as_embed=true"
+                    src="https://buttondown.email/danielwirtz/archive/2-digital-christmas-cards-global-shipping-and/?as_embed=true"
                   ></iframe>
                 </Box>
               </Box>
