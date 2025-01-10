@@ -8,6 +8,7 @@ import {
   IconButton,
   Heading,
   Wrap,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
@@ -29,18 +30,6 @@ const About = () => (
             questions.
           </Text>
           <Text>
-            I'm currently interested in exploring better ways to collaborate.
-            This has led me to create the
-            <Link href="https://www.facilitator.school">
-              {" "}
-              Facilitator School
-            </Link>
-            , an education platform with courses, resources, and tools around
-            the topic of facilitation. Our goal is to help individuals develop
-            the skills and knowledge necessary to create engaging, productive,
-            and impactful gatherings.
-          </Text>
-          <Text>
             In my free time, you can usually find me reading books, cooking,
             playing board games, outside with the bicycle or simply spending
             time with those closest to me.
@@ -51,6 +40,23 @@ const About = () => (
             <Link href="https://www.linkedin.com/in/wirtzdan/"> LinkedIn </Link>
             at the moment.
           </Text>
+          <VStack
+            bg={useColorModeValue("blue.50", "blue.900")}
+            p={4}
+            borderRadius="lg"
+            borderColor={useColorModeValue("blue.200", "blue.700")}
+            borderWidth="1px"
+          >
+            <Text>
+              I've left my previous start-up and I'm currently looking for new
+              opportunities. If you are searching for new people for your
+              start-up or company,
+              <Link href="mailto:daniel@danielwirtz.com">
+                {" "}
+                feel free to reach out.{" "}
+              </Link>
+            </Text>
+          </VStack>
         </VStack>
       </Section>
       <Section>
