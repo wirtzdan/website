@@ -25,12 +25,52 @@ import Subscribe from "@/components/subscribe";
 import Hero from "@/components/hero";
 import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 import Layout from "@/layouts/layout";
+import { motion } from "framer-motion";
+
+const RecordingDot = () => (
+  <Box position="relative" display="inline-flex" alignItems="center" mt="1px">
+    <motion.div
+      style={{
+        width: 6,
+        height: 6,
+        backgroundColor: "red",
+        borderRadius: "50%",
+        display: "inline-block",
+        position: "relative",
+        zIndex: 2,
+      }}
+    />
+    <motion.div
+      style={{
+        width: 6,
+        height: 6,
+        backgroundColor: "red",
+        borderRadius: "50%",
+        position: "absolute",
+        left: 0,
+      }}
+      animate={{
+        scale: 2.5,
+        opacity: 0
+      }}
+      initial={{
+        scale: 1,
+        opacity: 0.3
+      }}
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }}
+    />
+  </Box>
+);
 
 const Home = ({ posts }) => (
   <Layout>
     <VStack spacing={16}>
       <Section>
-        <VStack spacing={4} align="start" fontSize="2xl">
+        <VStack spacing={4} align="start" >
           <VStack
             // w="100%"
             spacing={6}
@@ -42,7 +82,7 @@ const Home = ({ posts }) => (
             align="start"
             // // height={48}
           >
-            <HStack justify="space-between" w="100%" align="center">
+            <HStack justify="space-between" w="100%" align="center" fontSize="2xl">
               <Heading size="lg" align="left">
                 Hey there. 👋
               </Heading>
@@ -56,12 +96,29 @@ const Home = ({ posts }) => (
                 </Button>
               </Link>
             </HStack>
-            <Text fontSize={["lg", "2xl"]}>
-              I'm Daniel. I'm a german entrepreneur of sorts who lives in the
+            <Text fontSize={["lg", "2xl"]} >
+              I'm Daniel. I'm a german designer, developer and maker of sorts who lives in the
               Netherlands. I like to read <Link href="/books"> books</Link>,
               save <Link href="/bookmarks">bookmarks</Link> and to occasionally
               write <Link href="/blog">articles</Link>.
             </Text>
+            <VStack 
+              bg={useColorModeValue("white", "neutralD.100")}
+              borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+              p={4}
+              rounded="md"
+              borderWidth="1px"
+              spacing={2}
+              align="start"
+            >
+              <HStack spacing={2} align="center">
+                <Text fontWeight="bold" fontSize="lg">Now</Text>
+                <RecordingDot />
+              </HStack>
+              <Text fontSize="md" >
+                I'm currently working on <Link href="https://markway.io/">Markway</Link>, a web extension for note-taking enthusiasts who want to highlight and annotate websites. You can <Link href="https://discord.gg/AdXhQ9P7">join the Discord community </Link>to follow the development and test early releases!
+              </Text>
+            </VStack>
           </VStack>
         </VStack>
       </Section>
