@@ -62,12 +62,7 @@ const Collection = dynamic(() =>
 const Equation = dynamic(() =>
   import("react-notion-x/build/third-party/equation").then((m) => m.Equation)
 );
-const Pdf = dynamic(
-  () => import("react-notion-x/build/third-party/pdf").then((m) => m.Pdf),
-  {
-    ssr: false,
-  }
-);
+
 const Modal = dynamic(
   () => import("react-notion-x/build/third-party/modal").then((m) => m.Modal),
   {
@@ -120,13 +115,11 @@ const NotionPage = ({
         fullPage={false}
         disableHeader
         components={{
-          // NOTE (transitive-bullshit 3/12/2023): I'm disabling next/image for this repo for now because the amount of traffic started costing me hundreds of dollars a month in Vercel image optimization costs. I'll probably re-enable it in the future if I can find a better solution.
           nextImage: Image,
           nextLink: Link,
           Code: Codeblock,
           Collection,
           Equation,
-          Pdf,
           Modal,
           Tweet,
           Property: () => null,
