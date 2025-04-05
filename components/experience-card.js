@@ -22,7 +22,7 @@ const ExperienceCard = ({ company, logo, role, date, description }) => {
         />
         <VStack align="start" spacing={2}>
           <Text fontWeight="bold">{company}</Text>
-          <Text fontSize="md" color={useColorModeValue("gray.500", "gray.100")}>
+          <Text fontSize="md" color={useColorModeValue("gray.800", "gray.100")}>
             {description}
           </Text>
           <Text
