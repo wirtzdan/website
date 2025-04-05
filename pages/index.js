@@ -51,16 +51,16 @@ const RecordingDot = () => (
       }}
       animate={{
         scale: 2.5,
-        opacity: 0
+        opacity: 0,
       }}
       initial={{
         scale: 1,
-        opacity: 0.3
+        opacity: 0.3,
       }}
       transition={{
         duration: 2,
         repeat: Infinity,
-        ease: "easeInOut"
+        ease: "easeInOut",
       }}
     />
   </Box>
@@ -70,7 +70,7 @@ const Home = ({ posts }) => (
   <Layout>
     <VStack spacing={16}>
       <Section>
-        <VStack spacing={4} align="start" >
+        <VStack spacing={4} align="start">
           <VStack
             // w="100%"
             spacing={6}
@@ -82,7 +82,12 @@ const Home = ({ posts }) => (
             align="start"
             // // height={48}
           >
-            <HStack justify="space-between" w="100%" align="center" fontSize="2xl">
+            <HStack
+              justify="space-between"
+              w="100%"
+              align="center"
+              fontSize="2xl"
+            >
               <Heading size="lg" align="left">
                 Hey there. 👋
               </Heading>
@@ -96,13 +101,14 @@ const Home = ({ posts }) => (
                 </Button>
               </Link>
             </HStack>
-            <Text fontSize={["lg", "2xl"]} >
-              I'm Daniel. I'm a german designer, developer and maker of sorts who lives in the
-              Netherlands. I like to read <Link href="/books"> books</Link>,
-              save <Link href="/bookmarks">bookmarks</Link> and to occasionally
-              write <Link href="/blog">articles</Link>.
+            <Text fontSize={["lg", "2xl"]}>
+              I'm Daniel. I'm a german designer, developer and maker of sorts
+              who lives in the Netherlands. I like to read{" "}
+              <Link href="/books"> books</Link>, save{" "}
+              <Link href="/bookmarks">bookmarks</Link> and to occasionally write{" "}
+              <Link href="/blog">articles</Link>.
             </Text>
-            <VStack 
+            <VStack
               bg={useColorModeValue("white", "neutralD.100")}
               borderColor={useColorModeValue("neutral.400", "neutralD.400")}
               p={4}
@@ -112,11 +118,21 @@ const Home = ({ posts }) => (
               align="start"
             >
               <HStack spacing={2} align="center">
-                <Text fontWeight="bold" fontSize="lg">Now</Text>
+                <Text fontWeight="bold" fontSize="lg">
+                  Now
+                </Text>
                 <RecordingDot />
               </HStack>
-              <Text fontSize="md" >
-                I'm currently working on <Link href="https://markway.io/">Markway</Link>, a web extension for note-taking enthusiasts who want to highlight and annotate websites. You can <Link href="https://discord.gg/AdXhQ9P7">join the Discord community </Link>to follow the development and test early releases!
+              <Text fontSize="md">
+                I'm working on a few freelance projects right now. In my spare
+                time, I'm building{" "}
+                <Link href="https://markway.io/">Markway</Link>, a browser
+                extension to effortlessly save web content into Notion. Feel
+                free to join the{" "}
+                <Link href="https://go.markway.io/community">
+                  Discord community{" "}
+                </Link>{" "}
+                to follow my progress.
               </Text>
             </VStack>
           </VStack>

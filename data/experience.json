@@ -1,0 +1,18 @@
+{
+  "experience": [
+    {
+      "company": "Facilitator School",
+      "logo": "facilitator-school",
+      "role": "Co-Founder (Design, Marketing, Content)",
+      "date": "June 2020 - Jan 2025",
+      "description": "Build Facilitator School, an educational platform designed to help people run more effective meetings and workshops. My main focus was on the website, marketing, and content. I grew the site from zero to 200,000 visitors a year, led the creation of resources, videos, and training materials, and delivered over nine training cohorts for participants from global organizations like NASA, Apple, Disney, and UNICEF."
+    },
+    {
+      "company": "Crisp Studio",
+      "logo": "crisp-studio",
+      "role": "Co-Founder (Design, Facilitation)",
+      "date": "Jul 2017 - Dec 2022",
+      "description": "Lead the work at Crisp Studio, a design studio for digital products and websites. Facilitated workshops and Design Sprints to understand users, stimulate cross-functional collaboration and to validate ideas. Build prototypes, websites and designed user interfaces for clients. "
+    }
+  ]
+}

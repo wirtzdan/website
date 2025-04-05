@@ -8,22 +8,22 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
-import useSound from "use-sound";
+/* import useSound from "use-sound"; */
 import MobileMenuButton from "./mobile-menu-button";
 
 const ThemeToggle = ({ mobile }) => {
   const { colorMode, toggleColorMode } = useColorMode();
-  const [play] = useSound("/lightswitch.mp3", {
+  /* const [play] = useSound("/lightswitch.mp3", {
     volume: 0.05,
     sprite: {
       on: [0, 300],
       off: [500, 300],
     },
-  });
+  }); */
 
   const handleClick = () => {
     toggleColorMode();
-    colorMode === "dark" ? play({ id: "on" }) : play({ id: "off" });
+    /* colorMode === "dark" ? play({ id: "on" }) : play({ id: "off" }); */
   };
 
   return (

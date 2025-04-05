@@ -13,7 +13,9 @@ import {
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import interests from "../data/interests.json";
+import experience from "../data/experience.json";
 import InterestTag from "@/components/interest-tag";
+import ExperienceCard from "@/components/experience-card";
 import Hero from "@/components/hero";
 import Link from "@/components/link";
 import Layout from "@/layouts/layout";
@@ -25,9 +27,9 @@ const About = () => (
       <Section>
         <VStack align="start" spacing={6}>
           <Text>
-            I'm a designer, entrepreneur, and all-around curious person who
-            can't get enough of exploring new ideas and asking lots of
-            questions.
+            I'm a designer, developer, and maker of sorts. I'm an all-around
+            curious person who can't get enough of exploring new ideas and
+            asking lots of questions.
           </Text>
           <Text>
             In my free time, you can usually find me reading books, cooking,
@@ -35,10 +37,16 @@ const About = () => (
             time with those closest to me.
           </Text>
           <Text>
-            I'm an advocate for writing and thinking in public, which I'm most
-            actively doing on
-            <Link href="https://www.linkedin.com/in/wirtzdan/"> LinkedIn </Link>
-            at the moment.
+            I'm an advocate for working and learning in public, which I'm doing
+            on and off on on{" "}
+            <Link href="https://www.linkedin.com/in/wirtzdan/">LinkedIn</Link>,
+            <Link href="https://x.com/wirtzdan"> X</Link>,{" "}
+            <Link href="https://bsky.app/profile/danielwirtz.com">Bluesky</Link>{" "}
+            and my{" "}
+            <Link href="https://www.youtube.com/@wirtzdan">
+              YouTube channel
+            </Link>
+            .
           </Text>
           <VStack
             bg={useColorModeValue("blue.50", "blue.900")}
@@ -48,21 +56,33 @@ const About = () => (
             borderWidth="1px"
           >
             <Text>
-              I've left my previous start-up and I'm currently looking for new
-              opportunities. If you are searching for new people for your
-              start-up or company,
+              I'm currently looking for new opportunities. If you want to chat,
               <Link href="mailto:daniel@danielwirtz.com">
                 {" "}
-                feel free to reach out.{" "}
+                feel free to reach out to me.{" "}
               </Link>
             </Text>
           </VStack>
         </VStack>
       </Section>
+
+      <Section>
+        <VStack align="start" spacing={8}>
+          <Heading as="h2" size="lg">
+            Experience
+          </Heading>
+          <VStack align="start" spacing={12} width="100%">
+            {experience.experience.map((exp, index) => (
+              <ExperienceCard key={index} {...exp} />
+            ))}
+          </VStack>
+        </VStack>
+      </Section>
+
       <Section>
         <VStack align="start" spacing={4}>
           <Heading as="h2" size="lg">
-            😁
+            Like 😁
           </Heading>
           <Wrap>
             {interests.like.map((el) => (
@@ -74,7 +94,7 @@ const About = () => (
       <Section>
         <VStack align="start" spacing={4}>
           <Heading as="h2" size="lg">
-            😒
+            Dislike 😒
           </Heading>
           <Wrap>
             {interests.dislike.map((el) => (
@@ -83,6 +103,7 @@ const About = () => (
           </Wrap>
         </VStack>
       </Section>
+
       <Section>
         <VStack align="start" spacing={6}>
           <Heading as="h2" size="lg">
