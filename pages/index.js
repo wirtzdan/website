@@ -102,13 +102,16 @@ const Home = ({ posts }) => (
               </Link>
             </HStack>
             <Text fontSize={["lg", "2xl"]}>
-              I'm Daniel. I'm a german designer, developer and maker of sorts
-              who lives in the Netherlands. I like to read{" "}
-              <Link href="/books"> books</Link>, save{" "}
+              I'm Daniel. I work in the Growth team at{" "}
+              <Link href="https://www.givingwhatwecan.org/" isExternal>
+                Giving What We Can
+              </Link>
+              , and live in the Netherlands. I like to read{" "}
+              <Link href="/books">books</Link>, save{" "}
               <Link href="/bookmarks">bookmarks</Link> and to occasionally write{" "}
               <Link href="/blog">articles</Link>.
             </Text>
-            <VStack
+            {/*          <VStack
               bg={useColorModeValue("white", "neutralD.100")}
               borderColor={useColorModeValue("neutral.400", "neutralD.400")}
               p={4}
@@ -134,7 +137,7 @@ const Home = ({ posts }) => (
                 </Link>{" "}
                 to follow my progress.
               </Text>
-            </VStack>
+            </VStack> */}
           </VStack>
         </VStack>
       </Section>

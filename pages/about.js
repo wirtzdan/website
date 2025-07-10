@@ -1,15 +1,6 @@
 import React from "react";
 import Head from "next/head";
-import {
-  Button,
-  VStack,
-  HStack,
-  Text,
-  IconButton,
-  Heading,
-  Wrap,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { VStack, Text, Heading, Wrap } from "@chakra-ui/react";
 import PageTransition from "../components/page-transitions";
 import Section from "@/components/section";
 import interests from "../data/interests.json";
@@ -27,9 +18,8 @@ const About = () => (
       <Section>
         <VStack align="start" spacing={6}>
           <Text>
-            I'm a designer, developer, and maker of sorts. I'm an all-around
-            curious person who can't get enough of exploring new ideas and
-            asking lots of questions.
+            I'm an all-around curious person who can't get enough of exploring
+            new ideas and asking lots of questions.
           </Text>
           <Text>
             In my free time, you can usually find me reading books, cooking,
@@ -48,21 +38,6 @@ const About = () => (
             </Link>
             .
           </Text>
-          <VStack
-            bg={useColorModeValue("blue.50", "blue.900")}
-            p={4}
-            borderRadius="lg"
-            borderColor={useColorModeValue("blue.200", "blue.700")}
-            borderWidth="1px"
-          >
-            <Text>
-              I'm currently looking for new opportunities. If you want to chat,
-              <Link href="mailto:daniel@danielwirtz.com">
-                {" "}
-                feel free to reach out to me.{" "}
-              </Link>
-            </Text>
-          </VStack>
         </VStack>
       </Section>
 
