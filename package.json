@@ -60,6 +60,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next dev",
-    "inspect": "NODE_OPTIONS='--inspect' next dev -p 5000"
+    "inspect": "NODE_OPTIONS='--inspect' next dev -p 5000",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.2"
   }
 }
