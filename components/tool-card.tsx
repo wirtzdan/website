@@ -10,6 +10,8 @@ interface ToolCardProps {
   image?: AirtableImage[];
   link?: string;
   description?: string;
+  platform?: string;
+  isAffiliate?: boolean;
 }
 
 const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {

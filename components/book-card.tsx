@@ -9,6 +9,7 @@ interface BookCardProps {
   title?: string;
   author?: string;
   rating?: number;
+  isFavorite?: boolean;
   cover?: AirtableImage[];
   dateRead?: string;
 }

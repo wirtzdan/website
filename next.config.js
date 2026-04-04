@@ -1,7 +1,6 @@
-const withMDX = require("@next/mdx")();
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  pageExtensions: ["js", "jsx", "mdx"],
+  pageExtensions: ["ts", "tsx", "mdx"],
   images: {
     domains: [
       "dl.airtable.com",
@@ -13,7 +12,6 @@ const nextConfig = {
       "prod-files-secure",
     ],
   },
-  // Enable video loading from various sources
   async headers() {
     return [
       {
@@ -28,5 +26,7 @@ const nextConfig = {
     ];
   },
 };
+
+const withMDX = require("@next/mdx")();
 
 module.exports = withMDX(nextConfig);
