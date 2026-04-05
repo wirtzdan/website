@@ -1,5 +1,5 @@
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import dayjs from "dayjs";
+import { format } from "date-fns";
 
 import NotionPage from "@/components/notion-page";
 import BlogLayout from "@/layouts/blog";
@@ -33,7 +33,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: posts.results.map((post) => ({
       params: {
         slug: post.slug,
-        year: dayjs(post.publishDate).format("YYYY"),
+        year: format(new Date(post.publishDate), "yyyy"),
       },
     })),
     fallback: "blocking",

@@ -1,9 +1,10 @@
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
+import { parseISO } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
+function notionDateTimeToUtcIso(start: string, timeZone: string): string {
+  const normalized = start.includes("T") ? start : `${start}T00:00:00`;
+  return zonedTimeToUtc(normalized, timeZone || "UTC").toISOString();
+}
 
 type NotionPropertyValue = {
   type: string;
@@ -65,17 +66,17 @@ export const getDateProperty = (databaseEntry: NotionDatabaseEntry, key: string)
     case "date":
       if (!value.date) return undefined;
       if (!value.date.end) {
-        return dayjs.tz(value.date.start, value.date.time_zone || "UTC").toString();
+        return notionDateTimeToUtcIso(value.date.start, value.date.time_zone || "UTC");
       }
 
       return [
-        dayjs.tz(value.date.start, value.date.time_zone || "UTC").toString(),
-        dayjs.tz(value.date.end, value.date.time_zone || "UTC").toString(),
+        notionDateTimeToUtcIso(value.date.start, value.date.time_zone || "UTC"),
+        notionDateTimeToUtcIso(value.date.end, value.date.time_zone || "UTC"),
       ];
     case "last_edited_time":
-      return dayjs.tz(value.last_edited_time, "UTC").toString();
+      return parseISO(value.last_edited_time).toISOString();
     case "created_time":
-      return dayjs.tz(value.created_time, "UTC").toString();
+      return parseISO(value.created_time).toISOString();
     default:
       console.warn('key %s is of type "%s" instead of "date"', key, value.type);
       return undefined;
