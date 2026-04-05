@@ -33,13 +33,7 @@ const NewsletterDrawer = ({ placement }: NewsletterDrawerProps) => {
       ) : (
         <MobileMenuButton label="Subscribe" icon={<EnvelopeIcon />} onClick={onOpen} />
       )}
-      <Drawer
-        isOpen={isOpen}
-        size="md"
-        placement="bottom"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
+      <Drawer isOpen={isOpen} size="md" placement="bottom" onClose={onClose} finalFocusRef={btnRef}>
         <DrawerOverlay>
           <DrawerContent borderTopRadius="6px" bg={useColorModeValue("white", "neutralD.50")}>
             <DrawerCloseButton />

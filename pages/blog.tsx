@@ -32,7 +32,7 @@ export default function Blog({ posts }: InferGetStaticPropsType<typeof getStatic
               .filter((post) => post.isPublished)
               .sort(
                 (left, right) =>
-                  new Date(right.publishDate).getTime() - new Date(left.publishDate).getTime()
+                  new Date(right.publishDate).getTime() - new Date(left.publishDate).getTime(),
               )
               .map((post) => (
                 <BlogListItem key={post.id} {...post} />

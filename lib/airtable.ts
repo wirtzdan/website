@@ -1,11 +1,6 @@
 import Airtable, { type FieldSet } from "airtable";
 
-import type {
-  AirtableRecord,
-  BookFields,
-  NewsletterFields,
-  ToolFields,
-} from "@/types/content";
+import type { AirtableRecord, BookFields, NewsletterFields, ToolFields } from "@/types/content";
 
 type BlogFields = FieldSet & {
   status?: string;
@@ -21,13 +16,13 @@ const airtable = new Airtable({
 const base = airtable.base(process.env.AIRTABLE_BASE_ID as string);
 
 const getMinifiedRecords = <TFields extends FieldSet>(
-  records: readonly Airtable.Record<TFields>[]
+  records: readonly Airtable.Record<TFields>[],
 ): AirtableRecord<TFields>[] => {
   return records.map((record) => minifyRecord(record));
 };
 
 const minifyRecord = <TFields extends FieldSet>(
-  record: Airtable.Record<TFields>
+  record: Airtable.Record<TFields>,
 ): AirtableRecord<TFields> => {
   return {
     id: record.id,

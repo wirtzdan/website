@@ -14,11 +14,7 @@ interface PageLayoutProps {
   showNavigation?: boolean;
 }
 
-const PageLayout = ({
-  children,
-  page,
-  showNavigation = false,
-}: PageLayoutProps) => {
+const PageLayout = ({ children, page, showNavigation = false }: PageLayoutProps) => {
   return (
     <PageTransition>
       <>

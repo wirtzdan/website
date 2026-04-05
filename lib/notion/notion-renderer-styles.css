@@ -231,8 +231,7 @@
   line-height: 1;
 }
 
-.notion-aside-table-of-contents
-  .notion-table-of-contents-item-indent-level-0:first-of-type {
+.notion-aside-table-of-contents .notion-table-of-contents-item-indent-level-0:first-of-type {
   margin-top: 0;
 }
 
@@ -636,8 +635,9 @@
 }
 
 .notion-page-icon {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji,
-    "Noto Color Emoji", "Segoe UI Symbol", "Android Emoji", EmojiSymbols;
+  font-family:
+    "Apple Color Emoji", "Segoe UI Emoji", NotoColorEmoji, "Noto Color Emoji", "Segoe UI Symbol",
+    "Android Emoji", EmojiSymbols;
   font-size: 1.1em;
   fill: var(--fg-color-6);
   color: var(--fg-color-icon);
@@ -791,8 +791,7 @@ h5 .notion-link {
   background: var(--bg-color-2);
   border-radius: 4px;
   font-size: 85%;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 .notion-inline-underscore {
@@ -896,8 +895,7 @@ h5 .notion-link {
   box-sizing: border-box;
   overflow: auto;
   background: var(--bg-color-1);
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier,
-    monospace;
+  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
 }
 
 .notion-code-copy {
@@ -916,10 +914,12 @@ h5 .notion-link {
   line-height: 1em;
   cursor: pointer;
 
-  transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1),
+  transition:
+    background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1),
     color 0.2s cubic-bezier(0.3, 0, 0.5, 1),
     border-color 0.2s cubic-bezier(0.3, 0, 0.5, 1);
-  box-shadow: 0 1px 0 rgba(27, 31, 36, 0.04),
+  box-shadow:
+    0 1px 0 rgba(27, 31, 36, 0.04),
     inset 0 1px 0 rgba(255, 255, 255, 0.25);
   background-color: #f6f8fa;
 
@@ -1510,7 +1510,9 @@ h5 .notion-link {
   overflow: hidden;
 
   text-decoration: none;
-  box-shadow: rgba(15, 15, 15, 0.1) 0 0 0 1px, rgba(15, 15, 15, 0.1) 0 2px 4px;
+  box-shadow:
+    rgba(15, 15, 15, 0.1) 0 0 0 1px,
+    rgba(15, 15, 15, 0.1) 0 2px 4px;
   border-radius: 6px;
   background: var(--bg-color);
   color: var(--fg-color);
@@ -1749,15 +1751,11 @@ h5 .notion-link {
   height: 148px;
 }
 
-.notion-board-view-size-small
-  .notion-collection-card
-  .notion-collection-card-cover {
+.notion-board-view-size-small .notion-collection-card .notion-collection-card-cover {
   height: 100px;
 }
 
-.notion-board-view-size-large
-  .notion-collection-card
-  .notion-collection-card-cover {
+.notion-board-view-size-large .notion-collection-card .notion-collection-card-cover {
   height: 180px;
 }
 
@@ -1775,7 +1773,9 @@ h5 .notion-link {
 .notion-table-of-contents-item {
   color: var(--fg-color);
   opacity: 0.7;
-  transition: background 100ms ease-in, opacity 100ms ease-in;
+  transition:
+    background 100ms ease-in,
+    opacity 100ms ease-in;
 
   text-decoration: none;
   user-select: none;
@@ -2077,9 +2077,7 @@ h5 .notion-link {
   border-bottom: 0 none;
 }
 
-.notion-collection-card-property
-  .notion-property-relation
-  .notion-page-title-text {
+.notion-collection-card-property .notion-property-relation .notion-page-title-text {
   border-bottom: 1px solid;
 }
 
@@ -2147,9 +2145,7 @@ h5 .notion-link {
   border-bottom: 0 none;
 }
 
-.notion-collection-row-property
-  .notion-property-relation
-  .notion-page-title-text {
+.notion-collection-row-property .notion-property-relation .notion-page-title-text {
   border-bottom: 1px solid;
 }
 
@@ -2241,7 +2237,8 @@ h5 .notion-link {
 }
 
 .lazy-image-real.medium-zoom-image {
-  transition: transform 0.3s cubic-bezier(0.2, 0, 0.2, 1),
+  transition:
+    transform 0.3s cubic-bezier(0.2, 0, 0.2, 1),
     opacity 400ms ease-out !important;
   will-change: opacity, transform;
 }
@@ -2423,8 +2420,10 @@ h5 .notion-link {
 }
 
 .notion-search {
-  box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
-    rgba(15, 15, 15, 0.1) 0px 5px 10px, rgba(15, 15, 15, 0.2) 0px 15px 40px;
+  box-shadow:
+    rgba(15, 15, 15, 0.05) 0px 0px 0px 1px,
+    rgba(15, 15, 15, 0.1) 0px 5px 10px,
+    rgba(15, 15, 15, 0.2) 0px 15px 40px;
   border-radius: 6px;
   background: var(--bg-color);
 
@@ -2801,7 +2800,8 @@ h5 .notion-link {
   background: #fff;
   border-radius: 6;
   padding: 0;
-  box-shadow: 0px 10px 38px -10px rgba(22, 23, 24, 0.35),
+  box-shadow:
+    0px 10px 38px -10px rgba(22, 23, 24, 0.35),
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);
   animation-duration: 400ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);

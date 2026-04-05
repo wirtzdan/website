@@ -35,12 +35,7 @@ const MobileNavigation = () => {
       >
         <Center w="100%">
           <NextLink href="/blog" legacyBehavior passHref>
-            <MobileMenuButton
-              as="a"
-              label="Blog"
-              icon={<PencilIcon />}
-              px={6}
-            />
+            <MobileMenuButton as="a" label="Blog" icon={<PencilIcon />} px={6} />
           </NextLink>
         </Center>
 

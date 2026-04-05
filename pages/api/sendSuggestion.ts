@@ -4,14 +4,16 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import type { SuggestionPayload, SuggestionResponseBody } from "@/types/api";
 
 const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(
-  process.env.AIRTABLE_BASE_ID as string
+  process.env.AIRTABLE_BASE_ID as string,
 );
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<SuggestionResponseBody>
+  res: NextApiResponse<SuggestionResponseBody>,
 ) {
-  const body = (typeof req.body === "string" ? JSON.parse(req.body) : req.body) as SuggestionPayload;
+  const body = (
+    typeof req.body === "string" ? JSON.parse(req.body) : req.body
+  ) as SuggestionPayload;
 
   try {
     await sendSuggestion(body);
@@ -41,7 +43,7 @@ function sendSuggestion(data: SuggestionPayload) {
         }
 
         resolve();
-      }
+      },
     );
   });
 }

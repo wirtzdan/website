@@ -59,7 +59,9 @@ const BookSuggestion = () => {
                     isDisabled={isSubmitSuccessful}
                     rounded="lg"
                   />
-                  {errors.title ? <FormErrorMessage>{errors.title.message}</FormErrorMessage> : null}
+                  {errors.title ? (
+                    <FormErrorMessage>{errors.title.message}</FormErrorMessage>
+                  ) : null}
                 </FormControl>
                 <FormControl w="100%" isInvalid={Boolean(errors.author)}>
                   <FormLabel>Author</FormLabel>

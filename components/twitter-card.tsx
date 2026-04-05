@@ -28,9 +28,9 @@ const TwitterCard = ({ title, slug }: TwitterCardProps) => {
     >
       <Text>Did you like the article?</Text>
       <Link
-        href={`https://twitter.com/intent/tweet?text=${
-          encodeURIComponent(`${title} by @wirtzdan`)
-        }&url=${encodeURIComponent(url)}`}
+        href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
+          `${title} by @wirtzdan`,
+        )}&url=${encodeURIComponent(url)}`}
         unstyled
       >
         <LightMode>

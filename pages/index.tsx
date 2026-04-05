@@ -58,8 +58,7 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const latestPosts = posts.results
     .filter((post) => post.isPublished)
     .sort(
-      (left, right) =>
-        new Date(right.publishDate).getTime() - new Date(left.publishDate).getTime()
+      (left, right) => new Date(right.publishDate).getTime() - new Date(left.publishDate).getTime(),
     )
     .slice(0, 3);
 
@@ -86,8 +85,8 @@ const Home = ({ posts }: InferGetStaticPropsType<typeof getStaticProps>) => {
                 <Link href="https://www.givingwhatwecan.org/" isExternal>
                   Giving What We Can
                 </Link>
-                , and live in the Netherlands. I like to read <Link href="/books">books</Link>,
-                save <Link href="/bookmarks">bookmarks</Link> and to occasionally write{" "}
+                , and live in the Netherlands. I like to read <Link href="/books">books</Link>, save{" "}
+                <Link href="/bookmarks">bookmarks</Link> and to occasionally write{" "}
                 <Link href="/blog">articles</Link>.
               </Text>
               {false ? <RecordingDot /> : null}

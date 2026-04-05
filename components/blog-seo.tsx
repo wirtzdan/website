@@ -11,16 +11,14 @@ interface BlogSeoProps {
   recordMap?: NotionRecordMapWithBlocks | null;
 }
 
-const getDescriptionFromRecordMap = (
-  recordMap?: NotionRecordMapWithBlocks | null
-) => {
+const getDescriptionFromRecordMap = (recordMap?: NotionRecordMapWithBlocks | null) => {
   if (!recordMap) {
     return undefined;
   }
 
   const blocks = Object.values(recordMap.block ?? {}) as NotionBlockWithValue[];
   const firstTextBlock = blocks.find(
-    (block) => block.value?.type === "text" && block.value?.properties?.title
+    (block) => block.value?.type === "text" && block.value?.properties?.title,
   );
 
   if (!firstTextBlock?.value?.properties?.title) {

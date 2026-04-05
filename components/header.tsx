@@ -12,11 +12,7 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import {
-  BoltIcon,
-  BookOpenIcon,
-  BookmarkIcon,
-} from "@heroicons/react/24/solid";
+import { BoltIcon, BookOpenIcon, BookmarkIcon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import NextLink from "next/link";
 import { useRouter } from "next/router";

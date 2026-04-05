@@ -28,11 +28,7 @@ export const SubscribeCard = ({
       p={card ? 6 : 0}
       spacing={4}
     >
-      <HStack
-        spacing={{ base: 4, md: 8 }}
-        w="100%"
-        justifyContent={center ? "center" : "start"}
-      >
+      <HStack spacing={{ base: 4, md: 8 }} w="100%" justifyContent={center ? "center" : "start"}>
         {image ? (
           <Image
             src="/newsletter-logo.png"

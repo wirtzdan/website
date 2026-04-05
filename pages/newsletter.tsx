@@ -23,9 +23,7 @@ type NewsletterPageProps = {
   posts: AirtableRecord<NewsletterFields>[];
 };
 
-export default function Newsletter({
-  posts,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Newsletter({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { isOpen, onOpen } = useDisclosure();
 
   return (
@@ -111,10 +109,7 @@ export default function Newsletter({
               {posts
                 .filter((post) => post.fields.Status === "Published")
                 .sort((left, right) =>
-                  sorter(
-                    right.fields["Published on"] ?? "",
-                    left.fields["Published on"] ?? ""
-                  )
+                  sorter(right.fields["Published on"] ?? "", left.fields["Published on"] ?? ""),
                 )
                 .map((post) => (
                   <Stack

@@ -24,9 +24,7 @@ const generateRssItem = (post: AirtableRecord<RssPostFields>) => `
 const generateRss = (posts: AirtableRecord<RssPostFields>[]) => {
   const sortedPosts = posts
     .filter((post) => post.fields.status === "Published")
-    .sort((left, right) =>
-      sorter(right.fields.publishDate ?? "", left.fields.publishDate ?? "")
-    );
+    .sort((left, right) => sorter(right.fields.publishDate ?? "", left.fields.publishDate ?? ""));
 
   const latestPublishDate = sortedPosts[0]?.fields.publishDate ?? new Date().toISOString();
 

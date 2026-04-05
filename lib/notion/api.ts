@@ -89,8 +89,7 @@ export const getBlogPosts = async ({
       slug: getStringProperty(typedItem, "Slug"),
       description: getStringProperty(typedItem, "Description") || null,
       publishDate:
-        getDateProperty(typedItem, "Publish date") ||
-        getDateProperty(typedItem, "Created time"),
+        getDateProperty(typedItem, "Publish date") || getDateProperty(typedItem, "Created time"),
       modifiedDate: getDateProperty(typedItem, "Last edited time"),
       isFeatured: getBooleanProperty(typedItem, "Featured") ?? false,
       isPublished: isPublished(typedItem),
@@ -101,14 +100,13 @@ export const getBlogPosts = async ({
 
     const requiredProperties = ["slug", "title"] as const;
     const isComplete = requiredProperties.every((key) => Boolean(rawPost[key]));
-    const coverIcon = typedItem.icon?.type === "emoji" ? typedItem.icon.emoji ?? null : null;
+    const coverIcon = typedItem.icon?.type === "emoji" ? (typedItem.icon.emoji ?? null) : null;
 
     if (isComplete && typeof rawPost.publishDate === "string") {
       blogList.push({
         ...rawPost,
         publishDate: rawPost.publishDate,
-        modifiedDate:
-          typeof rawPost.modifiedDate === "string" ? rawPost.modifiedDate : undefined,
+        modifiedDate: typeof rawPost.modifiedDate === "string" ? rawPost.modifiedDate : undefined,
         readURL: `/blog/${rawPost.slug}`,
         coverIcon,
       });
@@ -122,14 +120,11 @@ export const getBlogPosts = async ({
   };
 };
 
-export const getPageByPageId = async (
-  pageId: string
-): Promise<NotionRecordMap | null> => {
+export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap | null> => {
   try {
     return (await notionPrivateAPI.getPage(pageId, {})) as NotionRecordMap;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unknown Notion API error";
+    const message = error instanceof Error ? error.message : "Unknown Notion API error";
     console.error(`Error fetching page with ID ${pageId}:`, message);
     return null;
   }

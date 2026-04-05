@@ -10,7 +10,7 @@ const notion = useOfficialNotionAPI
 
 if (useOfficialNotionAPI) {
   console.warn(
-    "Using the official Notion API. Note that many blocks only include partial support for formatting and layout. Use at your own risk."
+    "Using the official Notion API. Note that many blocks only include partial support for formatting and layout. Use at your own risk.",
   );
 }
 

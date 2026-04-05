@@ -24,10 +24,7 @@ const MotionButton = motion(Button);
 function MobileMenuItem({ href, title }: MobileMenuItemProps) {
   const { pathname } = useRouter();
 
-  const isActive =
-    href === "/"
-      ? pathname === href
-      : pathname.includes(href.split("/")[1] ?? href);
+  const isActive = href === "/" ? pathname === href : pathname.includes(href.split("/")[1] ?? href);
 
   return (
     <NextLink href={href} passHref legacyBehavior>

@@ -39,13 +39,9 @@ const tabStyles = (isSelected: boolean, lightBg: string, darkBg: string) => ({
 const toolsByPlatform = (tools: AirtableRecord<ToolFields>[], platform: string) =>
   tools
     .filter((tool) => tool.fields.Platform === platform)
-    .sort((left, right) =>
-      sorter(String(right.fields.ID ?? ""), String(left.fields.ID ?? ""))
-    );
+    .sort((left, right) => sorter(String(right.fields.ID ?? ""), String(left.fields.ID ?? "")));
 
-export default function Tools({
-  tools,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Tools({ tools }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Layout>
       <VStack spacing={8}>

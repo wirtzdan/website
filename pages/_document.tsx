@@ -8,9 +8,7 @@ import Document, {
 } from "next/document";
 
 class MyDocument extends Document {
-  static async getInitialProps(
-    ctx: DocumentContext
-  ): Promise<DocumentInitialProps> {
+  static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
   }
@@ -49,10 +47,7 @@ class MyDocument extends Document {
           <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
           <meta content="#3182CE" name="theme-color" />
           <meta content="#3182CE" name="msapplication-TileColor" />
-          <meta
-            name="impact-site-verification"
-            content="2096415d-8a81-4e03-9a1f-67bcd203a8c2"
-          />
+          <meta name="impact-site-verification" content="2096415d-8a81-4e03-9a1f-67bcd203a8c2" />
           <meta content="/static/favicons/browserconfig.xml" name="msapplication-config" />
         </Head>
         <body>

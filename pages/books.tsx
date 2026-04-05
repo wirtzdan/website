@@ -67,10 +67,7 @@ const Books = ({ books }: InferGetStaticPropsType<typeof getStaticProps>) => {
                   {books
                     .filter((book) => book.fields.Read === true)
                     .sort((left, right) =>
-                      sorter(
-                        right.fields["Date Read"] ?? "",
-                        left.fields["Date Read"] ?? ""
-                      )
+                      sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""),
                     )
                     .map((book) => (
                       <BookCard
@@ -90,10 +87,7 @@ const Books = ({ books }: InferGetStaticPropsType<typeof getStaticProps>) => {
                   {books
                     .filter((book) => book.fields.Favorite === true)
                     .sort((left, right) =>
-                      sorter(
-                        right.fields["Date Read"] ?? "",
-                        left.fields["Date Read"] ?? ""
-                      )
+                      sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""),
                     )
                     .map((book) => (
                       <BookCard

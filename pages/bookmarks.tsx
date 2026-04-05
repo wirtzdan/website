@@ -7,9 +7,7 @@ import Layout from "@/layouts/layout";
 import Section from "@/components/section";
 import type { BookmarkResponse } from "@/types/content";
 
-const BookmarksPage = ({
-  bookmarks,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const BookmarksPage = ({ bookmarks }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <Layout>
       <VStack spacing={8}>
@@ -60,8 +58,7 @@ export const getStaticProps: GetStaticProps<{
     props: {
       bookmarks: {
         items: [...bookmarks.items].sort(
-          (left, right) =>
-            new Date(right.created).getTime() - new Date(left.created).getTime()
+          (left, right) => new Date(right.created).getTime() - new Date(left.created).getTime(),
         ),
       },
     },

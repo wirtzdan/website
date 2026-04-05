@@ -19,7 +19,7 @@ const calculateLinesToHighlight = (meta?: string) => {
     const lineNumber = index;
     return (
       lineNumbers?.some(([start, end]) =>
-        end ? lineNumber >= start && lineNumber <= end : lineNumber === start
+        end ? lineNumber >= start && lineNumber <= end : lineNumber === start,
       ) ?? false
     );
   };
@@ -76,10 +76,7 @@ function Highlight({ codeString, language, showLines = false, ln }: HighlightPro
                     </chakra.span>
                   ) : null}
                   {line.map((token, tokenIndex) => (
-                    <chakra.span
-                      key={tokenIndex}
-                      {...getTokenProps({ token, key: tokenIndex })}
-                    />
+                    <chakra.span key={tokenIndex} {...getTokenProps({ token, key: tokenIndex })} />
                   ))}
                 </chakra.div>
               );

@@ -1,9 +1,5 @@
 import NextLink from "next/link";
-import {
-  chakra,
-  useColorModeValue,
-  type LinkProps as ChakraLinkProps,
-} from "@chakra-ui/react";
+import { chakra, useColorModeValue, type LinkProps as ChakraLinkProps } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 
 interface CustomLinkProps extends ChakraLinkProps {

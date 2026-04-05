@@ -1,24 +1,19 @@
 import { extendTheme } from "@chakra-ui/react";
 import { blue, blueDark, slate, slateDark } from "@radix-ui/colors";
 
-const mode =
-  (light: string, dark: string) =>
-  (props: { colorMode?: string }) =>
-    props.colorMode === "dark" ? dark : light;
+const mode = (light: string, dark: string) => (props: { colorMode?: string }) =>
+  props.colorMode === "dark" ? dark : light;
 
 const transformRadixToChakraFormat = (scale: Record<string, string>) => {
-  return Object.values(scale).reduce<Record<string, string>>(
-    (accumulator, currentValue, index) => {
-      if (index === 0) {
-        accumulator["50"] = currentValue;
-      } else {
-        accumulator[`${index}00`] = currentValue;
-      }
+  return Object.values(scale).reduce<Record<string, string>>((accumulator, currentValue, index) => {
+    if (index === 0) {
+      accumulator["50"] = currentValue;
+    } else {
+      accumulator[`${index}00`] = currentValue;
+    }
 
-      return accumulator;
-    },
-    {}
-  );
+    return accumulator;
+  }, {});
 };
 
 const radixNeutral = transformRadixToChakraFormat(slate);
