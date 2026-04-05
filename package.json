@@ -26,7 +26,7 @@
     "mdx-prism": "^0.3.1",
     "next": "14.2.35",
     "next-mdx-enhanced": "^5.0.0",
-    "next-mdx-remote": "^4.4.1",
+    "next-mdx-remote": "^6.0.0",
     "next-plausible": "^3.12.0",
     "next-seo": "^6.4.0",
     "notion-client": "^6.16.0",
@@ -60,6 +60,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next dev",
-    "inspect": "NODE_OPTIONS='--inspect' next dev -p 5000"
+    "inspect": "NODE_OPTIONS='--inspect' next dev -p 5000",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.2",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "typescript": "^6.0.2"
   }
 }
