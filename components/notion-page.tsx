@@ -1,8 +1,9 @@
+"use client";
+
 import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import ReactPlayer from "react-player";
 import { Spinner as Loading } from "@chakra-ui/react";
 import { getPageTitle } from "notion-utils";
@@ -197,12 +198,6 @@ const NotionPage = ({
   rootPageId,
   rootDomain,
 }: NotionPageProps) => {
-  const router = useRouter();
-
-  if (router.isFallback) {
-    return <Loading />;
-  }
-
   if (!recordMap) {
     return null;
   }

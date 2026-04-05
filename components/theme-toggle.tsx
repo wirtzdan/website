@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon, IconButton, Tooltip, useColorMode } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 

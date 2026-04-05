@@ -1,10 +1,12 @@
+"use client";
+
 import NextImage from "next/image";
 import { Box, Heading, VStack } from "@chakra-ui/react";
 import type { ReactNode } from "react";
 import { useRef } from "react";
 
 import AuthorCard from "@/components/author-card";
-import BlogSeo from "@/components/blog-seo";
+import BlogArticleJsonLd from "@/components/blog-article-json-ld";
 import PageTransition from "@/components/page-transitions";
 import ReadingProgress from "@/components/reading-progress";
 import Section from "@/components/section";
@@ -27,7 +29,7 @@ const NewsletterLayout = ({ post, children }: NewsletterLayoutProps) => {
     <PageTransition>
       <>
         <Section>
-          <BlogSeo
+          <BlogArticleJsonLd
             title={post.Subject ?? "Newsletter"}
             publishDate={post["Published on"] ?? post["Pulished On"] ?? new Date().toISOString()}
             url={`https://danielwirtz.com/archive/${post.Slug ?? ""}`}

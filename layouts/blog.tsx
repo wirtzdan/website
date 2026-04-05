@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import ReactPlayer from "react-player/youtube";
 import { AspectRatio, Box, Heading, Icon, VStack, useColorModeValue } from "@chakra-ui/react";
@@ -6,7 +8,6 @@ import type { ReactNode } from "react";
 import { useRef } from "react";
 
 import AuthorCard from "@/components/author-card";
-import BlogSeo from "@/components/blog-seo";
 import ReadingProgress from "@/components/reading-progress";
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
@@ -39,14 +40,6 @@ const BlogLayout = ({ children, post, recordMap }: BlogLayoutProps) => {
   return (
     <Layout>
       <Section>
-        <BlogSeo
-          title={post.title}
-          description={post.description}
-          publishDate={post.publishDate}
-          url={`https://danielwirtz.com/blog/${post.slug}`}
-          socialImage={post.socialImage}
-          recordMap={recordMap}
-        />
         <article ref={target}>
           <VStack w="100%" align="stretch" spacing={6}>
             {hasCoverImage || hasCoverVideo ? (

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Box, HStack, Image, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import { format } from "timeago.js";

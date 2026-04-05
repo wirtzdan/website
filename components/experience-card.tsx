@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { HStack, Image, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 

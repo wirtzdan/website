@@ -1,3 +1,5 @@
+"use client";
+
 import { Heading, Text, VStack, type StackProps, useColorModeValue } from "@chakra-ui/react";
 
 import Section from "@/components/section";

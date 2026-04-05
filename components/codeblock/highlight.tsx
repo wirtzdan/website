@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import { Highlight as BaseHighlight } from "prism-react-renderer";

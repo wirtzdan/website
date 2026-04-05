@@ -1,3 +1,5 @@
+"use client";
+
 import { Center, HStack, useColorModeValue } from "@chakra-ui/react";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
@@ -34,8 +36,11 @@ const MobileNavigation = () => {
         display={{ base: "flex", md: "none" }}
       >
         <Center w="100%">
-          <NextLink href="/blog" legacyBehavior passHref>
-            <MobileMenuButton as="a" label="Blog" icon={<PencilIcon />} px={6} />
+          <NextLink
+            href="/blog"
+            style={{ width: "100%", display: "flex", justifyContent: "center" }}
+          >
+            <MobileMenuButton as="span" label="Blog" icon={<PencilIcon />} px={6} />
           </NextLink>
         </Center>
 

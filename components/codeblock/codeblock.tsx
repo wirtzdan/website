@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Box, Button, HStack, Icon, Text, useClipboard, useColorModeValue } from "@chakra-ui/react";
 import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";

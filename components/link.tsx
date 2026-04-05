@@ -1,49 +1,66 @@
+"use client";
+
 import NextLink from "next/link";
-import { chakra, useColorModeValue, type LinkProps as ChakraLinkProps } from "@chakra-ui/react";
-import type { ReactNode } from "react";
+import {
+  chakra,
+  shouldForwardProp,
+  useColorModeValue,
+  type LinkProps as ChakraLinkProps,
+} from "@chakra-ui/react";
+import { forwardRef } from "react";
 
-interface CustomLinkProps extends ChakraLinkProps {
+const ChakraNextLink = chakra(NextLink, {
+  shouldForwardProp: (prop) =>
+    shouldForwardProp(prop) ||
+    ["href", "replace", "scroll", "shallow", "prefetch", "locale"].includes(String(prop)),
+});
+
+export type CustomLinkProps = Omit<ChakraLinkProps, "href"> & {
   href: string;
-  children?: ReactNode;
   unstyled?: boolean;
-}
+};
 
-const Link = ({ href, unstyled = false, children, ...props }: CustomLinkProps) => {
+const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
+  { href, unstyled = false, children, isExternal, ...props },
+  ref,
+) {
   const isInternalLink = href.startsWith("/") || href.startsWith("#");
-  const sharedProps = {
-    ...props,
-    children,
-  };
+  const primaryColor = useColorModeValue("primary.900", "primaryD.900");
+  const primaryHover = useColorModeValue("primary.1000", "primaryD.1000");
 
-  if (unstyled) {
-    return isInternalLink ? (
-      <NextLink href={href} passHref legacyBehavior>
-        <chakra.a {...sharedProps} />
-      </NextLink>
-    ) : (
-      <chakra.a href={href} {...sharedProps} />
+  const styled = !unstyled
+    ? {
+        fontWeight: "400",
+        color: primaryColor,
+        transition: "all 0.25s",
+        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        _hover: {
+          color: primaryHover,
+          textDecoration: "underline",
+        },
+      }
+    : {};
+
+  if (!isInternalLink) {
+    return (
+      <chakra.a
+        ref={ref}
+        href={href}
+        target={isExternal ? "_blank" : undefined}
+        rel={isExternal ? "noopener noreferrer" : undefined}
+        {...styled}
+        {...props}
+      >
+        {children}
+      </chakra.a>
     );
   }
 
-  const styledProps = {
-    fontWeight: "400",
-    color: useColorModeValue("primary.900", "primaryD.900"),
-    transition: "all 0.25s",
-    transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-    _hover: {
-      color: useColorModeValue("primary.1000", "primaryD.1000"),
-      textDecoration: "underline",
-    },
-    ...sharedProps,
-  };
-
-  return isInternalLink ? (
-    <NextLink href={href} passHref legacyBehavior>
-      <chakra.a {...styledProps} />
-    </NextLink>
-  ) : (
-    <chakra.a href={href} {...styledProps} />
+  return (
+    <ChakraNextLink ref={ref} href={href} {...styled} {...props}>
+      {children}
+    </ChakraNextLink>
   );
-};
+});
 
 export default Link;

@@ -1,3 +1,5 @@
+"use client";
+
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState, type RefObject } from "react";
 

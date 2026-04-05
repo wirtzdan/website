@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Box,
   Button,
@@ -15,7 +17,7 @@ import {
 import { BoltIcon, BookOpenIcon, BookmarkIcon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useRef } from "react";
 
 import AvatarNavigation from "./avatar-navigation";
@@ -28,7 +30,7 @@ interface NavLinkProps {
 }
 
 function NavLink({ href, name, ...rest }: NavLinkProps) {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   let isActive = false;
 
   if (href !== "/") {

@@ -1,5 +1,8 @@
+"use client";
+
 import { Button, HStack, IconButton, useColorModeValue } from "@chakra-ui/react";
 import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
+import NextLink from "next/link";
 
 import Container from "@/components/container";
 import Link from "@/components/link";
@@ -12,7 +15,7 @@ interface FooterLinkProps {
 const FooterLink = ({ href, name }: FooterLinkProps) => {
   return (
     <Button
-      as={Link}
+      as={NextLink}
       href={href}
       variant="unstyled"
       color={useColorModeValue("neutral.800", "neutralD.800")}

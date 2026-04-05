@@ -1,3 +1,5 @@
+"use client";
+
 import { Heading, Text, VStack, Wrap } from "@chakra-ui/react";
 
 import interests from "@/data/interests.json";
@@ -5,13 +7,12 @@ import experience from "@/data/experience.json";
 import ExperienceCard from "@/components/experience-card";
 import Hero from "@/components/hero";
 import InterestTag from "@/components/interest-tag";
-import Layout from "@/layouts/layout";
 import Link from "@/components/link";
 import Section from "@/components/section";
 
-const AboutPage = () => {
+export default function AboutPage() {
   return (
-    <Layout>
+    <>
       <Hero title="About" align="start" subtitle="Learn more about me" />
       <VStack spacing={12} mt={6}>
         <Section>
@@ -97,8 +98,6 @@ const AboutPage = () => {
           </VStack>
         </Section>
       </VStack>
-    </Layout>
+    </>
   );
-};
-
-export default AboutPage;
+}
