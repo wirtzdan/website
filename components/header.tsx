@@ -1,7 +1,6 @@
 "use client";
 import { Box, Button, HStack, Icon, Menu, Text, VStack, Portal } from "@chakra-ui/react";
-import { BoltIcon, BookOpenIcon, BookmarkIcon } from "@heroicons/react/24/solid";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { RiArrowDownSFill, RiBookOpenFill, RiBookmarkFill, RiToolsFill } from "@remixicon/react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -63,7 +62,7 @@ const Header = () => {
                   <Button variant="ghost">
                     Lists
                     <Icon asChild>
-                      <ChevronDownIcon />
+                      <RiArrowDownSFill />
                     </Icon>
                   </Button>
                 </Menu.Trigger>
@@ -74,7 +73,7 @@ const Header = () => {
                         <NextLink href="/books">
                           <HStack>
                             <Icon boxSize={4.5} asChild>
-                              <BookOpenIcon />
+                              <RiBookOpenFill />
                             </Icon>
                             <Text>Books</Text>
                           </HStack>
@@ -84,7 +83,7 @@ const Header = () => {
                         <NextLink href="/bookmarks">
                           <HStack>
                             <Icon boxSize={4.5} asChild>
-                              <BookmarkIcon />
+                              <RiBookmarkFill />
                             </Icon>
                             <Text>Bookmarks</Text>
                           </HStack>
@@ -94,7 +93,7 @@ const Header = () => {
                         <NextLink href="/tools">
                           <HStack>
                             <Icon boxSize={4.5} asChild>
-                              <BoltIcon />
+                              <RiToolsFill />
                             </Icon>
                             <Text>Tools</Text>
                           </HStack>

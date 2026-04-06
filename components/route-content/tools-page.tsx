@@ -1,7 +1,7 @@
 "use client";
 
 import { HStack, SimpleGrid, Tabs, Text, VStack } from "@chakra-ui/react";
-import { AppleLogo, Compass, Desktop, DeviceMobile } from "phosphor-react";
+import { RiAppleLine, RiCompass3Line, RiComputerLine, RiSmartphoneLine } from "@remixicon/react";
 import sorter from "sort-isostring";
 
 import Hero from "@/components/hero";
@@ -37,25 +37,25 @@ export default function ToolsPage({ tools }: ToolsPageProps) {
           <Tabs.List display="flex" flexWrap="wrap">
             <Tabs.Trigger value="mac" mr={2} mt={2}>
               <HStack gap={1}>
-                <AppleLogo weight="duotone" size={18} />
+                <RiAppleLine size={18} />
                 <Text>Mac</Text>
               </HStack>
             </Tabs.Trigger>
             <Tabs.Trigger value="ios" mr={2} mt={2}>
               <HStack gap={1}>
-                <DeviceMobile weight="duotone" size={18} />
+                <RiSmartphoneLine size={18} />
                 <Text>iOS</Text>
               </HStack>
             </Tabs.Trigger>
             <Tabs.Trigger value="safari" mr={2} mt={2}>
               <HStack gap={1}>
-                <Compass weight="duotone" size={18} />
+                <RiCompass3Line size={18} />
                 <Text>Safari</Text>
               </HStack>
             </Tabs.Trigger>
             <Tabs.Trigger value="web" mr={2} mt={2}>
               <HStack gap={1}>
-                <Desktop size={18} />
+                <RiComputerLine size={18} />
                 <Text>Web</Text>
               </HStack>
             </Tabs.Trigger>

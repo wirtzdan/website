@@ -12,8 +12,13 @@ import {
   Portal,
 } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip";
-import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import {
+  RiGithubFill,
+  RiLinkedinFill,
+  RiMenu3Fill,
+  RiTwitterXFill,
+  RiYoutubeFill,
+} from "@remixicon/react";
 
 import Link from "@/components/link";
 import MobileMenuButton from "./mobile-menu-button";
@@ -26,7 +31,7 @@ const MobileMenuToggle = () => {
   return (
     <Box>
       <Tooltip content="Newsletter">
-        <MobileMenuButton label="Menu" icon={<Bars3Icon />} onClick={onOpen} />
+        <MobileMenuButton label="Menu" icon={<RiMenu3Fill />} onClick={onOpen} />
       </Tooltip>
       <Drawer.Root
         open={open}
@@ -62,17 +67,17 @@ const MobileMenuToggle = () => {
                       <HStack gap={2}>
                         <Link href="https://twitter.com/wirtzdan/" isExternal unstyled>
                           <IconButton variant="ghost" aria-label="Twitter" size="sm">
-                            <TwitterLogo weight="fill" />
+                            <RiTwitterXFill />
                           </IconButton>
                         </Link>
                         <Link href="https://www.linkedin.com/in/wirtzdan/" isExternal unstyled>
                           <IconButton variant="ghost" aria-label="LinkedIn" size="sm">
-                            <LinkedinLogo weight="fill" />
+                            <RiLinkedinFill />
                           </IconButton>
                         </Link>
                         <Link href="https://github.com/wirtzdan" isExternal unstyled>
                           <IconButton variant="ghost" aria-label="GitHub" size="sm">
-                            <GithubLogo weight="fill" />
+                            <RiGithubFill />
                           </IconButton>
                         </Link>
                         <Link
@@ -81,7 +86,7 @@ const MobileMenuToggle = () => {
                           isExternal
                         >
                           <IconButton variant="ghost" aria-label="YouTube" size="sm">
-                            <YoutubeLogo weight="fill" />
+                            <RiYoutubeFill />
                           </IconButton>
                         </Link>
                       </HStack>

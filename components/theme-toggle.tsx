@@ -1,8 +1,9 @@
 "use client";
-import { Icon, IconButton } from "@chakra-ui/react";
+import { IconButton } from "@chakra-ui/react";
 import { Tooltip } from "@/components/ui/tooltip";
+import { RiMoonFill, RiSunFill } from "@remixicon/react";
+
 import { useColorMode } from "./ui/color-mode";
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 import MobileMenuButton from "./mobile-menu-button";
 
@@ -13,16 +14,7 @@ interface ThemeToggleProps {
 const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
-  const icon =
-    colorMode === "dark" ? (
-      <Icon asChild>
-        <SunIcon />
-      </Icon>
-    ) : (
-      <Icon asChild>
-        <MoonIcon />
-      </Icon>
-    );
+  const icon = colorMode === "dark" ? <RiSunFill /> : <RiMoonFill />;
 
   return (
     <Tooltip

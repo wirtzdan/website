@@ -4,7 +4,7 @@ import React from "react";
 import { useClipboard } from "@/lib/use-clipboard";
 import { Avatar, Button, HStack, Icon, Stack, Text, VStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
-import { CheckIcon, LinkIcon } from "@heroicons/react/20/solid";
+import { RiCheckFill, RiLink } from "@remixicon/react";
 
 interface AuthorCardProps {
   readingTime?: string;
@@ -42,11 +42,11 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
         >
           {hasCopied ? (
             <Icon asChild>
-              <CheckIcon />
+              <RiCheckFill />
             </Icon>
           ) : (
             <Icon asChild>
-              <LinkIcon />
+              <RiLink />
             </Icon>
           )}
           {hasCopied ? "Copied" : "Copy link"}

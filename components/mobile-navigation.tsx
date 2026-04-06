@@ -1,6 +1,6 @@
 "use client";
 import { Center, HStack } from "@chakra-ui/react";
-import { PencilIcon } from "@heroicons/react/24/outline";
+import { RiPencilLine } from "@remixicon/react";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 
@@ -39,7 +39,7 @@ const MobileNavigation = () => {
             href="/blog"
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <MobileMenuButton as="span" label="Blog" icon={<PencilIcon />} px={6} />
+            <MobileMenuButton as="span" label="Blog" icon={<RiPencilLine />} px={6} />
           </NextLink>
         </Center>
 

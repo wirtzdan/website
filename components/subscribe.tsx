@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Alert, Button, Collapsible, Icon, Input, Stack, chakra, Field } from "@chakra-ui/react";
-import { RssIcon } from "@heroicons/react/24/solid";
+import { RiRssFill } from "@remixicon/react";
 import { useForm } from "react-hook-form";
 
 import type { AddSubscriberRequestBody, AddSubscriberResponseBody } from "@/types/api";
@@ -92,7 +92,7 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
                 rounded="lg"
               >
                 <Icon asChild>
-                  <RssIcon />
+                  <RiRssFill />
                 </Icon>
                 Subscribe
               </Button>

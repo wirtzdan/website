@@ -1,7 +1,7 @@
 "use client";
 import type { ReactNode } from "react";
 import { HStack, IconButton, Link as ChakraLink } from "@chakra-ui/react";
-import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
+import { RiGithubFill, RiLinkedinFill, RiTwitterXFill, RiYoutubeFill } from "@remixicon/react";
 import NextLink from "next/link";
 
 import Container from "@/components/container";
@@ -44,19 +44,19 @@ const Footer = () => {
         <FooterLink href="mailto:daniel@danielwirtz.com" name="Contact" />
         <HStack gap={4}>
           <SocialIconLink href="https://twitter.com/wirtzdan/" label="Twitter">
-            <TwitterLogo weight="fill" />
+            <RiTwitterXFill />
           </SocialIconLink>
           <SocialIconLink href="https://www.linkedin.com/in/wirtzdan/" label="LinkedIn">
-            <LinkedinLogo weight="fill" />
+            <RiLinkedinFill />
           </SocialIconLink>
           <SocialIconLink href="https://github.com/wirtzdan" label="GitHub">
-            <GithubLogo weight="fill" />
+            <RiGithubFill />
           </SocialIconLink>
           <SocialIconLink
             href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA"
             label="YouTube"
           >
-            <YoutubeLogo weight="fill" />
+            <RiYoutubeFill />
           </SocialIconLink>
         </HStack>
         <FooterLink href="/privacy" name="Privacy" />

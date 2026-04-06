@@ -13,7 +13,7 @@ import {
   Dialog,
   Portal,
 } from "@chakra-ui/react";
-import { EnvelopeIcon } from "@heroicons/react/24/solid";
+import { RiMailFill } from "@remixicon/react";
 import { useForm } from "react-hook-form";
 
 import type { SuggestionPayload } from "@/types/api";
@@ -102,7 +102,7 @@ const BookSuggestion = () => {
                         w="100%"
                         loading={isSubmitting}
                       >
-                        <EnvelopeIcon width={18} height={18} />
+                        <RiMailFill size={18} />
                         Send suggestion
                       </Button>
                     )}

@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Button, Heading, HStack, Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
+import { RiArrowRightUpFill } from "@remixicon/react";
 import { motion } from "framer-motion";
 
 import BlogListItem from "@/components/blog-list-item";
@@ -72,7 +72,7 @@ export default function HomePage({ posts }: HomePageProps) {
                 <Button variant="ghost" size={["sm", "md"]}>
                   Read more
                   <Icon asChild>
-                    <ArrowUpRightIcon />
+                    <RiArrowRightUpFill />
                   </Icon>
                 </Button>
               </Link>
@@ -98,7 +98,7 @@ export default function HomePage({ posts }: HomePageProps) {
               <Button size={["sm", "md"]} variant="ghost">
                 View all
                 <Icon asChild>
-                  <ArrowUpRightIcon />
+                  <RiArrowRightUpFill />
                 </Icon>
               </Button>
             </Link>
