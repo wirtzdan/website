@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   AspectRatio,
@@ -31,12 +33,7 @@ interface BookmarkCardProps {
 const ImageFallback = () => {
   return (
     <Box bg={useColorModeValue("gray.200", "gray.700")}>
-      <Icon
-        w={10}
-        h={10}
-        as={ImageSquare}
-        color={useColorModeValue("gray.300", "neutralD.100")}
-      />
+      <Icon w={10} h={10} as={ImageSquare} color={useColorModeValue("gray.300", "neutralD.100")} />
     </Box>
   );
 };

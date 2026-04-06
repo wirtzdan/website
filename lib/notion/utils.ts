@@ -1,9 +1,10 @@
-import dayjs from "dayjs";
-import timezone from "dayjs/plugin/timezone";
-import utc from "dayjs/plugin/utc";
+import { parseISO } from "date-fns";
+import { zonedTimeToUtc } from "date-fns-tz";
 
-dayjs.extend(utc);
-dayjs.extend(timezone);
+function notionDateTimeToUtcIso(start: string, timeZone: string): string {
+  const normalized = start.includes("T") ? start : `${start}T00:00:00`;
+  return zonedTimeToUtc(normalized, timeZone || "UTC").toISOString();
+}
 
 type NotionPropertyValue = {
   type: string;
@@ -16,7 +17,7 @@ type NotionDatabaseEntry = {
 
 export const getStringProperty = (
   databaseEntry: NotionDatabaseEntry | null | undefined,
-  key: string
+  key: string,
 ) => {
   if (!databaseEntry?.properties || !key) {
     return null;
@@ -49,14 +50,9 @@ export const getStringProperty = (
 
 const NOTION_ASSETS_ADDRESSES = ["secure.notion-static.com", "prod-files-secure"];
 
-const SELF_HOSTED_ASSETS_ADDRESSES = [
-  "royli-blog-assets.oss-us-west-1.aliyuncs.com",
-];
+const SELF_HOSTED_ASSETS_ADDRESSES = ["royli-blog-assets.oss-us-west-1.aliyuncs.com"];
 
-export const getDateProperty = (
-  databaseEntry: NotionDatabaseEntry,
-  key: string
-) => {
+export const getDateProperty = (databaseEntry: NotionDatabaseEntry, key: string) => {
   if (!databaseEntry?.properties) {
     return undefined;
   }
@@ -70,29 +66,24 @@ export const getDateProperty = (
     case "date":
       if (!value.date) return undefined;
       if (!value.date.end) {
-        return dayjs
-          .tz(value.date.start, value.date.time_zone || "UTC")
-          .toString();
+        return notionDateTimeToUtcIso(value.date.start, value.date.time_zone || "UTC");
       }
 
       return [
-        dayjs.tz(value.date.start, value.date.time_zone || "UTC").toString(),
-        dayjs.tz(value.date.end, value.date.time_zone || "UTC").toString(),
+        notionDateTimeToUtcIso(value.date.start, value.date.time_zone || "UTC"),
+        notionDateTimeToUtcIso(value.date.end, value.date.time_zone || "UTC"),
       ];
     case "last_edited_time":
-      return dayjs.tz(value.last_edited_time, "UTC").toString();
+      return parseISO(value.last_edited_time).toISOString();
     case "created_time":
-      return dayjs.tz(value.created_time, "UTC").toString();
+      return parseISO(value.created_time).toISOString();
     default:
       console.warn('key %s is of type "%s" instead of "date"', key, value.type);
       return undefined;
   }
 };
 
-export const getBooleanProperty = (
-  databaseEntry: NotionDatabaseEntry,
-  key: string
-) => {
+export const getBooleanProperty = (databaseEntry: NotionDatabaseEntry, key: string) => {
   if (!databaseEntry?.properties) {
     return undefined;
   }
@@ -106,11 +97,7 @@ export const getBooleanProperty = (
     case "checkbox":
       return value.checkbox;
     default:
-      console.warn(
-        'key "%s" is of type "%s" instead of "boolean"',
-        key,
-        value.type
-      );
+      console.warn('key "%s" is of type "%s" instead of "boolean"', key, value.type);
       return undefined;
   }
 };
@@ -127,11 +114,7 @@ export const isSelfHostedAsset = (url: string) => {
   return SELF_HOSTED_ASSETS_ADDRESSES.some((address) => url.includes(address));
 };
 
-export const convertNotionAssetUrl = (
-  url: string,
-  parentTableType: string,
-  blockId: string
-) => {
+export const convertNotionAssetUrl = (url: string, parentTableType: string, blockId: string) => {
   if (!isNotionAsset(url)) {
     return url;
   }

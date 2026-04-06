@@ -1,3 +1,5 @@
+"use client";
+
 const FontFace = () => (
   <style jsx global>{`
     @font-face {

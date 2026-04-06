@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Box, Button, HStack, Icon, Text, useClipboard, useColorModeValue } from "@chakra-ui/react";
 import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
@@ -21,7 +23,7 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
   const { recordMap } = useNotionContext();
   const editorCode = getBlockTitle(
     block as unknown as Parameters<typeof getBlockTitle>[0],
-    recordMap as unknown as Parameters<typeof getBlockTitle>[1]
+    recordMap as unknown as Parameters<typeof getBlockTitle>[1],
   );
   const language = (block.properties?.language?.[0]?.[0] ?? defaultLanguage).toLowerCase();
   const { hasCopied, onCopy } = useClipboard(editorCode);

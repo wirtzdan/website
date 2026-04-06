@@ -1,5 +1,8 @@
+"use client";
+
 import { Button, HStack, IconButton, useColorModeValue } from "@chakra-ui/react";
 import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
+import NextLink from "next/link";
 
 import Container from "@/components/container";
 import Link from "@/components/link";
@@ -12,7 +15,7 @@ interface FooterLinkProps {
 const FooterLink = ({ href, name }: FooterLinkProps) => {
   return (
     <Button
-      as={Link}
+      as={NextLink}
       href={href}
       variant="unstyled"
       color={useColorModeValue("neutral.800", "neutralD.800")}
@@ -26,12 +29,7 @@ const FooterLink = ({ href, name }: FooterLinkProps) => {
 const Footer = () => {
   return (
     <Container>
-      <HStack
-        justify="space-between"
-        w="100%"
-        display={{ base: "none", md: "flex" }}
-        my={8}
-      >
+      <HStack justify="space-between" w="100%" display={{ base: "none", md: "flex" }} my={8}>
         <FooterLink href="mailto:daniel@danielwirtz.com" name="Contact" />
         <HStack spacing={4}>
           <Link href="https://twitter.com/wirtzdan/" isExternal unstyled>
@@ -58,11 +56,7 @@ const Footer = () => {
               color={useColorModeValue("neutral.800", "neutralD.1000")}
             />
           </Link>
-          <Link
-            href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA"
-            isExternal
-            unstyled
-          >
+          <Link href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA" isExternal unstyled>
             <IconButton
               size="sm"
               aria-label="YouTube"

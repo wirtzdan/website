@@ -1,7 +1,9 @@
+"use client";
+
 import { motion } from "framer-motion";
 import NextLink from "next/link";
 import { Button, useColorModeValue } from "@chakra-ui/react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 
 interface MobileMenuItemProps {
   href: string;
@@ -22,20 +24,18 @@ const variants = {
 const MotionButton = motion(Button);
 
 function MobileMenuItem({ href, title }: MobileMenuItemProps) {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
-  const isActive =
-    href === "/"
-      ? pathname === href
-      : pathname.includes(href.split("/")[1] ?? href);
+  const isActive = href === "/" ? pathname === href : pathname.includes(href.split("/")[1] ?? href);
 
   return (
-    <NextLink href={href} passHref legacyBehavior>
+    <NextLink href={href} style={{ width: "100%", display: "block" }}>
       <MotionButton
-        as="a"
+        as="span"
+        display="block"
+        width="100%"
         size="lg"
         aria-current={isActive ? "page" : undefined}
-        w="100%"
         variants={variants}
         bg={useColorModeValue("neutral.100", "neutralD.100")}
         _activeLink={{

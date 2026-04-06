@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Box,
@@ -16,12 +18,7 @@ import {
   VStack,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  GithubLogo,
-  LinkedinLogo,
-  TwitterLogo,
-  YoutubeLogo,
-} from "phosphor-react";
+import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
 import Link from "@/components/link";
@@ -41,17 +38,9 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
       <Tooltip label="Newsletter">
         <MobileMenuButton label="Menu" icon={<Bars3Icon />} onClick={onOpen} />
       </Tooltip>
-      <Drawer
-        isOpen={isOpen}
-        placement="bottom"
-        onClose={onClose}
-        finalFocusRef={btnRef}
-      >
+      <Drawer isOpen={isOpen} placement="bottom" onClose={onClose} finalFocusRef={btnRef}>
         <DrawerOverlay>
-          <DrawerContent
-            borderTopRadius="6px"
-            bg={useColorModeValue("neutral.50", "neutralD.50")}
-          >
+          <DrawerContent borderTopRadius="6px" bg={useColorModeValue("neutral.50", "neutralD.50")}>
             <DrawerCloseButton />
             <DrawerHeader>Menu</DrawerHeader>
             <DrawerBody pb={4}>
@@ -78,11 +67,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                         color={useColorModeValue("neutral.800", "neutralD.1000")}
                       />
                     </Link>
-                    <Link
-                      href="https://www.linkedin.com/in/wirtzdan/"
-                      isExternal
-                      unstyled
-                    >
+                    <Link href="https://www.linkedin.com/in/wirtzdan/" isExternal unstyled>
                       <IconButton
                         aria-label="LinkedIn"
                         size="sm"

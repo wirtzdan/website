@@ -1,8 +1,9 @@
+"use client";
+
 import React from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import ReactPlayer from "react-player";
 import { Spinner as Loading } from "@chakra-ui/react";
 import { getPageTitle } from "notion-utils";
@@ -13,18 +14,18 @@ import type { NotionRecordMap } from "@/types/content";
 import Codeblock from "@/components/codeblock/codeblock";
 
 const Collection = dynamic(() =>
-  import("react-notion-x/build/third-party/collection").then((module) => module.Collection)
+  import("react-notion-x/build/third-party/collection").then((module) => module.Collection),
 );
 
 const Equation = dynamic(() =>
-  import("react-notion-x/build/third-party/equation").then((module) => module.Equation)
+  import("react-notion-x/build/third-party/equation").then((module) => module.Equation),
 );
 
 const Modal = dynamic(
   () => import("react-notion-x/build/third-party/modal").then((module) => module.Modal),
   {
     ssr: false,
-  }
+  },
 );
 
 const TypedNotionRenderer = NotionRenderer as React.ComponentType<Record<string, unknown>>;
@@ -91,8 +92,8 @@ const NotionVideo = ({
           Video could not be loaded. This might be due to access restrictions or an expired URL.
         </p>
         <p style={{ margin: "0", fontSize: "0.9em", color: "#888" }}>
-          Try uploading the video to YouTube, Vimeo, or another external platform and embedding
-          the link instead.
+          Try uploading the video to YouTube, Vimeo, or another external platform and embedding the
+          link instead.
         </p>
       </div>
     );
@@ -142,8 +143,8 @@ const NotionVideo = ({
       crossOrigin="anonymous"
     >
       <p>
-        Your browser doesn&apos;t support HTML5 video. Here is a <a href={videoSrc}>link to the
-        video</a> instead.
+        Your browser doesn&apos;t support HTML5 video. Here is a{" "}
+        <a href={videoSrc}>link to the video</a> instead.
       </p>
     </video>
   );
@@ -154,7 +155,7 @@ const mapVideoUrl = (
   block?: {
     id?: string;
     space_id?: string;
-  }
+  },
 ) => {
   if (!url) {
     return url;
@@ -197,12 +198,6 @@ const NotionPage = ({
   rootPageId,
   rootDomain,
 }: NotionPageProps) => {
-  const router = useRouter();
-
-  if (router.isFallback) {
-    return <Loading />;
-  }
-
   if (!recordMap) {
     return null;
   }
@@ -221,17 +216,19 @@ const NotionPage = ({
       showCollectionViewDropdown={false}
       fullPage={false}
       disableHeader
-      components={{
-        nextImage: Image,
-        nextLink: Link,
-        Code: Codeblock as React.ComponentType<{ block: NotionBlock }>,
-        Collection,
-        Equation,
-        Modal,
-        Tweet,
-        Property: () => null,
-        Header: () => null,
-      } as React.ComponentProps<typeof NotionRenderer>["components"]}
+      components={
+        {
+          nextImage: Image,
+          nextLink: Link,
+          Code: Codeblock as React.ComponentType<{ block: NotionBlock }>,
+          Collection,
+          Equation,
+          Modal,
+          Tweet,
+          Property: () => null,
+          Header: () => null,
+        } as React.ComponentProps<typeof NotionRenderer>["components"]
+      }
     />
   );
 };

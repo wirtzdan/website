@@ -1,5 +1,17 @@
+"use client";
+
 import React from "react";
-import { Avatar, Button, HStack, Icon, Stack, Text, useClipboard, useColorModeValue, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Button,
+  HStack,
+  Icon,
+  Stack,
+  Text,
+  useClipboard,
+  useColorModeValue,
+  VStack,
+} from "@chakra-ui/react";
 import { format } from "timeago.js";
 import { CheckIcon, LinkIcon } from "@heroicons/react/20/solid";
 

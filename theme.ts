@@ -1,24 +1,19 @@
 import { extendTheme } from "@chakra-ui/react";
 import { blue, blueDark, slate, slateDark } from "@radix-ui/colors";
 
-const mode =
-  (light: string, dark: string) =>
-  (props: { colorMode?: string }) =>
-    props.colorMode === "dark" ? dark : light;
+const mode = (light: string, dark: string) => (props: { colorMode?: string }) =>
+  props.colorMode === "dark" ? dark : light;
 
 const transformRadixToChakraFormat = (scale: Record<string, string>) => {
-  return Object.values(scale).reduce<Record<string, string>>(
-    (accumulator, currentValue, index) => {
-      if (index === 0) {
-        accumulator["50"] = currentValue;
-      } else {
-        accumulator[`${index}00`] = currentValue;
-      }
+  return Object.values(scale).reduce<Record<string, string>>((accumulator, currentValue, index) => {
+    if (index === 0) {
+      accumulator["50"] = currentValue;
+    } else {
+      accumulator[`${index}00`] = currentValue;
+    }
 
-      return accumulator;
-    },
-    {}
-  );
+    return accumulator;
+  }, {});
 };
 
 const radixNeutral = transformRadixToChakraFormat(slate);
@@ -29,8 +24,8 @@ const radixPrimaryDark = transformRadixToChakraFormat(blueDark);
 const customTheme = extendTheme({
   fonts: {
     heading:
-      '"Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
-    body: '"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+      'var(--font-sora), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
+    body: 'var(--font-ibm-plex-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"',
   },
   colors: {
     neutral: {
@@ -192,6 +187,8 @@ const customTheme = extendTheme({
       py: "2px",
       whiteSpace: "nowrap",
       lineHeight: "normal",
+      fontFamily:
+        'var(--font-ibm-plex-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace',
     },
   },
 });

@@ -1,3 +1,5 @@
+"use client";
+
 import { Icon, Text, VStack, useColorModeValue, type StackProps } from "@chakra-ui/react";
 import type { ReactElement } from "react";
 

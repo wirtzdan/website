@@ -20,6 +20,25 @@ interface QueryOptions {
   startCursor?: string;
 }
 
+type WrappedNotionBlock = {
+  role?: string;
+  value?: unknown;
+};
+
+type NestedWrappedBlockValue = {
+  role?: string;
+  value: Record<string, unknown>;
+};
+
+function hasNestedWrappedBlockValue(value: unknown): value is NestedWrappedBlockValue {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const maybeWrapped = value as { value?: unknown };
+  return Boolean(maybeWrapped.value && typeof maybeWrapped.value === "object");
+}
+
 type NotionDatabaseItem = {
   id: string;
   icon?: {
@@ -89,8 +108,7 @@ export const getBlogPosts = async ({
       slug: getStringProperty(typedItem, "Slug"),
       description: getStringProperty(typedItem, "Description") || null,
       publishDate:
-        getDateProperty(typedItem, "Publish date") ||
-        getDateProperty(typedItem, "Created time"),
+        getDateProperty(typedItem, "Publish date") || getDateProperty(typedItem, "Created time"),
       modifiedDate: getDateProperty(typedItem, "Last edited time"),
       isFeatured: getBooleanProperty(typedItem, "Featured") ?? false,
       isPublished: isPublished(typedItem),
@@ -101,14 +119,13 @@ export const getBlogPosts = async ({
 
     const requiredProperties = ["slug", "title"] as const;
     const isComplete = requiredProperties.every((key) => Boolean(rawPost[key]));
-    const coverIcon = typedItem.icon?.type === "emoji" ? typedItem.icon.emoji ?? null : null;
+    const coverIcon = typedItem.icon?.type === "emoji" ? (typedItem.icon.emoji ?? null) : null;
 
     if (isComplete && typeof rawPost.publishDate === "string") {
       blogList.push({
         ...rawPost,
         publishDate: rawPost.publishDate,
-        modifiedDate:
-          typeof rawPost.modifiedDate === "string" ? rawPost.modifiedDate : undefined,
+        modifiedDate: typeof rawPost.modifiedDate === "string" ? rawPost.modifiedDate : undefined,
         readURL: `/blog/${rawPost.slug}`,
         coverIcon,
       });
@@ -122,14 +139,34 @@ export const getBlogPosts = async ({
   };
 };
 
-export const getPageByPageId = async (
-  pageId: string
-): Promise<NotionRecordMap | null> => {
+export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap | null> => {
   try {
-    return (await notionPrivateAPI.getPage(pageId, {})) as NotionRecordMap;
+    const recordMap = (await notionPrivateAPI.getPage(pageId, {})) as NotionRecordMap;
+    const normalizedBlock = Object.fromEntries(
+      Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
+        const typedBlock = block as WrappedNotionBlock | undefined;
+
+        if (hasNestedWrappedBlockValue(typedBlock?.value)) {
+          return [
+            blockId,
+            {
+              ...typedBlock,
+              role: typedBlock.role ?? typedBlock.value.role,
+              value: typedBlock.value.value,
+            },
+          ];
+        }
+
+        return [blockId, block];
+      }),
+    );
+
+    return {
+      ...recordMap,
+      block: normalizedBlock,
+    } as NotionRecordMap;
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "Unknown Notion API error";
+    const message = error instanceof Error ? error.message : "Unknown Notion API error";
     console.error(`Error fetching page with ID ${pageId}:`, message);
     return null;
   }

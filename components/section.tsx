@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { Center, type CenterProps } from "@chakra-ui/react";
 

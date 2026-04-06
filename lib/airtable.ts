@@ -1,11 +1,6 @@
 import Airtable, { type FieldSet } from "airtable";
 
-import type {
-  AirtableRecord,
-  BookFields,
-  NewsletterFields,
-  ToolFields,
-} from "@/types/content";
+import type { AirtableRecord, BookFields, NewsletterFields, ToolFields } from "@/types/content";
 
 type BlogFields = FieldSet & {
   status?: string;
@@ -14,20 +9,26 @@ type BlogFields = FieldSet & {
 
 type NewsletterFieldSet = FieldSet & NewsletterFields;
 
-const airtable = new Airtable({
-  apiKey: process.env.AIRTABLE_API_KEY,
-});
-
-const base = airtable.base(process.env.AIRTABLE_BASE_ID as string);
+function getBase() {
+  const apiKey = process.env.AIRTABLE_API_KEY;
+  const baseId = process.env.AIRTABLE_BASE_ID;
+  if (!apiKey) {
+    throw new Error("Airtable API key is required");
+  }
+  if (!baseId) {
+    throw new Error("Airtable base ID is required");
+  }
+  return new Airtable({ apiKey }).base(baseId);
+}
 
 const getMinifiedRecords = <TFields extends FieldSet>(
-  records: readonly Airtable.Record<TFields>[]
+  records: readonly Airtable.Record<TFields>[],
 ): AirtableRecord<TFields>[] => {
   return records.map((record) => minifyRecord(record));
 };
 
 const minifyRecord = <TFields extends FieldSet>(
-  record: Airtable.Record<TFields>
+  record: Airtable.Record<TFields>,
 ): AirtableRecord<TFields> => {
   return {
     id: record.id,
@@ -36,12 +37,12 @@ const minifyRecord = <TFields extends FieldSet>(
 };
 
 async function getTable<TFields extends FieldSet = FieldSet>(table: string) {
-  const records = await base<TFields>(table).select({}).all();
+  const records = await getBase()<TFields>(table).select({}).all();
   return getMinifiedRecords(records);
 }
 
 async function getAllPosts() {
-  const records = await base("Blog")
+  const records = await getBase()("Blog")
     .select({
       filterByFormula: `OR({status} = "Published", {status} = "Draft")`,
     })
@@ -51,7 +52,7 @@ async function getAllPosts() {
 }
 
 async function getAllNewsletters() {
-  const records = await base<NewsletterFieldSet>("Newsletter")
+  const records = await getBase()<NewsletterFieldSet>("Newsletter")
     .select({
       filterByFormula: `{status} = "Published"`,
     })
@@ -87,7 +88,7 @@ async function getAllPostsPaths() {
 }
 
 async function getNewsletterData(slug: string) {
-  const records = await base<NewsletterFieldSet>("Newsletter")
+  const records = await getBase()<NewsletterFieldSet>("Newsletter")
     .select({
       maxRecords: 1,
       filterByFormula: `{Slug} = "${slug}"`,
@@ -102,7 +103,7 @@ async function getNewsletterData(slug: string) {
 }
 
 async function getPostData(slug: string) {
-  const records = await base<BlogFields>("Blog")
+  const records = await getBase()<BlogFields>("Blog")
     .select({
       maxRecords: 1,
       filterByFormula: `{slug} = "${slug}"`,

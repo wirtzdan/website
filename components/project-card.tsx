@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Box, HStack, Tag, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import { usePalette } from "react-palette";
