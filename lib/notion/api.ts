@@ -122,7 +122,40 @@ export const getBlogPosts = async ({
 
 export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap | null> => {
   try {
-    return (await notionPrivateAPI.getPage(pageId, {})) as NotionRecordMap;
+    const recordMap = (await notionPrivateAPI.getPage(pageId, {})) as NotionRecordMap;
+    const normalizedBlock = Object.fromEntries(
+      Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
+        const typedBlock = block as
+          | {
+              role?: string;
+              value?: {
+                role?: string;
+                value?: Record<string, unknown>;
+                [key: string]: unknown;
+              };
+              [key: string]: unknown;
+            }
+          | undefined;
+
+        if (typedBlock?.value?.value && typeof typedBlock.value.value === "object") {
+          return [
+            blockId,
+            {
+              ...typedBlock,
+              role: typedBlock.role ?? typedBlock.value.role,
+              value: typedBlock.value.value,
+            },
+          ];
+        }
+
+        return [blockId, block];
+      }),
+    );
+
+    return {
+      ...recordMap,
+      block: normalizedBlock,
+    } as NotionRecordMap;
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown Notion API error";
     console.error(`Error fetching page with ID ${pageId}:`, message);
