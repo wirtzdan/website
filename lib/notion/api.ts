@@ -20,6 +20,25 @@ interface QueryOptions {
   startCursor?: string;
 }
 
+type WrappedNotionBlock = {
+  role?: string;
+  value?: unknown;
+};
+
+type NestedWrappedBlockValue = {
+  role?: string;
+  value: Record<string, unknown>;
+};
+
+function hasNestedWrappedBlockValue(value: unknown): value is NestedWrappedBlockValue {
+  if (!value || typeof value !== "object") {
+    return false;
+  }
+
+  const maybeWrapped = value as { value?: unknown };
+  return Boolean(maybeWrapped.value && typeof maybeWrapped.value === "object");
+}
+
 type NotionDatabaseItem = {
   id: string;
   icon?: {
@@ -125,19 +144,9 @@ export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap |
     const recordMap = (await notionPrivateAPI.getPage(pageId, {})) as NotionRecordMap;
     const normalizedBlock = Object.fromEntries(
       Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
-        const typedBlock = block as
-          | {
-              role?: string;
-              value?: {
-                role?: string;
-                value?: Record<string, unknown>;
-                [key: string]: unknown;
-              };
-              [key: string]: unknown;
-            }
-          | undefined;
+        const typedBlock = block as WrappedNotionBlock | undefined;
 
-        if (typedBlock?.value?.value && typeof typedBlock.value.value === "object") {
+        if (hasNestedWrappedBlockValue(typedBlock?.value)) {
           return [
             blockId,
             {
