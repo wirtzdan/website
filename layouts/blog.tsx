@@ -1,8 +1,7 @@
 "use client";
-
 import Image from "next/image";
 import ReactPlayer from "react-player/youtube";
-import { AspectRatio, Box, Heading, Icon, VStack, useColorModeValue } from "@chakra-ui/react";
+import { AspectRatio, Box, Heading, Icon, VStack } from "@chakra-ui/react";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import type { ReactNode } from "react";
 import { useRef } from "react";
@@ -21,15 +20,9 @@ interface BlogLayoutProps {
 }
 
 const PlayIconWrapper = () => (
-  <Icon
-    as={PlayIcon}
-    w={16}
-    h={16}
-    color={useColorModeValue("neutral.900", "neutral.900")}
-    background="white"
-    rounded="full"
-    shadow="lg"
-  />
+  <Icon w={16} h={16} color="fg" background="white" rounded="full" shadow="lg" asChild>
+    <PlayIcon />
+  </Icon>
 );
 
 const BlogLayout = ({ children, post, recordMap }: BlogLayoutProps) => {
@@ -41,7 +34,7 @@ const BlogLayout = ({ children, post, recordMap }: BlogLayoutProps) => {
     <Layout>
       <Section>
         <article ref={target}>
-          <VStack w="100%" align="stretch" spacing={6}>
+          <VStack w="100%" align="stretch" gap={6}>
             {hasCoverImage || hasCoverVideo ? (
               <Box mt={4} rounded="lg" shadow="md" overflow="hidden" lineHeight={0}>
                 {hasCoverVideo ? (
@@ -70,7 +63,7 @@ const BlogLayout = ({ children, post, recordMap }: BlogLayoutProps) => {
                 )}
               </Box>
             ) : null}
-            <VStack align="stretch" spacing={6} mb={4}>
+            <VStack align="stretch" gap={6} mb={4}>
               <Heading as="h1">{post.title}</Heading>
               <AuthorCard
                 publishedAt={post.publishDate}

@@ -14,9 +14,9 @@ export default function AboutPage() {
   return (
     <>
       <Hero title="About" align="start" subtitle="Learn more about me" />
-      <VStack spacing={12} mt={6}>
+      <VStack gap={12} mt={6}>
         <Section>
-          <VStack align="start" spacing={6}>
+          <VStack align="start" gap={6}>
             <Text>
               I&apos;m an all-around curious person who can&apos;t get enough of exploring new ideas
               and asking lots of questions.
@@ -36,11 +36,11 @@ export default function AboutPage() {
         </Section>
 
         <Section>
-          <VStack align="start" spacing={8}>
+          <VStack align="start" gap={8}>
             <Heading as="h2" size="lg">
               Experience
             </Heading>
-            <VStack align="start" spacing={12} width="100%">
+            <VStack align="start" gap={12} width="100%">
               {experience.experience.map((entry) => (
                 <ExperienceCard key={`${entry.company}-${entry.role}`} {...entry} />
               ))}
@@ -49,7 +49,7 @@ export default function AboutPage() {
         </Section>
 
         <Section>
-          <VStack align="start" spacing={4}>
+          <VStack align="start" gap={4}>
             <Heading as="h2" size="lg">
               Like 😁
             </Heading>
@@ -62,7 +62,7 @@ export default function AboutPage() {
         </Section>
 
         <Section>
-          <VStack align="start" spacing={4}>
+          <VStack align="start" gap={4}>
             <Heading as="h2" size="lg">
               Dislike 😒
             </Heading>
@@ -75,7 +75,7 @@ export default function AboutPage() {
         </Section>
 
         <Section>
-          <VStack align="start" spacing={6}>
+          <VStack align="start" gap={6}>
             <Heading as="h2" size="lg">
               About this page
             </Heading>

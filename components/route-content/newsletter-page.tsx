@@ -1,5 +1,4 @@
 "use client";
-
 import {
   Avatar,
   Box,
@@ -9,7 +8,6 @@ import {
   Stack,
   Text,
   VStack,
-  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
 import sorter from "sort-isostring";
@@ -24,59 +22,44 @@ type NewsletterPageProps = {
 };
 
 export default function NewsletterPage({ posts }: NewsletterPageProps) {
-  const { isOpen, onOpen } = useDisclosure();
+  const { open, onOpen } = useDisclosure();
 
   return (
     <Section>
-      <VStack spacing={16}>
-        <VStack spacing={4}>
+      <VStack gap={16}>
+        <VStack gap={4}>
           <Heading as="h1">Newsletter</Heading>
-          <Text
-            fontSize="2xl"
-            color={useColorModeValue("gray.500", "gray.200")}
-            maxW="lg"
-            textAlign="center"
-          >
+          <Text fontSize="2xl" color="fg.subtle" maxW="lg" textAlign="center">
             Helpful tools, thoughtful articles and other findings from the web. From my desk to
             yours.
           </Text>
           <SubscribeCard image={false} title="" description="" card={false} center />
-          {isOpen ? (
+          {open ? (
             <Box w="100%">
               <Box
                 border="1px solid"
-                borderColor={useColorModeValue("gray.200", "gray.700")}
+                borderColor="border.emphasized"
                 w="100%"
                 rounded="lg"
                 overflow="hidden"
                 boxShadow="lg"
                 mt={8}
               >
-                <Box
-                  w="100%"
-                  bg={useColorModeValue("gray.50", "neutralD.100")}
-                  borderBottom="1px"
-                  borderColor="gray.200"
-                >
-                  <HStack p={4} fontSize="sm" spacing={4}>
-                    <Avatar src="/avatar-small.jpg" h={8} w={8} />
-                    <VStack spacing={0} alignItems="flex-start">
+                <Box w="100%" bg="bg.muted" borderBottom="1px" borderColor="border">
+                  <HStack p={4} fontSize="sm" gap={4}>
+                    <Avatar.Root h={8} w={8}>
+                      <Avatar.Fallback />
+                      <Avatar.Image src="/avatar-small.jpg" />
+                    </Avatar.Root>
+                    <VStack gap={0} alignItems="flex-start">
                       <Text>
-                        <Text
-                          as="span"
-                          color={useColorModeValue("gray.600", "gray.400")}
-                          fontWeight="500"
-                        >
+                        <Text as="span" color="fg.muted" fontWeight="500">
                           From:
                         </Text>{" "}
                         Daniel Wirtz
                       </Text>
                       <Text>
-                        <Text
-                          as="span"
-                          color={useColorModeValue("gray.600", "gray.400")}
-                          fontWeight="500"
-                        >
+                        <Text as="span" color="fg.muted" fontWeight="500">
                           To:
                         </Text>{" "}
                         you@email.com
@@ -84,7 +67,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                     </VStack>
                   </HStack>
                 </Box>
-                <Box h="500px" w="100%" bg="white">
+                <Box h="500px" w="100%" bg="bg.panel">
                   <iframe
                     width="100%"
                     height="100%"
@@ -95,17 +78,17 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
               </Box>
             </Box>
           ) : (
-            <Button onClick={onOpen} variant="link">
+            <Button onClick={onOpen} variant="plain">
               ... or see how it looks first
             </Button>
           )}
         </VStack>
 
-        <VStack w="full" spacing={8}>
+        <VStack w="full" gap={8}>
           <Heading as="h2" size="md">
             Read past newsletters
           </Heading>
-          <VStack alignItems="flex-start" spacing={4} w="full">
+          <VStack alignItems="flex-start" gap={4} w="full">
             {posts
               .filter((post) => post.fields.Status === "Published")
               .sort((left, right) =>
@@ -121,11 +104,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                 >
                   <Link href={`/archive/${post.fields.Slug ?? ""}`} unstyled>
                     <HStack>
-                      <Text
-                        display={["none", "block"]}
-                        fontSize="md"
-                        color={useColorModeValue("neutral.800", "neutralD.800")}
-                      >
+                      <Text display={["none", "block"]} fontSize="md" color="fg.muted">
                         {(post.fields.Issue ?? 0).toString().padStart(2, "0")}
                       </Text>
                       <Text _hover={{ textDecoration: "underline" }} fontSize="md">
@@ -133,11 +112,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                       </Text>
                     </HStack>
                   </Link>
-                  <Text
-                    display={["none", "block"]}
-                    color={useColorModeValue("neutral.800", "neutralD.800")}
-                    fontSize="md"
-                  >
+                  <Text display={["none", "block"]} color="fg.muted" fontSize="md">
                     {post.fields["Published on"]
                       ? new Date(post.fields["Published on"]).toISOString().split("T")[0]
                       : ""}

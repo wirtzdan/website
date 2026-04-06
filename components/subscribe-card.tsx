@@ -1,7 +1,6 @@
 "use client";
-
 import React from "react";
-import { HStack, Image, Stack, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { HStack, Image, Stack, Text, VStack } from "@chakra-ui/react";
 
 import Subscribe from "@/components/subscribe";
 
@@ -25,19 +24,19 @@ export const SubscribeCard = ({
       w="100%"
       rounded="lg"
       borderWidth={card ? "1px" : "0px"}
-      bg={card ? useColorModeValue("white", "neutralD.100") : "transparent"}
-      borderColor={card ? useColorModeValue("neutral.400", "neutralD.400") : "transparent"}
+      bg={card ? "bg.panel" : "transparent"}
+      borderColor={card ? "border" : "transparent"}
       p={card ? 6 : 0}
-      spacing={4}
+      gap={4}
     >
-      <HStack spacing={{ base: 4, md: 8 }} w="100%" justifyContent={center ? "center" : "start"}>
+      <HStack gap={{ base: 4, md: 8 }} w="100%" justifyContent={center ? "center" : "start"}>
         {image ? (
           <Image
             src="/newsletter-logo.png"
             borderRadius="full"
             boxSize={{ base: "80px", md: "150px" }}
             boxShadow="xs"
-            filter={useColorModeValue("none", "invert(1)")}
+            filter={{ base: "none", _dark: "invert(1)" }}
           />
         ) : null}
         <VStack align="start">
@@ -47,17 +46,13 @@ export const SubscribeCard = ({
             </Text>
           ) : null}
           {description ? (
-            <Text
-              fontSize={{ base: "sm", md: "lg" }}
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-            >
+            <Text fontSize={{ base: "sm", md: "lg" }} color="fg.muted">
               {description}
             </Text>
           ) : null}
           <Subscribe direction="row" display={{ base: "none", md: "block" }} pt={2} />
         </VStack>
       </HStack>
-
       <Subscribe
         direction={{ base: "column", md: "row" }}
         display={{ base: "block", md: "none" }}

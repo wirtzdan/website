@@ -1,19 +1,6 @@
 "use client";
-
 import React, { useState } from "react";
-import {
-  Alert,
-  AlertIcon,
-  Button,
-  Collapse,
-  FormControl,
-  FormErrorMessage,
-  Icon,
-  Input,
-  Stack,
-  chakra,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Alert, Button, Collapsible, Icon, Input, Stack, chakra, Field } from "@chakra-ui/react";
 import { RssIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
 
@@ -71,48 +58,53 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
     <chakra.form onSubmit={handleSubmit(onSubmit)} {...props} w="100%">
       <Stack direction="column" w="100%">
         {isSuccessful ? (
-          <Collapse in={isSuccessful} animateOpacity>
-            <Alert borderRadius="md" status="success" fontSize="sm" w="100%">
-              <AlertIcon />
-              Success! Now check your email to confirm your subscription.
-            </Alert>
-          </Collapse>
+          <Collapsible.Root open={isSuccessful}>
+            <Collapsible.Content>
+              <Alert.Root borderRadius="md" status="success" fontSize="sm" w="100%">
+                <Alert.Indicator />
+                Success! Now check your email to confirm your subscription.
+              </Alert.Root>
+            </Collapsible.Content>
+          </Collapsible.Root>
         ) : (
           <>
-            <Stack spacing={2} direction={direction} justify="start" w="full">
-              <FormControl w="auto" isInvalid={Boolean(errors.email_address)}>
+            <Stack gap={2} direction={direction} justify="start" w="full">
+              <Field.Root w="auto" invalid={Boolean(errors.email_address)}>
                 <Input
                   {...register("email_address", { required: "E-Mail is required" })}
                   placeholder="you@email.com"
                   type="email"
-                  isDisabled={isSuccessful}
+                  disabled={isSuccessful}
                   rounded="lg"
                   w="100%"
                   minW={{ base: "48", md: "64" }}
-                  bg={useColorModeValue("white", "neutralD.100")}
                 />
                 {errors.email_address ? (
-                  <FormErrorMessage>{errors.email_address.message}</FormErrorMessage>
+                  <Field.ErrorText>{errors.email_address.message}</Field.ErrorText>
                 ) : null}
-              </FormControl>
+              </Field.Root>
               <Button
-                colorScheme="blue"
+                colorPalette="blue"
                 type="submit"
                 minW={10}
-                isDisabled={isSuccessful}
-                leftIcon={<Icon as={RssIcon} />}
-                isLoading={isSubmitting}
+                disabled={isSuccessful}
+                loading={isSubmitting}
                 rounded="lg"
               >
+                <Icon asChild>
+                  <RssIcon />
+                </Icon>
                 Subscribe
               </Button>
             </Stack>
-            <Collapse in={Boolean(errorMessage)} animateOpacity>
-              <Alert borderRadius="md" status="warning" fontSize="sm" w="100%">
-                <AlertIcon />
-                {errorMessage}
-              </Alert>
-            </Collapse>
+            <Collapsible.Root open={Boolean(errorMessage)}>
+              <Collapsible.Content>
+                <Alert.Root borderRadius="md" status="warning" fontSize="sm" w="100%">
+                  <Alert.Indicator />
+                  {errorMessage}
+                </Alert.Root>
+              </Collapsible.Content>
+            </Collapsible.Root>
           </>
         )}
       </Stack>

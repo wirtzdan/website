@@ -15,7 +15,7 @@ type BlogIndexPageProps = {
 export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
   return (
     <Section>
-      <VStack spacing={4}>
+      <VStack gap={4}>
         <Hero
           title="Blog"
           subtitle="Helpful tools, thoughtful articles and other findings from the web."
@@ -25,7 +25,7 @@ export default function BlogIndexPage({ posts }: BlogIndexPageProps) {
 
         {!posts.results.length ? "No posts found." : null}
 
-        <SimpleGrid columns={1} spacing={4} pt={8} w="100%">
+        <SimpleGrid columns={1} gap={4} pt={8} w="100%">
           {posts.results
             .filter((post) => post.isPublished)
             .sort(

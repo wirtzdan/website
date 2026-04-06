@@ -3,22 +3,15 @@
 import React from "react";
 import {
   Alert,
-  AlertIcon,
   Box,
   Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
   Textarea,
   VStack,
   useDisclosure,
+  Field,
+  Dialog,
+  Portal,
 } from "@chakra-ui/react";
 import { EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
@@ -26,7 +19,7 @@ import { useForm } from "react-hook-form";
 import type { SuggestionPayload } from "@/types/api";
 
 const BookSuggestion = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const {
     register,
     handleSubmit,
@@ -42,72 +35,84 @@ const BookSuggestion = () => {
 
   return (
     <Box>
-      <Button onClick={onOpen} colorScheme="blue">
+      <Button onClick={onOpen} colorPalette="blue">
         Suggest me a book
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Book Suggestion</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody pb={4}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <VStack spacing={2}>
-                <FormControl w="100%" isInvalid={Boolean(errors.title)}>
-                  <FormLabel>Title</FormLabel>
-                  <Input
-                    {...register("title", { required: "Title is required" })}
-                    placeholder="Title"
-                    isDisabled={isSubmitSuccessful}
-                    rounded="lg"
-                  />
-                  {errors.title ? (
-                    <FormErrorMessage>{errors.title.message}</FormErrorMessage>
-                  ) : null}
-                </FormControl>
-                <FormControl w="100%" isInvalid={Boolean(errors.author)}>
-                  <FormLabel>Author</FormLabel>
-                  <Input
-                    {...register("author", { required: "Author is required" })}
-                    placeholder="Author"
-                    isDisabled={isSubmitSuccessful}
-                    rounded="lg"
-                  />
-                  {errors.author ? (
-                    <FormErrorMessage>{errors.author.message}</FormErrorMessage>
-                  ) : null}
-                </FormControl>
-                <FormControl w="100%">
-                  <FormLabel>Message</FormLabel>
-                  <Textarea
-                    {...register("message")}
-                    placeholder="Write a message..."
-                    isDisabled={isSubmitSuccessful}
-                    rounded="lg"
-                  />
-                </FormControl>
-                {isSubmitSuccessful ? (
-                  <Alert status="success" rounded="lg">
-                    <AlertIcon />
-                    Thanks for the suggestion!
-                  </Alert>
-                ) : (
-                  <Button
-                    mt={4}
-                    colorScheme="blue"
-                    type="submit"
-                    w="100%"
-                    isLoading={isSubmitting}
-                    leftIcon={<EnvelopeIcon width={18} height={18} />}
-                  >
-                    Send suggestion
-                  </Button>
-                )}
-              </VStack>
-            </form>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <Dialog.Root
+        open={open}
+        motionPreset="slide-in-bottom"
+        onOpenChange={(e) => {
+          if (!e.open) {
+            onClose();
+          }
+        }}
+      >
+        <Portal>
+          <Dialog.Backdrop />
+          <Dialog.Positioner>
+            <Dialog.Content>
+              <Dialog.Header>Book Suggestion</Dialog.Header>
+              <Dialog.CloseTrigger />
+              <Dialog.Body pb={4}>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <VStack gap={2}>
+                    <Field.Root w="100%" invalid={Boolean(errors.title)}>
+                      <Field.Label>Title</Field.Label>
+                      <Input
+                        {...register("title", { required: "Title is required" })}
+                        placeholder="Title"
+                        disabled={isSubmitSuccessful}
+                        rounded="lg"
+                      />
+                      {errors.title ? (
+                        <Field.ErrorText>{errors.title.message}</Field.ErrorText>
+                      ) : null}
+                    </Field.Root>
+                    <Field.Root w="100%" invalid={Boolean(errors.author)}>
+                      <Field.Label>Author</Field.Label>
+                      <Input
+                        {...register("author", { required: "Author is required" })}
+                        placeholder="Author"
+                        disabled={isSubmitSuccessful}
+                        rounded="lg"
+                      />
+                      {errors.author ? (
+                        <Field.ErrorText>{errors.author.message}</Field.ErrorText>
+                      ) : null}
+                    </Field.Root>
+                    <Field.Root w="100%">
+                      <Field.Label>Message</Field.Label>
+                      <Textarea
+                        {...register("message")}
+                        placeholder="Write a message..."
+                        disabled={isSubmitSuccessful}
+                        rounded="lg"
+                      />
+                    </Field.Root>
+                    {isSubmitSuccessful ? (
+                      <Alert.Root status="success" rounded="lg">
+                        <Alert.Indicator />
+                        Thanks for the suggestion!
+                      </Alert.Root>
+                    ) : (
+                      <Button
+                        mt={4}
+                        colorPalette="blue"
+                        type="submit"
+                        w="100%"
+                        loading={isSubmitting}
+                      >
+                        <EnvelopeIcon width={18} height={18} />
+                        Send suggestion
+                      </Button>
+                    )}
+                  </VStack>
+                </form>
+              </Dialog.Body>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Portal>
+      </Dialog.Root>
     </Box>
   );
 };

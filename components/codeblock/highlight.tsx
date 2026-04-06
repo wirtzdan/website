@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
-import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { chakra } from "@chakra-ui/react";
 import { Highlight as BaseHighlight } from "prism-react-renderer";
+
+import { useColorMode } from "../ui/color-mode";
 
 import { prismDark, prismLight } from "./themes";
 
@@ -35,13 +37,13 @@ interface HighlightProps {
 }
 
 function Highlight({ codeString, language, showLines = false, ln }: HighlightProps) {
-  const baseTheme = useColorModeValue(prismLight, prismDark);
   const { colorMode } = useColorMode();
+  const baseTheme = (colorMode === "dark" ? prismDark : prismLight) as never;
 
   const shouldHighlightLine = calculateLinesToHighlight(ln);
 
   return (
-    <BaseHighlight code={codeString} language={language} theme={baseTheme as never}>
+    <BaseHighlight code={codeString} language={language} theme={baseTheme}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <chakra.div data-language={language} overflowX="auto">
           <pre className={className} style={style}>
@@ -50,33 +52,15 @@ function Highlight({ codeString, language, showLines = false, ln }: HighlightPro
 
               return (
                 <chakra.div
-                  key={index}
-                  px={2}
-                  mr={4}
-                  bg={
-                    shouldHighlightLine(index)
-                      ? colorMode === "light"
-                        ? "blue.50"
-                        : "blue.800"
-                      : undefined
-                  }
-                  boxShadow={
-                    shouldHighlightLine(index)
-                      ? colorMode === "light"
-                        ? "inset 3px 0px 0px 0px #4299E1"
-                        : "inset 3px 0px 0px 0px #90CDF4"
-                      : undefined
-                  }
-                  _hover={{
-                    bg: colorMode === "light" ? "neutral.100" : "neutralD.200",
-                  }}
+                  key={`line-${index}`}
                   {...lineProps}
+                  bg={shouldHighlightLine(index) ? "rgba(255, 255, 255, 0.1)" : undefined}
                 >
-                  {showLines ? (
+                  {showLines && (
                     <chakra.span opacity={0.5} mr={4} fontSize="xs">
                       {index + 1}
                     </chakra.span>
-                  ) : null}
+                  )}
                   {line.map((token, tokenIndex) => (
                     <chakra.span key={tokenIndex} {...getTokenProps({ token, key: tokenIndex })} />
                   ))}

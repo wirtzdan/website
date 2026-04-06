@@ -1,8 +1,7 @@
 "use client";
-
 import { motion } from "framer-motion";
 import NextLink from "next/link";
-import { Button, useColorModeValue } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
 
 interface MobileMenuItemProps {
@@ -35,15 +34,11 @@ function MobileMenuItem({ href, title }: MobileMenuItemProps) {
         display="block"
         width="100%"
         size="lg"
+        variant="ghost"
         aria-current={isActive ? "page" : undefined}
         variants={variants}
-        bg={useColorModeValue("neutral.100", "neutralD.100")}
-        _activeLink={{
-          color: useColorModeValue("neutral.1100", "neutralD.1100"),
-          bg: useColorModeValue("neutral.200", "neutralD.400"),
-        }}
-        _hover={{
-          backgroundColor: useColorModeValue("neutral.300", "neutralD.300"),
+        _currentPage={{
+          bg: "bg.muted",
         }}
       >
         {title}

@@ -1,6 +1,5 @@
 "use client";
-
-import { Heading, Text, VStack, type StackProps, useColorModeValue } from "@chakra-ui/react";
+import { Heading, Text, VStack, type StackProps } from "@chakra-ui/react";
 
 import Section from "@/components/section";
 
@@ -16,12 +15,7 @@ const Hero = ({ title = "Title", subtitle, align = "center", ...sectionProps }: 
       <VStack align={align}>
         <Heading as="h1">{title}</Heading>
         {subtitle ? (
-          <Text
-            fontSize={["lg", "2xl"]}
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
-            maxW="lg"
-            textAlign={align}
-          >
+          <Text fontSize={["lg", "2xl"]} color="fg.muted" maxW="lg" textAlign={align}>
             {subtitle}
           </Text>
         ) : null}

@@ -1,6 +1,5 @@
 "use client";
-
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useEffect, useState, type RefObject } from "react";
 
 interface ReadingProgressProps {
@@ -41,7 +40,7 @@ const ReadingProgress = ({ target }: ReadingProgressProps) => {
   return (
     <Box
       position="fixed"
-      bg={useColorModeValue("blue.500", "blue.200")}
+      bg="blue.solid"
       left={0}
       right={0}
       top={{ base: "auto", md: "16" }}

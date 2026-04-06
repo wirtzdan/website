@@ -1,38 +1,42 @@
 "use client";
 
 import React from "react";
-import {
-  Box,
-  Button,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, useDisclosure, Dialog, Portal } from "@chakra-ui/react";
 
 import SubscribeCard from "@/components/subscribe-card";
 
 const NewsletterModal = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue">
+      <Button onClick={onOpen} colorPalette="blue">
         Subscribe
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInBottom" size="2xl">
-        <ModalOverlay />
-        <ModalContent>
-          <ModalCloseButton />
-          <ModalBody>
-            <Box p={6} pl={0}>
-              <SubscribeCard card={false} title="Stay in the loop" />
-            </Box>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <Dialog.Root
+        open={open}
+        motionPreset="slide-in-bottom"
+        size="xl"
+        onOpenChange={(e) => {
+          if (!e.open) {
+            onClose();
+          }
+        }}
+      >
+        <Portal>
+          <Dialog.Backdrop />
+          <Dialog.Positioner>
+            <Dialog.Content>
+              <Dialog.CloseTrigger />
+              <Dialog.Body>
+                <Box p={6} pl={0}>
+                  <SubscribeCard card={false} title="Stay in the loop" />
+                </Box>
+              </Dialog.Body>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Portal>
+      </Dialog.Root>
     </>
   );
 };

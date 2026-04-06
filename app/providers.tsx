@@ -1,12 +1,12 @@
 "use client";
 
-import { ChakraProvider } from "@chakra-ui/react";
 import React, { useEffect, type ReactNode } from "react";
 import { clarity } from "react-microsoft-clarity";
 import PlausibleProvider from "next-plausible";
 
 import FontFace from "@/components/font-face";
-import customTheme from "@/theme";
+import { Provider } from "@/components/ui/provider";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function AppProviders({ children }: { children: ReactNode }) {
   useEffect(() => {
@@ -14,7 +14,7 @@ export default function AppProviders({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ChakraProvider theme={customTheme}>
+    <Provider>
       <PlausibleProvider
         src="https://plausible.io/js/script.js"
         scriptProps={
@@ -26,7 +26,8 @@ export default function AppProviders({ children }: { children: ReactNode }) {
       >
         {children}
         <FontFace />
+        <Toaster />
       </PlausibleProvider>
-    </ChakraProvider>
+    </Provider>
   );
 }

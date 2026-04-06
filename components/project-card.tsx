@@ -1,7 +1,6 @@
 "use client";
-
 import React from "react";
-import { Box, HStack, Tag, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Card, HStack, Tag, Text, VStack } from "@chakra-ui/react";
 import { usePalette } from "react-palette";
 
 import Image from "./image";
@@ -29,20 +28,18 @@ const ProjectCard = ({ name, description, logo, link = "#", type }: ProjectCardP
 
   return (
     <Link href={link} unstyled>
-      <HStack
+      <Card.Root
+        variant="outline"
+        interactive
+        size="sm"
+        display="flex"
+        flexDirection="row"
+        alignItems="stretch"
+        gap={4}
         p={4}
-        bg={useColorModeValue("white", "neutralD.100")}
-        rounded="lg"
-        borderWidth="1px"
-        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
         w="100%"
         h="100%"
         textAlign="left"
-        align="start"
-        spacing={4}
-        transition="all 0.25s"
-        transitionTimingFunction="spring(1 100 10 10)"
-        _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
       >
         <Box
           rounded="lg"
@@ -70,23 +67,23 @@ const ProjectCard = ({ name, description, logo, link = "#", type }: ProjectCardP
           />
         </Box>
 
-        <VStack align="start" justify="flex-start" spacing={1}>
-          <VStack spacing={0} align="start">
+        <VStack align="start" justify="flex-start" gap={1}>
+          <VStack gap={0} align="start">
             <HStack>
-              <Text fontWeight="bold" fontSize="md" noOfLines={2}>
+              <Text fontWeight="bold" fontSize="md" lineClamp={2}>
                 {name}
               </Text>
-              <Tag size="sm" colorScheme={getTypeColor(type)}>
+              <Tag.Root size="sm" colorPalette={getTypeColor(type)}>
                 {type}
-              </Tag>
+              </Tag.Root>
             </HStack>
 
-            <Text fontSize="sm" color={useColorModeValue("neutral.1000", "neutralD.1000")}>
+            <Text fontSize="sm" color="fg.muted">
               {description}
             </Text>
           </VStack>
         </VStack>
-      </HStack>
+      </Card.Root>
     </Link>
   );
 };

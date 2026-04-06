@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { Box, Button, HStack, Icon, Text, useClipboard, useColorModeValue } from "@chakra-ui/react";
+import { useClipboard } from "@/lib/use-clipboard";
+import { Box, Button, HStack, Icon, Text } from "@chakra-ui/react";
 import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { getBlockTitle } from "notion-utils";
 import { useNotionContext } from "react-notion-x";
@@ -33,10 +34,10 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
     <Box
       rounded="md"
       overflow="hidden"
-      bg={useColorModeValue("white", "neutralD.100")}
+      bg="bg.panel"
       my={4}
       borderWidth="1px"
-      borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+      borderColor="border"
       w="100%"
     >
       {title ? (
@@ -46,33 +47,26 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
           justifyContent="space-between"
           alignItems="center"
           borderBottomWidth="1px"
-          borderBottomColor={useColorModeValue("neutral.400", "neutralD.400")}
+          borderBottomColor="border"
         >
-          <Text
-            fontSize="sm"
-            fontWeight="500"
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
-          >
+          <Text fontSize="sm" fontWeight="500" color="fg.muted">
             {title}
           </Text>
           <Button
             size="sm"
             onClick={onCopy}
             variant="ghost"
-            color={
-              hasCopied
-                ? useColorModeValue("green.600", "green.100")
-                : useColorModeValue("neutral.1000", "neutralD.1000")
-            }
-            bg={hasCopied ? useColorModeValue("green.50", "green.800") : undefined}
-            leftIcon={
-              hasCopied ? (
-                <Icon as={CheckIcon} boxSize={4.5} />
-              ) : (
-                <Icon as={DocumentDuplicateIcon} boxSize={4.5} />
-              )
-            }
+            colorPalette={hasCopied ? "green" : "gray"}
           >
+            {hasCopied ? (
+              <Icon boxSize={4.5} asChild>
+                <CheckIcon />
+              </Icon>
+            ) : (
+              <Icon boxSize={4.5} asChild>
+                <DocumentDuplicateIcon />
+              </Icon>
+            )}
             {hasCopied ? "Copied" : "Copy"}
           </Button>
         </HStack>

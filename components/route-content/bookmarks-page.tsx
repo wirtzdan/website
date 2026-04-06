@@ -13,10 +13,10 @@ type BookmarksPageProps = {
 
 export default function BookmarksPage({ bookmarks }: BookmarksPageProps) {
   return (
-    <VStack spacing={8}>
+    <VStack gap={8}>
       <Hero title="Bookmarks" subtitle="Discoveries from the World Wide Web" />
       <Section>
-        <SimpleGrid columns={[2, 3]} spacing={4}>
+        <SimpleGrid columns={[2, 3]} gap={4}>
           {bookmarks.items.map((bookmark) => (
             <BookmarkCard
               key={`${bookmark.link}-${bookmark.created}`}

@@ -62,19 +62,18 @@ export default function HomePage({ posts }: HomePageProps) {
     .slice(0, 3);
 
   return (
-    <VStack spacing={16}>
+    <VStack gap={16}>
       <Section>
-        <VStack spacing={4} align="start">
-          <VStack spacing={6} align="start">
+        <VStack gap={4} align="start">
+          <VStack gap={6} align="start">
             <HStack justify="space-between" w="100%" align="center" fontSize="2xl">
               <Heading size="lg">Hey there. 👋</Heading>
               <Link href="/about" unstyled>
-                <Button
-                  variant="ghost"
-                  rightIcon={<Icon as={ArrowUpRightIcon} />}
-                  size={["sm", "md"]}
-                >
+                <Button variant="ghost" size={["sm", "md"]}>
                   Read more
+                  <Icon asChild>
+                    <ArrowUpRightIcon />
+                  </Icon>
                 </Button>
               </Link>
             </HStack>
@@ -92,20 +91,19 @@ export default function HomePage({ posts }: HomePageProps) {
         </VStack>
       </Section>
       <Section>
-        <VStack align="start" spacing={8}>
+        <VStack align="start" gap={8}>
           <HStack justify="space-between" w="100%" align="center">
             <Heading size="lg">Latest Posts</Heading>
             <Link href="/blog" unstyled>
-              <Button
-                size={["sm", "md"]}
-                variant="ghost"
-                rightIcon={<Icon as={ArrowUpRightIcon} />}
-              >
+              <Button size={["sm", "md"]} variant="ghost">
                 View all
+                <Icon asChild>
+                  <ArrowUpRightIcon />
+                </Icon>
               </Button>
             </Link>
           </HStack>
-          <SimpleGrid columns={1} spacing={4} w="100%">
+          <SimpleGrid columns={1} gap={4} w="100%">
             {latestPosts.map((post) => (
               <BlogListItem key={post.id} {...post} />
             ))}
@@ -113,9 +111,9 @@ export default function HomePage({ posts }: HomePageProps) {
         </VStack>
       </Section>
       <Section>
-        <VStack align="start" spacing={8}>
+        <VStack align="start" gap={8}>
           <Heading size="lg">Subscribe</Heading>
-          <VStack spacing={4}>
+          <VStack gap={4}>
             <Text>
               If you want to stay up to date with my latest posts you can sign up to my newsletter.
               I promise I won&apos;t spam you. (To be honest, I&apos;m not the best at keeping up

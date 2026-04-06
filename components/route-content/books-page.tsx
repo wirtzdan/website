@@ -1,18 +1,6 @@
 "use client";
 
-import {
-  HStack,
-  Icon,
-  SimpleGrid,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-  VStack,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { HStack, Icon, SimpleGrid, Tabs, Text, VStack } from "@chakra-ui/react";
 import { BookOpenIcon, HeartIcon } from "@heroicons/react/24/solid";
 import sorter from "sort-isostring";
 
@@ -27,82 +15,75 @@ type BooksPageProps = {
 
 export default function BooksPage({ books }: BooksPageProps) {
   return (
-    <VStack spacing={8}>
+    <VStack gap={8}>
       <Hero title="Books" subtitle="Take a stroll through my bookshelf" />
       <Section>
-        <Tabs variant="soft-rounded" colorScheme="blue" align="center" w="100%">
-          <TabList>
-            <Tab
-              bg={useColorModeValue("neutral.300", "neutralD.300")}
-              color={useColorModeValue("neutral.900", "neutralD.900")}
-              _selected={{
-                color: "blue.800",
-                bg: "blue.100",
-              }}
-              mr={2}
-            >
-              <HStack spacing={1}>
-                <Icon as={BookOpenIcon} />
+        <Tabs.Root
+          defaultValue="all"
+          variant="subtle"
+          colorPalette="blue"
+          justifyContent="center"
+          w="100%"
+        >
+          <Tabs.List>
+            <Tabs.Trigger value="all" mr={2}>
+              <HStack gap={1}>
+                <Icon asChild>
+                  <BookOpenIcon />
+                </Icon>
                 <Text>All</Text>
               </HStack>
-            </Tab>
-            <Tab
-              bg={useColorModeValue("neutral.300", "neutralD.300")}
-              color={useColorModeValue("neutral.900", "neutralD.900")}
-              _selected={{
-                color: "red.800",
-                bg: "red.100",
-              }}
-            >
-              <HStack spacing={1}>
-                <Icon as={HeartIcon} />
+            </Tabs.Trigger>
+            <Tabs.Trigger value="favorites">
+              <HStack gap={1}>
+                <Icon asChild>
+                  <HeartIcon />
+                </Icon>
                 <Text>Favorites</Text>
               </HStack>
-            </Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel px={0}>
-              <SimpleGrid columns={[1, 2]} spacingY={8} spacingX={4} mt={8}>
-                {books
-                  .filter((book) => book.fields.Read === true)
-                  .sort((left, right) =>
-                    sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""),
-                  )
-                  .map((book) => (
-                    <BookCard
-                      key={book.id}
-                      title={book.fields.Title}
-                      author={book.fields.Author}
-                      rating={book.fields.Rating}
-                      isFavorite={book.fields.Favorite}
-                      cover={book.fields.Cover}
-                      dateRead={book.fields["Date Read"]}
-                    />
-                  ))}
-              </SimpleGrid>
-            </TabPanel>
-            <TabPanel px={0}>
-              <SimpleGrid columns={[1, 2]} spacingY={8} spacingX={4} mt={8}>
-                {books
-                  .filter((book) => book.fields.Favorite === true)
-                  .sort((left, right) =>
-                    sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""),
-                  )
-                  .map((book) => (
-                    <BookCard
-                      key={book.id}
-                      title={book.fields.Title}
-                      author={book.fields.Author}
-                      rating={book.fields.Rating}
-                      isFavorite={book.fields.Favorite}
-                      cover={book.fields.Cover}
-                      dateRead={book.fields["Date Read"]}
-                    />
-                  ))}
-              </SimpleGrid>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
+            </Tabs.Trigger>
+          </Tabs.List>
+          <Tabs.Content value="all" px={0}>
+            <SimpleGrid columns={[1, 2]} gap={8} columnGap={4} mt={8}>
+              {books
+                .filter((book) => book.fields.Read === true)
+                .sort((left, right) =>
+                  sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""),
+                )
+                .map((book) => (
+                  <BookCard
+                    key={book.id}
+                    title={book.fields.Title}
+                    author={book.fields.Author}
+                    rating={book.fields.Rating}
+                    isFavorite={book.fields.Favorite}
+                    cover={book.fields.Cover}
+                    dateRead={book.fields["Date Read"]}
+                  />
+                ))}
+            </SimpleGrid>
+          </Tabs.Content>
+          <Tabs.Content value="favorites" px={0}>
+            <SimpleGrid columns={[1, 2]} gap={8} columnGap={4} mt={8}>
+              {books
+                .filter((book) => book.fields.Favorite === true)
+                .sort((left, right) =>
+                  sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""),
+                )
+                .map((book) => (
+                  <BookCard
+                    key={book.id}
+                    title={book.fields.Title}
+                    author={book.fields.Author}
+                    rating={book.fields.Rating}
+                    isFavorite={book.fields.Favorite}
+                    cover={book.fields.Cover}
+                    dateRead={book.fields["Date Read"]}
+                  />
+                ))}
+            </SimpleGrid>
+          </Tabs.Content>
+        </Tabs.Root>
       </Section>
     </VStack>
   );

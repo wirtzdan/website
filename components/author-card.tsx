@@ -1,17 +1,8 @@
 "use client";
 
 import React from "react";
-import {
-  Avatar,
-  Button,
-  HStack,
-  Icon,
-  Stack,
-  Text,
-  useClipboard,
-  useColorModeValue,
-  VStack,
-} from "@chakra-ui/react";
+import { useClipboard } from "@/lib/use-clipboard";
+import { Avatar, Button, HStack, Icon, Stack, Text, VStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import { CheckIcon, LinkIcon } from "@heroicons/react/20/solid";
 
@@ -27,12 +18,15 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
   return (
     <Stack direction="row" justify="space-between">
       <HStack>
-        <Avatar src="/avatar-small.jpg" h={10} w={10} />
-        <VStack spacing={0} align="start">
+        <Avatar.Root h={10} w={10}>
+          <Avatar.Fallback />
+          <Avatar.Image src="/avatar-small.jpg" />
+        </Avatar.Root>
+        <VStack gap={0} align="start">
           <Text fontSize="md" fontWeight="500">
             Daniel Wirtz
           </Text>
-          <Text fontSize="sm" color={useColorModeValue("gray.500", "gray.200")}>
+          <Text fontSize="sm" color="fg.subtle">
             {format(publishedAt)}
             {readingTime ? ` • ${readingTime}` : ""}
           </Text>
@@ -44,14 +38,17 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
           ml={2}
           variant="outline"
           size="sm"
-          color={
-            hasCopied
-              ? useColorModeValue("green.600", "green.200")
-              : useColorModeValue("neutralD.100", "gray.100")
-          }
-          bg={useColorModeValue("white", "neutralD.100")}
-          leftIcon={hasCopied ? <Icon as={CheckIcon} /> : <Icon as={LinkIcon} />}
+          colorPalette={hasCopied ? "green" : "gray"}
         >
+          {hasCopied ? (
+            <Icon asChild>
+              <CheckIcon />
+            </Icon>
+          ) : (
+            <Icon asChild>
+              <LinkIcon />
+            </Icon>
+          )}
           {hasCopied ? "Copied" : "Copy link"}
         </Button>
       </HStack>

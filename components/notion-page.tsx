@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import ReactPlayer from "react-player";
-import { Spinner as Loading } from "@chakra-ui/react";
+import { Spinner as Loading, Text, VStack } from "@chakra-ui/react";
 import { getPageTitle } from "notion-utils";
 import { NotionRenderer } from "react-notion-x";
 import TweetEmbed from "react-tweet-embed";
@@ -87,24 +87,26 @@ const NotionVideo = ({
 
   if (hasError) {
     return (
-      <div className="notion-video-error">
-        <p style={{ margin: "0 0 1rem 0", color: "#666" }}>
+      <VStack className="notion-video-error" align="start" gap={4}>
+        <Text color="fg.muted" m={0}>
           Video could not be loaded. This might be due to access restrictions or an expired URL.
-        </p>
-        <p style={{ margin: "0", fontSize: "0.9em", color: "#888" }}>
+        </Text>
+        <Text fontSize="sm" color="fg.subtle" m={0}>
           Try uploading the video to YouTube, Vimeo, or another external platform and embedding the
           link instead.
-        </p>
-      </div>
+        </Text>
+      </VStack>
     );
   }
 
   if (isLoading) {
     return (
-      <div className="notion-video-loading">
+      <VStack className="notion-video-loading" align="center" gap={0}>
         <Loading />
-        <p style={{ marginTop: "1rem", color: "#666" }}>Loading video...</p>
-      </div>
+        <Text mt={4} color="fg.muted">
+          Loading video...
+        </Text>
+      </VStack>
     );
   }
 

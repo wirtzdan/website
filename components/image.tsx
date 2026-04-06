@@ -1,11 +1,13 @@
 import NextImage, { type ImageProps } from "next/image";
-import { chakra } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 
-const Image = chakra(NextImage, {
-  baseStyle: { maxH: 120, maxW: 120 },
-  shouldForwardProp: (prop) =>
-    ["width", "height", "src", "alt", "fill", "sizes", "quality"].includes(prop),
-}) as typeof NextImage;
+function Image(props: ImageProps) {
+  return (
+    <Box display="inline-block" maxH={120} maxW={120}>
+      <NextImage {...props} />
+    </Box>
+  );
+}
 
 export type { ImageProps };
 export default Image;

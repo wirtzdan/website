@@ -1,7 +1,6 @@
 "use client";
-
 import React from "react";
-import { Box, HStack, Image, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { Box, Card, Image, Text, VStack } from "@chakra-ui/react";
 import { usePalette } from "react-palette";
 
 import Link from "@/components/link";
@@ -22,19 +21,17 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
 
   return (
     <Link href={link} unstyled>
-      <HStack
+      <Card.Root
+        variant="outline"
+        interactive
+        size="sm"
+        display="flex"
+        flexDirection="row"
+        alignItems="stretch"
+        gap={4}
         p={4}
-        bg={useColorModeValue("white", "neutralD.100")}
-        rounded="lg"
-        borderWidth="1px"
-        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
         w="100%"
         textAlign="left"
-        align="start"
-        spacing={4}
-        transition="all 0.25s"
-        transitionTimingFunction="spring(1 100 10 10)"
-        _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
       >
         <Box
           rounded="lg"
@@ -57,17 +54,17 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
           <Image src={imageUrl} boxSize="36px" rounded="md" position="relative" alt={name} />
         </Box>
 
-        <VStack align="start" justify="flex-start" spacing={1} maxW="lg" h="100%">
-          <VStack spacing={0} align="start" flexGrow="1">
-            <Text fontWeight="bold" fontSize="md" noOfLines={2}>
+        <VStack align="start" justify="flex-start" gap={1} maxW="lg" h="100%">
+          <VStack gap={0} align="start" flexGrow="1">
+            <Text fontWeight="bold" fontSize="md" lineClamp={2}>
               {name}
             </Text>
-            <Text fontSize="sm" color={useColorModeValue("neutral.900", "neutralD.900")}>
+            <Text fontSize="sm" color="fg">
               {description}
             </Text>
           </VStack>
         </VStack>
-      </HStack>
+      </Card.Root>
     </Link>
   );
 };

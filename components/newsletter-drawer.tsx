@@ -1,18 +1,6 @@
 "use client";
-
 import React from "react";
-import {
-  Box,
-  Button,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerHeader,
-  DrawerOverlay,
-  useColorModeValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Button, Drawer, useDisclosure, Portal } from "@chakra-ui/react";
 import { EnvelopeIcon, RssIcon } from "@heroicons/react/24/outline";
 
 import MobileMenuButton from "./mobile-menu-button";
@@ -23,29 +11,44 @@ interface NewsletterDrawerProps {
 }
 
 const NewsletterDrawer = ({ placement }: NewsletterDrawerProps) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef<HTMLButtonElement | null>(null);
 
   return (
     <Box>
       {placement === "blog" ? (
-        <Button leftIcon={<RssIcon width={20} height={20} />} onClick={onOpen} colorScheme="purple">
+        <Button onClick={onOpen} colorPalette="purple">
+          <RssIcon width={20} height={20} />
           Subscribe
         </Button>
       ) : (
         <MobileMenuButton label="Subscribe" icon={<EnvelopeIcon />} onClick={onOpen} />
       )}
-      <Drawer isOpen={isOpen} size="md" placement="bottom" onClose={onClose} finalFocusRef={btnRef}>
-        <DrawerOverlay>
-          <DrawerContent borderTopRadius="6px" bg={useColorModeValue("white", "neutralD.50")}>
-            <DrawerCloseButton />
-            <DrawerHeader>Subscribe</DrawerHeader>
-            <DrawerBody pb={4}>
-              <SubscribeCard card={false} />
-            </DrawerBody>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
+      <Drawer.Root
+        open={open}
+        size="md"
+        placement="bottom"
+        finalFocusEl={() => btnRef.current}
+        onOpenChange={(e) => {
+          if (!e.open) {
+            onClose();
+          }
+        }}
+      >
+        <Portal>
+          <Drawer.Backdrop>
+            <Drawer.Positioner>
+              <Drawer.Content borderTopRadius="6px">
+                <Drawer.CloseTrigger />
+                <Drawer.Header>Subscribe</Drawer.Header>
+                <Drawer.Body pb={4}>
+                  <SubscribeCard card={false} />
+                </Drawer.Body>
+              </Drawer.Content>
+            </Drawer.Positioner>
+          </Drawer.Backdrop>
+        </Portal>
+      </Drawer.Root>
     </Box>
   );
 };
