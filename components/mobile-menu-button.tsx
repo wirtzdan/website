@@ -18,7 +18,9 @@ const MobileMenuButton = ({ label, icon, ...rest }: MobileMenuButtonProps) => {
       {...rest}
       color={useColorModeValue("neutral.1100", "neutralD.1100")}
     >
-      <Icon as={() => icon} boxSize={5} />
+      <Icon boxSize={5} asChild>
+        {icon}
+      </Icon>
 
       <Text
         fontSize="xs"

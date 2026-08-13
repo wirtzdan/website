@@ -3,8 +3,10 @@ export const rootNotionSpaceId = "fde5ac74-eea3-4527-8f00-4482710e1af3";
 
 export const previewImagesEnabled = false;
 
-export const useOfficialNotionAPI =
-  false || (process.env.USE_OFFICIAL_NOTION_API === "true" && Boolean(process.env.NOTION_TOKEN));
+// Prefer the official Notion API whenever a token is present. The unofficial
+// notion-client scraper currently returns 403 for page content fetches, which
+// caused /blog/[slug] to render the 404 page after redeploy.
+export const useOfficialNotionAPI = Boolean(process.env.NOTION_TOKEN);
 
 export const isDev = process.env.NODE_ENV === "development" || !process.env.NODE_ENV;
 

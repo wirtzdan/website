@@ -141,7 +141,7 @@ export const getBlogPosts = async ({
 
 export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap | null> => {
   try {
-    const recordMap = (await notionPrivateAPI.getPage(pageId, {})) as NotionRecordMap;
+    const recordMap = (await notionPrivateAPI.getPage(pageId)) as NotionRecordMap;
     const normalizedBlock = Object.fromEntries(
       Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
         const typedBlock = block as WrappedNotionBlock | undefined;

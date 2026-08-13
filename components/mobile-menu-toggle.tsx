@@ -73,6 +73,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           <IconButton
                             aria-label="Twitter"
                             size="sm"
+                            variant="ghost"
                             color={useColorModeValue("neutral.800", "neutralD.1000")}
                           >
                             <TwitterLogo weight="fill" />
@@ -82,6 +83,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           <IconButton
                             aria-label="LinkedIn"
                             size="sm"
+                            variant="ghost"
                             color={useColorModeValue("neutral.800", "neutralD.1000")}
                           >
                             <LinkedinLogo weight="fill" />
@@ -91,6 +93,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           <IconButton
                             aria-label="GitHub"
                             size="sm"
+                            variant="ghost"
                             color={useColorModeValue("neutral.800", "neutralD.1000")}
                           >
                             <GithubLogo weight="fill" />
@@ -104,6 +107,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           <IconButton
                             aria-label="YouTube"
                             size="sm"
+                            variant="ghost"
                             color={useColorModeValue("neutral.800", "neutralD.1000")}
                           >
                             <YoutubeLogo weight="fill" />
