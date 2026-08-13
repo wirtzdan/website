@@ -1,19 +1,6 @@
 "use client";
-
-import {
-  Box,
-  Button,
-  HStack,
-  Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Text,
-  useColorModeValue,
-  useDisclosure,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Button, HStack, Icon, Menu, Text, VStack, Portal } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
 import { BoltIcon, BookOpenIcon, BookmarkIcon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import NextLink from "next/link";
@@ -23,6 +10,7 @@ import { useRef } from "react";
 import AvatarNavigation from "./avatar-navigation";
 import Container from "./container";
 import ThemeToggle from "./theme-toggle";
+import { useDisclosure } from "@/lib/use-disclosure";
 
 interface NavLinkProps {
   href: string;
@@ -42,12 +30,10 @@ function NavLink({ href, name, ...rest }: NavLinkProps) {
 
   return (
     <Button
-      as={NextLink}
-      href={href}
       aria-current={isActive ? "page" : undefined}
       variant="ghost"
       size="md"
-      _activeLink={{
+      _currentPage={{
         color: useColorModeValue("neutral.1100", "neutralD.1100"),
         bg: useColorModeValue("neutral.100", "neutralD.300"),
       }}
@@ -56,14 +42,15 @@ function NavLink({ href, name, ...rest }: NavLinkProps) {
       }}
       px={4}
       {...rest}
+      asChild
     >
-      {name}
+      <NextLink href={href}>{name}</NextLink>
     </Button>
   );
 }
 
 const Header = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const delayedClose = () => {
@@ -93,68 +80,91 @@ const Header = () => {
       shadow="0 0 10px 0 rgba(0,0,0, 0.025);"
     >
       <Container>
-        <VStack align="start" spacing={0}>
+        <VStack align="start" gap={0}>
           <HStack justify="space-between" w="100%" h={16}>
             <AvatarNavigation />
-            <HStack ml={-4} spacing={2}>
+            <HStack ml={-4} gap={2}>
               <NavLink href="/blog" name="Blog" />
               <NavLink href="/about" name="About" />
-              <Menu isOpen={isOpen} onClose={onClose}>
-                <MenuButton
-                  as={Button}
-                  onMouseOver={onOpen}
-                  onClick={isOpen ? onClose : onOpen}
-                  onMouseLeave={delayedClose}
-                  onMouseEnter={cancelDelayedClose}
-                  rightIcon={<Icon as={ChevronDownIcon} />}
-                  cursor="default"
-                  bg={menuBg}
-                  _hover={{ bg: menuButtonHoverBg }}
-                  _active={{ bg: menuButtonHoverBg }}
-                >
-                  Lists
-                </MenuButton>
-                <MenuList
-                  bg={menuBg}
-                  borderColor={menuBorderColor}
-                  onMouseLeave={onClose}
-                  onMouseEnter={cancelDelayedClose}
-                >
-                  <MenuItem
-                    as={NextLink}
-                    href="/books"
+              <Menu.Root
+                open={open}
+                onOpenChange={(details) => {
+                  if (details.open) {
+                    onOpen();
+                  } else {
+                    onClose();
+                  }
+                }}
+              >
+                <Menu.Trigger asChild>
+                  <Button
+                    onMouseOver={onOpen}
+                    onClick={open ? onClose : onOpen}
+                    onMouseLeave={delayedClose}
+                    onMouseEnter={cancelDelayedClose}
+                    cursor="default"
                     bg={menuBg}
                     _hover={{ bg: menuButtonHoverBg }}
+                    _active={{ bg: menuButtonHoverBg }}
                   >
-                    <HStack>
-                      <Icon as={BookOpenIcon} boxSize={4.5} color={menuIconColor} />
-                      <Text>Books</Text>
-                    </HStack>
-                  </MenuItem>
-                  <MenuItem
-                    as={NextLink}
-                    href="/bookmarks"
-                    bg={menuBg}
-                    _hover={{ bg: menuButtonHoverBg }}
-                  >
-                    <HStack>
-                      <Icon as={BookmarkIcon} boxSize={4.5} color={menuIconColor} />
-                      <Text>Bookmarks</Text>
-                    </HStack>
-                  </MenuItem>
-                  <MenuItem
-                    as={NextLink}
-                    href="/tools"
-                    bg={menuBg}
-                    _hover={{ bg: menuButtonHoverBg }}
-                  >
-                    <HStack>
-                      <Icon as={BoltIcon} boxSize={4.5} color={menuIconColor} />
-                      <Text>Tools</Text>
-                    </HStack>
-                  </MenuItem>
-                </MenuList>
-              </Menu>
+                    Lists
+                    <Icon asChild>
+                      <ChevronDownIcon />
+                    </Icon>
+                  </Button>
+                </Menu.Trigger>
+                <Portal>
+                  <Menu.Positioner>
+                    <Menu.Content>
+                      <Menu.Item
+                        bg={menuBg}
+                        _hover={{ bg: menuButtonHoverBg }}
+                        value="item-0"
+                        asChild
+                      >
+                        <NextLink href="/books">
+                          <HStack>
+                            <Icon boxSize={4.5} color={menuIconColor} asChild>
+                              <BookOpenIcon />
+                            </Icon>
+                            <Text>Books</Text>
+                          </HStack>
+                        </NextLink>
+                      </Menu.Item>
+                      <Menu.Item
+                        bg={menuBg}
+                        _hover={{ bg: menuButtonHoverBg }}
+                        value="item-1"
+                        asChild
+                      >
+                        <NextLink href="/bookmarks">
+                          <HStack>
+                            <Icon boxSize={4.5} color={menuIconColor} asChild>
+                              <BookmarkIcon />
+                            </Icon>
+                            <Text>Bookmarks</Text>
+                          </HStack>
+                        </NextLink>
+                      </Menu.Item>
+                      <Menu.Item
+                        bg={menuBg}
+                        _hover={{ bg: menuButtonHoverBg }}
+                        value="item-2"
+                        asChild
+                      >
+                        <NextLink href="/tools">
+                          <HStack>
+                            <Icon boxSize={4.5} color={menuIconColor} asChild>
+                              <BoltIcon />
+                            </Icon>
+                            <Text>Tools</Text>
+                          </HStack>
+                        </NextLink>
+                      </Menu.Item>
+                    </Menu.Content>
+                  </Menu.Positioner>
+                </Portal>
+              </Menu.Root>
             </HStack>
             <HStack>
               <ThemeToggle />

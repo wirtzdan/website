@@ -1,6 +1,6 @@
 "use client";
-
-import { Center, HStack, useColorModeValue } from "@chakra-ui/react";
+import { Center, HStack } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import NextLink from "next/link";

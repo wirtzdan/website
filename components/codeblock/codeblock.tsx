@@ -1,11 +1,13 @@
 "use client";
 
 import React from "react";
-import { Box, Button, HStack, Icon, Text, useClipboard, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, HStack, Icon, Text } from "@chakra-ui/react";
 import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { getBlockTitle } from "notion-utils";
 import { useNotionContext } from "react-notion-x";
 
+import { useClipboard } from "@/lib/use-clipboard";
+import { useColorModeValue } from "../ui/color-mode";
 import Highlight from "./highlight";
 
 interface CodeblockProps {
@@ -65,14 +67,16 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
                 : useColorModeValue("neutral.1000", "neutralD.1000")
             }
             bg={hasCopied ? useColorModeValue("green.50", "green.800") : undefined}
-            leftIcon={
-              hasCopied ? (
-                <Icon as={CheckIcon} boxSize={4.5} />
-              ) : (
-                <Icon as={DocumentDuplicateIcon} boxSize={4.5} />
-              )
-            }
           >
+            {hasCopied ? (
+              <Icon boxSize={4.5} asChild>
+                <CheckIcon />
+              </Icon>
+            ) : (
+              <Icon boxSize={4.5} asChild>
+                <DocumentDuplicateIcon />
+              </Icon>
+            )}
             {hasCopied ? "Copied" : "Copy"}
           </Button>
         </HStack>

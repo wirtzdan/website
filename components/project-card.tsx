@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { Box, HStack, Tag, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { Box, HStack, Tag, Text, VStack } from "@chakra-ui/react";
 import { usePalette } from "react-palette";
 
 import Image from "./image";
@@ -39,7 +39,7 @@ const ProjectCard = ({ name, description, logo, link = "#", type }: ProjectCardP
         h="100%"
         textAlign="left"
         align="start"
-        spacing={4}
+        gap={4}
         transition="all 0.25s"
         transitionTimingFunction="spring(1 100 10 10)"
         _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
@@ -70,15 +70,15 @@ const ProjectCard = ({ name, description, logo, link = "#", type }: ProjectCardP
           />
         </Box>
 
-        <VStack align="start" justify="flex-start" spacing={1}>
-          <VStack spacing={0} align="start">
+        <VStack align="start" justify="flex-start" gap={1}>
+          <VStack gap={0} align="start">
             <HStack>
-              <Text fontWeight="bold" fontSize="md" noOfLines={2}>
+              <Text fontWeight="bold" fontSize="md" lineClamp={2}>
                 {name}
               </Text>
-              <Tag size="sm" colorScheme={getTypeColor(type)}>
+              <Tag.Root size="sm" colorPalette={getTypeColor(type)}>
                 {type}
-              </Tag>
+              </Tag.Root>
             </HStack>
 
             <Text fontSize="sm" color={useColorModeValue("neutral.1000", "neutralD.1000")}>

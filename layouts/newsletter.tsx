@@ -36,7 +36,7 @@ const NewsletterLayout = ({ post, children }: NewsletterLayoutProps) => {
             socialImage={socialCardUrl}
           />
           <article ref={target}>
-            <VStack w="100%" align="stretch" spacing={6}>
+            <VStack w="100%" align="stretch" gap={6}>
               {socialCardUrl ? (
                 <Box mt={4} rounded="lg" shadow="md" overflow="hidden" lineHeight={0}>
                   <NextImage
@@ -52,7 +52,7 @@ const NewsletterLayout = ({ post, children }: NewsletterLayoutProps) => {
                 </Box>
               ) : null}
 
-              <VStack align="stretch" spacing={6} mb={4}>
+              <VStack align="stretch" gap={6} mb={4}>
                 <Heading as="h1">{post.Subject}</Heading>
                 <AuthorCard
                   publishedAt={post["Pulished On"] ?? post["Published on"] ?? ""}

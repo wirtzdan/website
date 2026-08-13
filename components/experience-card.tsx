@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { HStack, Image, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { HStack, Image, Text, VStack } from "@chakra-ui/react";
 
 interface ExperienceCardProps {
   company: string;
@@ -13,8 +13,8 @@ interface ExperienceCardProps {
 
 const ExperienceCard = ({ company, logo, role, date, description }: ExperienceCardProps) => {
   return (
-    <VStack align="start" spacing={4}>
-      <HStack spacing={4} align="start">
+    <VStack align="start" gap={4}>
+      <HStack gap={4} align="start">
         <Image
           src={`/static/images/companies/${logo}.jpg`}
           alt={company}
@@ -23,7 +23,7 @@ const ExperienceCard = ({ company, logo, role, date, description }: ExperienceCa
           mt={1.5}
           rounded="lg"
         />
-        <VStack align="start" spacing={2}>
+        <VStack align="start" gap={2}>
           <Text fontWeight="bold">{company}</Text>
           <Text fontSize="md" color={useColorModeValue("gray.800", "gray.100")}>
             {description}

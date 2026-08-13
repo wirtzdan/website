@@ -1,21 +1,19 @@
 "use client";
 
+import { useDisclosure } from "@/lib/use-disclosure";
 import React from "react";
+import { useColorModeValue } from "./ui/color-mode";
 import {
   AspectRatio,
   Box,
   Center,
   Icon,
   Image,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
   Text,
   VStack,
   HStack,
-  useColorModeValue,
-  useDisclosure,
+  Dialog,
+  Portal,
 } from "@chakra-ui/react";
 import { format } from "timeago.js";
 import { ImageSquare } from "phosphor-react";
@@ -33,13 +31,15 @@ interface BookmarkCardProps {
 const ImageFallback = () => {
   return (
     <Box bg={useColorModeValue("gray.200", "gray.700")}>
-      <Icon w={10} h={10} as={ImageSquare} color={useColorModeValue("gray.300", "neutralD.100")} />
+      <Icon w={10} h={10} color={useColorModeValue("gray.300", "neutralD.100")} asChild>
+        <ImageSquare />
+      </Icon>
     </Box>
   );
 };
 
 const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) => {
-  const { isOpen, onClose } = useDisclosure();
+  const { open, onClose } = useDisclosure();
 
   const handleClick = () => {
     window.open(link, "_blank", "noopener,noreferrer");
@@ -62,7 +62,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
         }}
         overflow="hidden"
         align="start"
-        spacing={0}
+        gap={0}
       >
         <Box position="relative" w="100%">
           <AspectRatio
@@ -72,15 +72,15 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
             borderBottomWidth="1px"
             borderColor={useColorModeValue("neutral.400", "neutralD.400")}
           >
-            <Image src={cover} fallback={<ImageFallback />} objectFit="cover" alt={title} />
+            <Image src={cover} objectFit="cover" alt={title} />
           </AspectRatio>
         </Box>
 
-        <VStack py={2} px={4} spacing={0} align="start">
-          <Text fontSize="sm" noOfLines={1} fontWeight="500">
+        <VStack py={2} px={4} gap={0} align="start">
+          <Text fontSize="sm" lineClamp={1} fontWeight="500">
             {title}
           </Text>
-          <HStack spacing={1}>
+          <HStack gap={1}>
             <Text
               fontSize="xs"
               fontWeight="500"
@@ -99,20 +99,32 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
           </HStack>
         </VStack>
       </VStack>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered allowPinchZoom>
-        <ModalOverlay />
-        <ModalContent bg="none" maxW={type === "video" ? "auto" : "28rem"} w="auto">
-          <ModalBody p={0} rounded="lg" overflow="hidden" bg="none">
-            <Center>
-              {type === "image" ? (
-                <Image src={cover} rounded="lg" alt={title} />
-              ) : (
-                <ReactPlayer url={link} controls playing />
-              )}
-            </Center>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      <Dialog.Root
+        open={open}
+        placement="center"
+        onOpenChange={(e) => {
+          if (!e.open) {
+            onClose();
+          }
+        }}
+      >
+        <Portal>
+          <Dialog.Backdrop />
+          <Dialog.Positioner>
+            <Dialog.Content bg="none" maxW={type === "video" ? "auto" : "28rem"} w="auto">
+              <Dialog.Body p={0} rounded="lg" overflow="hidden" bg="none">
+                <Center>
+                  {type === "image" ? (
+                    <Image src={cover} rounded="lg" alt={title} />
+                  ) : (
+                    <ReactPlayer url={link} controls playing />
+                  )}
+                </Center>
+              </Dialog.Body>
+            </Dialog.Content>
+          </Dialog.Positioner>
+        </Portal>
+      </Dialog.Root>
     </Box>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
-
-import { Icon, Text, VStack, useColorModeValue, type StackProps } from "@chakra-ui/react";
+import { Icon, Text, VStack, type StackProps } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
 import type { ReactElement } from "react";
 
 interface MobileMenuButtonProps extends StackProps {
@@ -12,7 +12,7 @@ const MobileMenuButton = ({ label, icon, ...rest }: MobileMenuButtonProps) => {
   return (
     <VStack
       as="button"
-      spacing={0}
+      gap={0}
       rounded="md"
       px={6}
       {...rest}

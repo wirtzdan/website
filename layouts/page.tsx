@@ -22,8 +22,8 @@ const PageLayout = ({ children, page, showNavigation = false }: PageLayoutProps)
         <Box as="main" pt={{ base: 16, md: 32 }} pb={{ base: 24, md: 16 }}>
           <Section>
             <article>
-              <VStack w="100%" align="stretch" spacing={6}>
-                <VStack align="stretch" spacing={6} mb={4}>
+              <VStack w="100%" align="stretch" gap={6}>
+                <VStack align="stretch" gap={6} mb={4}>
                   <Heading as="h1">{page.title}</Heading>
                 </VStack>
               </VStack>

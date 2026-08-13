@@ -1,6 +1,6 @@
 "use client";
-
-import { Box, useColorModeValue } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
 import { useEffect, useState, type RefObject } from "react";
 
 interface ReadingProgressProps {

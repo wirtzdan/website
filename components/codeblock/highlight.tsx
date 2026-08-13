@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { chakra, useColorMode, useColorModeValue } from "@chakra-ui/react";
+import { useColorMode } from "../ui/color-mode";
+import { chakra } from "@chakra-ui/react";
 import { Highlight as BaseHighlight } from "prism-react-renderer";
 
 import { prismDark, prismLight } from "./themes";
@@ -35,8 +35,8 @@ interface HighlightProps {
 }
 
 function Highlight({ codeString, language, showLines = false, ln }: HighlightProps) {
-  const baseTheme = useColorModeValue(prismLight, prismDark);
   const { colorMode } = useColorMode();
+  const baseTheme = (colorMode === "dark" ? prismDark : prismLight) as never;
 
   const shouldHighlightLine = calculateLinesToHighlight(ln);
 

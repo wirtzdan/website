@@ -1,19 +1,12 @@
 "use client";
 
 import React from "react";
-import {
-  Avatar,
-  Button,
-  HStack,
-  Icon,
-  Stack,
-  Text,
-  useClipboard,
-  useColorModeValue,
-  VStack,
-} from "@chakra-ui/react";
-import { format } from "timeago.js";
+import { Avatar, Button, HStack, Icon, Stack, Text, VStack } from "@chakra-ui/react";
 import { CheckIcon, LinkIcon } from "@heroicons/react/20/solid";
+import { format } from "timeago.js";
+
+import { useColorModeValue } from "./ui/color-mode";
+import { useClipboard } from "@/lib/use-clipboard";
 
 interface AuthorCardProps {
   readingTime?: string;
@@ -27,8 +20,11 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
   return (
     <Stack direction="row" justify="space-between">
       <HStack>
-        <Avatar src="/avatar-small.jpg" h={10} w={10} />
-        <VStack spacing={0} align="start">
+        <Avatar.Root h={10} w={10}>
+          <Avatar.Fallback />
+          <Avatar.Image src="/avatar-small.jpg" />
+        </Avatar.Root>
+        <VStack gap={0} align="start">
           <Text fontSize="md" fontWeight="500">
             Daniel Wirtz
           </Text>
@@ -50,8 +46,16 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
               : useColorModeValue("neutralD.100", "gray.100")
           }
           bg={useColorModeValue("white", "neutralD.100")}
-          leftIcon={hasCopied ? <Icon as={CheckIcon} /> : <Icon as={LinkIcon} />}
         >
+          {hasCopied ? (
+            <Icon asChild>
+              <CheckIcon />
+            </Icon>
+          ) : (
+            <Icon asChild>
+              <LinkIcon />
+            </Icon>
+          )}
           {hasCopied ? "Copied" : "Copy link"}
         </Button>
       </HStack>

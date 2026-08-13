@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { Button, LightMode, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { LightMode, useColorModeValue } from "./ui/color-mode";
+import { Button, Text, VStack } from "@chakra-ui/react";
 import { TwitterLogo } from "phosphor-react";
 
 import Link from "@/components/link";
@@ -24,7 +24,7 @@ const TwitterCard = ({ title, slug }: TwitterCardProps) => {
       borderColor={useColorModeValue("blue.100", "blue.200")}
       textAlign="left"
       align="stretch"
-      spacing={4}
+      gap={4}
       position="relative"
       mt={6}
     >
@@ -37,12 +37,12 @@ const TwitterCard = ({ title, slug }: TwitterCardProps) => {
       >
         <LightMode>
           <Button
-            leftIcon={<TwitterLogo weight="fill" />}
-            colorScheme="blue"
+            colorPalette="blue"
             transition="all 0.25s"
             transitionTimingFunction="spring(1 100 10 10)"
             _hover={{ transform: "translateY(-4px)", shadow: "sm" }}
           >
+            <TwitterLogo weight="fill" />
             Share on Twitter
           </Button>
         </LightMode>

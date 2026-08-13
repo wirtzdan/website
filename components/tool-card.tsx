@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { Box, HStack, Image, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { usePalette } from "react-palette";
 
 import Link from "@/components/link";
@@ -31,7 +31,7 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
         w="100%"
         textAlign="left"
         align="start"
-        spacing={4}
+        gap={4}
         transition="all 0.25s"
         transitionTimingFunction="spring(1 100 10 10)"
         _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
@@ -57,9 +57,9 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
           <Image src={imageUrl} boxSize="36px" rounded="md" position="relative" alt={name} />
         </Box>
 
-        <VStack align="start" justify="flex-start" spacing={1} maxW="lg" h="100%">
-          <VStack spacing={0} align="start" flexGrow="1">
-            <Text fontWeight="bold" fontSize="md" noOfLines={2}>
+        <VStack align="start" justify="flex-start" gap={1} maxW="lg" h="100%">
+          <VStack gap={0} align="start" flexGrow="1">
+            <Text fontWeight="bold" fontSize="md" lineClamp={2}>
               {name}
             </Text>
             <Text fontSize="sm" color={useColorModeValue("neutral.900", "neutralD.900")}>

@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "mdx"],
+  experimental: {
+    optimizePackageImports: ["@chakra-ui/react"],
+  },
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "dl.airtable.com", pathname: "/**" },

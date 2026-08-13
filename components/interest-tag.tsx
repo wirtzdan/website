@@ -9,9 +9,9 @@ interface InterestTagProps {
 const InterestTag = ({ name, like }: InterestTagProps) => {
   return (
     <WrapItem>
-      <Tag size="lg" variant="subtle" colorScheme={like ? "green" : "red"} rounded="lg">
+      <Tag.Root size="lg" variant="subtle" colorPalette={like ? "green" : "red"} rounded="lg">
         {name}
-      </Tag>
+      </Tag.Root>
     </WrapItem>
   );
 };

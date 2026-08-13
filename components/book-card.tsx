@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { Box, HStack, Image, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 
 import StarIconRating from "./star-rating";
@@ -32,7 +32,7 @@ const BookCard = ({ title, author, rating = 0, cover, dateRead }: BookCardProps)
         w="100%"
         textAlign="left"
         align="start"
-        spacing={4}
+        gap={4}
         height={36}
         position="relative"
         transition="all 0.3s"
@@ -48,18 +48,18 @@ const BookCard = ({ title, author, rating = 0, cover, dateRead }: BookCardProps)
           top={-4}
           backgroundColor="red.300"
         >
-          <Image src={cover?.[0]?.thumbnails.large.url ?? "/"} fit="cover" alt={title} />
+          <Image src={cover?.[0]?.thumbnails.large.url ?? "/"} objectFit="cover" alt={title} />
         </Box>
-        <VStack align="start" justify="flex-start" spacing={1} maxW="lg" pl={28} h="100%">
-          <VStack spacing={0} align="start" flexGrow="1">
-            <Text fontWeight="bold" fontSize="md" noOfLines={2}>
+        <VStack align="start" justify="flex-start" gap={1} maxW="lg" pl={28} h="100%">
+          <VStack gap={0} align="start" flexGrow="1">
+            <Text fontWeight="bold" fontSize="md" lineClamp={2}>
               {title}
             </Text>
             <Text fontSize="md" color={useColorModeValue("neutral.900", "neutralD.1000")}>
               {author}
             </Text>
           </VStack>
-          <VStack spacing={0} align="start">
+          <VStack gap={0} align="start">
             <StarIconRating rating={rating} />
             <Text fontSize="xs" color="neutral.800">
               {dateRead ? format(dateRead) : ""}

@@ -1,23 +1,15 @@
 "use client";
 
 import NextLink from "next/link";
-import {
-  chakra,
-  shouldForwardProp,
-  useColorModeValue,
-  type LinkProps as ChakraLinkProps,
-} from "@chakra-ui/react";
+import { Link as ChakraLink, type LinkProps as ChakraLinkProps } from "@chakra-ui/react";
 import { forwardRef } from "react";
 
-const ChakraNextLink = chakra(NextLink, {
-  shouldForwardProp: (prop) =>
-    shouldForwardProp(prop) ||
-    ["href", "replace", "scroll", "shallow", "prefetch", "locale"].includes(String(prop)),
-});
+import { useColorModeValue } from "./ui/color-mode";
 
 export type CustomLinkProps = Omit<ChakraLinkProps, "href"> & {
   href: string;
   unstyled?: boolean;
+  isExternal?: boolean;
 };
 
 const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
@@ -30,7 +22,7 @@ const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
 
   const styled = !unstyled
     ? {
-        fontWeight: "400",
+        fontWeight: "400" as const,
         color: primaryColor,
         transition: "all 0.25s",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
@@ -43,7 +35,7 @@ const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
 
   if (!isInternalLink) {
     return (
-      <chakra.a
+      <ChakraLink
         ref={ref}
         href={href}
         target={isExternal ? "_blank" : undefined}
@@ -52,14 +44,14 @@ const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
         {...props}
       >
         {children}
-      </chakra.a>
+      </ChakraLink>
     );
   }
 
   return (
-    <ChakraNextLink ref={ref} href={href} {...styled} {...props}>
-      {children}
-    </ChakraNextLink>
+    <ChakraLink ref={ref} asChild {...styled} {...props}>
+      <NextLink href={href}>{children}</NextLink>
+    </ChakraLink>
   );
 });
 

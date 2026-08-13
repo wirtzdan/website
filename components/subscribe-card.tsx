@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { HStack, Image, Stack, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { HStack, Image, Stack, Text, VStack } from "@chakra-ui/react";
 
 import Subscribe from "@/components/subscribe";
 
@@ -28,9 +28,9 @@ export const SubscribeCard = ({
       bg={card ? useColorModeValue("white", "neutralD.100") : "transparent"}
       borderColor={card ? useColorModeValue("neutral.400", "neutralD.400") : "transparent"}
       p={card ? 6 : 0}
-      spacing={4}
+      gap={4}
     >
-      <HStack spacing={{ base: 4, md: 8 }} w="100%" justifyContent={center ? "center" : "start"}>
+      <HStack gap={{ base: 4, md: 8 }} w="100%" justifyContent={center ? "center" : "start"}>
         {image ? (
           <Image
             src="/newsletter-logo.png"

@@ -46,3 +46,10 @@ export const newsletterMetadata: Metadata = {
     "Newsletter archive and subscribe — helpful tools and articles from my desk to yours.",
   alternates: { canonical: `${base}/newsletter` },
 };
+
+export const pizzaMetadata: Metadata = {
+  title: "Pizza Dough Calculator",
+  description:
+    "Scale Neapolitan pizza dough recipes, see baker’s percentages, and plan mix, ferment, and proof times from your bake time.",
+  alternates: { canonical: `${base}/pizza` },
+};

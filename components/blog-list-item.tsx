@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { Heading, HStack, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 
 import Link from "@/components/link";
@@ -26,13 +26,13 @@ const BlogListItem = ({ slug, publishDate, title, videoLink }: BlogListItemProps
         align="center"
         px={4}
         p={4}
-        spacing={4}
+        gap={4}
         transition="all 0.3s"
         transitionTimingFunction="spring(1 100 10 10)"
         _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
         height="100%"
       >
-        <VStack align="start" justifyContent="space-between" w="100%" h="100%" p={2} spacing={0}>
+        <VStack align="start" justifyContent="space-between" w="100%" h="100%" p={2} gap={0}>
           <VStack align="start">
             <HStack>
               <Heading fontSize="lg" borderBottom="0" fontWeight="500">
@@ -43,12 +43,12 @@ const BlogListItem = ({ slug, publishDate, title, videoLink }: BlogListItemProps
           <HStack
             fontSize="sm"
             fontWeight="400"
-            spacing={2}
+            gap={2}
             color={useColorModeValue("neutral.900", "neutralD.900")}
           >
             <Text>Posted {format(publishDate)}</Text>
             <Text>·</Text>
-            <HStack spacing={1}>
+            <HStack gap={1}>
               <Text>{videoLink ? "Video" : "Article"}</Text>
             </HStack>
           </HStack>

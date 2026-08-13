@@ -1,17 +1,8 @@
 "use client";
 
-import {
-  Avatar,
-  Box,
-  Button,
-  Heading,
-  HStack,
-  Stack,
-  Text,
-  VStack,
-  useColorModeValue,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { useDisclosure } from "@/lib/use-disclosure";
+import { Avatar, Box, Button, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
+import { useColorModeValue } from "../ui/color-mode";
 import sorter from "sort-isostring";
 
 import Link from "@/components/link";
@@ -24,12 +15,12 @@ type NewsletterPageProps = {
 };
 
 export default function NewsletterPage({ posts }: NewsletterPageProps) {
-  const { isOpen, onOpen } = useDisclosure();
+  const { open, onOpen } = useDisclosure();
 
   return (
     <Section>
-      <VStack spacing={16}>
-        <VStack spacing={4}>
+      <VStack gap={16}>
+        <VStack gap={4}>
           <Heading as="h1">Newsletter</Heading>
           <Text
             fontSize="2xl"
@@ -41,7 +32,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
             yours.
           </Text>
           <SubscribeCard image={false} title="" description="" card={false} center />
-          {isOpen ? (
+          {open ? (
             <Box w="100%">
               <Box
                 border="1px solid"
@@ -58,9 +49,12 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                   borderBottom="1px"
                   borderColor="gray.200"
                 >
-                  <HStack p={4} fontSize="sm" spacing={4}>
-                    <Avatar src="/avatar-small.jpg" h={8} w={8} />
-                    <VStack spacing={0} alignItems="flex-start">
+                  <HStack p={4} fontSize="sm" gap={4}>
+                    <Avatar.Root h={8} w={8}>
+                      <Avatar.Fallback />
+                      <Avatar.Image src="/avatar-small.jpg" />
+                    </Avatar.Root>
+                    <VStack gap={0} alignItems="flex-start">
                       <Text>
                         <Text
                           as="span"
@@ -95,17 +89,17 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
               </Box>
             </Box>
           ) : (
-            <Button onClick={onOpen} variant="link">
+            <Button onClick={onOpen} variant="plain">
               ... or see how it looks first
             </Button>
           )}
         </VStack>
 
-        <VStack w="full" spacing={8}>
+        <VStack w="full" gap={8}>
           <Heading as="h2" size="md">
             Read past newsletters
           </Heading>
-          <VStack alignItems="flex-start" spacing={4} w="full">
+          <VStack alignItems="flex-start" gap={4} w="full">
             {posts
               .filter((post) => post.fields.Status === "Published")
               .sort((left, right) =>

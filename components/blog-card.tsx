@@ -1,7 +1,7 @@
 "use client";
-
 import React from "react";
-import { Heading, HStack, Text, VStack, useColorModeValue } from "@chakra-ui/react";
+import { useColorModeValue } from "./ui/color-mode";
+import { Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 
 import Link from "@/components/link";
@@ -26,7 +26,7 @@ const BlogCard = ({ slug, publishDate, title, type }: BlogCardProps) => {
         align="center"
         px={4}
         p={4}
-        spacing={4}
+        gap={4}
         transition="all 0.3s"
         transitionTimingFunction="spring(1 100 10 10)"
         _hover={{ transform: "translateY(-4px)", shadow: "lg" }}
@@ -43,12 +43,12 @@ const BlogCard = ({ slug, publishDate, title, type }: BlogCardProps) => {
           <HStack
             fontSize="sm"
             fontWeight="500"
-            spacing={2}
+            gap={2}
             color={useColorModeValue("neutral.900", "neutralD.900")}
           >
             <Text>Posted {format(publishDate)}</Text>
             <Text>·</Text>
-            <HStack spacing={1}>
+            <HStack gap={1}>
               <Text>{type === "Video" ? "Video" : "Article"}</Text>
             </HStack>
           </HStack>
