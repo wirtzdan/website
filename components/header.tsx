@@ -98,17 +98,19 @@ const Header = () => {
               >
                 <Menu.Trigger asChild>
                   <Button
+                    variant="ghost"
                     onMouseOver={onOpen}
                     onClick={open ? onClose : onOpen}
                     onMouseLeave={delayedClose}
                     onMouseEnter={cancelDelayedClose}
                     cursor="default"
-                    bg={menuBg}
+                    color={useColorModeValue("neutral.1100", "neutralD.1100")}
+                    bg="transparent"
                     _hover={{ bg: menuButtonHoverBg }}
                     _active={{ bg: menuButtonHoverBg }}
                   >
                     Lists
-                    <Icon asChild>
+                    <Icon boxSize={5} asChild>
                       <ChevronDownIcon />
                     </Icon>
                   </Button>

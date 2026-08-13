@@ -40,7 +40,12 @@ const MobileNavigation = () => {
             href="/blog"
             style={{ width: "100%", display: "flex", justifyContent: "center" }}
           >
-            <MobileMenuButton as="span" label="Blog" icon={<PencilIcon />} px={6} />
+            <MobileMenuButton
+              as="span"
+              label="Blog"
+              icon={<PencilIcon width={20} height={20} />}
+              px={6}
+            />
           </NextLink>
         </Center>
 

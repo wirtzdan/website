@@ -34,8 +34,9 @@ const Footer = () => {
           <Link href="https://twitter.com/wirtzdan/" isExternal unstyled>
             <IconButton
               size="sm"
+              variant="ghost"
               aria-label="Twitter"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <TwitterLogo weight="fill" />
             </IconButton>
@@ -43,8 +44,9 @@ const Footer = () => {
           <Link href="https://www.linkedin.com/in/wirtzdan/" isExternal unstyled>
             <IconButton
               size="sm"
+              variant="ghost"
               aria-label="LinkedIn"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <LinkedinLogo weight="fill" />
             </IconButton>
@@ -52,8 +54,9 @@ const Footer = () => {
           <Link href="https://github.com/wirtzdan" isExternal unstyled>
             <IconButton
               size="sm"
+              variant="ghost"
               aria-label="GitHub"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <GithubLogo weight="fill" />
             </IconButton>
@@ -61,8 +64,9 @@ const Footer = () => {
           <Link href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA" isExternal unstyled>
             <IconButton
               size="sm"
+              variant="ghost"
               aria-label="YouTube"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <YoutubeLogo weight="fill" />
             </IconButton>

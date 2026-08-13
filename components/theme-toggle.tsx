@@ -1,6 +1,6 @@
 "use client";
-import { Icon, IconButton } from "@chakra-ui/react";
-import { useColorMode } from "./ui/color-mode";
+import { IconButton } from "@chakra-ui/react";
+import { useColorMode, useColorModeValue } from "./ui/color-mode";
 import { Tooltip } from "@/components/ui/tooltip";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
@@ -12,16 +12,14 @@ interface ThemeToggleProps {
 
 const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const iconColor = useColorModeValue("neutral.1100", "neutralD.1100");
 
+  // Raw icons with explicit size so mobile nav matches Blog/Menu (~20px).
   const icon =
     colorMode === "dark" ? (
-      <Icon asChild>
-        <SunIcon />
-      </Icon>
+      <SunIcon width={20} height={20} />
     ) : (
-      <Icon asChild>
-        <MoonIcon />
-      </Icon>
+      <MoonIcon width={20} height={20} />
     );
 
   return (
@@ -36,7 +34,13 @@ const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
           onClick={toggleColorMode}
         />
       ) : (
-        <IconButton borderRadius="full" aria-label="Switch theme" onClick={toggleColorMode}>
+        <IconButton
+          variant="ghost"
+          borderRadius="full"
+          aria-label="Switch theme"
+          color={iconColor}
+          onClick={toggleColorMode}
+        >
           {icon}
         </IconButton>
       )}
