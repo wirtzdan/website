@@ -32,7 +32,11 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
   return (
     <Box>
       <Tooltip content="Newsletter">
-        <MobileMenuButton label="Menu" icon={<Bars3Icon />} onClick={onOpen} />
+        <MobileMenuButton
+          label="Menu"
+          icon={<Bars3Icon width={20} height={20} />}
+          onClick={onOpen}
+        />
       </Tooltip>
       <Drawer.Root
         open={open}
@@ -74,7 +78,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                             aria-label="Twitter"
                             size="sm"
                             variant="ghost"
-                            color={useColorModeValue("neutral.800", "neutralD.1000")}
+                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
                           >
                             <TwitterLogo weight="fill" />
                           </IconButton>
@@ -84,7 +88,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                             aria-label="LinkedIn"
                             size="sm"
                             variant="ghost"
-                            color={useColorModeValue("neutral.800", "neutralD.1000")}
+                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
                           >
                             <LinkedinLogo weight="fill" />
                           </IconButton>
@@ -94,7 +98,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                             aria-label="GitHub"
                             size="sm"
                             variant="ghost"
-                            color={useColorModeValue("neutral.800", "neutralD.1000")}
+                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
                           >
                             <GithubLogo weight="fill" />
                           </IconButton>
@@ -108,7 +112,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                             aria-label="YouTube"
                             size="sm"
                             variant="ghost"
-                            color={useColorModeValue("neutral.800", "neutralD.1000")}
+                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
                           >
                             <YoutubeLogo weight="fill" />
                           </IconButton>

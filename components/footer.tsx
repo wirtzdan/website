@@ -36,7 +36,7 @@ const Footer = () => {
               size="sm"
               variant="ghost"
               aria-label="Twitter"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <TwitterLogo weight="fill" />
             </IconButton>
@@ -46,7 +46,7 @@ const Footer = () => {
               size="sm"
               variant="ghost"
               aria-label="LinkedIn"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <LinkedinLogo weight="fill" />
             </IconButton>
@@ -56,7 +56,7 @@ const Footer = () => {
               size="sm"
               variant="ghost"
               aria-label="GitHub"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <GithubLogo weight="fill" />
             </IconButton>
@@ -66,7 +66,7 @@ const Footer = () => {
               size="sm"
               variant="ghost"
               aria-label="YouTube"
-              color={useColorModeValue("neutral.800", "neutralD.1000")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               <YoutubeLogo weight="fill" />
             </IconButton>
