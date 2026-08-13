@@ -33,7 +33,7 @@ const generateRss = (posts: AirtableRecord<RssPostFields>[]) => {
     <channel>
       <title>Blog - Daniel Wirtz</title>
       <link>https://danielwirtz.com/blog</link>
-      <description>Designer, developer and maker of things.</description>
+      <description>Senior Design Engineer at Giving What We Can.</description>
       <language>en</language>
       <lastBuildDate>${new Date(latestPublishDate).toUTCString()}</lastBuildDate>
       <atom:link href="https://danielwirtz.com/rss.xml" rel="self" type="application/rss+xml"/>

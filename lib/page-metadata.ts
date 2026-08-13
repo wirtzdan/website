@@ -5,14 +5,14 @@ const base = "https://danielwirtz.com";
 export const homeMetadata: Metadata = {
   title: "Home",
   description:
-    "Daniel Wirtz — designer and growth. Latest posts, books, bookmarks, and articles from the Netherlands.",
+    "Daniel Wirtz — Senior Design Engineer at Giving What We Can. Latest posts, books, bookmarks, and articles from the Netherlands.",
   alternates: { canonical: base },
 };
 
 export const aboutMetadata: Metadata = {
   title: "About",
   description:
-    "About Daniel Wirtz: experience, what I like (and dislike), and how this site is built.",
+    "About Daniel Wirtz, Senior Design Engineer at Giving What We Can: experience, what I like (and dislike), and how this site is built.",
   alternates: { canonical: `${base}/about` },
 };
 
