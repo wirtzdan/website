@@ -78,7 +78,7 @@ export default function HomePage({ posts }: HomePageProps) {
               </Link>
             </HStack>
             <Text fontSize={["lg", "2xl"]}>
-              I&apos;m Daniel. I work in the Growth team at{" "}
+              I&apos;m Daniel. I&apos;m a Senior Design Engineer at{" "}
               <Link href="https://www.givingwhatwecan.org/" isExternal>
                 Giving What We Can
               </Link>

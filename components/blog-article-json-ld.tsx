@@ -24,7 +24,16 @@ export default function BlogArticleJsonLd({
     image: socialImage ? [socialImage] : [],
     datePublished: date,
     dateModified: date,
-    author: { "@type": "Person", name: "Daniel Wirtz" },
+    author: {
+      "@type": "Person",
+      name: "Daniel Wirtz",
+      jobTitle: "Senior Design Engineer",
+      worksFor: {
+        "@type": "Organization",
+        name: "Giving What We Can",
+        url: "https://www.givingwhatwecan.org/",
+      },
+    },
     publisher: {
       "@type": "Organization",
       name: "Daniel Wirtz",
