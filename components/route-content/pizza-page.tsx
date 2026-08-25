@@ -6,8 +6,10 @@ import {
   Box,
   Button,
   DatePicker,
+  DownloadTrigger,
   Field,
   Heading,
+  HStack,
   Icon,
   Input,
   NumberInput,
@@ -20,12 +22,22 @@ import {
   createListCollection,
   parseDate,
 } from "@chakra-ui/react";
-import { Calendar, Clock, CookingPot, Fire, Hourglass, Info, Knife } from "phosphor-react";
+import {
+  Calendar,
+  CalendarPlus,
+  Clock,
+  CookingPot,
+  Fire,
+  Hourglass,
+  Info,
+  Knife,
+} from "phosphor-react";
 
 import Hero from "@/components/hero";
 import Section from "@/components/section";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import { Tooltip } from "@/components/ui/tooltip";
+import { buildPizzaCalendar, pizzaCalendarFileName } from "@/lib/pizza-calendar";
 import {
   buildSchedule,
   formatDuration,
@@ -159,6 +171,23 @@ export default function PizzaPage() {
   }, [bakeDate, recipe]);
 
   const startIsInPast = schedule.length > 0 && schedule[0]!.start.getTime() < Date.now();
+
+  const calendarIcs = useMemo(() => {
+    if (!bakeDate || schedule.length === 0) {
+      return "";
+    }
+    return buildPizzaCalendar({
+      recipe,
+      pizzaCount,
+      ingredients,
+      schedule,
+      bakeAt: bakeDate,
+    });
+  }, [bakeDate, ingredients, pizzaCount, recipe, schedule]);
+
+  const calendarFileName = bakeDate
+    ? pizzaCalendarFileName(recipe, bakeDate)
+    : "pizza-schedule.ics";
 
   const datePickerValue = bakeDay ? [parseDate(bakeDay)] : [];
 
@@ -332,9 +361,24 @@ export default function PizzaPage() {
 
         <Section>
           <VStack align="stretch" gap={6}>
-            <Heading as="h2" size="lg">
-              Schedule
-            </Heading>
+            <HStack justify="space-between" align="center" gap={4} flexWrap="wrap">
+              <Heading as="h2" size="lg">
+                Schedule
+              </Heading>
+              {calendarIcs ? (
+                <DownloadTrigger
+                  data={calendarIcs}
+                  fileName={calendarFileName}
+                  mimeType="text/calendar"
+                  asChild
+                >
+                  <Button variant="outline" size="sm" bg={cardBg}>
+                    <CalendarPlus size={16} />
+                    Add to calendar
+                  </Button>
+                </DownloadTrigger>
+              ) : null}
+            </HStack>
 
             {startIsInPast ? (
               <Alert.Root status="warning" borderRadius="md">
