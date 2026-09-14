@@ -84,10 +84,40 @@ const getFilesProperty = (item: NotionDatabaseItem, propertyName: string) => {
   }
 };
 
+/** Deduplicate identical DB queries within a single Node process (SSG build). */
+const blogPostsCache = new Map<string, Promise<PaginatedResults<BlogPostSummary>>>();
+const pagesCache = new Map<string, Promise<PaginatedResults<GenericPageSummary>>>();
+/** Deduplicate page body fetches (generateMetadata + Page share a slug). */
+const pageByIdCache = new Map<string, Promise<NotionRecordMap | null>>();
+
+function cacheKey(pageSize: number, startCursor?: string): string {
+  return `${pageSize}:${startCursor ?? ""}`;
+}
+
 export const getBlogPosts = async ({
   pageSize,
   startCursor,
 }: QueryOptions): Promise<PaginatedResults<BlogPostSummary>> => {
+  const key = cacheKey(pageSize, startCursor);
+  const cached = blogPostsCache.get(key);
+  if (cached) {
+    return cached;
+  }
+
+  const request = queryBlogPosts({ pageSize, startCursor });
+  blogPostsCache.set(key, request);
+  try {
+    return await request;
+  } catch (error) {
+    blogPostsCache.delete(key);
+    throw error;
+  }
+};
+
+async function queryBlogPosts({
+  pageSize,
+  startCursor,
+}: QueryOptions): Promise<PaginatedResults<BlogPostSummary>> {
   const query = {
     database_id: blogDatabaseId,
     page_size: pageSize,
@@ -137,9 +167,20 @@ export const getBlogPosts = async ({
     hasMore: collection.has_more,
     next_cursor: collection.next_cursor,
   };
-};
+}
 
 export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap | null> => {
+  const cached = pageByIdCache.get(pageId);
+  if (cached) {
+    return cached;
+  }
+
+  const request = fetchPageByPageId(pageId);
+  pageByIdCache.set(pageId, request);
+  return request;
+};
+
+async function fetchPageByPageId(pageId: string): Promise<NotionRecordMap | null> {
   try {
     const recordMap = (await notionPrivateAPI.getPage(pageId)) as NotionRecordMap;
     const normalizedBlock = Object.fromEntries(
@@ -168,14 +209,35 @@ export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap |
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown Notion API error";
     console.error(`Error fetching page with ID ${pageId}:`, message);
+    // Soft-fail a single post rather than aborting the whole static export.
     return null;
   }
-};
+}
 
 export const getAllPages = async ({
   pageSize,
   startCursor,
 }: QueryOptions): Promise<PaginatedResults<GenericPageSummary>> => {
+  const key = cacheKey(pageSize, startCursor);
+  const cached = pagesCache.get(key);
+  if (cached) {
+    return cached;
+  }
+
+  const request = queryAllPages({ pageSize, startCursor });
+  pagesCache.set(key, request);
+  try {
+    return await request;
+  } catch (error) {
+    pagesCache.delete(key);
+    throw error;
+  }
+};
+
+async function queryAllPages({
+  pageSize,
+  startCursor,
+}: QueryOptions): Promise<PaginatedResults<GenericPageSummary>> {
   const query = {
     database_id: pagesDatabaseId,
     page_size: pageSize,
@@ -216,4 +278,4 @@ export const getAllPages = async ({
     hasMore: collection.has_more,
     next_cursor: collection.next_cursor,
   };
-};
+}
