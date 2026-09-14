@@ -7,6 +7,7 @@ import type {
 
 import { blogDatabaseId, pagesDatabaseId } from "@/lib/notion/config";
 import { notionAPI, notionPrivateAPI } from "./client";
+import { withNotionRetry } from "./rate-limited-fetch";
 import {
   convertNotionAssetUrl,
   getBooleanProperty,
@@ -123,7 +124,7 @@ async function queryBlogPosts({
     page_size: pageSize,
     start_cursor: startCursor,
   };
-  const collection = await notionAPI.databases.query(query as any);
+  const collection = await withNotionRetry(() => notionAPI.databases.query(query as any));
   const blogList: BlogPostSummary[] = [];
 
   collection.results.forEach((item) => {
@@ -182,7 +183,9 @@ export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap |
 
 async function fetchPageByPageId(pageId: string): Promise<NotionRecordMap | null> {
   try {
-    const recordMap = (await notionPrivateAPI.getPage(pageId)) as NotionRecordMap;
+    const recordMap = (await withNotionRetry(() =>
+      notionPrivateAPI.getPage(pageId),
+    )) as NotionRecordMap;
     const normalizedBlock = Object.fromEntries(
       Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
         const typedBlock = block as WrappedNotionBlock | undefined;
@@ -243,7 +246,7 @@ async function queryAllPages({
     page_size: pageSize,
     start_cursor: startCursor,
   };
-  const collection = await notionAPI.databases.query(query as any);
+  const collection = await withNotionRetry(() => notionAPI.databases.query(query as any));
   const pageList: GenericPageSummary[] = [];
 
   collection.results.forEach((item) => {

@@ -11,6 +11,8 @@ export const notionAPI = new Client({
   auth: notionKey,
   // Throttle + retry 429s at the HTTP layer so notion-compat's fan-out and
   // Next's parallel /blog/[slug] prerender don't trip the public API limit.
+  // Keep the per-attempt timeout at the library default (60s); Retry-After
+  // sleeps happen between attempts outside that window.
   fetch: rateLimitedFetch,
 });
 

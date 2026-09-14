@@ -41,6 +41,10 @@ export class Semaphore {
     }
   }
 
+  get activeCount(): number {
+    return this.active;
+  }
+
   async run<T>(task: () => Promise<T>): Promise<T> {
     if (this.active >= this.max) {
       await new Promise<void>((resolve) => {
@@ -71,8 +75,7 @@ function headerValue(headers: unknown, name: string): string | null {
   }
 
   if (typeof headers === "object" && typeof (headers as { get?: unknown }).get === "function") {
-    const value = (headers as { get: (key: string) => string | null }).get(name);
-    return value;
+    return (headers as { get: (key: string) => string | null }).get(name);
   }
 
   if (typeof headers === "object") {
@@ -150,6 +153,11 @@ function asNotionResponse(args: {
   };
 }
 
+/**
+ * Notion Client wraps each `fetch` call in a ~60s timeout. Sleeps for Retry-After
+ * must happen *outside* the concurrency slot and must not sit inside a single
+ * timed `fetch` invocation — so we only hold the semaphore for the HTTP round-trip.
+ */
 export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): NotionFetch {
   const concurrency = options.concurrency ?? NOTION_FETCH_CONCURRENCY;
   const maxAttempts = options.maxAttempts ?? NOTION_FETCH_MAX_ATTEMPTS;
@@ -163,46 +171,119 @@ export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): N
   const semaphore = new Semaphore(concurrency);
 
   return async (url, init) => {
-    return semaphore.run(async () => {
-      let lastBodyText = "";
-      let lastHeaders: unknown = undefined;
-      let lastStatus = 429;
+    let lastBodyText = "";
+    let lastHeaders: unknown = undefined;
+    let lastStatus = 429;
 
-      for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-        const response = await fetchImpl(url, init);
+    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+      const response = await semaphore.run(() => fetchImpl(url, init));
 
-        if (response.status !== 429) {
-          return response;
-        }
-
-        // Consume body once so we can honor retry_after and still rebuild a
-        // response for the Notion client on the final attempt.
-        lastBodyText = await response.text();
-        lastHeaders = response.headers;
-        lastStatus = response.status;
-
-        if (attempt === maxAttempts - 1) {
-          break;
-        }
-
-        const delayMs = resolveRetryDelayMs({
-          attemptIndex: attempt,
-          retryAfterHeader: headerValue(response.headers, "retry-after"),
-          bodyText: lastBodyText,
-        });
-
-        console.warn(
-          `Notion API rate limited (429). Retrying in ${Math.ceil(delayMs / 1000)}s (attempt ${attempt + 1}/${maxAttempts}).`,
-        );
-        await sleep(delayMs);
+      if (response.status !== 429) {
+        return response;
       }
 
-      return asNotionResponse({
-        ok: false,
-        status: lastStatus,
-        headers: lastHeaders,
+      // Consume body once so we can honor retry_after and still rebuild a
+      // response for the Notion client on the final attempt.
+      lastBodyText = await response.text();
+      lastHeaders = response.headers;
+      lastStatus = response.status;
+
+      if (attempt === maxAttempts - 1) {
+        break;
+      }
+
+      const delayMs = resolveRetryDelayMs({
+        attemptIndex: attempt,
+        retryAfterHeader: headerValue(response.headers, "retry-after"),
         bodyText: lastBodyText,
       });
+
+      console.warn(
+        `Notion API rate limited (429). Retrying in ${Math.ceil(delayMs / 1000)}s (attempt ${attempt + 1}/${maxAttempts}).`,
+      );
+      await sleep(delayMs);
+    }
+
+    return asNotionResponse({
+      ok: false,
+      status: lastStatus,
+      headers: lastHeaders,
+      bodyText: lastBodyText,
     });
   };
+}
+
+export type WithNotionRetryOptions = {
+  maxAttempts?: number;
+  sleep?: (ms: number) => Promise<void>;
+  isRetryable?: (error: unknown) => boolean;
+  getRetryDelayMs?: (error: unknown, attemptIndex: number) => number;
+};
+
+function defaultIsRetryable(error: unknown): boolean {
+  if (!error || typeof error !== "object") {
+    return false;
+  }
+  const candidate = error as {
+    code?: string;
+    status?: number;
+    headers?: unknown;
+    body?: string;
+  };
+  if (candidate.code === "rate_limited" || candidate.status === 429) {
+    return true;
+  }
+  // Transient client timeout while the API is overloaded during SSG.
+  if (candidate.code === "notionhq_client_request_timeout") {
+    return true;
+  }
+  return false;
+}
+
+function defaultRetryDelayFromError(error: unknown, attemptIndex: number): number {
+  if (!error || typeof error !== "object") {
+    return resolveRetryDelayMs({ attemptIndex, retryAfterHeader: null });
+  }
+  const candidate = error as { headers?: unknown; body?: string; code?: string };
+  if (candidate.code === "notionhq_client_request_timeout") {
+    return resolveRetryDelayMs({
+      attemptIndex,
+      retryAfterHeader: null,
+      random: () => 0.5,
+    });
+  }
+  return resolveRetryDelayMs({
+    attemptIndex,
+    retryAfterHeader: headerValue(candidate.headers, "retry-after"),
+    bodyText: candidate.body,
+  });
+}
+
+/** Retry helper for call sites that throw Notion client errors (not raw fetch). */
+export async function withNotionRetry<T>(
+  task: () => Promise<T>,
+  options: WithNotionRetryOptions = {},
+): Promise<T> {
+  const maxAttempts = options.maxAttempts ?? NOTION_FETCH_MAX_ATTEMPTS;
+  const sleep = options.sleep ?? defaultSleep;
+  const isRetryable = options.isRetryable ?? defaultIsRetryable;
+  const getRetryDelayMs = options.getRetryDelayMs ?? defaultRetryDelayFromError;
+
+  let lastError: unknown;
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    try {
+      return await task();
+    } catch (error) {
+      lastError = error;
+      if (!isRetryable(error) || attempt === maxAttempts - 1) {
+        throw error;
+      }
+      const delayMs = getRetryDelayMs(error, attempt);
+      console.warn(
+        `Notion API call failed (${error instanceof Error ? error.message : "unknown"}). Retrying in ${Math.ceil(delayMs / 1000)}s (attempt ${attempt + 1}/${maxAttempts}).`,
+      );
+      await sleep(delayMs);
+    }
+  }
+  throw lastError;
 }

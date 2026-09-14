@@ -4,6 +4,7 @@ import {
   Semaphore,
   createRateLimitedFetch,
   resolveRetryDelayMs,
+  withNotionRetry,
   type NotionFetch,
 } from "./rate-limited-fetch";
 
@@ -171,4 +172,94 @@ test("createRateLimitedFetch does not retry non-429 failures", async () => {
   const response = await fetch("https://api.notion.com/v1/pages/abc");
   expect(response.status).toBe(500);
   expect(fetchImpl).toHaveBeenCalledTimes(1);
+});
+
+test("createRateLimitedFetch releases concurrency while waiting to retry", async () => {
+  let inFlight = 0;
+  let maxInFlight = 0;
+  let calls = 0;
+  const sleepStarted: Array<() => void> = [];
+
+  const fetchImpl: NotionFetch = async () => {
+    calls += 1;
+    inFlight += 1;
+    maxInFlight = Math.max(maxInFlight, inFlight);
+    await new Promise((resolve) => setTimeout(resolve, 5));
+    inFlight -= 1;
+
+    if (calls === 1) {
+      return {
+        ok: false,
+        status: 429,
+        headers: { "retry-after": "1" },
+        text: async () => JSON.stringify({ retry_after: "1" }),
+      };
+    }
+
+    return {
+      ok: true,
+      status: 200,
+      headers: {},
+      text: async () => "{}",
+    };
+  };
+
+  const fetch = createRateLimitedFetch({
+    concurrency: 1,
+    fetchImpl,
+    sleep: () =>
+      new Promise<void>((resolve) => {
+        sleepStarted.push(resolve);
+      }),
+  });
+
+  const first = fetch("https://api.notion.com/1");
+
+  // Wait until the first attempt hits its retry sleep (slot must be free).
+  await vi.waitFor(() => {
+    expect(sleepStarted.length).toBe(1);
+  });
+
+  const second = fetch("https://api.notion.com/2");
+  await vi.waitFor(() => {
+    expect(calls).toBe(2);
+  });
+
+  sleepStarted.forEach((resolve) => resolve());
+  await Promise.all([first, second]);
+  expect(maxInFlight).toBe(1);
+});
+
+test("withNotionRetry retries rate_limited and timeout errors", async () => {
+  const sleeps: number[] = [];
+  let calls = 0;
+
+  const result = await withNotionRetry(
+    async () => {
+      calls += 1;
+      if (calls === 1) {
+        throw Object.assign(new Error("rate limited"), {
+          code: "rate_limited",
+          status: 429,
+          headers: { "retry-after": "0.01" },
+          body: JSON.stringify({ retry_after: "0.01" }),
+        });
+      }
+      if (calls === 2) {
+        throw Object.assign(new Error("timed out"), {
+          code: "notionhq_client_request_timeout",
+        });
+      }
+      return "ok";
+    },
+    {
+      sleep: async (ms) => {
+        sleeps.push(ms);
+      },
+    },
+  );
+
+  expect(result).toBe("ok");
+  expect(calls).toBe(3);
+  expect(sleeps.length).toBe(2);
 });
