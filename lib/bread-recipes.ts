@@ -29,7 +29,8 @@ export type BreadRecipe = {
   id: "saturday" | "overnight";
   name: string;
   shortName: string;
-  description: string;
+  /** Default clock time for “Start at” (HH:mm, local). */
+  defaultStartTime: string;
   loafWeightGrams: number;
   ingredients: Ingredient[];
   phases: Phase[];
@@ -45,8 +46,7 @@ export const breadRecipes: BreadRecipe[] = [
     id: "saturday",
     name: "Saturday White Bread",
     shortName: "Saturday",
-    description:
-      "Same-day crusty white bread. Prefer all-purpose flour over high-gluten bread flour. Dough also works for iron-skillet focaccia or pizza.",
+    defaultStartTime: "09:30",
     loafWeightGrams: LOAF_WEIGHT_GRAMS,
     ingredients: [
       {
@@ -140,8 +140,7 @@ export const breadRecipes: BreadRecipe[] = [
     id: "overnight",
     name: "Overnight White Bread",
     shortName: "Overnight",
-    description:
-      "Crusty white bread with an open crumb from a long overnight ferment and tiny yeast. Dough also works for iron-skillet focaccia or pizza.",
+    defaultStartTime: "19:00",
     loafWeightGrams: LOAF_WEIGHT_GRAMS,
     ingredients: [
       {
@@ -312,18 +311,17 @@ export type ScheduleStep = {
 export function buildSchedule(args: {
   recipe: BreadRecipe;
   overrides: PhaseDurationMap;
-  bakeAt: Date;
+  startAt: Date;
 }): ScheduleStep[] {
-  const { recipe, overrides, bakeAt } = args;
+  const { recipe, overrides, startAt } = args;
   const resolved = resolvePhaseMinutes(recipe, overrides);
   const steps: ScheduleStep[] = [];
-  let cursor = new Date(bakeAt);
+  let cursor = new Date(startAt);
 
-  for (let index = resolved.length - 1; index >= 0; index -= 1) {
-    const { phase, minutes } = resolved[index]!;
-    const end = new Date(cursor);
-    const start = new Date(cursor.getTime() - minutes * 60_000);
-    steps.unshift({
+  for (const { phase, minutes } of resolved) {
+    const start = new Date(cursor);
+    const end = new Date(cursor.getTime() + minutes * 60_000);
+    steps.push({
       id: phase.id,
       label: phase.name,
       start,
@@ -332,10 +330,16 @@ export function buildSchedule(args: {
       note: phase.note,
       tooltip: phase.tooltip,
     });
-    cursor = start;
+    cursor = end;
   }
 
   return steps;
+}
+
+/** Bake starts when the final phase (proof) ends. */
+export function bakeTimeFromSchedule(schedule: ScheduleStep[]): Date | undefined {
+  const last = schedule[schedule.length - 1];
+  return last ? new Date(last.end) : undefined;
 }
 
 export function formatDuration(minutes: number): string {

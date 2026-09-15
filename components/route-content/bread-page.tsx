@@ -40,14 +40,13 @@ import { useColorModeValue } from "@/components/ui/color-mode";
 import { Tooltip } from "@/components/ui/tooltip";
 import { buildBreadCalendar, breadCalendarFileName } from "@/lib/bread-calendar";
 import {
+  bakeTimeFromSchedule,
   breadRecipes,
   buildSchedule,
   formatDuration,
   formatScheduleTime,
-  roundUpToNextHalfHour,
   scaleIngredients,
   sumBakersPercent,
-  totalMinutes,
   type BreadRecipe,
 } from "@/lib/bread-recipes";
 
@@ -79,18 +78,27 @@ function combineDateAndTime(day: string, time: string): Date | undefined {
   if (!day) {
     return undefined;
   }
-  const bakeDate = new Date(`${day}T${time || "00:00"}`);
-  if (Number.isNaN(bakeDate.getTime())) {
+  const startDate = new Date(`${day}T${time || "00:00"}`);
+  if (Number.isNaN(startDate.getTime())) {
     return undefined;
   }
-  return bakeDate;
+  return startDate;
 }
 
-function suggestBakeAt(totalPhaseMinutes: number): { day: string; time: string } {
-  return dateToParts(roundUpToNextHalfHour(new Date(Date.now() + totalPhaseMinutes * 60_000)));
+function suggestStartAt(recipe: BreadRecipe): { day: string; time: string } {
+  const time = recipe.defaultStartTime;
+  const now = new Date();
+  const today = dateToParts(now).day;
+  const todayAtDefault = combineDateAndTime(today, time);
+  if (todayAtDefault && todayAtDefault.getTime() > now.getTime()) {
+    return { day: today, time };
+  }
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return { day: dateToParts(tomorrow).day, time };
 }
 
-function formatBakeAt(date: Date): string {
+function formatStartAt(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {
     weekday: "short",
     month: "short",
@@ -132,49 +140,50 @@ export default function BreadPage() {
   const recipe = breadRecipes[recipeIndex] ?? getFallbackRecipe();
 
   const [loafCount, setLoafCount] = useState(2);
-  const [bakeDay, setBakeDay] = useState("");
-  const [bakeTime, setBakeTime] = useState("16:15");
-  const [hasManualBakeTime, setHasManualBakeTime] = useState(false);
+  const [startDay, setStartDay] = useState("");
+  const [startTime, setStartTime] = useState(recipe.defaultStartTime);
+  const [hasManualStartTime, setHasManualStartTime] = useState(false);
 
   const border = useColorModeValue("neutral.400", "neutralD.400");
   const cardBg = useColorModeValue("white", "neutralD.100");
 
   const ingredients = useMemo(() => scaleIngredients(recipe, loafCount), [recipe, loafCount]);
-  const totals = useMemo(() => totalMinutes(recipe, {}), [recipe]);
   const totalIngredientGrams = useMemo(
     () => ingredients.reduce((sum, ingredient) => sum + ingredient.grams, 0),
     [ingredients],
   );
 
   useEffect(() => {
-    setHasManualBakeTime(false);
+    setHasManualStartTime(false);
   }, [recipe]);
 
   useEffect(() => {
-    if (!hasManualBakeTime) {
-      const suggested = suggestBakeAt(totals.total);
-      setBakeDay(suggested.day);
-      setBakeTime(suggested.time);
+    if (!hasManualStartTime) {
+      const suggested = suggestStartAt(recipe);
+      setStartDay(suggested.day);
+      setStartTime(suggested.time);
     }
-  }, [totals.total, hasManualBakeTime, recipe.id]);
+  }, [hasManualStartTime, recipe]);
 
-  const bakeDate = combineDateAndTime(bakeDay, bakeTime);
+  const startDate = combineDateAndTime(startDay, startTime);
 
   const schedule = useMemo(() => {
-    if (!bakeDate) {
+    if (!startDate) {
       return [];
     }
     return buildSchedule({
       recipe,
       overrides: {},
-      bakeAt: bakeDate,
+      startAt: startDate,
     });
-  }, [bakeDate, recipe]);
+  }, [startDate, recipe]);
+
+  const bakeDate = useMemo(() => bakeTimeFromSchedule(schedule), [schedule]);
 
   const startIsInPast = schedule.length > 0 && schedule[0]!.start.getTime() < Date.now();
 
   const calendarIcs = useMemo(() => {
-    if (!bakeDate || schedule.length === 0) {
+    if (!startDate || schedule.length === 0) {
       return "";
     }
     return buildBreadCalendar({
@@ -182,21 +191,21 @@ export default function BreadPage() {
       loafCount,
       ingredients,
       schedule,
-      bakeAt: bakeDate,
+      startAt: startDate,
     });
-  }, [bakeDate, ingredients, loafCount, recipe, schedule]);
+  }, [startDate, ingredients, loafCount, recipe, schedule]);
 
-  const calendarFileName = bakeDate
-    ? breadCalendarFileName(recipe, bakeDate)
+  const calendarFileName = startDate
+    ? breadCalendarFileName(recipe, startDate)
     : "bread-schedule.ics";
 
-  const datePickerValue = bakeDay ? [parseDate(bakeDay)] : [];
+  const datePickerValue = startDay ? [parseDate(startDay)] : [];
 
   return (
     <>
       <Hero
         title="Bread Dough Calculator"
-        subtitle="Scale Forkish-style white bread recipes and work backwards from bake time."
+        subtitle="Calculate the ingredients and schedule for baking bread at home."
       />
       <VStack gap={12} mt={6} align="stretch">
         <Section>
@@ -259,13 +268,13 @@ export default function BreadPage() {
             <DatePicker.Root
               value={datePickerValue}
               onValueChange={(details) => {
-                setHasManualBakeTime(true);
+                setHasManualStartTime(true);
                 const next = details.value[0];
-                setBakeDay(next ? next.toString() : "");
+                setStartDay(next ? next.toString() : "");
               }}
               closeOnSelect={false}
             >
-              <DatePicker.Label>Bake at</DatePicker.Label>
+              <DatePicker.Label>Start at</DatePicker.Label>
               <DatePicker.Control>
                 <DatePicker.Trigger asChild unstyled>
                   <Button
@@ -275,7 +284,7 @@ export default function BreadPage() {
                     fontWeight="normal"
                     bg={cardBg}
                   >
-                    {bakeDate ? formatBakeAt(bakeDate) : "Select date and time"}
+                    {startDate ? formatStartAt(startDate) : "Select date and time"}
                     <Calendar size={18} />
                   </Button>
                 </DatePicker.Trigger>
@@ -290,10 +299,10 @@ export default function BreadPage() {
                         <Field.Label>Time</Field.Label>
                         <Input
                           type="time"
-                          value={bakeTime}
+                          value={startTime}
                           onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                            setHasManualBakeTime(true);
-                            setBakeTime(event.currentTarget.value);
+                            setHasManualStartTime(true);
+                            setStartTime(event.currentTarget.value);
                           }}
                         />
                       </Field.Root>
@@ -311,14 +320,6 @@ export default function BreadPage() {
               </Portal>
             </DatePicker.Root>
           </SimpleGrid>
-
-          <Text mt={4} color="fg.muted" fontSize="sm">
-            {recipe.description} Based on{" "}
-            <Text as="span" fontStyle="italic">
-              Flour Water Salt Yeast
-            </Text>{" "}
-            by Ken Forkish.
-          </Text>
         </Section>
 
         <Section>
@@ -393,7 +394,7 @@ export default function BreadPage() {
               <Alert.Root status="warning" borderRadius="md">
                 <Alert.Indicator />
                 <Alert.Title>
-                  Start time is in the past. Try a later bake time
+                  Start time is in the past. Try a later start time
                   {recipe.id === "overnight" ? ", or switch to Saturday White Bread." : "."}
                 </Alert.Title>
               </Alert.Root>

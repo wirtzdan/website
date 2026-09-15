@@ -20,7 +20,7 @@ export type BreadCalendarInput = {
   loafCount: number;
   ingredients: ScaledIngredient[];
   schedule: ScheduleStep[];
-  bakeAt: Date;
+  startAt: Date;
   generatedAt?: Date;
 };
 
@@ -39,15 +39,19 @@ type CalendarEvent = {
   alarms: CalendarAlarm[];
 };
 
-export function breadCalendarFileName(recipe: BreadRecipe, bakeAt: Date): string {
+export function breadCalendarFileName(recipe: BreadRecipe, startAt: Date): string {
   const pad = (value: number) => String(value).padStart(2, "0");
-  const day = `${bakeAt.getFullYear()}-${pad(bakeAt.getMonth() + 1)}-${pad(bakeAt.getDate())}`;
+  const day = `${startAt.getFullYear()}-${pad(startAt.getMonth() + 1)}-${pad(startAt.getDate())}`;
   return `bread-${recipe.shortName.toLowerCase()}-${day}.ics`;
 }
 
 export function buildBreadCalendar(input: BreadCalendarInput): string {
   const generatedAt = input.generatedAt ?? new Date();
-  const stamp = input.bakeAt.getTime();
+  const stamp = input.startAt.getTime();
+  const bakeAt = input.schedule[input.schedule.length - 1]?.end;
+  if (!bakeAt) {
+    throw new Error("Cannot build a bread calendar without schedule steps");
+  }
   const events = [
     ...input.schedule.map((step) =>
       toCalendarEvent({
@@ -62,7 +66,7 @@ export function buildBreadCalendar(input: BreadCalendarInput): string {
       recipe: input.recipe,
       loafCount: input.loafCount,
       stamp,
-      bakeAt: input.bakeAt,
+      bakeAt,
     }),
   ];
 

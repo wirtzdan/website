@@ -6,14 +6,20 @@ import {
   breadCalendarFileName,
   buildBreadCalendar,
 } from "./bread-calendar";
-import { buildSchedule, getRecipeById, scaleIngredients } from "./bread-recipes";
+import {
+  bakeTimeFromSchedule,
+  buildSchedule,
+  getRecipeById,
+  scaleIngredients,
+} from "./bread-recipes";
 
 const recipe = getRecipeById("saturday");
-const bakeAt = new Date("2026-09-14T16:15:00.000Z");
+const startAt = new Date("2026-09-14T09:30:00.000Z");
 const generatedAt = new Date("2026-09-14T08:00:00.000Z");
 const loafCount = 2;
 const ingredients = scaleIngredients(recipe, loafCount);
-const schedule = buildSchedule({ recipe, overrides: {}, bakeAt });
+const schedule = buildSchedule({ recipe, overrides: {}, startAt });
+const bakeAt = bakeTimeFromSchedule(schedule)!;
 
 function calendar() {
   return buildBreadCalendar({
@@ -21,7 +27,7 @@ function calendar() {
     loafCount,
     ingredients,
     schedule,
-    bakeAt,
+    startAt,
     generatedAt,
   });
 }
@@ -45,13 +51,14 @@ test("writes a publishable calendar with one event per phase plus bake", () => {
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Bake");
 });
 
-test("uses UTC timestamps that match the working-backwards schedule", () => {
+test("uses UTC timestamps that match the forward-from-start schedule", () => {
   const ics = unfolded(calendar());
   const autolyse = schedule.find((step) => step.id === "autolyse");
   if (!autolyse) {
     throw new Error("expected autolyse step");
   }
 
+  expect(autolyse.start.getTime()).toBe(startAt.getTime());
   expect(ics).toContain("DTSTAMP:20260914T080000Z");
   expect(ics).toContain(`DTSTART:${toIcsUtc(autolyse.start)}`);
   expect(ics).toContain(`DTEND:${toIcsUtc(autolyse.end)}`);
@@ -100,21 +107,23 @@ test("scales overnight yeast for a single loaf", () => {
   expect(yeast?.grams).toBe(0.4);
 });
 
-test("overnight schedule spans into the previous day from bake time", () => {
+test("overnight schedule starting in the evening bakes the next day", () => {
   const overnight = getRecipeById("overnight");
-  const overnightBake = new Date("2026-09-15T09:15:00.000Z");
+  const overnightStart = new Date("2026-09-14T19:00:00.000Z");
   const overnightSchedule = buildSchedule({
     recipe: overnight,
     overrides: {},
-    bakeAt: overnightBake,
+    startAt: overnightStart,
   });
   const start = overnightSchedule[0];
-  if (!start) {
-    throw new Error("expected schedule start");
+  const bake = bakeTimeFromSchedule(overnightSchedule);
+  if (!start || !bake) {
+    throw new Error("expected schedule start and bake");
   }
 
-  expect(start.start.getUTCDate()).toBe(14);
+  expect(start.start.getTime()).toBe(overnightStart.getTime());
   expect(overnightSchedule.find((step) => step.id === "bulk")?.minutes).toBe(13 * 60);
+  expect(bake.getUTCDate()).toBe(15);
 });
 
 test("escapes commas and semicolons in event text", () => {
@@ -123,14 +132,14 @@ test("escapes commas and semicolons in event text", () => {
       recipe,
       loafCount,
       ingredients,
-      bakeAt,
+      startAt,
       generatedAt,
       schedule: [
         {
           id: "mix",
           label: "Mix, knead; rest",
-          start: bakeAt,
-          end: new Date(bakeAt.getTime() + 15 * 60_000),
+          start: startAt,
+          end: new Date(startAt.getTime() + 15 * 60_000),
           minutes: 15,
         },
       ],
@@ -140,10 +149,10 @@ test("escapes commas and semicolons in event text", () => {
   expect(ics).toContain("SUMMARY:Bread: Mix\\, knead\\; rest");
 });
 
-test("names the file from the recipe and local bake day", () => {
-  const localBake = new Date(2026, 8, 14, 16, 15, 0);
-  expect(breadCalendarFileName(recipe, localBake)).toBe("bread-saturday-2026-09-14.ics");
-  expect(breadCalendarFileName(getRecipeById("overnight"), localBake)).toBe(
+test("names the file from the recipe and local start day", () => {
+  const localStart = new Date(2026, 8, 14, 9, 30, 0);
+  expect(breadCalendarFileName(recipe, localStart)).toBe("bread-saturday-2026-09-14.ics");
+  expect(breadCalendarFileName(getRecipeById("overnight"), localStart)).toBe(
     "bread-overnight-2026-09-14.ics",
   );
 });
