@@ -14,11 +14,15 @@ type NotionFetchResponse = {
 
 export type NotionFetch = (url: string, init?: NotionFetchInit) => Promise<NotionFetchResponse>;
 
-/** Max in-flight Notion HTTP requests process-wide (build prerender fan-out). */
-export const NOTION_FETCH_CONCURRENCY = 2;
+/**
+ * Max in-flight Notion HTTP requests process-wide.
+ * Keep at 1 on Vercel/CI: notion-compat fans out `blocks.children.list`, and Next
+ * prerenders many /blog/[slug] pages; even concurrency 2 stampedes the public API.
+ */
+export const NOTION_FETCH_CONCURRENCY = 1;
 
-/** Attempts including the first try. */
-export const NOTION_FETCH_MAX_ATTEMPTS = 6;
+/** Attempts including the first try (HTTP layer). */
+export const NOTION_FETCH_MAX_ATTEMPTS = 4;
 
 const DEFAULT_RETRY_MS = 1000;
 const MAX_RETRY_MS = 60_000;
@@ -29,6 +33,8 @@ export type RateLimitedFetchOptions = {
   /** Injected for tests. Defaults to global fetch. */
   fetchImpl?: NotionFetch;
   sleep?: (ms: number) => Promise<void>;
+  /** Injected clock for tests. */
+  now?: () => number;
 };
 
 export class Semaphore {
@@ -59,6 +65,52 @@ export class Semaphore {
       this.active -= 1;
       const next = this.waiters.shift();
       next?.();
+    }
+  }
+}
+
+/**
+ * Process-wide cooldown after a 429 so every waiter shares one timer instead of
+ * N independent Retry-After sleeps waking together and re-stamping the API.
+ */
+export class SharedCooldown {
+  private coolUntilMs = 0;
+  private pending: Promise<void> | null = null;
+
+  constructor(
+    private readonly sleep: (ms: number) => Promise<void>,
+    private readonly now: () => number,
+  ) {}
+
+  get remainingMs(): number {
+    return Math.max(0, this.coolUntilMs - this.now());
+  }
+
+  /** Extend the shared cooldown if `delayMs` reaches further than the current one. */
+  extend(delayMs: number): void {
+    const until = this.now() + Math.max(0, delayMs);
+    if (until <= this.coolUntilMs) {
+      return;
+    }
+    this.coolUntilMs = until;
+  }
+
+  /** Wait until the shared cooldown has elapsed (no-op if already clear). */
+  async wait(): Promise<void> {
+    while (this.remainingMs > 0) {
+      if (!this.pending) {
+        const waitMs = this.remainingMs;
+        const target = this.coolUntilMs;
+        this.pending = this.sleep(waitMs).finally(() => {
+          this.pending = null;
+          // Real clocks usually clear naturally; fake/instant sleeps need an explicit clear
+          // so we do not spin forever when `now()` never advances.
+          if (this.coolUntilMs <= target) {
+            this.coolUntilMs = this.now();
+          }
+        });
+      }
+      await this.pending;
     }
   }
 }
@@ -157,6 +209,9 @@ function asNotionResponse(args: {
  * Notion Client wraps each `fetch` call in a ~60s timeout. Sleeps for Retry-After
  * must happen *outside* the concurrency slot and must not sit inside a single
  * timed `fetch` invocation — so we only hold the semaphore for the HTTP round-trip.
+ *
+ * After a 429, all callers share one cooldown (singleflight) so retries do not
+ * wake together and re-trip the public API limit.
  */
 export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): NotionFetch {
   const concurrency = options.concurrency ?? NOTION_FETCH_CONCURRENCY;
@@ -168,7 +223,9 @@ export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): N
       return response as unknown as NotionFetchResponse;
     });
   const sleep = options.sleep ?? defaultSleep;
+  const now = options.now ?? Date.now;
   const semaphore = new Semaphore(concurrency);
+  const cooldown = new SharedCooldown(sleep, now);
 
   return async (url, init) => {
     let lastBodyText = "";
@@ -176,6 +233,9 @@ export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): N
     let lastStatus = 429;
 
     for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+      // Wait out any shared cooldown before taking a concurrency slot.
+      await cooldown.wait();
+
       const response = await semaphore.run(() => fetchImpl(url, init));
 
       if (response.status !== 429) {
@@ -198,10 +258,11 @@ export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): N
         bodyText: lastBodyText,
       });
 
+      cooldown.extend(delayMs);
       console.warn(
-        `Notion API rate limited (429). Retrying in ${Math.ceil(delayMs / 1000)}s (attempt ${attempt + 1}/${maxAttempts}).`,
+        `Notion API rate limited (429). Shared cooldown ${Math.ceil(cooldown.remainingMs / 1000)}s (attempt ${attempt + 1}/${maxAttempts}).`,
       );
-      await sleep(delayMs);
+      await cooldown.wait();
     }
 
     return asNotionResponse({
@@ -220,42 +281,25 @@ export type WithNotionRetryOptions = {
   getRetryDelayMs?: (error: unknown, attemptIndex: number) => number;
 };
 
+/**
+ * Only retry client-side timeouts here. 429 / rate_limited are already exhausted
+ * inside createRateLimitedFetch; retrying the whole getPage() multiplies sleeps
+ * and pushes Next's per-page static generation past 60s.
+ */
 function defaultIsRetryable(error: unknown): boolean {
   if (!error || typeof error !== "object") {
     return false;
   }
-  const candidate = error as {
-    code?: string;
-    status?: number;
-    headers?: unknown;
-    body?: string;
-  };
-  if (candidate.code === "rate_limited" || candidate.status === 429) {
-    return true;
-  }
-  // Transient client timeout while the API is overloaded during SSG.
-  if (candidate.code === "notionhq_client_request_timeout") {
-    return true;
-  }
-  return false;
+  const candidate = error as { code?: string };
+  return candidate.code === "notionhq_client_request_timeout";
 }
 
 function defaultRetryDelayFromError(error: unknown, attemptIndex: number): number {
-  if (!error || typeof error !== "object") {
-    return resolveRetryDelayMs({ attemptIndex, retryAfterHeader: null });
-  }
-  const candidate = error as { headers?: unknown; body?: string; code?: string };
-  if (candidate.code === "notionhq_client_request_timeout") {
-    return resolveRetryDelayMs({
-      attemptIndex,
-      retryAfterHeader: null,
-      random: () => 0.5,
-    });
-  }
+  void error;
   return resolveRetryDelayMs({
     attemptIndex,
-    retryAfterHeader: headerValue(candidate.headers, "retry-after"),
-    bodyText: candidate.body,
+    retryAfterHeader: null,
+    random: () => 0.5,
   });
 }
 
@@ -264,7 +308,7 @@ export async function withNotionRetry<T>(
   task: () => Promise<T>,
   options: WithNotionRetryOptions = {},
 ): Promise<T> {
-  const maxAttempts = options.maxAttempts ?? NOTION_FETCH_MAX_ATTEMPTS;
+  const maxAttempts = options.maxAttempts ?? 2;
   const sleep = options.sleep ?? defaultSleep;
   const isRetryable = options.isRetryable ?? defaultIsRetryable;
   const getRetryDelayMs = options.getRetryDelayMs ?? defaultRetryDelayFromError;
@@ -286,4 +330,35 @@ export async function withNotionRetry<T>(
     }
   }
   throw lastError;
+}
+
+/**
+ * Soft deadline for a single Notion page body fetch so we return null (and let
+ * the route soft-fail) before Next's staticPageGenerationTimeout kills the worker.
+ */
+export async function withBudget<T>(
+  task: () => Promise<T>,
+  budgetMs: number,
+  options: { sleep?: (ms: number) => Promise<void> } = {},
+): Promise<T> {
+  void options.sleep;
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  try {
+    return await Promise.race([
+      task(),
+      new Promise<T>((_, reject) => {
+        timer = setTimeout(() => {
+          reject(
+            Object.assign(new Error(`Notion fetch exceeded ${budgetMs}ms budget`), {
+              code: "notion_page_budget_exceeded",
+            }),
+          );
+        }, budgetMs);
+      }),
+    ]);
+  } finally {
+    if (timer) {
+      clearTimeout(timer);
+    }
+  }
 }

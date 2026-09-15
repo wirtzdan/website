@@ -2,8 +2,10 @@ import { expect, test, vi } from "vite-plus/test";
 
 import {
   Semaphore,
+  SharedCooldown,
   createRateLimitedFetch,
   resolveRetryDelayMs,
+  withBudget,
   withNotionRetry,
   type NotionFetch,
 } from "./rate-limited-fetch";
@@ -58,6 +60,26 @@ test("Semaphore caps concurrent runners", async () => {
 
   await Promise.all(tasks);
   expect(maxInFlight).toBe(2);
+});
+
+test("SharedCooldown extends to the furthest deadline and clears waiters once", async () => {
+  let now = 1_000;
+  const sleeps: number[] = [];
+  const cooldown = new SharedCooldown(
+    async (ms) => {
+      sleeps.push(ms);
+      now += ms;
+    },
+    () => now,
+  );
+
+  cooldown.extend(5_000);
+  cooldown.extend(2_000);
+  expect(cooldown.remainingMs).toBe(5_000);
+
+  await cooldown.wait();
+  expect(cooldown.remainingMs).toBe(0);
+  expect(sleeps).toEqual([5_000]);
 });
 
 test("createRateLimitedFetch retries 429 using retry-after then succeeds", async () => {
@@ -221,16 +243,64 @@ test("createRateLimitedFetch releases concurrency while waiting to retry", async
   });
 
   const second = fetch("https://api.notion.com/2");
-  await vi.waitFor(() => {
-    expect(calls).toBe(2);
-  });
+  // Second request parks on the shared cooldown — must not open another HTTP call yet.
+  await new Promise((resolve) => setTimeout(resolve, 20));
+  expect(calls).toBe(1);
 
   sleepStarted.forEach((resolve) => resolve());
   await Promise.all([first, second]);
   expect(maxInFlight).toBe(1);
+  expect(calls).toBeGreaterThanOrEqual(2);
 });
 
-test("withNotionRetry retries rate_limited and timeout errors", async () => {
+test("createRateLimitedFetch shares one cooldown across concurrent 429s", async () => {
+  let now = 0;
+  const sleeps: number[] = [];
+  let calls = 0;
+
+  const fetchImpl: NotionFetch = async () => {
+    calls += 1;
+    if (calls <= 2) {
+      return {
+        ok: false,
+        status: 429,
+        headers: { "retry-after": "30" },
+        text: async () => JSON.stringify({ retry_after: "30" }),
+      };
+    }
+    return {
+      ok: true,
+      status: 200,
+      headers: {},
+      text: async () => "{}",
+    };
+  };
+
+  const fetch = createRateLimitedFetch({
+    concurrency: 2,
+    maxAttempts: 3,
+    fetchImpl,
+    now: () => now,
+    sleep: async (ms) => {
+      sleeps.push(ms);
+      now += ms;
+    },
+  });
+
+  const results = await Promise.all([
+    fetch("https://api.notion.com/a"),
+    fetch("https://api.notion.com/b"),
+  ]);
+
+  expect(results.every((response) => response.status === 200)).toBe(true);
+  // Two initial 429s can fire together under concurrency 2, but retries must not
+  // each sleep a full independent 30s — shared cooldown collapses the wait.
+  const totalSleep = sleeps.reduce((sum, ms) => sum + ms, 0);
+  expect(totalSleep).toBeLessThan(90_000);
+  expect(Math.max(...sleeps)).toBe(30_000);
+});
+
+test("withNotionRetry retries timeouts but not rate_limited (HTTP layer owns 429s)", async () => {
   const sleeps: number[] = [];
   let calls = 0;
 
@@ -238,14 +308,6 @@ test("withNotionRetry retries rate_limited and timeout errors", async () => {
     async () => {
       calls += 1;
       if (calls === 1) {
-        throw Object.assign(new Error("rate limited"), {
-          code: "rate_limited",
-          status: 429,
-          headers: { "retry-after": "0.01" },
-          body: JSON.stringify({ retry_after: "0.01" }),
-        });
-      }
-      if (calls === 2) {
         throw Object.assign(new Error("timed out"), {
           code: "notionhq_client_request_timeout",
         });
@@ -260,6 +322,32 @@ test("withNotionRetry retries rate_limited and timeout errors", async () => {
   );
 
   expect(result).toBe("ok");
-  expect(calls).toBe(3);
-  expect(sleeps.length).toBe(2);
+  expect(calls).toBe(2);
+  expect(sleeps.length).toBe(1);
+
+  await expect(
+    withNotionRetry(
+      async () => {
+        throw Object.assign(new Error("rate limited"), {
+          code: "rate_limited",
+          status: 429,
+        });
+      },
+      { sleep: async () => undefined, maxAttempts: 3 },
+    ),
+  ).rejects.toMatchObject({ code: "rate_limited" });
+});
+
+test("withBudget rejects after the deadline", async () => {
+  await expect(
+    withBudget(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50));
+      return "late";
+    }, 10),
+  ).rejects.toMatchObject({ code: "notion_page_budget_exceeded" });
+});
+
+test("withBudget resolves when the task finishes in time", async () => {
+  const value = await withBudget(async () => "ok", 100);
+  expect(value).toBe("ok");
 });

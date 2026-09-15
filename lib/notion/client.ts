@@ -9,10 +9,10 @@ const rateLimitedFetch = createRateLimitedFetch();
 
 export const notionAPI = new Client({
   auth: notionKey,
-  // Throttle + retry 429s at the HTTP layer so notion-compat's fan-out and
-  // Next's parallel /blog/[slug] prerender don't trip the public API limit.
-  // Keep the per-attempt timeout at the library default (60s); Retry-After
-  // sleeps happen between attempts outside that window.
+  // Single process-wide queue (concurrency 1) + shared 429 cooldown so
+  // notion-compat's blocks.children.list fan-out and /blog/[slug] SSG do not
+  // stampede the public API. Retry-After sleeps happen outside the Client's
+  // per-attempt ~60s fetch timeout window.
   fetch: rateLimitedFetch,
 });
 
