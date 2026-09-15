@@ -83,6 +83,7 @@ test("SharedCooldown extends to the furthest deadline and clears waiters once", 
 
 test("createRateLimitedFetch retries 429 using retry-after then succeeds", async () => {
   const sleeps: number[] = [];
+  let now = 0;
   let calls = 0;
 
   const fetchImpl: NotionFetch = async () => {
@@ -112,8 +113,10 @@ test("createRateLimitedFetch retries 429 using retry-after then succeeds", async
     maxAttempts: 5,
     minRequestGapMs: 0,
     fetchImpl,
+    now: () => now,
     sleep: async (ms) => {
       sleeps.push(ms);
+      now += ms;
     },
   });
 
