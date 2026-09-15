@@ -24,12 +24,16 @@ export const NOTION_FETCH_CONCURRENCY = 1;
 /** Attempts including the first try (HTTP layer). */
 export const NOTION_FETCH_MAX_ATTEMPTS = 4;
 
+/** Pace successful calls ~3 req/s to stay under Notion's public API average. */
+export const NOTION_MIN_REQUEST_GAP_MS = 350;
+
 const DEFAULT_RETRY_MS = 1000;
 const MAX_RETRY_MS = 60_000;
 
 export type RateLimitedFetchOptions = {
   concurrency?: number;
   maxAttempts?: number;
+  minRequestGapMs?: number;
   /** Injected for tests. Defaults to global fetch. */
   fetchImpl?: NotionFetch;
   sleep?: (ms: number) => Promise<void>;
@@ -205,17 +209,29 @@ function asNotionResponse(args: {
   };
 }
 
+type AttemptResult =
+  | { kind: "ok"; response: NotionFetchResponse }
+  | { kind: "cooldown" }
+  | {
+      kind: "rate_limited";
+      response: NotionFetchResponse;
+      bodyText: string;
+      delayMs: number;
+    };
+
 /**
  * Notion Client wraps each `fetch` call in a ~60s timeout. Sleeps for Retry-After
  * must happen *outside* the concurrency slot and must not sit inside a single
  * timed `fetch` invocation — so we only hold the semaphore for the HTTP round-trip.
  *
- * After a 429, all callers share one cooldown (singleflight) so retries do not
- * wake together and re-trip the public API limit.
+ * After a 429, all callers share one cooldown (singleflight). Cooldown is checked
+ * again *inside* the semaphore so the next waiter cannot sneak an HTTP call in
+ * between "release slot" and "extend cooldown".
  */
 export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): NotionFetch {
   const concurrency = options.concurrency ?? NOTION_FETCH_CONCURRENCY;
   const maxAttempts = options.maxAttempts ?? NOTION_FETCH_MAX_ATTEMPTS;
+  const minRequestGapMs = options.minRequestGapMs ?? NOTION_MIN_REQUEST_GAP_MS;
   const fetchImpl =
     options.fetchImpl ??
     (async (url, init) => {
@@ -226,41 +242,78 @@ export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): N
   const now = options.now ?? Date.now;
   const semaphore = new Semaphore(concurrency);
   const cooldown = new SharedCooldown(sleep, now);
+  let nextAllowedAtMs = 0;
 
   return async (url, init) => {
     let lastBodyText = "";
     let lastHeaders: unknown = undefined;
     let lastStatus = 429;
+    let attempt = 0;
 
-    for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-      // Wait out any shared cooldown before taking a concurrency slot.
+    while (attempt < maxAttempts) {
       await cooldown.wait();
 
-      const response = await semaphore.run(() => fetchImpl(url, init));
-
-      if (response.status !== 429) {
-        return response;
+      const gapMs = nextAllowedAtMs - now();
+      if (gapMs > 0) {
+        await sleep(gapMs);
       }
 
-      // Consume body once so we can honor retry_after and still rebuild a
-      // response for the Notion client on the final attempt.
-      lastBodyText = await response.text();
-      lastHeaders = response.headers;
-      lastStatus = response.status;
+      const result: AttemptResult = await semaphore.run(async () => {
+        // Another caller may have extended cooldown after we passed the outer wait
+        // and before we acquired this slot — bail without hitting the network.
+        if (cooldown.remainingMs > 0) {
+          return { kind: "cooldown" };
+        }
 
-      if (attempt === maxAttempts - 1) {
+        const paceMs = nextAllowedAtMs - now();
+        if (paceMs > 0) {
+          // Do not sleep while holding the slot; retry the outer loop.
+          return { kind: "cooldown" };
+        }
+
+        const response = await fetchImpl(url, init);
+        nextAllowedAtMs = now() + minRequestGapMs;
+
+        if (response.status !== 429) {
+          return { kind: "ok", response };
+        }
+
+        const bodyText = await response.text();
+        const delayMs = resolveRetryDelayMs({
+          attemptIndex: attempt,
+          retryAfterHeader: headerValue(response.headers, "retry-after"),
+          bodyText,
+        });
+        // Extend before releasing the slot (still inside run) so the next waiter
+        // observes remainingMs > 0 and does not sneak a request through.
+        cooldown.extend(delayMs);
+        return {
+          kind: "rate_limited",
+          response,
+          bodyText,
+          delayMs,
+        };
+      });
+
+      if (result.kind === "cooldown") {
+        continue;
+      }
+
+      if (result.kind === "ok") {
+        return result.response;
+      }
+
+      lastBodyText = result.bodyText;
+      lastHeaders = result.response.headers;
+      lastStatus = result.response.status;
+      attempt += 1;
+
+      if (attempt >= maxAttempts) {
         break;
       }
 
-      const delayMs = resolveRetryDelayMs({
-        attemptIndex: attempt,
-        retryAfterHeader: headerValue(response.headers, "retry-after"),
-        bodyText: lastBodyText,
-      });
-
-      cooldown.extend(delayMs);
       console.warn(
-        `Notion API rate limited (429). Shared cooldown ${Math.ceil(cooldown.remainingMs / 1000)}s (attempt ${attempt + 1}/${maxAttempts}).`,
+        `Notion API rate limited (429). Shared cooldown ${Math.ceil(cooldown.remainingMs / 1000)}s (attempt ${attempt}/${maxAttempts}).`,
       );
       await cooldown.wait();
     }
@@ -284,7 +337,7 @@ export type WithNotionRetryOptions = {
 /**
  * Only retry client-side timeouts here. 429 / rate_limited are already exhausted
  * inside createRateLimitedFetch; retrying the whole getPage() multiplies sleeps
- * and pushes Next's per-page static generation past 60s.
+ * and pushes Next's per-page static generation past the page timeout.
  */
 function defaultIsRetryable(error: unknown): boolean {
   if (!error || typeof error !== "object") {
@@ -330,35 +383,4 @@ export async function withNotionRetry<T>(
     }
   }
   throw lastError;
-}
-
-/**
- * Soft deadline for a single Notion page body fetch so we return null (and let
- * the route soft-fail) before Next's staticPageGenerationTimeout kills the worker.
- */
-export async function withBudget<T>(
-  task: () => Promise<T>,
-  budgetMs: number,
-  options: { sleep?: (ms: number) => Promise<void> } = {},
-): Promise<T> {
-  void options.sleep;
-  let timer: ReturnType<typeof setTimeout> | undefined;
-  try {
-    return await Promise.race([
-      task(),
-      new Promise<T>((_, reject) => {
-        timer = setTimeout(() => {
-          reject(
-            Object.assign(new Error(`Notion fetch exceeded ${budgetMs}ms budget`), {
-              code: "notion_page_budget_exceeded",
-            }),
-          );
-        }, budgetMs);
-      }),
-    ]);
-  } finally {
-    if (timer) {
-      clearTimeout(timer);
-    }
-  }
 }

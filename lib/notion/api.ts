@@ -7,13 +7,7 @@ import type {
 
 import { blogDatabaseId, pagesDatabaseId } from "@/lib/notion/config";
 import { notionAPI, notionPrivateAPI } from "./client";
-import { withBudget, withNotionRetry } from "./rate-limited-fetch";
-
-/**
- * Leave headroom under Next's staticPageGenerationTimeout so a stuck Notion
- * fan-out soft-fails the page instead of aborting the whole export worker.
- */
-const PAGE_FETCH_BUDGET_MS = Number(process.env.NOTION_PAGE_BUDGET_MS ?? 50_000);
+import { withNotionRetry } from "./rate-limited-fetch";
 import {
   convertNotionAssetUrl,
   getBooleanProperty,
@@ -189,9 +183,8 @@ export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap |
 
 async function fetchPageByPageId(pageId: string): Promise<NotionRecordMap | null> {
   try {
-    const recordMap = (await withBudget(
-      () => withNotionRetry(() => notionPrivateAPI.getPage(pageId)),
-      PAGE_FETCH_BUDGET_MS,
+    const recordMap = (await withNotionRetry(() =>
+      notionPrivateAPI.getPage(pageId),
     )) as NotionRecordMap;
     const normalizedBlock = Object.fromEntries(
       Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
@@ -220,7 +213,7 @@ async function fetchPageByPageId(pageId: string): Promise<NotionRecordMap | null
     const message = error instanceof Error ? error.message : "Unknown Notion API error";
     console.error(`Error fetching page with ID ${pageId}:`, message);
     // Soft-fail a single post rather than aborting the whole static export.
-    // Cached promise stays as resolved null so generateMetadata + Page share it.
+    // Cached promise stays resolved-null so generateMetadata + Page share it.
     return null;
   }
 }
