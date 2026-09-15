@@ -53,3 +53,10 @@ export const pizzaMetadata: Metadata = {
     "Scale Neapolitan pizza dough recipes, see baker’s percentages, and plan mix, ferment, and proof times from your bake time.",
   alternates: { canonical: `${base}/pizza` },
 };
+
+export const breadMetadata: Metadata = {
+  title: "Bread Dough Calculator",
+  description:
+    "Scale Saturday and Overnight white bread recipes, see baker’s percentages, and plan autolyse, ferment, and proof times from your bake time.",
+  alternates: { canonical: `${base}/bread` },
+};
