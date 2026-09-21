@@ -313,15 +313,14 @@ export type ScheduleStep = {
 
 export function buildPreheatStep(bakeAt: Date): ScheduleStep {
   const start = new Date(bakeAt.getTime() - PREHEAT_MINUTES * 60_000);
+  const instructions = `Preheat Dutch ovens to ${PREHEAT_TEMP_LABEL} for at least ${formatDuration(PREHEAT_MINUTES)}.`;
   return {
     id: "preheat",
-    label: `Preheat Dutch oven to ${PREHEAT_TEMP_LABEL}`,
+    label: "Preheat",
     start,
     end: new Date(bakeAt),
     minutes: PREHEAT_MINUTES,
-    note: `Dutch ovens need at least ${formatDuration(PREHEAT_MINUTES)} at ${PREHEAT_TEMP_LABEL}.`,
-    tooltip:
-      "Start preheating while the loaves finish proofing so the pot is screaming hot when you score and load.",
+    tooltip: instructions,
   };
 }
 

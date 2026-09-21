@@ -348,15 +348,14 @@ export type ScheduleStep = {
 
 export function buildPreheatStep(bakeAt: Date): ScheduleStep {
   const start = new Date(bakeAt.getTime() - PREHEAT_MINUTES * 60_000);
+  const instructions = `Heat the steel, stone, or pizza oven for about ${formatDuration(PREHEAT_MINUTES)}.`;
   return {
     id: "preheat",
-    label: "Preheat oven",
+    label: "Preheat",
     start,
     end: new Date(bakeAt),
     minutes: PREHEAT_MINUTES,
-    note: `Heat the steel, stone, or pizza oven for about ${formatDuration(PREHEAT_MINUTES)}.`,
-    tooltip:
-      "Start preheating while the dough finishes proofing so the oven is as hot as it can get when you stretch and bake.",
+    tooltip: instructions,
   };
 }
 

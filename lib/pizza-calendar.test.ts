@@ -37,8 +37,11 @@ test("writes a publishable calendar with one event per phase plus bake", () => {
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Bench rest");
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Divide & preshape");
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Proof");
-  expect(unfolded(ics)).toContain("SUMMARY:Pizza: Preheat oven");
+  expect(unfolded(ics)).toContain("SUMMARY:Pizza: Preheat");
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Bake");
+  expect(eventProperty(unfolded(ics), "Pizza: Preheat", "DESCRIPTION")).toContain(
+    "Heat the steel\\, stone\\, or pizza oven for about 45 min",
+  );
 });
 
 test("preheat sits before bake without changing the bake-at anchor", () => {
@@ -83,7 +86,7 @@ test("marks hands-on steps busy and long waits free", () => {
   expect(eventProperty(ics, "Pizza: Bake", "TRANSP")).toBe("OPAQUE");
   expect(eventProperty(ics, "Pizza: Bench rest", "TRANSP")).toBe("TRANSPARENT");
   expect(eventProperty(ics, "Pizza: Proof", "TRANSP")).toBe("TRANSPARENT");
-  expect(eventProperty(ics, "Pizza: Preheat oven", "TRANSP")).toBe("TRANSPARENT");
+  expect(eventProperty(ics, "Pizza: Preheat", "TRANSP")).toBe("TRANSPARENT");
 });
 
 test("alarms fire at mix, divide, preheat, and bake", () => {
@@ -91,7 +94,7 @@ test("alarms fire at mix, divide, preheat, and bake", () => {
 
   expect(eventHasAlarm(ics, "Pizza: Mix", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Pizza: Divide & preshape", "-PT0S")).toBe(true);
-  expect(eventHasAlarm(ics, "Pizza: Preheat oven", "-PT0S")).toBe(true);
+  expect(eventHasAlarm(ics, "Pizza: Preheat", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Pizza: Bake", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Pizza: Proof", "-PT0S")).toBe(false);
 });

@@ -45,8 +45,11 @@ test("writes a publishable calendar with one event per phase plus bake", () => {
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Bulk ferment");
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Divide & shape");
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Proof");
-  expect(unfolded(ics)).toContain("SUMMARY:Bread: Preheat Dutch oven to 245°C / 475°F");
+  expect(unfolded(ics)).toContain("SUMMARY:Bread: Preheat");
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Bake");
+  expect(eventProperty(unfolded(ics), "Bread: Preheat", "DESCRIPTION")).toContain(
+    "Preheat Dutch ovens to 245°C / 475°F for at least 45 min",
+  );
 });
 
 test("preheat overlays late proof without shifting earlier dough steps", () => {
@@ -94,19 +97,16 @@ test("marks hands-on steps busy and long waits free", () => {
   expect(eventProperty(ics, "Bread: Autolyse", "TRANSP")).toBe("TRANSPARENT");
   expect(eventProperty(ics, "Bread: Bulk ferment", "TRANSP")).toBe("TRANSPARENT");
   expect(eventProperty(ics, "Bread: Proof", "TRANSP")).toBe("TRANSPARENT");
-  expect(eventProperty(ics, "Bread: Preheat Dutch oven to 245°C / 475°F", "TRANSP")).toBe(
-    "TRANSPARENT",
-  );
+  expect(eventProperty(ics, "Bread: Preheat", "TRANSP")).toBe("TRANSPARENT");
 });
 
 test("alarms fire at autolyse, mix, shape, preheat, and bake", () => {
   const ics = unfolded(calendar());
-  const preheatSummary = "Bread: Preheat Dutch oven to 245°C / 475°F";
 
   expect(eventHasAlarm(ics, "Bread: Autolyse", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Mix", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Divide & shape", "-PT0S")).toBe(true);
-  expect(eventHasAlarm(ics, preheatSummary, "-PT0S")).toBe(true);
+  expect(eventHasAlarm(ics, "Bread: Preheat", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Bake", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Proof", "-PT0S")).toBe(false);
 });
