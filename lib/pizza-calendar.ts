@@ -3,6 +3,7 @@ import {
   type PizzaRecipe,
   type ScaledIngredient,
   type ScheduleStep,
+  PREHEAT_MINUTES,
 } from "./pizza-recipes";
 
 const CALENDAR_SOURCE_URL = "https://danielwirtz.com/pizza";
@@ -10,10 +11,11 @@ const ICS_PRODID = "-//Daniel Wirtz//Pizza Dough Calculator//EN";
 const ICS_LINE_LIMIT = 75;
 
 export const BAKE_EVENT_MINUTES = 45;
-export const BAKE_PREHEAT_ALARM_MINUTES = 30;
+/** @deprecated Prefer PREHEAT_MINUTES from pizza-recipes; kept for calendar callers. */
+export { PREHEAT_MINUTES as BAKE_PREHEAT_ALARM_MINUTES };
 
 const BUSY_STEP_IDS = new Set(["mix", "divide", "bake"]);
-const ALARM_AT_START_IDS = new Set(["mix", "divide", "bake"]);
+const ALARM_AT_START_IDS = new Set(["mix", "divide", "preheat", "bake"]);
 
 export type PizzaCalendarInput = {
   recipe: PizzaRecipe;
@@ -111,15 +113,10 @@ function bakeCalendarEvent(args: {
       eventHeading({ recipe, pizzaCount }),
       `About ${formatDuration(BAKE_EVENT_MINUTES)} for stretching, topping, and baking.`,
       "Bake as hot as your oven allows — ideally 430–480°C / 800–900°F for 60–90 seconds in a pizza oven, or on a steel/stone at max heat.",
+      `Preheat for about ${formatDuration(PREHEAT_MINUTES)} so the oven is ready when bake starts.`,
     ].join("\n\n"),
     busy: true,
-    alarms: [
-      {
-        trigger: `-PT${BAKE_PREHEAT_ALARM_MINUTES}M`,
-        description: "Preheat the oven for pizza",
-      },
-      ...alarmsFor("bake", "Bake"),
-    ],
+    alarms: alarmsFor("bake", "Bake"),
   };
 }
 

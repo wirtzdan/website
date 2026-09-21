@@ -40,6 +40,9 @@ export type BreadRecipe = {
 export const LOAF_WEIGHT_GRAMS = 680;
 /** Recipe cards are written for this many loaves (~1 kg flour). */
 export const REFERENCE_LOAF_COUNT = 2;
+/** Oven preheat reminder before bake (matches Dutch-oven tip copy). */
+export const PREHEAT_MINUTES = 45;
+export const PREHEAT_TEMP_LABEL = "245°C / 475°F";
 
 export const breadRecipes: BreadRecipe[] = [
   {
@@ -308,6 +311,19 @@ export type ScheduleStep = {
   tooltip?: string;
 };
 
+export function buildPreheatStep(bakeAt: Date): ScheduleStep {
+  const start = new Date(bakeAt.getTime() - PREHEAT_MINUTES * 60_000);
+  const instructions = `Preheat Dutch ovens to ${PREHEAT_TEMP_LABEL} for at least ${formatDuration(PREHEAT_MINUTES)}.`;
+  return {
+    id: "preheat",
+    label: "Preheat",
+    start,
+    end: new Date(bakeAt),
+    minutes: PREHEAT_MINUTES,
+    tooltip: instructions,
+  };
+}
+
 export function buildSchedule(args: {
   recipe: BreadRecipe;
   overrides: PhaseDurationMap;
@@ -333,13 +349,18 @@ export function buildSchedule(args: {
     cursor = end;
   }
 
+  // Oven reminder that overlaps late proof — does not shift dough steps.
+  if (steps.length > 0) {
+    steps.push(buildPreheatStep(cursor));
+  }
+
   return steps;
 }
 
-/** Bake starts when the final phase (proof) ends. */
+/** Bake starts when the final dough phase (proof) ends — ignore the preheat overlay. */
 export function bakeTimeFromSchedule(schedule: ScheduleStep[]): Date | undefined {
-  const last = schedule[schedule.length - 1];
-  return last ? new Date(last.end) : undefined;
+  const lastDough = [...schedule].reverse().find((step) => step.id !== "preheat");
+  return lastDough ? new Date(lastDough.end) : undefined;
 }
 
 export function formatDuration(minutes: number): string {

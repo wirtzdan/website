@@ -3,6 +3,8 @@ import {
   type BreadRecipe,
   type ScaledIngredient,
   type ScheduleStep,
+  bakeTimeFromSchedule,
+  PREHEAT_MINUTES,
 } from "./bread-recipes";
 
 const CALENDAR_SOURCE_URL = "https://danielwirtz.com/bread";
@@ -10,10 +12,11 @@ const ICS_PRODID = "-//Daniel Wirtz//Bread Dough Calculator//EN";
 const ICS_LINE_LIMIT = 75;
 
 export const BAKE_EVENT_MINUTES = 45;
-export const BAKE_PREHEAT_ALARM_MINUTES = 45;
+/** @deprecated Prefer PREHEAT_MINUTES from bread-recipes; kept for calendar callers. */
+export { PREHEAT_MINUTES as BAKE_PREHEAT_ALARM_MINUTES };
 
 const BUSY_STEP_IDS = new Set(["mix", "shape", "bake"]);
-const ALARM_AT_START_IDS = new Set(["autolyse", "mix", "shape", "bake"]);
+const ALARM_AT_START_IDS = new Set(["autolyse", "mix", "shape", "preheat", "bake"]);
 
 export type BreadCalendarInput = {
   recipe: BreadRecipe;
@@ -48,7 +51,7 @@ export function breadCalendarFileName(recipe: BreadRecipe, startAt: Date): strin
 export function buildBreadCalendar(input: BreadCalendarInput): string {
   const generatedAt = input.generatedAt ?? new Date();
   const stamp = input.startAt.getTime();
-  const bakeAt = input.schedule[input.schedule.length - 1]?.end;
+  const bakeAt = bakeTimeFromSchedule(input.schedule);
   if (!bakeAt) {
     throw new Error("Cannot build a bread calendar without schedule steps");
   }
@@ -114,16 +117,10 @@ function bakeCalendarEvent(args: {
     description: [
       eventHeading({ recipe, loafCount }),
       `About ${formatDuration(BAKE_EVENT_MINUTES)} covered/uncovered in a preheated Dutch oven.`,
-      "Preheat Dutch ovens to 245°C / 475°F for at least 45 minutes before baking.",
+      `Preheat Dutch ovens to 245°C / 475°F for at least ${formatDuration(PREHEAT_MINUTES)} before baking.`,
     ].join("\n\n"),
     busy: true,
-    alarms: [
-      {
-        trigger: `-PT${BAKE_PREHEAT_ALARM_MINUTES}M`,
-        description: "Preheat the Dutch oven for bread",
-      },
-      ...alarmsFor("bake", "Bake"),
-    ],
+    alarms: alarmsFor("bake", "Bake"),
   };
 }
 

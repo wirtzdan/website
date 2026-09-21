@@ -1,12 +1,7 @@
 import { expect, test } from "vite-plus/test";
 
-import {
-  BAKE_EVENT_MINUTES,
-  BAKE_PREHEAT_ALARM_MINUTES,
-  buildPizzaCalendar,
-  pizzaCalendarFileName,
-} from "./pizza-calendar";
-import { buildSchedule, getRecipeById, scaleIngredients } from "./pizza-recipes";
+import { BAKE_EVENT_MINUTES, buildPizzaCalendar, pizzaCalendarFileName } from "./pizza-calendar";
+import { PREHEAT_MINUTES, buildSchedule, getRecipeById, scaleIngredients } from "./pizza-recipes";
 
 const recipe = getRecipeById("emergency");
 const bakeAt = new Date("2026-08-26T18:00:00.000Z");
@@ -14,6 +9,7 @@ const generatedAt = new Date("2026-08-25T08:00:00.000Z");
 const pizzaCount = 2;
 const ingredients = scaleIngredients(recipe, pizzaCount);
 const schedule = buildSchedule({ recipe, overrides: {}, bakeAt });
+const preheat = schedule.find((step) => step.id === "preheat");
 
 function calendar() {
   return buildPizzaCalendar({
@@ -41,19 +37,41 @@ test("writes a publishable calendar with one event per phase plus bake", () => {
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Bench rest");
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Divide & preshape");
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Proof");
+  expect(unfolded(ics)).toContain("SUMMARY:Pizza: Preheat");
   expect(unfolded(ics)).toContain("SUMMARY:Pizza: Bake");
+  expect(eventProperty(unfolded(ics), "Pizza: Preheat", "DESCRIPTION")).toContain(
+    "Heat the steel\\, stone\\, or pizza oven for about 45 min",
+  );
+});
+
+test("preheat sits before bake without changing the bake-at anchor", () => {
+  expect(preheat).toBeDefined();
+  expect(preheat!.minutes).toBe(PREHEAT_MINUTES);
+  expect(preheat!.end.getTime()).toBe(bakeAt.getTime());
+  expect(preheat!.start.getTime()).toBe(bakeAt.getTime() - PREHEAT_MINUTES * 60_000);
+
+  const proof = schedule.find((step) => step.id === "proof");
+  const mix = schedule.find((step) => step.id === "mix");
+  if (!proof || !mix) {
+    throw new Error("expected proof and mix steps");
+  }
+
+  expect(proof.end.getTime()).toBe(bakeAt.getTime());
+  expect(preheat!.start.getTime()).toBeGreaterThan(proof.start.getTime());
 });
 
 test("uses UTC timestamps that match the working-backwards schedule", () => {
   const ics = unfolded(calendar());
   const mix = schedule.find((step) => step.id === "mix");
-  if (!mix) {
-    throw new Error("expected mix step");
+  if (!mix || !preheat) {
+    throw new Error("expected mix and preheat steps");
   }
 
   expect(ics).toContain("DTSTAMP:20260825T080000Z");
   expect(ics).toContain(`DTSTART:${toIcsUtc(mix.start)}`);
   expect(ics).toContain(`DTEND:${toIcsUtc(mix.end)}`);
+  expect(ics).toContain(`DTSTART:${toIcsUtc(preheat.start)}`);
+  expect(ics).toContain(`DTEND:${toIcsUtc(preheat.end)}`);
   expect(ics).toContain(`DTSTART:${toIcsUtc(bakeAt)}`);
   expect(ics).toContain(
     `DTEND:${toIcsUtc(new Date(bakeAt.getTime() + BAKE_EVENT_MINUTES * 60_000))}`,
@@ -68,15 +86,16 @@ test("marks hands-on steps busy and long waits free", () => {
   expect(eventProperty(ics, "Pizza: Bake", "TRANSP")).toBe("OPAQUE");
   expect(eventProperty(ics, "Pizza: Bench rest", "TRANSP")).toBe("TRANSPARENT");
   expect(eventProperty(ics, "Pizza: Proof", "TRANSP")).toBe("TRANSPARENT");
+  expect(eventProperty(ics, "Pizza: Preheat", "TRANSP")).toBe("TRANSPARENT");
 });
 
-test("alarms fire at mix, divide, bake, and oven preheat", () => {
+test("alarms fire at mix, divide, preheat, and bake", () => {
   const ics = unfolded(calendar());
 
   expect(eventHasAlarm(ics, "Pizza: Mix", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Pizza: Divide & preshape", "-PT0S")).toBe(true);
+  expect(eventHasAlarm(ics, "Pizza: Preheat", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Pizza: Bake", "-PT0S")).toBe(true);
-  expect(eventHasAlarm(ics, "Pizza: Bake", `-PT${BAKE_PREHEAT_ALARM_MINUTES}M`)).toBe(true);
   expect(eventHasAlarm(ics, "Pizza: Proof", "-PT0S")).toBe(false);
 });
 
