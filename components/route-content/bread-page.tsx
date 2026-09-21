@@ -118,6 +118,7 @@ const phaseIcons: Record<string, typeof CookingPot> = {
   bulk: Clock,
   shape: Knife,
   proof: Hourglass,
+  preheat: Fire,
 };
 
 const BAKE_TOOLTIP =

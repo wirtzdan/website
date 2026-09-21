@@ -109,6 +109,7 @@ const phaseIcons: Record<string, typeof CookingPot> = {
   rest: Hourglass,
   divide: Knife,
   proof: Hourglass,
+  preheat: Fire,
 };
 
 const BAKE_TOOLTIP =

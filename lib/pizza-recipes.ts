@@ -38,6 +38,8 @@ export type PizzaRecipe = {
 export const DOUGH_BALL_GRAMS = 250;
 /** Recipe cards are written for this many 250 g balls (~1 kg dough). */
 export const REFERENCE_PIZZA_COUNT = 4;
+/** Oven preheat reminder before bake (steel/stone typically needs this long). */
+export const PREHEAT_MINUTES = 45;
 
 export const pizzaRecipes: PizzaRecipe[] = [
   {
@@ -344,6 +346,20 @@ export type ScheduleStep = {
   tooltip?: string;
 };
 
+export function buildPreheatStep(bakeAt: Date): ScheduleStep {
+  const start = new Date(bakeAt.getTime() - PREHEAT_MINUTES * 60_000);
+  return {
+    id: "preheat",
+    label: "Preheat oven",
+    start,
+    end: new Date(bakeAt),
+    minutes: PREHEAT_MINUTES,
+    note: `Heat the steel, stone, or pizza oven for about ${formatDuration(PREHEAT_MINUTES)}.`,
+    tooltip:
+      "Start preheating while the dough finishes proofing so the oven is as hot as it can get when you stretch and bake.",
+  };
+}
+
 export function buildSchedule(args: {
   recipe: PizzaRecipe;
   overrides: PhaseDurationMap;
@@ -368,6 +384,11 @@ export function buildSchedule(args: {
       tooltip: phase.tooltip,
     });
     cursor = start;
+  }
+
+  // Oven reminder that overlaps late proof — bakeAt stays fixed.
+  if (steps.length > 0) {
+    steps.push(buildPreheatStep(bakeAt));
   }
 
   return steps;

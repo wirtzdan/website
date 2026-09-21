@@ -1,12 +1,8 @@
 import { expect, test } from "vite-plus/test";
 
+import { BAKE_EVENT_MINUTES, breadCalendarFileName, buildBreadCalendar } from "./bread-calendar";
 import {
-  BAKE_EVENT_MINUTES,
-  BAKE_PREHEAT_ALARM_MINUTES,
-  breadCalendarFileName,
-  buildBreadCalendar,
-} from "./bread-calendar";
-import {
+  PREHEAT_MINUTES,
   bakeTimeFromSchedule,
   buildSchedule,
   getRecipeById,
@@ -20,6 +16,7 @@ const loafCount = 2;
 const ingredients = scaleIngredients(recipe, loafCount);
 const schedule = buildSchedule({ recipe, overrides: {}, startAt });
 const bakeAt = bakeTimeFromSchedule(schedule)!;
+const preheat = schedule.find((step) => step.id === "preheat");
 
 function calendar() {
   return buildBreadCalendar({
@@ -48,20 +45,40 @@ test("writes a publishable calendar with one event per phase plus bake", () => {
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Bulk ferment");
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Divide & shape");
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Proof");
+  expect(unfolded(ics)).toContain("SUMMARY:Bread: Preheat Dutch oven to 245°C / 475°F");
   expect(unfolded(ics)).toContain("SUMMARY:Bread: Bake");
+});
+
+test("preheat overlays late proof without shifting earlier dough steps", () => {
+  expect(preheat).toBeDefined();
+  expect(preheat!.minutes).toBe(PREHEAT_MINUTES);
+  expect(preheat!.end.getTime()).toBe(bakeAt.getTime());
+  expect(preheat!.start.getTime()).toBe(bakeAt.getTime() - PREHEAT_MINUTES * 60_000);
+
+  const proof = schedule.find((step) => step.id === "proof");
+  const mix = schedule.find((step) => step.id === "mix");
+  if (!proof || !mix) {
+    throw new Error("expected proof and mix steps");
+  }
+
+  expect(proof.end.getTime()).toBe(bakeAt.getTime());
+  expect(preheat!.start.getTime()).toBeGreaterThan(proof.start.getTime());
+  expect(mix.start.getTime()).toBe(startAt.getTime() + 30 * 60_000);
 });
 
 test("uses UTC timestamps that match the forward-from-start schedule", () => {
   const ics = unfolded(calendar());
   const autolyse = schedule.find((step) => step.id === "autolyse");
-  if (!autolyse) {
-    throw new Error("expected autolyse step");
+  if (!autolyse || !preheat) {
+    throw new Error("expected autolyse and preheat steps");
   }
 
   expect(autolyse.start.getTime()).toBe(startAt.getTime());
   expect(ics).toContain("DTSTAMP:20260914T080000Z");
   expect(ics).toContain(`DTSTART:${toIcsUtc(autolyse.start)}`);
   expect(ics).toContain(`DTEND:${toIcsUtc(autolyse.end)}`);
+  expect(ics).toContain(`DTSTART:${toIcsUtc(preheat.start)}`);
+  expect(ics).toContain(`DTEND:${toIcsUtc(preheat.end)}`);
   expect(ics).toContain(`DTSTART:${toIcsUtc(bakeAt)}`);
   expect(ics).toContain(
     `DTEND:${toIcsUtc(new Date(bakeAt.getTime() + BAKE_EVENT_MINUTES * 60_000))}`,
@@ -77,16 +94,20 @@ test("marks hands-on steps busy and long waits free", () => {
   expect(eventProperty(ics, "Bread: Autolyse", "TRANSP")).toBe("TRANSPARENT");
   expect(eventProperty(ics, "Bread: Bulk ferment", "TRANSP")).toBe("TRANSPARENT");
   expect(eventProperty(ics, "Bread: Proof", "TRANSP")).toBe("TRANSPARENT");
+  expect(eventProperty(ics, "Bread: Preheat Dutch oven to 245°C / 475°F", "TRANSP")).toBe(
+    "TRANSPARENT",
+  );
 });
 
-test("alarms fire at autolyse, mix, shape, bake, and oven preheat", () => {
+test("alarms fire at autolyse, mix, shape, preheat, and bake", () => {
   const ics = unfolded(calendar());
+  const preheatSummary = "Bread: Preheat Dutch oven to 245°C / 475°F";
 
   expect(eventHasAlarm(ics, "Bread: Autolyse", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Mix", "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Divide & shape", "-PT0S")).toBe(true);
+  expect(eventHasAlarm(ics, preheatSummary, "-PT0S")).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Bake", "-PT0S")).toBe(true);
-  expect(eventHasAlarm(ics, "Bread: Bake", `-PT${BAKE_PREHEAT_ALARM_MINUTES}M`)).toBe(true);
   expect(eventHasAlarm(ics, "Bread: Proof", "-PT0S")).toBe(false);
 });
 
@@ -124,6 +145,9 @@ test("overnight schedule starting in the evening bakes the next day", () => {
   expect(start.start.getTime()).toBe(overnightStart.getTime());
   expect(overnightSchedule.find((step) => step.id === "bulk")?.minutes).toBe(13 * 60);
   expect(bake.getUTCDate()).toBe(15);
+  expect(overnightSchedule.find((step) => step.id === "preheat")?.end.getTime()).toBe(
+    bake.getTime(),
+  );
 });
 
 test("escapes commas and semicolons in event text", () => {
