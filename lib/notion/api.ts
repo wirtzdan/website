@@ -5,13 +5,14 @@ import type {
   PaginatedResults,
 } from "@/types/content";
 
-import { blogDatabaseId, pagesDatabaseId } from "@/lib/notion/config";
+import { blogDatabaseId, pagesDatabaseId, photosDatabaseId } from "@/lib/notion/config";
 import { notionAPI, notionPrivateAPI } from "./client";
+import { mapNotionPhoto, type Photo } from "./photos";
 import { withNotionRetry } from "./rate-limited-fetch";
 import {
-  convertNotionAssetUrl,
   getBooleanProperty,
   getDateProperty,
+  getFilesProperty,
   getStringProperty,
   isPublished,
 } from "./utils";
@@ -47,42 +48,6 @@ type NotionDatabaseItem = {
     emoji?: string;
   };
   properties?: Record<string, any>;
-};
-
-const getFilesProperty = (item: NotionDatabaseItem, propertyName: string) => {
-  try {
-    const property = item.properties?.[propertyName];
-    if (!property || property.type !== "files" || !property.files.length) {
-      return null;
-    }
-
-    const file = property.files[0];
-    let fileUrl: string | null = null;
-
-    if (!file || !file.type) {
-      return null;
-    }
-
-    switch (file.type) {
-      case "external":
-        if (file.external?.url) {
-          fileUrl = convertNotionAssetUrl(file.external.url, "block", item.id);
-        }
-        break;
-      case "file":
-        if (file.file?.url) {
-          fileUrl = convertNotionAssetUrl(file.file.url, "block", item.id);
-        }
-        break;
-      default:
-        break;
-    }
-
-    return fileUrl;
-  } catch (error) {
-    console.error("Error in getFilesProperty:", error);
-    return null;
-  }
 };
 
 /** Deduplicate identical DB queries within a single Node process (SSG build). */
@@ -282,4 +247,41 @@ async function queryAllPages({
     hasMore: collection.has_more,
     next_cursor: collection.next_cursor,
   };
+}
+
+const PHOTOS_PAGE_SIZE = 100;
+
+export async function getPhotos(): Promise<Photo[]> {
+  if (!photosDatabaseId) {
+    throw new Error("NOTION_PHOTOS_DATABASE_ID is required");
+  }
+
+  const photos: Photo[] = [];
+  let startCursor: string | undefined;
+
+  do {
+    const collection = await withNotionRetry(() =>
+      notionAPI.databases.query({
+        database_id: photosDatabaseId,
+        page_size: PHOTOS_PAGE_SIZE,
+        start_cursor: startCursor,
+      }),
+    );
+
+    for (const item of collection.results) {
+      if (!("properties" in item)) {
+        continue;
+      }
+
+      const photo = mapNotionPhoto(item as NotionDatabaseItem);
+      if (photo) {
+        photos.push(photo);
+      }
+    }
+
+    startCursor =
+      collection.has_more && collection.next_cursor ? collection.next_cursor : undefined;
+  } while (startCursor);
+
+  return photos;
 }
