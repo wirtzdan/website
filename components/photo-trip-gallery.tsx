@@ -215,12 +215,10 @@ function PhotoTile({ photo, onOpen }: { photo: Photo; onOpen: () => void }) {
       lineHeight={0}
       onClick={onOpen}
     >
-      <Image
+      <img
         src={photo.imageUrl}
         alt={photo.caption ?? photo.trip}
-        w="100%"
-        h="auto"
-        display="block"
+        style={{ width: "100%", height: "auto", display: "block" }}
       />
     </PlainButton>
   );
