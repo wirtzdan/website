@@ -43,6 +43,17 @@ export interface BlogPostSummary {
   coverIcon: string | null;
 }
 
+export interface BookSummary {
+  id: string;
+  title: string;
+  author: string;
+  rating: number | null;
+  favorite: boolean;
+  read: boolean;
+  dateRead: string | null;
+  coverUrl: string | null;
+}
+
 export interface GenericPageSummary {
   id: string;
   title: string;

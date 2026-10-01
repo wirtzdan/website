@@ -14,13 +14,25 @@ const StarIconRating = ({ rating = 0 }: StarIconRatingProps) => {
   return (
     <HStack gap={0} align="center">
       {Array.from({ length: stars }, (_, index) => (
-        <Icon w={4} h={4} color={useColorModeValue("yellow.400", "yellow.200")} asChild>
-          <StarIcon key={`filled-${index}`} />
+        <Icon
+          key={`filled-${index}`}
+          w={4}
+          h={4}
+          color={useColorModeValue("yellow.400", "yellow.200")}
+          asChild
+        >
+          <StarIcon />
         </Icon>
       ))}
       {Array.from({ length: 5 - stars }, (_, index) => (
-        <Icon w={4} h={4} color={useColorModeValue("gray.300", "gray.600")} asChild>
-          <StarIcon key={`empty-${index}`} />
+        <Icon
+          key={`empty-${index}`}
+          w={4}
+          h={4}
+          color={useColorModeValue("gray.300", "gray.600")}
+          asChild
+        >
+          <StarIcon />
         </Icon>
       ))}
     </HStack>
