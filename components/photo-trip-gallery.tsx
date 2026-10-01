@@ -14,20 +14,6 @@ type PhotoTripGalleryProps = {
   trip: PhotoTrip;
 };
 
-function useColumnCount() {
-  const [count, setCount] = useState(3);
-
-  useEffect(() => {
-    const media = window.matchMedia("(min-width: 48em)");
-    const apply = () => setCount(media.matches ? 3 : 1);
-    apply();
-    media.addEventListener("change", apply);
-    return () => media.removeEventListener("change", apply);
-  }, []);
-
-  return count;
-}
-
 function placePhotos(photos: Photo[], columnCount: number) {
   const columns: { photo: Photo; index: number }[][] = Array.from(
     { length: columnCount },
@@ -49,7 +35,6 @@ function stopAnd(handler: () => void) {
 export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const columnCount = useColumnCount();
   const labelColor = useColorModeValue("neutral.800", "neutralD.800");
   const photos = trip.photos;
   const active = activeIndex === null ? null : photos[activeIndex];
@@ -97,12 +82,12 @@ export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
   }, [isOpen]);
 
   return (
-    <Box w="100%" px={GAP}>
+    <Box w="100%">
       <Text as="h2" fontSize="sm" fontWeight="medium" color={labelColor} mb={2}>
         {trip.trip}
       </Text>
       <Box display="flex" gap={GAP} alignItems="flex-start">
-        {placePhotos(photos, columnCount).map((column, columnIndex) => (
+        {placePhotos(photos, 3).map((column, columnIndex) => (
           <Box key={columnIndex} flex="1" minW={0} display="flex" flexDirection="column" gap={GAP}>
             {column.map(({ photo, index }) => (
               <PhotoTile key={photo.id} photo={photo} onOpen={() => setActiveIndex(index)} />
@@ -218,7 +203,7 @@ function PhotoTile({ photo, onOpen }: { photo: Photo; onOpen: () => void }) {
       <img
         src={photo.imageUrl}
         alt={photo.caption ?? photo.trip}
-        style={{ width: "100%", height: "auto", display: "block" }}
+        style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }}
       />
     </PlainButton>
   );

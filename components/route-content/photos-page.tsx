@@ -19,7 +19,13 @@ export default function PhotosPage({ trips }: PhotosPageProps) {
             <Text textAlign="center">No photos yet.</Text>
           </Section>
         ) : (
-          trips.map((trip) => <PhotoTripGallery key={trip.trip} trip={trip} />)
+          <Section>
+            <VStack align="stretch" gap={12} w="100%">
+              {trips.map((trip) => (
+                <PhotoTripGallery key={trip.trip} trip={trip} />
+              ))}
+            </VStack>
+          </Section>
         )}
       </VStack>
     </>
