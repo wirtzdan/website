@@ -1,7 +1,7 @@
 "use client";
 import { Box, Button, HStack, Icon, Menu, Text, VStack, Portal } from "@chakra-ui/react";
 import { useColorModeValue } from "./ui/color-mode";
-import { BoltIcon, BookOpenIcon, BookmarkIcon, CameraIcon } from "@heroicons/react/24/solid";
+import { BoltIcon, BookOpenIcon, BookmarkIcon } from "@heroicons/react/24/solid";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
@@ -130,21 +130,6 @@ const Header = () => {
                               <BookOpenIcon />
                             </Icon>
                             <Text>Books</Text>
-                          </HStack>
-                        </NextLink>
-                      </Menu.Item>
-                      <Menu.Item
-                        bg={menuBg}
-                        _hover={{ bg: menuButtonHoverBg }}
-                        value="item-3"
-                        asChild
-                      >
-                        <NextLink href="/photos">
-                          <HStack>
-                            <Icon boxSize={4.5} color={menuIconColor} asChild>
-                              <CameraIcon />
-                            </Icon>
-                            <Text>Photos</Text>
                           </HStack>
                         </NextLink>
                       </Menu.Item>
