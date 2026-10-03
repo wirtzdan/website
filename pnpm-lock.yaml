@@ -8,6 +8,11 @@ overrides:
   vite: npm:@voidzero-dev/vite-plus-core@latest
   vitest: npm:@voidzero-dev/vite-plus-test@latest
 
+patchedDependencies:
+  next-themes@0.4.6:
+    hash: bd53b629b87c623573a4820734161918d9e5faf9a61770e1b59e8f87608bab1a
+    path: patches/next-themes@0.4.6.patch
+
 importers:
 
   .:
@@ -15,6 +20,9 @@ importers:
       '@chakra-ui/react':
         specifier: ^3.36.1
         version: 3.36.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@emotion/cache':
+        specifier: 11.14.0
+        version: 11.14.0
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.2.14)(react@19.2.4)
@@ -71,7 +79,7 @@ importers:
         version: 4.0.0(next@16.2.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       next-themes:
         specifier: ^0.4.6
-        version: 0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 0.4.6(patch_hash=bd53b629b87c623573a4820734161918d9e5faf9a61770e1b59e8f87608bab1a)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       notion-client:
         specifier: ^6.16.0
         version: 6.16.0
@@ -6481,7 +6489,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  next-themes@0.4.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  next-themes@0.4.6(patch_hash=bd53b629b87c623573a4820734161918d9e5faf9a61770e1b59e8f87608bab1a)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)

@@ -23,12 +23,20 @@ export interface UseColorModeReturn {
 
 export function useColorMode(): UseColorModeReturn {
   const { resolvedTheme, setTheme, forcedTheme } = useTheme();
-  const colorMode = forcedTheme || resolvedTheme;
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // The server cannot see the stored theme. The first client render must match
+  // that light default, or React hydration fails once the visitor is in dark mode.
+  const colorMode = (mounted ? forcedTheme || resolvedTheme : "light") as ColorMode;
   const toggleColorMode = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
   return {
-    colorMode: colorMode as ColorMode,
+    colorMode,
     setColorMode: setTheme,
     toggleColorMode,
   };

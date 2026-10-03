@@ -18,7 +18,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={fontClassNames} suppressHydrationWarning>
+    <html
+      lang="en"
+      className={fontClassNames}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
       <body>
         <AppProviders>{children}</AppProviders>
       </body>
