@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^3.36.1",
+    "@emotion/cache": "11.14.0",
     "@emotion/react": "^11.14.0",
     "@heroicons/react": "^2.0.18",
     "@internationalized/date": "^3.12.3",
@@ -74,6 +75,9 @@
     "overrides": {
       "vite": "npm:@voidzero-dev/vite-plus-core@latest",
       "vitest": "npm:@voidzero-dev/vite-plus-test@latest"
+    },
+    "patchedDependencies": {
+      "next-themes@0.4.6": "patches/next-themes@0.4.6.patch"
     }
   }
 }
