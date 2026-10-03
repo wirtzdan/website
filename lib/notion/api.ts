@@ -1,11 +1,18 @@
 import type {
   BlogPostSummary,
+  BookSummary,
   GenericPageSummary,
   NotionRecordMap,
   PaginatedResults,
 } from "@/types/content";
 
-import { blogDatabaseId, pagesDatabaseId, photosDatabaseId } from "@/lib/notion/config";
+import {
+  blogDatabaseId,
+  booksDatabaseId,
+  pagesDatabaseId,
+  photosDatabaseId,
+} from "@/lib/notion/config";
+import { mapNotionBook } from "./books";
 import { notionAPI, notionPrivateAPI } from "./client";
 import { mapNotionPhoto, type Photo } from "./photos";
 import { withNotionRetry } from "./rate-limited-fetch";
@@ -247,6 +254,43 @@ async function queryAllPages({
     hasMore: collection.has_more,
     next_cursor: collection.next_cursor,
   };
+}
+
+const BOOKS_PAGE_SIZE = 100;
+
+export async function getBooks(): Promise<BookSummary[]> {
+  if (!booksDatabaseId) {
+    throw new Error("NOTION_BOOKS_DATABASE_ID is required");
+  }
+
+  const books: BookSummary[] = [];
+  let startCursor: string | undefined;
+
+  do {
+    const collection = await withNotionRetry(() =>
+      notionAPI.databases.query({
+        database_id: booksDatabaseId,
+        page_size: BOOKS_PAGE_SIZE,
+        start_cursor: startCursor,
+      }),
+    );
+
+    for (const item of collection.results) {
+      if (!("properties" in item)) {
+        continue;
+      }
+
+      const book = mapNotionBook(item as NotionDatabaseItem);
+      if (book) {
+        books.push(book);
+      }
+    }
+
+    startCursor =
+      collection.has_more && collection.next_cursor ? collection.next_cursor : undefined;
+  } while (startCursor);
+
+  return books;
 }
 
 const PHOTOS_PAGE_SIZE = 100;

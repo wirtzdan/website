@@ -15,5 +15,6 @@ export const rootDomain = isDev ? `localhost:${port}` : null;
 
 export const blogDatabaseId = process.env.NOTION_BLOG_DATABASE_ID;
 export const pagesDatabaseId = process.env.NOTION_PAGES_DATABASE_ID;
+export const booksDatabaseId = process.env.NOTION_BOOKS_DATABASE_ID;
 export const photosDatabaseId = process.env.NOTION_PHOTOS_DATABASE_ID;
 export const notionKey = process.env.NOTION_TOKEN;

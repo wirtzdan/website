@@ -8,22 +8,31 @@ import BookCard from "@/components/book-card";
 import Hero from "@/components/hero";
 import Section from "@/components/section";
 import { useColorModeValue } from "@/components/ui/color-mode";
-import type { AirtableRecord, BookFields } from "@/lib/airtable";
+import type { BookSummary } from "@/types/content";
 
 type BooksPageProps = {
-  books: AirtableRecord<BookFields>[];
+  books: BookSummary[];
 };
+
+function byDateReadDescending(left: BookSummary, right: BookSummary) {
+  if (!left.dateRead && !right.dateRead) {
+    return 0;
+  }
+  if (!left.dateRead) {
+    return 1;
+  }
+  if (!right.dateRead) {
+    return -1;
+  }
+  return sorter(right.dateRead, left.dateRead);
+}
 
 export default function BooksPage({ books }: BooksPageProps) {
   const tabBg = useColorModeValue("neutral.300", "neutralD.300");
   const tabColor = useColorModeValue("neutral.900", "neutralD.900");
 
-  const allBooks = books
-    .filter((book) => book.fields.Read === true)
-    .sort((left, right) => sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""));
-  const favorites = books
-    .filter((book) => book.fields.Favorite === true)
-    .sort((left, right) => sorter(right.fields["Date Read"] ?? "", left.fields["Date Read"] ?? ""));
+  const allBooks = books.filter((book) => book.read === true).sort(byDateReadDescending);
+  const favorites = books.filter((book) => book.favorite === true).sort(byDateReadDescending);
 
   return (
     <VStack gap={8}>
@@ -64,12 +73,12 @@ export default function BooksPage({ books }: BooksPageProps) {
               {allBooks.map((book) => (
                 <BookCard
                   key={book.id}
-                  title={book.fields.Title}
-                  author={book.fields.Author}
-                  rating={book.fields.Rating}
-                  isFavorite={book.fields.Favorite}
-                  cover={book.fields.Cover}
-                  dateRead={book.fields["Date Read"]}
+                  title={book.title}
+                  author={book.author}
+                  rating={book.rating ?? undefined}
+                  isFavorite={book.favorite}
+                  coverUrl={book.coverUrl ?? undefined}
+                  dateRead={book.dateRead ?? undefined}
                 />
               ))}
             </SimpleGrid>
@@ -79,12 +88,12 @@ export default function BooksPage({ books }: BooksPageProps) {
               {favorites.map((book) => (
                 <BookCard
                   key={book.id}
-                  title={book.fields.Title}
-                  author={book.fields.Author}
-                  rating={book.fields.Rating}
-                  isFavorite={book.fields.Favorite}
-                  cover={book.fields.Cover}
-                  dateRead={book.fields["Date Read"]}
+                  title={book.title}
+                  author={book.author}
+                  rating={book.rating ?? undefined}
+                  isFavorite={book.favorite}
+                  coverUrl={book.coverUrl ?? undefined}
+                  dateRead={book.dateRead ?? undefined}
                 />
               ))}
             </SimpleGrid>

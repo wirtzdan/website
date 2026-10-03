@@ -5,18 +5,17 @@ import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 
 import StarIconRating from "./star-rating";
-import type { AirtableImage } from "@/types/content";
 
 interface BookCardProps {
   title?: string;
   author?: string;
   rating?: number;
   isFavorite?: boolean;
-  cover?: AirtableImage[];
+  coverUrl?: string;
   dateRead?: string;
 }
 
-const BookCard = ({ title, author, rating = 0, cover, dateRead }: BookCardProps) => {
+const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardProps) => {
   return (
     <a
       href={`https://www.goodreads.com/search?utf8=%E2%9C%93&q=${encodeURIComponent(title ?? "")}`}
@@ -48,7 +47,7 @@ const BookCard = ({ title, author, rating = 0, cover, dateRead }: BookCardProps)
           top={-4}
           backgroundColor="red.300"
         >
-          <Image src={cover?.[0]?.thumbnails.large.url ?? "/"} objectFit="cover" alt={title} />
+          {coverUrl ? <Image src={coverUrl} objectFit="cover" alt={title ?? ""} /> : null}
         </Box>
         <VStack align="start" justify="flex-start" gap={1} maxW="lg" pl={28} h="100%">
           <VStack gap={0} align="start" flexGrow="1">
