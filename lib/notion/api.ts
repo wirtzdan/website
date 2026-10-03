@@ -6,9 +6,15 @@ import type {
   PaginatedResults,
 } from "@/types/content";
 
-import { blogDatabaseId, booksDatabaseId, pagesDatabaseId } from "@/lib/notion/config";
+import {
+  blogDatabaseId,
+  booksDatabaseId,
+  pagesDatabaseId,
+  photosDatabaseId,
+} from "@/lib/notion/config";
 import { mapNotionBook } from "./books";
 import { notionAPI, notionPrivateAPI } from "./client";
+import { mapNotionPhoto, type Photo } from "./photos";
 import { withNotionRetry } from "./rate-limited-fetch";
 import {
   getBooleanProperty,
@@ -285,4 +291,41 @@ export async function getBooks(): Promise<BookSummary[]> {
   } while (startCursor);
 
   return books;
+}
+
+const PHOTOS_PAGE_SIZE = 100;
+
+export async function getPhotos(): Promise<Photo[]> {
+  if (!photosDatabaseId) {
+    throw new Error("NOTION_PHOTOS_DATABASE_ID is required");
+  }
+
+  const photos: Photo[] = [];
+  let startCursor: string | undefined;
+
+  do {
+    const collection = await withNotionRetry(() =>
+      notionAPI.databases.query({
+        database_id: photosDatabaseId,
+        page_size: PHOTOS_PAGE_SIZE,
+        start_cursor: startCursor,
+      }),
+    );
+
+    for (const item of collection.results) {
+      if (!("properties" in item)) {
+        continue;
+      }
+
+      const photo = mapNotionPhoto(item as NotionDatabaseItem);
+      if (photo) {
+        photos.push(photo);
+      }
+    }
+
+    startCursor =
+      collection.has_more && collection.next_cursor ? collection.next_cursor : undefined;
+  } while (startCursor);
+
+  return photos;
 }

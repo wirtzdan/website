@@ -34,6 +34,12 @@ export const booksMetadata: Metadata = {
   alternates: { canonical: `${base}/books` },
 };
 
+export const photosMetadata: Metadata = {
+  title: "Photos",
+  description: "Photographs from trips.",
+  alternates: { canonical: `${base}/photos` },
+};
+
 export const bookmarksMetadata: Metadata = {
   title: "Bookmarks",
   description: "Discoveries from the web — saved bookmarks worth sharing.",

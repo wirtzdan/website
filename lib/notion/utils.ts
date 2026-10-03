@@ -83,47 +83,6 @@ export const getDateProperty = (databaseEntry: NotionDatabaseEntry, key: string)
   }
 };
 
-type NotionFileEntry = {
-  id: string;
-  properties?: Record<string, any>;
-};
-
-export const getFilesProperty = (item: NotionFileEntry, propertyName: string) => {
-  try {
-    const property = item.properties?.[propertyName];
-    if (!property || property.type !== "files" || !property.files.length) {
-      return null;
-    }
-
-    const file = property.files[0];
-    let fileUrl: string | null = null;
-
-    if (!file || !file.type) {
-      return null;
-    }
-
-    switch (file.type) {
-      case "external":
-        if (file.external?.url) {
-          fileUrl = convertNotionAssetUrl(file.external.url, "block", item.id);
-        }
-        break;
-      case "file":
-        if (file.file?.url) {
-          fileUrl = convertNotionAssetUrl(file.file.url, "block", item.id);
-        }
-        break;
-      default:
-        break;
-    }
-
-    return fileUrl;
-  } catch (error) {
-    console.error("Error in getFilesProperty:", error);
-    return null;
-  }
-};
-
 export const getBooleanProperty = (databaseEntry: NotionDatabaseEntry, key: string) => {
   if (!databaseEntry?.properties) {
     return undefined;
@@ -199,6 +158,47 @@ export const convertNotionAssetUrl = (url: string, parentTableType: string, bloc
   notionImageUrlV2.searchParams.set("cache", "v2");
 
   return notionImageUrlV2.toString();
+};
+
+type NotionFileEntry = {
+  id: string;
+  properties?: Record<string, NotionPropertyValue>;
+};
+
+export const getFilesProperty = (item: NotionFileEntry, propertyName: string) => {
+  try {
+    const property = item.properties?.[propertyName];
+    if (!property || property.type !== "files" || !property.files.length) {
+      return null;
+    }
+
+    const file = property.files[0];
+    let fileUrl: string | null = null;
+
+    if (!file || !file.type) {
+      return null;
+    }
+
+    switch (file.type) {
+      case "external":
+        if (file.external?.url) {
+          fileUrl = convertNotionAssetUrl(file.external.url, "block", item.id);
+        }
+        break;
+      case "file":
+        if (file.file?.url) {
+          fileUrl = convertNotionAssetUrl(file.file.url, "block", item.id);
+        }
+        break;
+      default:
+        break;
+    }
+
+    return fileUrl;
+  } catch (error) {
+    console.error("Error in getFilesProperty:", error);
+    return null;
+  }
 };
 
 export const isPublished = (databaseEntry: NotionDatabaseEntry) => {
