@@ -18,8 +18,14 @@ To get this website running locally, type this into your terminal:
 
 ```bash
 $ git clone https://github.com/wirtzdan/website danielwirtz.com
+```
+```bash
 $ cd danielwirtz.com
+```
+```bash
 $ yarn
+```
+```bash
 $ yarn dev
 ```
 
