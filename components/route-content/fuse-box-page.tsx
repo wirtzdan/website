@@ -27,6 +27,7 @@ import {
   NativeSelect,
   parseColor,
   Portal,
+  ScrollArea,
   Splitter,
   Text,
   useBreakpointValue,
@@ -570,6 +571,17 @@ function FullscreenPreview({ children, onClose }: { children: ReactNode; onClose
         <ScaledPreview>{children}</ScaledPreview>
       )}
     </Flex>
+  );
+}
+
+function EditorScroll({ children }: { children: ReactNode }) {
+  return (
+    <ScrollArea.Root flex={1} minH={0} h="full" variant="hover" size="sm">
+      <ScrollArea.Viewport>
+        <ScrollArea.Content>{children}</ScrollArea.Content>
+      </ScrollArea.Viewport>
+      <ScrollArea.Scrollbar />
+    </ScrollArea.Root>
   );
 }
 
@@ -1121,8 +1133,8 @@ export default function FuseBoxPage() {
             defaultSize={loadSplitSizes()}
             onResizeEnd={(details) => saveSplitSizes(details.size)}
           >
-            <Splitter.Panel id="editor" overflowY="auto" bg={panelBg}>
-              {editor}
+            <Splitter.Panel id="editor" display="flex" minH={0} bg={panelBg}>
+              <EditorScroll>{editor}</EditorScroll>
             </Splitter.Panel>
             <Splitter.ResizeTrigger id="editor:preview" aria-label="Resize panels">
               <Splitter.ResizeTriggerSeparator />
@@ -1139,13 +1151,7 @@ export default function FuseBoxPage() {
             direction="column"
             bg={mobileTab === "edit" ? panelBg : undefined}
           >
-            {mobileTab === "edit" ? (
-              <Box flex={1} minH={0} overflowY="auto">
-                {editor}
-              </Box>
-            ) : (
-              preview
-            )}
+            {mobileTab === "edit" ? <EditorScroll>{editor}</EditorScroll> : preview}
           </Flex>
         )}
       </Flex>
