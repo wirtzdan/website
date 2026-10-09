@@ -66,3 +66,10 @@ export const breadMetadata: Metadata = {
     "Scale Saturday and Overnight white bread recipes, see baker’s percentages, and plan autolyse, ferment, and proof times from your bake time.",
   alternates: { canonical: `${base}/bread` },
 };
+
+export const fuseBoxMetadata: Metadata = {
+  title: "Fuse Box Labeler",
+  description:
+    "Design and print exact-size labels for the switches in your fuse box: number labels and description strips, colour-coded per RCD.",
+  alternates: { canonical: `${base}/fuse-box` },
+};
