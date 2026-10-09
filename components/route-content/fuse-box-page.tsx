@@ -846,7 +846,8 @@ export default function FuseBoxPage() {
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
   const [fullscreen, setFullscreen] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
-  const isDesktop = useBreakpointValue({ base: false, lg: true }, { ssr: false }) ?? false;
+  // Server render uses the mobile layout; the client switches to desktop after mount.
+  const isDesktop = useBreakpointValue({ base: false, lg: true }) ?? false;
   const closeFullscreen = useCallback(() => setFullscreen(false), []);
   const mutedText = useColorModeValue("neutral.1000", "neutralD.1000");
   const panelBg = useColorModeValue("white", "neutralD.100");
