@@ -12,6 +12,7 @@ import {
 import { createPortal } from "react-dom";
 import { IBM_Plex_Sans_Condensed } from "next/font/google";
 import {
+  Accordion,
   Badge,
   Box,
   Button,
@@ -25,6 +26,7 @@ import {
   List,
   NativeSelect,
   parseColor,
+  Portal,
   Splitter,
   Text,
   useBreakpointValue,
@@ -603,7 +605,59 @@ const titlePlaceholders: Record<DeviceKind, string> = {
   empty: "",
 };
 
-function DeviceEditor({
+function FieldLabel({ children }: { children: ReactNode }) {
+  return (
+    <Text fontSize="xs" fontWeight="500" color="fg.muted" mb={1}>
+      {children}
+    </Text>
+  );
+}
+
+function ColorField({ color, onChange }: { color: string; onChange: (color: string) => void }) {
+  const current = colorSwatches.find((swatch) => swatch.value === color.toLowerCase());
+
+  return (
+    <ColorPicker.Root
+      size="sm"
+      value={parseColor(color)}
+      onValueChange={(details) => onChange(details.value.toString("hex").toLowerCase())}
+      closeOnSelect
+      positioning={{ placement: "bottom-start" }}
+    >
+      <ColorPicker.HiddenInput />
+      <ColorPicker.Label srOnly>Colour</ColorPicker.Label>
+      <ColorPicker.Control>
+        <ColorPicker.Trigger px={2} gap={2} w="full" justifyContent="start">
+          <ColorPicker.ValueSwatch boxSize="4" rounded="full" />
+          <Text fontSize="sm">{current?.name ?? "Colour"}</Text>
+        </ColorPicker.Trigger>
+      </ColorPicker.Control>
+      <Portal>
+        <ColorPicker.Positioner>
+          <ColorPicker.Content>
+            <ColorPicker.SwatchGroup gap={1.5} display="grid" gridTemplateColumns="repeat(5, 1fr)">
+              {colorSwatches.map((swatch) => (
+                <ColorPicker.SwatchTrigger
+                  key={swatch.value}
+                  value={swatch.value}
+                  aria-label={swatch.name}
+                  title={swatch.name}
+                >
+                  <ColorPicker.Swatch boxSize="7" rounded="full" value={swatch.value}>
+                    <ColorPicker.SwatchIndicator boxSize="2.5" bg="white" rounded="full" />
+                  </ColorPicker.Swatch>
+                </ColorPicker.SwatchTrigger>
+              ))}
+            </ColorPicker.SwatchGroup>
+          </ColorPicker.Content>
+        </ColorPicker.Positioner>
+      </Portal>
+    </ColorPicker.Root>
+  );
+}
+
+/** A one-line summary of a switch that expands into its settings. */
+function DeviceItem({
   placed,
   rcds,
   colors,
@@ -626,9 +680,8 @@ function DeviceEditor({
 }) {
   const { device, start, end } = placed;
   const color = deviceColor(device, colors);
-  const border = useColorModeValue("neutral.400", "neutralD.400");
-  const cardBg = useColorModeValue("white", "neutralD.100");
   const rcdId = device.rcdId && colors.has(device.rcdId) ? device.rcdId : "";
+  const isEmpty = device.kind === "empty";
 
   const changeKind = (kind: DeviceKind) => {
     if (kind === "rcd" && !device.title) {
@@ -641,138 +694,135 @@ function DeviceEditor({
   };
 
   return (
-    <VStack
-      align="stretch"
-      gap={2}
-      borderWidth="1px"
-      borderColor={border}
-      bg={cardBg}
-      rounded="lg"
-      p={3}
-    >
-      <Flex gap={2} align="center">
+    <Accordion.Item value={device.id}>
+      <Accordion.ItemTrigger px={3} py={2.5} gap={3} cursor="pointer">
         <Badge
-          minW="2.75rem"
+          minW="2.5rem"
           justifyContent="center"
-          size="lg"
           variant="solid"
           style={{ background: color ?? "transparent", color: color ? "#fff" : undefined }}
           borderWidth={color ? 0 : "1px"}
+          borderStyle="dashed"
         >
           {codes.get(device.id) ?? "–"}
         </Badge>
+        <Box flex={1} minW={0} textAlign="start">
+          <Text
+            fontSize="sm"
+            fontWeight="500"
+            truncate
+            color={isEmpty || !device.title ? "fg.muted" : undefined}
+          >
+            {isEmpty ? "Empty" : device.title || "Untitled"}
+          </Text>
+          {device.detail ? (
+            <Text fontSize="xs" color="fg.muted" truncate>
+              {device.detail}
+            </Text>
+          ) : null}
+        </Box>
         <Text fontSize="xs" color="fg.muted" whiteSpace="nowrap">
-          Pos. {formatPosition(start, end)}
+          {formatPosition(start, end)}
         </Text>
-        <HStack gap={0} ml="auto">
-          <IconButton
-            aria-label="Move up"
-            size="xs"
-            variant="ghost"
-            disabled={isFirst}
-            onClick={() => onMove(-1)}
-          >
-            <CaretUp />
-          </IconButton>
-          <IconButton
-            aria-label="Move down"
-            size="xs"
-            variant="ghost"
-            disabled={isLast}
-            onClick={() => onMove(1)}
-          >
-            <CaretDown />
-          </IconButton>
-          <IconButton aria-label="Remove" size="xs" variant="ghost" onClick={onRemove}>
-            <Trash />
-          </IconButton>
-        </HStack>
-      </Flex>
-      {device.kind !== "empty" ? (
-        <>
-          <Input
-            size="sm"
-            aria-label="Name"
-            placeholder={titlePlaceholders[device.kind]}
-            value={device.title}
-            onChange={(event) => onChange({ title: event.currentTarget.value })}
-          />
-          <Input
-            size="sm"
-            aria-label="Details"
-            placeholder={
-              device.kind === "group"
-                ? "Details, e.g. Fridge · Extractor fan"
-                : "Details (optional)"
-            }
-            value={device.detail}
-            onChange={(event) => onChange({ detail: event.currentTarget.value })}
-          />
-        </>
-      ) : null}
-      {device.kind === "rcd" && color ? (
-        <ColorPicker.Root
-          size="xs"
-          value={parseColor(color)}
-          onValueChange={(details) => onChange({ color: details.value.toString("hex") })}
-        >
-          <ColorPicker.HiddenInput />
-          <ColorPicker.Label srOnly>Colour</ColorPicker.Label>
-          <ColorPicker.SwatchGroup gap={1.5} flexWrap="wrap">
-            {colorSwatches.map((swatch) => (
-              <ColorPicker.SwatchTrigger
-                key={swatch.value}
-                value={swatch.value}
-                aria-label={swatch.name}
-                title={swatch.name}
-              >
-                <ColorPicker.Swatch boxSize="6" rounded="full" value={swatch.value}>
-                  <ColorPicker.SwatchIndicator boxSize="2.5" bg="white" rounded="full" />
-                </ColorPicker.Swatch>
-              </ColorPicker.SwatchTrigger>
-            ))}
-          </ColorPicker.SwatchGroup>
-        </ColorPicker.Root>
-      ) : null}
-      <Grid templateColumns={device.kind === "group" ? "1fr 1fr 1fr" : "1fr 1fr"} gap={2}>
-        <SmallSelect
-          label="Type"
-          value={device.kind}
-          onChange={(value) => changeKind(value as DeviceKind)}
-        >
-          {Object.entries(deviceKindLabels).map(([kind, label]) => (
-            <option key={kind} value={kind}>
-              {label}
-            </option>
-          ))}
-        </SmallSelect>
-        <SmallSelect
-          label="Width in modules"
-          value={String(device.span)}
-          onChange={(value) => onChange({ span: Number(value) })}
-        >
-          {Array.from({ length: MODULES_PER_ROW }, (_, i) => i + 1).map((span) => (
-            <option key={span} value={span}>
-              {span} {span === 1 ? "module" : "modules"}
-            </option>
-          ))}
-        </SmallSelect>
-        {device.kind === "group" ? (
-          <SmallSelect
-            label="RCD"
-            value={rcdId}
-            onChange={(value) => onChange({ rcdId: value || undefined })}
-          >
-            <option value="">No RCD</option>
-            {rcds.map((rcd) => (
-              <option key={rcd.id} value={rcd.id}>
-                {codes.get(rcd.id)} · {rcd.title || DEFAULT_RCD_TITLE}
-              </option>
-            ))}
-          </SmallSelect>
-        ) : null}
-      </Grid>
-    </VStack>
+        <Accordion.ItemIndicator />
+      </Accordion.ItemTrigger>
+      <Accordion.ItemContent>
+        <Accordion.ItemBody px={3} pt={1} pb={3}>
+          <VStack align="stretch" gap={3}>
+            {!isEmpty ? (
+              <>
+                <Box>
+                  <FieldLabel>Name</FieldLabel>
+                  <Input
+                    size="sm"
+                    aria-label="Name"
+                    placeholder={titlePlaceholders[device.kind]}
+                    value={device.title}
+                    onChange={(event) => onChange({ title: event.currentTarget.value })}
+                  />
+                </Box>
+                <Box>
+                  <FieldLabel>Details</FieldLabel>
+                  <Input
+                    size="sm"
+                    aria-label="Details"
+                    placeholder={
+                      device.kind === "group" ? "e.g. Fridge · Extractor fan" : "Optional"
+                    }
+                    value={device.detail}
+                    onChange={(event) => onChange({ detail: event.currentTarget.value })}
+                  />
+                </Box>
+              </>
+            ) : null}
+            <Grid templateColumns="1fr 1fr" gap={2}>
+              <Box minW={0}>
+                <FieldLabel>Type</FieldLabel>
+                <SmallSelect
+                  label="Type"
+                  value={device.kind}
+                  onChange={(value) => changeKind(value as DeviceKind)}
+                >
+                  {Object.entries(deviceKindLabels).map(([kind, label]) => (
+                    <option key={kind} value={kind}>
+                      {label}
+                    </option>
+                  ))}
+                </SmallSelect>
+              </Box>
+              <Box minW={0}>
+                <FieldLabel>Width</FieldLabel>
+                <SmallSelect
+                  label="Width in modules"
+                  value={String(device.span)}
+                  onChange={(value) => onChange({ span: Number(value) })}
+                >
+                  {Array.from({ length: MODULES_PER_ROW }, (_, i) => i + 1).map((span) => (
+                    <option key={span} value={span}>
+                      {span} {span === 1 ? "module" : "modules"}
+                    </option>
+                  ))}
+                </SmallSelect>
+              </Box>
+            </Grid>
+            {device.kind === "group" ? (
+              <Box>
+                <FieldLabel>Earth-leakage switch</FieldLabel>
+                <SmallSelect
+                  label="Earth-leakage switch"
+                  value={rcdId}
+                  onChange={(value) => onChange({ rcdId: value || undefined })}
+                >
+                  <option value="">None</option>
+                  {rcds.map((rcd) => (
+                    <option key={rcd.id} value={rcd.id}>
+                      {codes.get(rcd.id)} · {rcd.title || DEFAULT_RCD_TITLE}
+                    </option>
+                  ))}
+                </SmallSelect>
+              </Box>
+            ) : null}
+            {device.kind === "rcd" && color ? (
+              <Box>
+                <FieldLabel>Colour</FieldLabel>
+                <ColorField color={color} onChange={(value) => onChange({ color: value })} />
+              </Box>
+            ) : null}
+            <HStack gap={1}>
+              <Button size="xs" variant="ghost" disabled={isFirst} onClick={() => onMove(-1)}>
+                <CaretUp /> Move up
+              </Button>
+              <Button size="xs" variant="ghost" disabled={isLast} onClick={() => onMove(1)}>
+                <CaretDown /> Move down
+              </Button>
+              <Button size="xs" variant="ghost" colorPalette="red" ml="auto" onClick={onRemove}>
+                <Trash /> Remove
+              </Button>
+            </HStack>
+          </VStack>
+        </Accordion.ItemBody>
+      </Accordion.ItemContent>
+    </Accordion.Item>
   );
 }
 
@@ -783,6 +833,7 @@ export default function FuseBoxPage() {
   const [showStripCodes, setShowStripCodes] = useState(true);
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
   const [fullscreen, setFullscreen] = useState(false);
+  const [openId, setOpenId] = useState<string | null>(null);
   const isDesktop = useBreakpointValue({ base: false, lg: true }, { ssr: false }) ?? false;
   const closeFullscreen = useCallback(() => setFullscreen(false), []);
   const mutedText = useColorModeValue("neutral.1000", "neutralD.1000");
@@ -859,11 +910,15 @@ export default function FuseBoxPage() {
               <Text fontWeight="600" fontSize="md">
                 Row {rowIndex + 1}
               </Text>
-              <Badge colorPalette={used === MODULES_PER_ROW ? "green" : "red"}>
-                {used} / {MODULES_PER_ROW} modules
-              </Badge>
+              {used !== MODULES_PER_ROW ? (
+                <Badge colorPalette="red">
+                  {used} / {MODULES_PER_ROW} modules
+                </Badge>
+              ) : null}
               {panel.rows.length > 1 ? (
-                <Button
+                <IconButton
+                  aria-label={`Remove row ${rowIndex + 1}`}
+                  title="Remove row"
                   size="xs"
                   variant="ghost"
                   ml="auto"
@@ -874,38 +929,52 @@ export default function FuseBoxPage() {
                     )
                   }
                 >
-                  <Trash /> Remove row
-                </Button>
+                  <Trash />
+                </IconButton>
               ) : null}
             </Flex>
-            {placedRow.map((placed, index) => (
-              <DeviceEditor
-                key={placed.device.id}
-                placed={placed}
-                rcds={rcds}
-                colors={colors}
-                codes={codes}
-                isFirst={index === 0}
-                isLast={index === row.length - 1}
-                onChange={(patch) =>
-                  updateRow(rowIndex, (current) =>
-                    current.map((device) =>
-                      device.id === placed.device.id ? { ...device, ...patch } : device,
-                    ),
-                  )
-                }
-                onMove={(direction) => moveDevice(rowIndex, index, direction)}
-                onRemove={() =>
-                  updateRow(rowIndex, (current) =>
-                    current.filter((device) => device.id !== placed.device.id),
-                  )
-                }
-              />
-            ))}
+            <Accordion.Root
+              collapsible
+              variant="enclosed"
+              size="sm"
+              bg={panelBg}
+              value={openId ? [openId] : []}
+              onValueChange={(details) => setOpenId(details.value[0] ?? null)}
+            >
+              {placedRow.map((placed, index) => (
+                <DeviceItem
+                  key={placed.device.id}
+                  placed={placed}
+                  rcds={rcds}
+                  colors={colors}
+                  codes={codes}
+                  isFirst={index === 0}
+                  isLast={index === row.length - 1}
+                  onChange={(patch) =>
+                    updateRow(rowIndex, (current) =>
+                      current.map((device) =>
+                        device.id === placed.device.id ? { ...device, ...patch } : device,
+                      ),
+                    )
+                  }
+                  onMove={(direction) => moveDevice(rowIndex, index, direction)}
+                  onRemove={() =>
+                    updateRow(rowIndex, (current) =>
+                      current.filter((device) => device.id !== placed.device.id),
+                    )
+                  }
+                />
+              ))}
+            </Accordion.Root>
             <Button
               size="sm"
-              variant="outline"
-              onClick={() => updateRow(rowIndex, (current) => [...current, createDevice()])}
+              alignSelf="start"
+              variant="ghost"
+              onClick={() => {
+                const device = createDevice();
+                updateRow(rowIndex, (current) => [...current, device]);
+                setOpenId(device.id);
+              }}
             >
               <Plus /> Add switch
             </Button>
