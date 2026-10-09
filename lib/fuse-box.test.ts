@@ -49,3 +49,10 @@ test("widens number labels by one module pitch per extra module", () => {
   expect(numberLabelWidth(1)).toBe(18);
   expect(numberLabelWidth(2)).toBe(35.5);
 });
+
+test("uses a chosen RCD colour over the default", () => {
+  const panel = {
+    rows: [[{ id: "q", kind: "rcd" as const, span: 2, title: "", detail: "", color: "#dc2626" }]],
+  };
+  expect(rcdColorMap(panel).get("q")).toBe("#dc2626");
+});

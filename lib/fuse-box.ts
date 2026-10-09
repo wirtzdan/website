@@ -15,6 +15,8 @@ export interface Device {
   title: string;
   detail: string;
   rcdId?: string;
+  /** Colour for an RCD and the groups behind it; defaults by RCD order. */
+  color?: string;
 }
 
 export interface Panel {
@@ -47,8 +49,20 @@ export const deviceKindLabels: Record<DeviceKind, string> = {
   empty: "Empty",
 };
 
-// Saturated enough to read as a thin band, distinct when printed in colour.
-export const rcdColors = ["#2563EB", "#EA580C", "#16A34A", "#9333EA", "#DB2777", "#0891B2"];
+// Chakra UI's 600 shades: saturated enough to read as a thin band and to carry white text.
+export const colorSwatches = [
+  { name: "Blue", value: "#2563eb" },
+  { name: "Orange", value: "#ea580c" },
+  { name: "Green", value: "#16a34a" },
+  { name: "Purple", value: "#9333ea" },
+  { name: "Pink", value: "#db2777" },
+  { name: "Cyan", value: "#0891b2" },
+  { name: "Red", value: "#dc2626" },
+  { name: "Yellow", value: "#ca8a04" },
+  { name: "Teal", value: "#0d9488" },
+  { name: "Gray", value: "#52525b" },
+];
+export const rcdColors = colorSwatches.slice(0, 6).map((swatch) => swatch.value);
 export const DEFAULT_RCD_TITLE = "Earth-leakage switch";
 export const NO_RCD_COLOR = "#94A3B8";
 export const MAIN_SWITCH_COLOR = "#334155";
@@ -173,7 +187,7 @@ export function rcdColorMap(panel: Panel): Map<string, string> {
   const map = new Map<string, string>();
   panel.rows.flat().forEach((device) => {
     if (device.kind === "rcd") {
-      map.set(device.id, rcdColors[map.size % rcdColors.length]!);
+      map.set(device.id, device.color ?? rcdColors[map.size % rcdColors.length]!);
     }
   });
   return map;

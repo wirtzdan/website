@@ -16,6 +16,7 @@ import {
   Box,
   Button,
   Checkbox,
+  ColorPicker,
   Flex,
   Grid,
   HStack,
@@ -23,6 +24,7 @@ import {
   Input,
   List,
   NativeSelect,
+  parseColor,
   Splitter,
   Text,
   useBreakpointValue,
@@ -45,6 +47,7 @@ import {
 import AvatarNavigation from "@/components/avatar-navigation";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import {
+  colorSwatches,
   createDevice,
   createEmptyRow,
   deviceCodes,
@@ -706,6 +709,30 @@ function DeviceEditor({
             onChange={(event) => onChange({ detail: event.currentTarget.value })}
           />
         </>
+      ) : null}
+      {device.kind === "rcd" && color ? (
+        <ColorPicker.Root
+          size="xs"
+          value={parseColor(color)}
+          onValueChange={(details) => onChange({ color: details.value.toString("hex") })}
+        >
+          <ColorPicker.HiddenInput />
+          <ColorPicker.Label srOnly>Colour</ColorPicker.Label>
+          <ColorPicker.SwatchGroup gap={1.5} flexWrap="wrap">
+            {colorSwatches.map((swatch) => (
+              <ColorPicker.SwatchTrigger
+                key={swatch.value}
+                value={swatch.value}
+                aria-label={swatch.name}
+                title={swatch.name}
+              >
+                <ColorPicker.Swatch boxSize="6" rounded="full" value={swatch.value}>
+                  <ColorPicker.SwatchIndicator boxSize="2.5" bg="white" rounded="full" />
+                </ColorPicker.Swatch>
+              </ColorPicker.SwatchTrigger>
+            ))}
+          </ColorPicker.SwatchGroup>
+        </ColorPicker.Root>
       ) : null}
       <Grid templateColumns={device.kind === "group" ? "1fr 1fr 1fr" : "1fr 1fr"} gap={2}>
         <SmallSelect
