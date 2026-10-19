@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
 const siteTitle = "Daniel Wirtz";
-const siteDescription =
-  "Senior Design Engineer at Giving What We Can, based in the Netherlands.";
+const siteDescription = "Senior Design Engineer at Giving What We Can, based in the Netherlands.";
 
 export const siteMetadata: Metadata = {
   title: { default: siteTitle, template: "%s – Daniel Wirtz" },
