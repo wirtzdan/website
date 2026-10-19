@@ -1,6 +1,6 @@
 type NotionFetchInit = {
   agent?: unknown;
-  body?: string;
+  body?: string | FormData;
   headers?: Record<string, string>;
   method?: string;
 };

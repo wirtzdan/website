@@ -17,21 +17,36 @@ import {
 import { EnvelopeIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
 
-import type { SuggestionPayload } from "@/types/api";
+import { HoneypotField } from "@/components/honeypot-field";
+import type { SuggestionPayload, SuggestionResponseBody } from "@/types/api";
 
 const BookSuggestion = () => {
   const { open, onOpen, onClose } = useDisclosure();
+  const [errorMessage, setErrorMessage] = React.useState("");
+  const [isSuccessful, setIsSuccessful] = React.useState(false);
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting, isSubmitSuccessful, errors },
+    formState: { isSubmitting, errors },
   } = useForm<SuggestionPayload>();
 
   const onSubmit = async (data: SuggestionPayload) => {
-    await fetch("/api/sendSuggestion", {
-      method: "POST",
-      body: JSON.stringify(data),
-    });
+    setErrorMessage("");
+    try {
+      const response = await fetch("/api/sendSuggestion", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const payload = (await response.json()) as SuggestionResponseBody;
+      if (!response.ok || payload.error) {
+        setErrorMessage(payload.error || "Something went wrong. Please try again later.");
+        return;
+      }
+      setIsSuccessful(true);
+    } catch {
+      setErrorMessage("Something went wrong. Please try again later.");
+    }
   };
 
   return (
@@ -55,14 +70,15 @@ const BookSuggestion = () => {
               <Dialog.Header>Book Suggestion</Dialog.Header>
               <Dialog.CloseTrigger />
               <Dialog.Body pb={4}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} style={{ position: "relative" }}>
+                  <HoneypotField register={register} />
                   <VStack gap={2}>
                     <Field.Root w="100%" invalid={Boolean(errors.title)}>
                       <Field.Label>Title</Field.Label>
                       <Input
                         {...register("title", { required: "Title is required" })}
                         placeholder="Title"
-                        disabled={isSubmitSuccessful}
+                        disabled={isSuccessful}
                         rounded="lg"
                       />
                       {errors.title ? (
@@ -74,7 +90,7 @@ const BookSuggestion = () => {
                       <Input
                         {...register("author", { required: "Author is required" })}
                         placeholder="Author"
-                        disabled={isSubmitSuccessful}
+                        disabled={isSuccessful}
                         rounded="lg"
                       />
                       {errors.author ? (
@@ -86,11 +102,11 @@ const BookSuggestion = () => {
                       <Textarea
                         {...register("message")}
                         placeholder="Write a message..."
-                        disabled={isSubmitSuccessful}
+                        disabled={isSuccessful}
                         rounded="lg"
                       />
                     </Field.Root>
-                    {isSubmitSuccessful ? (
+                    {isSuccessful ? (
                       <Alert.Root status="success" rounded="lg">
                         <Alert.Indicator />
                         Thanks for the suggestion!
@@ -107,6 +123,12 @@ const BookSuggestion = () => {
                         Send suggestion
                       </Button>
                     )}
+                    {errorMessage ? (
+                      <Alert.Root status="warning" rounded="lg">
+                        <Alert.Indicator />
+                        {errorMessage}
+                      </Alert.Root>
+                    ) : null}
                   </VStack>
                 </form>
               </Dialog.Body>

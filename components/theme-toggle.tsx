@@ -16,11 +16,7 @@ const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
 
   // Raw icons with explicit size so mobile nav matches Blog/Menu (~20px).
   const icon =
-    colorMode === "dark" ? (
-      <SunIcon width={20} height={20} />
-    ) : (
-      <MoonIcon width={20} height={20} />
-    );
+    colorMode === "dark" ? <SunIcon width={20} height={20} /> : <MoonIcon width={20} height={20} />;
 
   return (
     <Tooltip

@@ -1,6 +1,8 @@
 export interface AddSubscriberRequestBody {
   email?: string;
   referrer_url?: string;
+  /** Honeypot. Humans leave this empty. */
+  company_website?: string;
 }
 
 export interface AddSubscriberResponseBody {
@@ -11,6 +13,8 @@ export interface SuggestionPayload {
   title: string;
   author: string;
   message?: string;
+  /** Honeypot. Humans leave this empty. */
+  company_website?: string;
 }
 
 export interface SuggestionResponseBody {
