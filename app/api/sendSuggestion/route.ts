@@ -1,6 +1,16 @@
 import Airtable from "airtable";
 
-import type { SuggestionPayload, SuggestionResponseBody } from "@/types/api";
+import type { SuggestionResponseBody } from "@/types/api";
+
+import {
+  GENERIC_UPSTREAM_ERROR,
+  SUGGESTION_LIMIT,
+  SUGGESTION_WINDOW_SECONDS,
+  guardPublicPost,
+  jsonResponse,
+  parseSuggestion,
+  type SuggestionInput,
+} from "@/lib/public-api";
 
 function getSuggestionsTable() {
   const apiKey = process.env.AIRTABLE_API_KEY;
@@ -11,48 +21,49 @@ function getSuggestionsTable() {
   return new Airtable({ apiKey }).base(baseId)("Suggestions");
 }
 
-export async function POST(request: Request) {
-  let body: SuggestionPayload;
-  try {
-    body = (await request.json()) as SuggestionPayload;
-  } catch {
-    return Response.json({ error: "Invalid JSON" } satisfies SuggestionResponseBody, {
-      status: 400,
-    });
-  }
-
-  try {
-    await sendSuggestion(body);
-    return Response.json({ error: "" } satisfies SuggestionResponseBody);
-  } catch (error) {
-    return Response.json(
-      {
-        error: error instanceof Error ? error.message : "Failed to send suggestion",
-      } satisfies SuggestionResponseBody,
-      { status: 405 },
-    );
-  }
-}
-
-function sendSuggestion(data: SuggestionPayload) {
-  const { title, author, message } = data;
+function writeSuggestion(input: SuggestionInput) {
   const table = getSuggestionsTable();
+  const fields: { Title: string; Author: string; Message?: string } = {
+    Title: input.title,
+    Author: input.author,
+  };
+  if (input.message) {
+    fields.Message = input.message;
+  }
 
   return new Promise<void>((resolve, reject) => {
-    table.create(
-      {
-        Title: title,
-        Author: author,
-        Message: message,
-      },
-      (error) => {
-        if (error) {
-          reject(error);
-          return;
-        }
-
-        resolve();
-      },
-    );
+    table.create(fields, (error) => {
+      if (error) {
+        reject(error);
+        return;
+      }
+      resolve();
+    });
   });
+}
+
+export async function POST(request: Request) {
+  const guarded = await guardPublicPost(request, {
+    scope: "send-suggestion",
+    limit: SUGGESTION_LIMIT,
+    windowSeconds: SUGGESTION_WINDOW_SECONDS,
+    successStatus: 200,
+  });
+
+  if (guarded.kind === "response") {
+    return guarded.response;
+  }
+
+  const parsed = parseSuggestion(guarded.body);
+  if (parsed.ok === false) {
+    return jsonResponse({ error: parsed.error } satisfies SuggestionResponseBody, 400);
+  }
+
+  try {
+    await writeSuggestion(parsed.value);
+    return jsonResponse({ error: "" } satisfies SuggestionResponseBody);
+  } catch (error) {
+    console.error("Airtable suggestion failed", error);
+    return jsonResponse({ error: GENERIC_UPSTREAM_ERROR } satisfies SuggestionResponseBody, 500);
+  }
 }

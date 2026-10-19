@@ -5,6 +5,7 @@ import { Alert, Button, Collapsible, Icon, Input, Stack, chakra, Field } from "@
 import { RssIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
 
+import { HoneypotField } from "@/components/honeypot-field";
 import type { AddSubscriberRequestBody, AddSubscriberResponseBody } from "@/types/api";
 
 interface SubscribeProps {
@@ -16,6 +17,7 @@ interface SubscribeProps {
 
 interface SubscribeFormValues {
   email_address: string;
+  company_website?: string;
 }
 
 const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
@@ -34,6 +36,7 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
     const payload: AddSubscriberRequestBody = {
       email: data.email_address,
       referrer_url: window.location.href,
+      company_website: data.company_website,
     };
 
     const response = await fetch("/api/addSubscriber", {
@@ -56,7 +59,8 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
   };
 
   return (
-    <chakra.form onSubmit={handleSubmit(onSubmit)} {...props} w="100%">
+    <chakra.form onSubmit={handleSubmit(onSubmit)} {...props} w="100%" position="relative">
+      <HoneypotField register={register} />
       <Stack direction="column" w="100%">
         {isSuccessful ? (
           <Collapsible.Root open={isSuccessful}>
