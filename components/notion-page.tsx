@@ -12,6 +12,7 @@ import TweetEmbed from "react-tweet-embed";
 import type { NotionRecordMap } from "@/types/content";
 
 import Codeblock from "@/components/codeblock/codeblock";
+import { useColorMode } from "@/components/ui/color-mode";
 
 const Collection = dynamic(() =>
   import("react-notion-x/build/third-party/collection").then((module) => module.Collection),
@@ -198,6 +199,8 @@ const NotionPage = ({
   rootPageId,
   rootDomain,
 }: NotionPageProps) => {
+  const { colorMode } = useColorMode();
+
   if (!recordMap) {
     return null;
   }
@@ -208,7 +211,7 @@ const NotionPage = ({
     <TypedNotionRenderer
       recordMap={recordMap}
       hideBlockId
-      darkMode={false}
+      darkMode={colorMode === "dark"}
       rootDomain={rootDomain}
       rootPageId={rootPageId}
       previewImages={previewImagesEnabled}
