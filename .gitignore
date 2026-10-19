@@ -52,8 +52,17 @@ typings/
 *.tgz
 
 # dotenv environment variables file
-.env
-.env.local
+.env*
+!.env.example
+
+# Vercel
+.vercel
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Yarn install state
+.yarn/install-state.gz
 
 # Mac files
 .DS_Store

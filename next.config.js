@@ -1,5 +1,107 @@
 /** @type {import('next').NextConfig} */
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  [
+    "script-src 'self' 'unsafe-inline'",
+    "https://plausible.io",
+    "https://www.clarity.ms",
+    "https://scripts.clarity.ms",
+    "https://static.cloudflareinsights.com",
+    "https://platform.twitter.com",
+    "https://cdn.syndication.twimg.com",
+    "https://www.youtube.com",
+    "https://s.ytimg.com",
+    "https://player.vimeo.com",
+  ].join(" "),
+  "style-src 'self' 'unsafe-inline'",
+  [
+    "img-src 'self' data: blob:",
+    "https://www.notion.so",
+    "https://notion.so",
+    "https://file.notion.so",
+    "https://secure.notion-static.com",
+    "https://prod-files-secure.s3.us-west-2.amazonaws.com",
+    "https://prod-files-secure.s3.amazonaws.com",
+    "https://dl.airtable.com",
+    "https://v5.airtableusercontent.com",
+    "https://assets-global.website-files.com",
+    "https://res.cloudinary.com",
+    "https://*.cloudinary.com",
+    "https://pbs.twimg.com",
+    "https://abs.twimg.com",
+    "https://ton.twimg.com",
+    "https://i.ytimg.com",
+    "https://i.vimeocdn.com",
+    "https://c.clarity.ms",
+  ].join(" "),
+  "font-src 'self' data:",
+  [
+    "connect-src 'self'",
+    "https://plausible.io",
+    "https://*.clarity.ms",
+    "https://cloudflareinsights.com",
+    "https://static.cloudflareinsights.com",
+    "https://syndication.twitter.com",
+    "https://cdn.syndication.twimg.com",
+    "https://www.youtube.com",
+    "https://player.vimeo.com",
+  ].join(" "),
+  [
+    "frame-src",
+    "https://www.youtube.com",
+    "https://www.youtube-nocookie.com",
+    "https://player.vimeo.com",
+    "https://platform.twitter.com",
+    "https://syndication.twitter.com",
+    "https://buttondown.email",
+  ].join(" "),
+  [
+    "media-src 'self' blob:",
+    "https://www.notion.so",
+    "https://notion.so",
+    "https://file.notion.so",
+    "https://secure.notion-static.com",
+    "https://prod-files-secure.s3.us-west-2.amazonaws.com",
+    "https://prod-files-secure.s3.amazonaws.com",
+    "https://www.youtube.com",
+    "https://www.youtube-nocookie.com",
+    "https://player.vimeo.com",
+  ].join(" "),
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+].join("; ");
+
+const securityHeaders = [
+  { key: "Content-Security-Policy-Report-Only", value: contentSecurityPolicy },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  {
+    key: "Permissions-Policy",
+    value: [
+      "accelerometer=()",
+      "camera=()",
+      "geolocation=()",
+      "gyroscope=()",
+      "magnetometer=()",
+      "microphone=()",
+      "payment=()",
+      "usb=()",
+      "bluetooth=()",
+      "midi=()",
+      "interest-cohort=()",
+      'fullscreen=(self "https://www.youtube.com" "https://www.youtube-nocookie.com" "https://player.vimeo.com")',
+    ].join(", "),
+  },
+  { key: "Cross-Origin-Embedder-Policy", value: "unsafe-none" },
+];
+
 const nextConfig = {
+  poweredByHeader: false,
   pageExtensions: ["ts", "tsx", "mdx"],
   // Notion block fan-out + Retry-After sleeps routinely exceed the 60s default on
   // Vercel's 2-core builders. Prefer finishing (or soft-failing) a page over
@@ -37,12 +139,7 @@ const nextConfig = {
     return [
       {
         source: "/(.*)",
-        headers: [
-          {
-            key: "Cross-Origin-Embedder-Policy",
-            value: "unsafe-none",
-          },
-        ],
+        headers: securityHeaders,
       },
     ];
   },
