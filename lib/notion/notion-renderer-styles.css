@@ -77,33 +77,37 @@
   --notion-header-height: 45px;
 }
 
-.chakra-ui-dark {
-  --fg-color: var(--chakra-colors-neutralD-1100);
+/* Dark mode follows next-themes (`class="dark"` on html) and the
+   `.dark-mode` class react-notion-x adds from its darkMode prop.
+   Chakra dash-cases token names, so the dark scale is `neutral-d`. */
+html.dark,
+.dark-mode {
+  --fg-color: var(--chakra-colors-neutral-d-1100);
   /* Border color */
-  --fg-color-0: var(--chakra-colors-neutralD-400);
+  --fg-color-0: var(--chakra-colors-neutral-d-400);
   /* Also borders color */
-  --fg-color-1: var(--chakra-colors-neutralD-400);
+  --fg-color-1: var(--chakra-colors-neutral-d-400);
   /* Icons in tables */
-  --fg-color-2: var(--chakra-colors-neutralD-700);
+  --fg-color-2: var(--chakra-colors-neutral-d-700);
   /* Row labels in tables */
-  --fg-color-3: var(--chakra-colors-neutralD-900);
+  --fg-color-3: var(--chakra-colors-neutral-d-900);
   /* External title */
-  --fg-color-4: var(--chakra-colors-neutralD-1100);
+  --fg-color-4: var(--chakra-colors-neutral-d-1100);
   /* Border tables */
-  --fg-color-5: var(--chakra-colors-neutralD-400);
+  --fg-color-5: var(--chakra-colors-neutral-d-400);
   /* Notion page icon fill */
-  --fg-color-6: var(--chakra-colors-neutralD-900);
+  --fg-color-6: var(--chakra-colors-neutral-d-900);
   /* Notion page icon color */
-  --fg-color-icon: var(--chakra-colors-neutralD-900);
+  --fg-color-icon: var(--chakra-colors-neutral-d-900);
 
   /* Background gallery */
-  --bg-color: var(--chakra-colors-neutralD-100);
+  --bg-color: var(--chakra-colors-neutral-d-100);
   /* Table top header background, hover on gallery */
-  --bg-color-0: var(--chakra-colors-neutralD-200);
+  --bg-color-0: var(--chakra-colors-neutral-d-200);
   /* Notion code */
-  --bg-color-1: var(--chakra-colors-neutralD-300);
+  --bg-color-1: var(--chakra-colors-neutral-d-300);
   /* Inline code background */
-  --bg-color-2: var(--chakra-colors-neutralD-400);
+  --bg-color-2: var(--chakra-colors-neutral-d-400);
 
   /* Checkbox background color */
   --select-color-0: var(--chakra-colors-blue-500);
@@ -733,6 +737,16 @@ h5 .notion-link {
   text-decoration: underline;
 }
 
+html.dark .notion-link,
+.dark-mode .notion-link {
+  color: var(--chakra-colors-primary-d-900);
+}
+
+html.dark .notion-link:hover,
+.dark-mode .notion-link:hover {
+  color: var(--chakra-colors-primary-d-1000);
+}
+
 .notion-collection .notion-link {
   opacity: 1;
 }
@@ -854,6 +868,11 @@ h5 .notion-link {
   border-radius: 4px;
   border-width: 1px;
   border-color: var(--chakra-colors-neutral-500);
+}
+
+html.dark .notion-asset-wrapper img,
+.dark-mode .notion-asset-wrapper img {
+  border-color: var(--chakra-colors-neutral-d-500);
 }
 
 .notion-asset-wrapper iframe {
@@ -1238,8 +1257,7 @@ h5 .notion-link {
   display: inline-block;
   width: 14px;
   height: 14px;
-  /* fill: var(--fg-color); */
-  fill: rgba(55, 53, 47);
+  fill: var(--fg-color);
   margin-right: 6px;
 }
 
