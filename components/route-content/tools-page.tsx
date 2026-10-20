@@ -9,22 +9,23 @@ import Section from "@/components/section";
 import ToolCard from "@/components/tool-card";
 import { useColorModeValue } from "@/components/ui/color-mode";
 import type { AirtableRecord, ToolFields } from "@/lib/airtable";
+import { TOOL_PLATFORM_TABS, toolsForPlatformTab } from "@/lib/tool-platforms";
 
 type ToolsPageProps = {
   tools: AirtableRecord<ToolFields>[];
 };
 
-const platforms = [
-  { value: "Mac", label: "Mac", icon: AppleLogo },
-  { value: "iOS", label: "iOS", icon: DeviceMobile },
-  { value: "Safari", label: "Safari", icon: Compass },
-  { value: "Web", label: "Web", icon: Desktop },
-] as const;
+const platformIcons = {
+  Mac: AppleLogo,
+  iOS: DeviceMobile,
+  Safari: Compass,
+  Web: Desktop,
+} as const;
 
 const toolsByPlatform = (tools: AirtableRecord<ToolFields>[], platform: string) =>
-  tools
-    .filter((tool) => tool.fields.Platform === platform)
-    .sort((left, right) => sorter(String(right.fields.ID ?? ""), String(left.fields.ID ?? "")));
+  toolsForPlatformTab(tools, platform).sort((left, right) =>
+    sorter(String(right.fields.ID ?? ""), String(left.fields.ID ?? "")),
+  );
 
 export default function ToolsPage({ tools }: ToolsPageProps) {
   const tabBg = useColorModeValue("neutral.300", "neutralD.300");
@@ -43,12 +44,12 @@ export default function ToolsPage({ tools }: ToolsPageProps) {
       <Section>
         <Tabs.Root defaultValue="Mac" variant="subtle" colorPalette="blue" w="100%">
           <Tabs.List display="flex" flexWrap="wrap" justifyContent="center">
-            {platforms.map((platform) => {
-              const Icon = platform.icon;
+            {TOOL_PLATFORM_TABS.map((tab) => {
+              const Icon = platformIcons[tab.id];
               return (
                 <Tabs.Trigger
-                  key={platform.value}
-                  value={platform.value}
+                  key={tab.id}
+                  value={tab.id}
                   mr={2}
                   mt={2}
                   bg={tabBg}
@@ -57,16 +58,16 @@ export default function ToolsPage({ tools }: ToolsPageProps) {
                 >
                   <HStack gap={1}>
                     <Icon weight="duotone" size={18} />
-                    <Text>{platform.label}</Text>
+                    <Text>{tab.label}</Text>
                   </HStack>
                 </Tabs.Trigger>
               );
             })}
           </Tabs.List>
-          {platforms.map((platform) => (
-            <Tabs.Content key={platform.value} value={platform.value} px={0}>
+          {TOOL_PLATFORM_TABS.map((tab) => (
+            <Tabs.Content key={tab.id} value={tab.id} px={0}>
               <SimpleGrid columns={[1, 2]} gap={4} mt={8}>
-                {toolsByPlatform(tools, platform.value).map((tool) => (
+                {toolsByPlatform(tools, tab.id).map((tool) => (
                   <ToolCard
                     key={tool.id}
                     name={tool.fields.Name}
