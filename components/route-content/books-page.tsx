@@ -39,7 +39,7 @@ export default function BooksPage({ books }: BooksPageProps) {
       <Hero title="Books" subtitle="Take a stroll through my bookshelf" />
       <Section>
         <Tabs.Root defaultValue="all" variant="subtle" colorPalette="blue" w="100%">
-          <Tabs.List justifyContent="center">
+          <Tabs.List display="flex" flexWrap="wrap" justifyContent="center" w="100%">
             <Tabs.Trigger
               value="all"
               bg={tabBg}

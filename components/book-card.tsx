@@ -1,8 +1,11 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useColorModeValue } from "./ui/color-mode";
-import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Box, HStack, Icon, Image, Text, VStack } from "@chakra-ui/react";
+import { BookOpenIcon } from "@heroicons/react/24/solid";
 import { format } from "timeago.js";
+
+import { bookCoverProxyPath, durableCoverUrl } from "@/lib/book-covers";
 
 import StarIconRating from "./star-rating";
 
@@ -16,6 +19,19 @@ interface BookCardProps {
 }
 
 const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardProps) => {
+  const proxySrc = title ? bookCoverProxyPath(title, author) : undefined;
+  const directSrc = durableCoverUrl(coverUrl);
+  const [src, setSrc] = useState(proxySrc ?? directSrc ?? undefined);
+  const [failed, setFailed] = useState(!src);
+
+  const showFallback = () => {
+    if (directSrc && src !== directSrc) {
+      setSrc(directSrc);
+      return;
+    }
+    setFailed(true);
+  };
+
   return (
     <a
       href={`https://www.goodreads.com/search?utf8=%E2%9C%93&q=${encodeURIComponent(title ?? "")}`}
@@ -41,13 +57,31 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
         <Box
           rounded="md"
           w="90px"
+          minH="120px"
           overflow="hidden"
           shadow="lg"
           position="absolute"
           top={-4}
           backgroundColor="red.300"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
         >
-          {coverUrl ? <Image src={coverUrl} objectFit="cover" alt={title ?? ""} /> : null}
+          {src && !failed ? (
+            <Image
+              src={src}
+              objectFit="cover"
+              w="100%"
+              h="100%"
+              minH="120px"
+              alt={title ?? ""}
+              onError={showFallback}
+            />
+          ) : (
+            <Icon boxSize={8} color="red.800" aria-hidden asChild>
+              <BookOpenIcon />
+            </Icon>
+          )}
         </Box>
         <VStack align="start" justify="flex-start" gap={1} maxW="lg" pl={28} h="100%">
           <VStack gap={0} align="start" flexGrow="1">
