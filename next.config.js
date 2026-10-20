@@ -34,6 +34,7 @@ const contentSecurityPolicy = [
     "https://i.ytimg.com",
     "https://i.vimeocdn.com",
     "https://c.clarity.ms",
+    "https://covers.openlibrary.org",
   ].join(" "),
   "font-src 'self' data:",
   [
