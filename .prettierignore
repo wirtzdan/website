@@ -1,3 +1,6 @@
 .cache
 node_modules
 public
+
+# Third-party agent skills. Keep the installer output byte-for-byte.
+.cursor/skills
