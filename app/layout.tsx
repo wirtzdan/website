@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 
-import AppProviders from "./providers";
+import LapseDevtools from "@/components/lapse-devtools";
 import { fontClassNames } from "@/lib/fonts";
 import { siteMetadata } from "@/lib/site-metadata";
+
+import AppProviders from "./providers";
 
 import "@/lib/notion/notion-renderer-styles.css";
 import "@/lib/notion/notion-custom-styles.css";
@@ -25,6 +27,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body>
+        <LapseDevtools />
         <AppProviders>{children}</AppProviders>
       </body>
     </html>
