@@ -1,3 +1,6 @@
 .cache
 node_modules
 public
+
+# Vendor skill docs. Reformatting them fights the upstream pack.
+.cursor/skills
