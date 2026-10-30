@@ -74,6 +74,8 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
                 h="100%"
                 minH="120px"
                 alt={title ?? ""}
+                loading="lazy"
+                decoding="async"
                 onError={showFallback}
               />
             ) : (

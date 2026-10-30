@@ -130,7 +130,9 @@ const nextConfig = {
       { protocol: "https", hostname: "assets-global.website-files.com", pathname: "/**" },
       { protocol: "https", hostname: "www.notion.so", pathname: "/**" },
       { protocol: "https", hostname: "notion.so", pathname: "/**" },
+      { protocol: "https", hostname: "file.notion.so", pathname: "/**" },
       { protocol: "https", hostname: "secure.notion-static.com", pathname: "/**" },
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
       {
         protocol: "https",
         hostname: "prod-files-secure.s3.us-west-2.amazonaws.com",
@@ -139,6 +141,7 @@ const nextConfig = {
       { protocol: "https", hostname: "prod-files-secure.s3.amazonaws.com", pathname: "/**" },
     ],
   },
+  serverExternalPackages: ["react-palette", "node-vibrant"],
   async headers() {
     return [
       {

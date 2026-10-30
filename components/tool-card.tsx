@@ -1,10 +1,9 @@
 "use client";
-import React from "react";
 import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
-import { usePalette } from "react-palette";
 
 import Link from "@/components/link";
 import type { AirtableImage } from "@/types/content";
+import { toolIconUrl } from "@/lib/tool-icon";
 
 import { cardLiftProps, cardStillProps } from "./card-lift";
 
@@ -15,11 +14,11 @@ interface ToolCardProps {
   description?: string;
   platform?: string;
   isAffiliate?: boolean;
+  tint?: string;
 }
 
-const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
-  const imageUrl = image?.[0]?.thumbnails.large.url ?? "/";
-  const { data } = usePalette(imageUrl);
+const ToolCard = ({ name, image, link = "#", description, tint }: ToolCardProps) => {
+  const imageUrl = toolIconUrl(image);
 
   return (
     <Link href={link} unstyled>
@@ -45,7 +44,7 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
             boxShadow="inset 0 0 1px 1px rgba(0, 0, 0, 0.015)"
           >
             <Box
-              bg={data.lightVibrant}
+              bg={tint}
               position="absolute"
               top={0}
               bottom={0}
@@ -54,7 +53,19 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
               opacity={0.25}
             />
 
-            <Image src={imageUrl} boxSize="36px" rounded="md" position="relative" alt="" />
+            {imageUrl ? (
+              <Image
+                src={imageUrl}
+                boxSize="36px"
+                rounded="md"
+                position="relative"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            ) : (
+              <Box boxSize="36px" rounded="md" position="relative" />
+            )}
           </Box>
 
           <VStack align="start" justify="flex-start" gap={1} maxW="lg" h="100%">
