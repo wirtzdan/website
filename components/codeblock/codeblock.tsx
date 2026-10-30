@@ -48,12 +48,12 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
           justifyContent="space-between"
           alignItems="center"
           borderBottomWidth="1px"
-          borderBottomColor={useColorModeValue("neutral.400", "neutralD.400")}
+          borderBottomColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
         >
           <Text
             fontSize="sm"
             fontWeight="500"
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
           >
             {title}
           </Text>
@@ -63,10 +63,10 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
             variant="ghost"
             color={
               hasCopied
-                ? useColorModeValue("green.600", "green.100")
-                : useColorModeValue("neutral.1000", "neutralD.1000")
+                ? { _light: "green.600", _dark: "green.100" }
+                : { _light: "neutral.1000", _dark: "neutralD.1000" }
             }
-            bg={hasCopied ? useColorModeValue("green.50", "green.800") : undefined}
+            bg={hasCopied ? { _light: "green.50", _dark: "green.800" } : undefined}
           >
             {hasCopied ? (
               <Icon boxSize={4.5} asChild>

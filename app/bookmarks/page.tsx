@@ -21,6 +21,10 @@ async function getBookmarks(): Promise<BookmarkResponse | null> {
     }),
   });
 
+  if (!response.ok) {
+    throw new Error(`Raindrop responded with ${response.status}`);
+  }
+
   const bookmarks = (await response.json()) as BookmarkResponse | null;
   return bookmarks;
 }
@@ -32,7 +36,7 @@ export default async function Page() {
   }
 
   const bookmarks: BookmarkResponse = {
-    items: [...raw.items].sort(
+    items: [...(raw.items ?? [])].sort(
       (left, right) => new Date(right.created).getTime() - new Date(left.created).getTime(),
     ),
   };
