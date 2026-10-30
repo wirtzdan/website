@@ -59,12 +59,19 @@ export function scaleToLongEdge(size: ImageSize, longEdge = DISPLAY_LONG_EDGE): 
   };
 }
 
+const IMAGE_PROBE_USER_AGENT = "Mozilla/5.0";
+
 export async function readRemoteImageSize(url: string): Promise<ImageSize | null> {
   const probeUrl = notionDimensionProbeUrl(url);
   const target = probeUrl ?? url;
   try {
     const response = await fetch(target, {
-      headers: probeUrl ? { Accept: "image/*" } : { Accept: "image/*", Range: "bytes=0-131071" },
+      headers: {
+        Accept: "image/*",
+        // The Notion image proxy answers 403 to the default Node user agent.
+        "User-Agent": IMAGE_PROBE_USER_AGENT,
+        ...(probeUrl ? {} : { Range: "bytes=0-131071" }),
+      },
       redirect: "follow",
       signal: AbortSignal.timeout(8000),
     });

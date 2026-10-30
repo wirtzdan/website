@@ -19,3 +19,24 @@ export function canUseNextImage(src: string) {
     return false;
   }
 }
+
+export function isNotionImageProxy(src: string) {
+  try {
+    const url = new URL(src);
+    return (
+      url.protocol === "https:" &&
+      (url.hostname === "www.notion.so" || url.hostname === "notion.so") &&
+      url.pathname.startsWith("/image/")
+    );
+  } catch {
+    return false;
+  }
+}
+
+// The Notion proxy 403s the Next.js optimizer. Ask the proxy for the width
+// and let the browser request that URL directly.
+export function notionContentImageLoader({ src, width }: { src: string; width: number }) {
+  const url = new URL(src);
+  url.searchParams.set("width", String(width));
+  return url.toString();
+}

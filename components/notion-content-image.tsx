@@ -1,7 +1,11 @@
 import Image from "next/image";
 import type { CSSProperties } from "react";
 
-import { canUseNextImage } from "@/lib/next-image-hosts";
+import {
+  canUseNextImage,
+  isNotionImageProxy,
+  notionContentImageLoader,
+} from "@/lib/next-image-hosts";
 
 type NotionContentImageProps = {
   src?: string;
@@ -58,6 +62,7 @@ export default function NotionContentImage({
       sizes={CONTENT_SIZES}
       className={className}
       priority={priority}
+      {...(isNotionImageProxy(src) ? { loader: notionContentImageLoader } : {})}
       style={{ width: "100%", height: "auto", ...style }}
     />
   );

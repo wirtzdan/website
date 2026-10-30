@@ -5,7 +5,11 @@ import Image from "next/image";
 import { Box, Icon, Image as ChakraImage, Text, chakra } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import { canUseNextImage } from "@/lib/next-image-hosts";
+import {
+  canUseNextImage,
+  isNotionImageProxy,
+  notionContentImageLoader,
+} from "@/lib/next-image-hosts";
 import type { Photo, PhotoTrip } from "@/lib/notion/photos";
 
 const GAP = "6px";
@@ -233,6 +237,7 @@ function PhotoTile({
           width={frame.width}
           height={frame.height}
           sizes={PHOTO_SIZES}
+          {...(isNotionImageProxy(photo.imageUrl) ? { loader: notionContentImageLoader } : {})}
           {...(priority
             ? { priority: true }
             : { loading: eager ? ("eager" as const) : ("lazy" as const) })}
