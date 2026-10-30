@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 
 import LapseDevtools from "@/components/lapse-devtools";
+import MarkFirstPaint from "@/components/mark-first-paint";
 import { fontClassNames } from "@/lib/fonts";
 import { siteMetadata } from "@/lib/site-metadata";
 
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <body>
+        <MarkFirstPaint />
         <LapseDevtools />
         <AppProviders>{children}</AppProviders>
       </body>

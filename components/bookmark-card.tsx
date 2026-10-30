@@ -3,6 +3,8 @@
 import { AspectRatio, Box, Image, Text, VStack, HStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 
+import { cardLiftProps, cardStillProps } from "./card-lift";
+
 interface BookmarkCardProps {
   title: string;
   excerpt?: string;
@@ -14,21 +16,15 @@ interface BookmarkCardProps {
 
 const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) => {
   return (
-    <Box asChild display="block" color="inherit" textDecoration="none" cursor="pointer">
+    <Box asChild {...cardStillProps} color="inherit" textDecoration="none" cursor="pointer">
       <a href={link} target="_blank" rel="noopener noreferrer">
         <VStack
+          {...cardLiftProps}
           w="100%"
           rounded="lg"
           borderWidth="1px"
           bg={{ _light: "white", _dark: "neutralD.100" }}
           borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
-          transition="all 0.25s"
-          transitionTimingFunction="spring(1 100 10 10)"
-          _hover={{
-            transform: "translateY(-4px)",
-            shadow: "lg",
-            textDecoration: "none",
-          }}
           overflow="hidden"
           align="start"
           gap={0}
