@@ -25,9 +25,11 @@ const MobileNavigation = () => {
       <HStack
         justify="space-around"
         align="center"
-        py={2}
         mt="auto"
-        height={16}
+        h="calc(4rem + var(--safe-bottom, 0px))"
+        pb="var(--safe-bottom, 0px)"
+        ps="var(--safe-left, 0px)"
+        pe="var(--safe-right, 0px)"
         bg={{ _light: "white", _dark: "neutralD.100" }}
         borderTopWidth="2px"
         borderTopColor={{ _light: "neutral.400", _dark: "neutralD.400" }}

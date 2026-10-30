@@ -19,7 +19,11 @@ const PageLayout = ({ children, page, showNavigation = false }: PageLayoutProps)
     <PageTransition>
       <>
         {showNavigation ? <Header /> : null}
-        <Box as="main" pt={{ base: 16, md: 32 }} pb={{ base: 24, md: 16 }}>
+        <Box
+          as="main"
+          pt={{ base: 16, md: 32 }}
+          pb={{ base: "calc(6rem + var(--safe-bottom, 0px))", md: 16 }}
+        >
           <Section>
             <article>
               <VStack w="100%" align="stretch" gap={6}>

@@ -46,7 +46,7 @@ export default function Layout({ children }: LayoutProps) {
         id="content"
         tabIndex={-1}
         pt={{ base: 16, md: 32 }}
-        pb={{ base: 24, md: 16 }}
+        pb={{ base: "calc(6rem + var(--safe-bottom, 0px))", md: 16 }}
         _focusVisible={{ outline: "none" }}
       >
         {children}

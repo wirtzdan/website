@@ -734,10 +734,12 @@ h5 .notion-link {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.notion-link:hover {
-  color: var(--chakra-colors-primary-1100);
-  -webkit-text-decoration: underline;
-  text-decoration: underline;
+@media (hover: hover) and (pointer: fine) {
+  .notion-link:hover {
+    color: var(--chakra-colors-primary-1100);
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+  }
 }
 
 html.dark .notion-link,
@@ -745,9 +747,11 @@ html.dark .notion-link,
   color: var(--chakra-colors-primary-d-900);
 }
 
-html.dark .notion-link:hover,
-.dark-mode .notion-link:hover {
-  color: var(--chakra-colors-primary-d-1000);
+@media (hover: hover) and (pointer: fine) {
+  html.dark .notion-link:hover,
+  .dark-mode .notion-link:hover {
+    color: var(--chakra-colors-primary-d-1000);
+  }
 }
 
 .notion-collection .notion-link {
@@ -772,8 +776,10 @@ html.dark .notion-link:hover,
   transition: background 120ms ease-in 0s;
 }
 
-.notion-page-link:hover {
-  background: var(--bg-color-0);
+@media (hover: hover) and (pointer: fine) {
+  .notion-page-link:hover {
+    background: var(--bg-color-0);
+  }
 }
 
 .notion-collection-card .notion-page-link {

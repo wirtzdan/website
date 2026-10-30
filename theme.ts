@@ -36,6 +36,9 @@ const buttonRecipe = defineRecipe({
   base: {
     fontWeight: "500",
     borderRadius: "lg",
+    _active: {
+      transform: "scale(0.97)",
+    },
   },
 });
 
@@ -53,6 +56,10 @@ const config = defineConfig({
   globalCss: {
     html: {
       scrollBehavior: "smooth",
+      "--safe-top": "env(safe-area-inset-top, 0px)",
+      "--safe-right": "env(safe-area-inset-right, 0px)",
+      "--safe-bottom": "env(safe-area-inset-bottom, 0px)",
+      "--safe-left": "env(safe-area-inset-left, 0px)",
     },
     body: {
       color: { _light: "neutral.1100", _dark: "neutralD.1100" },
@@ -69,6 +76,21 @@ const config = defineConfig({
     },
     ".dark .inserted": {
       color: "oklch(0.905 0.123 139.389) !important",
+    },
+    // iOS Safari zooms a focused field under 16px and does not zoom back.
+    // The input recipe (14px) lives in a later cascade layer, so this needs
+    // !important, and only where a phone would actually focus the field.
+    // Coarse covers a landscape phone, which is often wider than md. Narrow
+    // windows stay at 16px too. A fine pointer at md+ keeps the recipe size.
+    "input, select, textarea": {
+      "@media (pointer: coarse), (max-width: 47.999em)": {
+        fontSize: "16px !important",
+      },
+    },
+    "button, [role=button]": {
+      userSelect: "none",
+      WebkitUserSelect: "none",
+      WebkitTouchCallout: "none",
     },
   },
   theme: {
