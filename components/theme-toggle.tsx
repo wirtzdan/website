@@ -1,29 +1,50 @@
 "use client";
-import { IconButton } from "@chakra-ui/react";
-import { useColorMode, useColorModeValue } from "./ui/color-mode";
-import { Tooltip } from "@/components/ui/tooltip";
+import { Box, IconButton } from "@chakra-ui/react";
+import type { CSSProperties } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
+import { Tooltip } from "@/components/ui/tooltip";
+
 import MobileMenuButton from "./mobile-menu-button";
+import { useColorMode } from "./ui/color-mode";
 
 interface ThemeToggleProps {
   mobile?: boolean;
 }
 
-const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const iconColor = useColorModeValue("neutral.1100", "neutralD.1100");
+const iconStyle = { display: "block" } as const;
 
-  // Raw icons with explicit size so mobile nav matches Blog/Menu (~20px).
-  const icon =
-    colorMode === "dark" ? <SunIcon width={20} height={20} /> : <MoonIcon width={20} height={20} />;
+const ThemeIcon = ({ style }: { style?: CSSProperties }) => (
+  <Box boxSize="20px" style={style}>
+    <Box display={{ base: "block", _dark: "none" }}>
+      <MoonIcon width={20} height={20} style={iconStyle} />
+    </Box>
+    <Box display={{ base: "none", _dark: "block" }}>
+      <SunIcon width={20} height={20} style={iconStyle} />
+    </Box>
+  </Box>
+);
+
+const ModeLabel = ({ light, dark }: { light: string; dark: string }) => (
+  <>
+    <Box as="span" display={{ base: "inline", _dark: "none" }}>
+      {light}
+    </Box>
+    <Box as="span" display={{ base: "none", _dark: "inline" }}>
+      {dark}
+    </Box>
+  </>
+);
+
+const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
+  const { toggleColorMode } = useColorMode();
 
   return (
-    <Tooltip content={colorMode === "dark" ? "Light mode" : "Dark mode"}>
+    <Tooltip content={<ModeLabel light="Dark mode" dark="Light mode" />}>
       {mobile ? (
         <MobileMenuButton
-          label={colorMode === "dark" ? "Light Mode" : "Dark Mode"}
-          icon={icon}
+          label={<ModeLabel light="Dark Mode" dark="Light Mode" />}
+          icon={<ThemeIcon />}
           onClick={toggleColorMode}
         />
       ) : (
@@ -31,10 +52,10 @@ const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
           variant="ghost"
           borderRadius="full"
           aria-label="Switch theme"
-          color={iconColor}
+          color={{ _light: "neutral.1100", _dark: "neutralD.1100" }}
           onClick={toggleColorMode}
         >
-          {icon}
+          <ThemeIcon />
         </IconButton>
       )}
     </Tooltip>

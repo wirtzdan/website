@@ -2,7 +2,6 @@
 
 import { useDisclosure } from "@/lib/use-disclosure";
 import React from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import {
   Box,
   CloseButton,
@@ -53,7 +52,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
             <Drawer.Positioner>
               <Drawer.Content
                 borderTopRadius="6px"
-                bg={useColorModeValue("neutral.50", "neutralD.50")}
+                bg={{ _light: "neutral.50", _dark: "neutralD.50" }}
               >
                 <Drawer.CloseTrigger asChild>
                   <CloseButton size="sm" aria-label="Close menu" />
@@ -86,7 +85,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           aria-label="Twitter"
                           size={{ base: "lg", md: "sm" }}
                           variant="ghost"
-                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                          color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                         >
                           <a
                             href="https://twitter.com/wirtzdan/"
@@ -101,7 +100,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           aria-label="LinkedIn"
                           size={{ base: "lg", md: "sm" }}
                           variant="ghost"
-                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                          color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                         >
                           <a
                             href="https://www.linkedin.com/in/wirtzdan/"
@@ -116,7 +115,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           aria-label="GitHub"
                           size={{ base: "lg", md: "sm" }}
                           variant="ghost"
-                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                          color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                         >
                           <a
                             href="https://github.com/wirtzdan"
@@ -131,7 +130,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                           aria-label="YouTube"
                           size={{ base: "lg", md: "sm" }}
                           variant="ghost"
-                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                          color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                         >
                           <a
                             href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA"

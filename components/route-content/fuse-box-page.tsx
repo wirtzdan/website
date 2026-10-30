@@ -48,7 +48,6 @@ import {
 } from "phosphor-react";
 
 import AvatarNavigation from "@/components/avatar-navigation";
-import { useColorModeValue } from "@/components/ui/color-mode";
 import {
   colorSwatches,
   createDevice,
@@ -872,10 +871,10 @@ export default function FuseBoxPage() {
   // Server render uses the mobile layout; the client switches to desktop after mount.
   const isDesktop = useBreakpointValue({ base: false, lg: true }) ?? false;
   const closeFullscreen = useCallback(() => setFullscreen(false), []);
-  const mutedText = useColorModeValue("neutral.1000", "neutralD.1000");
-  const panelBg = useColorModeValue("white", "neutralD.100");
-  const canvasBg = useColorModeValue("neutral.200", "neutralD.50");
-  const border = useColorModeValue("neutral.400", "neutralD.400");
+  const mutedText = { _light: "neutral.1000", _dark: "neutralD.1000" };
+  const panelBg = { _light: "white", _dark: "neutralD.100" };
+  const canvasBg = { _light: "neutral.200", _dark: "neutralD.50" };
+  const border = { _light: "neutral.400", _dark: "neutralD.400" };
 
   useEffect(() => {
     const stored = loadPanel();

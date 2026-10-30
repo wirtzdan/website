@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { Alert, Button, Collapsible, Icon, Input, Stack, chakra, Field } from "@chakra-ui/react";
 import { RssIcon } from "@heroicons/react/24/solid";
 import { useForm } from "react-hook-form";
@@ -83,7 +82,7 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
                   rounded="lg"
                   w="100%"
                   minW={{ base: "48", md: "64" }}
-                  bg={useColorModeValue("white", "neutralD.100")}
+                  bg={{ _light: "white", _dark: "neutralD.100" }}
                 />
                 {errors.email_address ? (
                   <Field.ErrorText>{errors.email_address.message}</Field.ErrorText>

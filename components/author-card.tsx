@@ -5,7 +5,6 @@ import { Avatar, Button, HStack, Icon, Stack, Text, VStack } from "@chakra-ui/re
 import { CheckIcon, LinkIcon } from "@heroicons/react/20/solid";
 import { format } from "timeago.js";
 
-import { useColorModeValue } from "./ui/color-mode";
 import { useClipboard } from "@/lib/use-clipboard";
 
 interface AuthorCardProps {
@@ -28,7 +27,7 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
           <Text fontSize="md" fontWeight="500">
             Daniel Wirtz
           </Text>
-          <Text fontSize="sm" color={useColorModeValue("neutral.1000", "neutralD.1000")}>
+          <Text fontSize="sm" color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}>
             {format(publishedAt)}
             {readingTime ? ` • ${readingTime}` : ""}
           </Text>
@@ -42,10 +41,10 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
           size="sm"
           color={
             hasCopied
-              ? useColorModeValue("green.600", "green.200")
-              : useColorModeValue("neutralD.100", "neutralD.1100")
+              ? { _light: "green.600", _dark: "green.200" }
+              : { _light: "neutralD.100", _dark: "neutralD.1100" }
           }
-          bg={useColorModeValue("white", "neutralD.100")}
+          bg={{ _light: "white", _dark: "neutralD.100" }}
         >
           {hasCopied ? (
             <Icon asChild>

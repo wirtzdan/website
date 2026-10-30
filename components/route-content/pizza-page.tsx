@@ -35,7 +35,6 @@ import {
 
 import Hero from "@/components/hero";
 import Section from "@/components/section";
-import { useColorModeValue } from "@/components/ui/color-mode";
 import { Tooltip } from "@/components/ui/tooltip";
 import { buildPizzaCalendar, pizzaCalendarFileName } from "@/lib/pizza-calendar";
 import {
@@ -136,8 +135,8 @@ export default function PizzaPage() {
   const [bakeTime, setBakeTime] = useState("18:00");
   const [hasManualBakeTime, setHasManualBakeTime] = useState(false);
 
-  const border = useColorModeValue("neutral.400", "neutralD.400");
-  const cardBg = useColorModeValue("white", "neutralD.100");
+  const border = { _light: "neutral.400", _dark: "neutralD.400" };
+  const cardBg = { _light: "white", _dark: "neutralD.100" };
 
   const ingredients = useMemo(() => scaleIngredients(recipe, pizzaCount), [recipe, pizzaCount]);
   const totals = useMemo(() => totalMinutes(recipe, {}), [recipe]);

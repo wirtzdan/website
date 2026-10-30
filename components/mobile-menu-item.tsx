@@ -1,5 +1,4 @@
 "use client";
-import { useColorModeValue } from "./ui/color-mode";
 import NextLink from "next/link";
 import { Button } from "@chakra-ui/react";
 import { usePathname } from "next/navigation";
@@ -23,10 +22,10 @@ function MobileMenuItem({ href, title }: MobileMenuItemProps) {
 
   // Solid buttons use colorPalette.contrast (near-white), which disappears on
   // the light menu sheet. Ghost plus an explicit label color stays readable.
-  const labelColor = useColorModeValue("neutral.1100", "neutralD.1100");
-  const idleBackground = useColorModeValue("neutral.100", "neutralD.100");
-  const activeBackground = useColorModeValue("neutral.200", "neutralD.400");
-  const hoverBackground = useColorModeValue("neutral.300", "neutralD.300");
+  const labelColor = { _light: "neutral.1100", _dark: "neutralD.1100" };
+  const idleBackground = { _light: "neutral.100", _dark: "neutralD.100" };
+  const activeBackground = { _light: "neutral.200", _dark: "neutralD.400" };
+  const hoverBackground = { _light: "neutral.300", _dark: "neutralD.300" };
 
   return (
     <Button

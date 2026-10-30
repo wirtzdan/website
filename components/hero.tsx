@@ -1,8 +1,6 @@
 "use client";
 import { Heading, Text, VStack, type StackProps } from "@chakra-ui/react";
 
-import { useColorModeValue } from "./ui/color-mode";
-
 import Section from "@/components/section";
 
 interface HeroProps extends StackProps {
@@ -19,7 +17,7 @@ const Hero = ({ title = "Title", subtitle, align = "center", ...sectionProps }: 
         {subtitle ? (
           <Text
             fontSize={["lg", "2xl"]}
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
             maxW="lg"
             textAlign={align}
           >
