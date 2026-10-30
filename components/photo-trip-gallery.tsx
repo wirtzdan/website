@@ -35,7 +35,7 @@ function stopAnd(handler: () => void) {
 export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const labelColor = useColorModeValue("neutral.800", "neutralD.800");
+  const labelColor = useColorModeValue("neutral.1000", "neutralD.1000");
   const photos = trip.photos;
   const active = activeIndex === null ? null : photos[activeIndex];
   const isOpen = active !== null;

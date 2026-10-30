@@ -30,8 +30,8 @@ interface BookmarkCardProps {
 
 const ImageFallback = () => {
   return (
-    <Box bg={useColorModeValue("gray.200", "gray.700")}>
-      <Icon w={10} h={10} color={useColorModeValue("gray.300", "neutralD.100")} asChild>
+    <Box bg={useColorModeValue("neutral.300", "neutralD.200")}>
+      <Icon w={10} h={10} color={useColorModeValue("neutral.700", "neutralD.100")} asChild>
         <ImageSquare />
       </Icon>
     </Box>
@@ -84,7 +84,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
             <Text
               fontSize="xs"
               fontWeight="500"
-              color={useColorModeValue("neutral.900", "neutralD.900")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
               textTransform="capitalize"
             >
               {type}
@@ -92,7 +92,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
             <Text
               fontSize="xs"
               fontWeight="400"
-              color={useColorModeValue("neutral.900", "neutralD.900")}
+              color={useColorModeValue("neutral.1000", "neutralD.1000")}
             >
               – {format(created)}
             </Text>

@@ -29,10 +29,10 @@ const toolsByPlatform = (tools: AirtableRecord<ToolFields>[], platform: string) 
 
 export default function ToolsPage({ tools }: ToolsPageProps) {
   const tabBg = useColorModeValue("neutral.300", "neutralD.300");
-  const tabColor = useColorModeValue("neutral.900", "neutralD.900");
+  const tabColor = useColorModeValue("neutral.1100", "neutralD.1000");
   const tabSelected = {
-    color: useColorModeValue("gray.100", "neutralD.100"),
-    bg: useColorModeValue("gray.900", "gray.100"),
+    color: useColorModeValue("neutral.50", "neutralD.100"),
+    bg: useColorModeValue("neutral.1100", "neutralD.1100"),
   };
 
   return (

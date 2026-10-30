@@ -15,8 +15,8 @@ interface FooterLinkProps {
 const FooterLink = ({ href, name }: FooterLinkProps) => {
   return (
     <Button
-      color={useColorModeValue("neutral.800", "neutralD.800")}
-      _hover={{ color: useColorModeValue("neutral.1000", "neutralD.1000") }}
+      color={useColorModeValue("neutral.1000", "neutralD.1000")}
+      _hover={{ color: useColorModeValue("neutral.1100", "neutralD.1100") }}
       unstyled
       asChild
     >

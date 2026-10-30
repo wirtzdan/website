@@ -28,7 +28,7 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
           <Text fontSize="md" fontWeight="500">
             Daniel Wirtz
           </Text>
-          <Text fontSize="sm" color={useColorModeValue("gray.500", "gray.200")}>
+          <Text fontSize="sm" color={useColorModeValue("neutral.1000", "neutralD.1000")}>
             {format(publishedAt)}
             {readingTime ? ` • ${readingTime}` : ""}
           </Text>
@@ -43,7 +43,7 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
           color={
             hasCopied
               ? useColorModeValue("green.600", "green.200")
-              : useColorModeValue("neutralD.100", "gray.100")
+              : useColorModeValue("neutralD.100", "neutralD.1100")
           }
           bg={useColorModeValue("white", "neutralD.100")}
         >
