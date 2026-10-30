@@ -66,13 +66,16 @@ const config = defineConfig({
       bg: { _light: "neutral.100", _dark: "neutralD.50" },
       fontSize: "1.2em",
     },
-    ".deleted": {
-      color: "#ff8383 !important",
+    ".deleted, .inserted": {
       fontStyle: "normal !important",
     },
-    ".inserted": {
-      color: "#b5f4a5 !important",
-      fontStyle: "normal !important",
+    // These greens and reds are for the dark code surface. On a light block they
+    // are about 1.3:1 and 2.4:1, so they only apply once `.dark` is on <html>.
+    ".dark .deleted": {
+      color: "oklch(0.749 0.151 21.33) !important",
+    },
+    ".dark .inserted": {
+      color: "oklch(0.905 0.123 139.389) !important",
     },
     // iOS Safari zooms a focused field under 16px and does not zoom back.
     // The input recipe (14px) lives in a later cascade layer, so this needs
@@ -105,18 +108,6 @@ const config = defineConfig({
       colors: {
         neutral: radixNeutral,
         neutralD: radixNeutralDark,
-        gray: {
-          50: { value: "hsl(50 20.0% 99.0%)" },
-          100: { value: "hsl(60 7.7% 97.5%)" },
-          200: { value: "hsl(58 6.1% 92.9%)" },
-          300: { value: "hsl(51 6.0% 77.1%)" },
-          400: { value: "hsl(50 3.8% 30.6%)" },
-          500: { value: "hsl(50 4.0% 42.7%)" },
-          600: { value: "hsl(52 3.1% 48.3%)" },
-          700: { value: "hsl(58 3.7% 13.1%)" },
-          800: { value: "hsl(58 3.7% 13.1%)" },
-          900: { value: "hsl(61 2.0% 8.3%)" },
-        },
         primary: radixPrimary,
         primaryD: radixPrimaryDark,
       },

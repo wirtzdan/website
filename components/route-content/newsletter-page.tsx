@@ -24,7 +24,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
           <Heading as="h1">Newsletter</Heading>
           <Text
             fontSize="2xl"
-            color={useColorModeValue("gray.500", "gray.200")}
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
             maxW="lg"
             textAlign="center"
           >
@@ -36,7 +36,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
             <Box w="100%">
               <Box
                 border="1px solid"
-                borderColor={{ _light: "gray.200", _dark: "gray.700" }}
+                borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
                 w="100%"
                 rounded="lg"
                 overflow="hidden"
@@ -45,9 +45,9 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
               >
                 <Box
                   w="100%"
-                  bg={{ _light: "gray.50", _dark: "neutralD.100" }}
+                  bg={{ _light: "neutral.50", _dark: "neutralD.100" }}
                   borderBottom="1px"
-                  borderColor="gray.200"
+                  borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
                 >
                   <HStack p={4} fontSize="sm" gap={4}>
                     <Avatar.Root h={8} w={8}>
@@ -58,7 +58,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                       <Text>
                         <Text
                           as="span"
-                          color={{ _light: "gray.600", _dark: "gray.400" }}
+                          color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                           fontWeight="500"
                         >
                           From:
@@ -68,7 +68,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                       <Text>
                         <Text
                           as="span"
-                          color={{ _light: "gray.600", _dark: "gray.400" }}
+                          color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                           fontWeight="500"
                         >
                           To:
@@ -78,7 +78,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                     </VStack>
                   </HStack>
                 </Box>
-                <Box h="500px" w="100%" bg="white">
+                <Box h="500px" w="100%" bg={{ _light: "white", _dark: "neutralD.100" }}>
                   <iframe
                     width="100%"
                     height="100%"
@@ -118,7 +118,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                       <Text
                         display={["none", "block"]}
                         fontSize="md"
-                        color={{ _light: "neutral.800", _dark: "neutralD.800" }}
+                        color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                       >
                         {(post.fields.Issue ?? 0).toString().padStart(2, "0")}
                       </Text>
@@ -129,7 +129,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                   </Link>
                   <Text
                     display={["none", "block"]}
-                    color={{ _light: "neutral.800", _dark: "neutralD.800" }}
+                    color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                     fontSize="md"
                   >
                     {post.fields["Published on"]

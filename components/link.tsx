@@ -17,13 +17,15 @@ const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
   ref,
 ) {
   const isInternalLink = href.startsWith("/") || href.startsWith("#");
-  const primaryColor = useColorModeValue("primary.900", "primaryD.900");
-  const primaryHover = useColorModeValue("primary.1000", "primaryD.1000");
+  const primaryColor = useColorModeValue("primary.1000", "primaryD.900");
+  const primaryHover = useColorModeValue("primary.1100", "primaryD.1000");
 
   const styled = !unstyled
     ? {
         fontWeight: "400" as const,
         color: primaryColor,
+        textDecoration: "underline" as const,
+        textUnderlineOffset: "0.2em",
         transition: "all 0.25s",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         _hover: {

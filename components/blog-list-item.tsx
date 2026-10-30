@@ -44,7 +44,7 @@ const BlogListItem = ({ slug, publishDate, title, videoLink }: BlogListItemProps
             fontSize="sm"
             fontWeight="400"
             gap={2}
-            color={useColorModeValue("neutral.900", "neutralD.900")}
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
           >
             <Text>Posted {format(publishDate)}</Text>
             <Text>·</Text>

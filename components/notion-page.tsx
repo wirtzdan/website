@@ -93,10 +93,10 @@ const NotionVideo = ({
   if (hasError) {
     return (
       <div className="notion-video-error">
-        <p style={{ margin: "0 0 1rem 0", color: "#666" }}>
+        <p style={{ margin: "0 0 1rem 0", color: "var(--fg-color)" }}>
           Video could not be loaded. This might be due to access restrictions or an expired URL.
         </p>
-        <p style={{ margin: "0", fontSize: "0.9em", color: "#888" }}>
+        <p style={{ margin: "0", fontSize: "0.9em", color: "var(--fg-color-3)" }}>
           Try uploading the video to YouTube, Vimeo, or another external platform and embedding the
           link instead.
         </p>
@@ -108,7 +108,7 @@ const NotionVideo = ({
     return (
       <div className="notion-video-loading">
         <Loading />
-        <p style={{ marginTop: "1rem", color: "#666" }}>Loading video...</p>
+        <p style={{ marginTop: "1rem", color: "var(--fg-color)" }}>Loading video...</p>
       </div>
     );
   }

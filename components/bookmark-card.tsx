@@ -54,7 +54,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
               <Text
                 fontSize="xs"
                 fontWeight="500"
-                color={useColorModeValue("neutral.900", "neutralD.900")}
+                color={useColorModeValue("neutral.1000", "neutralD.1000")}
                 textTransform="capitalize"
               >
                 {type}
@@ -62,7 +62,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
               <Text
                 fontSize="xs"
                 fontWeight="400"
-                color={useColorModeValue("neutral.900", "neutralD.900")}
+                color={useColorModeValue("neutral.1000", "neutralD.1000")}
               >
                 – {format(created)}
               </Text>

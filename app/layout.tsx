@@ -8,7 +8,6 @@ import AppProviders from "./providers";
 
 import "@/lib/notion/notion-renderer-styles.css";
 import "@/lib/notion/notion-custom-styles.css";
-import "prismjs/themes/prism-tomorrow.css";
 
 export const metadata: Metadata = siteMetadata;
 

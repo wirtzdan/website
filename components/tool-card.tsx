@@ -62,7 +62,7 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
             <Text fontWeight="bold" fontSize="md" lineClamp={2}>
               {name}
             </Text>
-            <Text fontSize="sm" color={useColorModeValue("neutral.900", "neutralD.900")}>
+            <Text fontSize="sm" color={useColorModeValue("neutral.1000", "neutralD.1000")}>
               {description}
             </Text>
           </VStack>
