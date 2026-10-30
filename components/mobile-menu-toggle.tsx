@@ -5,6 +5,7 @@ import React from "react";
 import { useColorModeValue } from "./ui/color-mode";
 import {
   Box,
+  CloseButton,
   Drawer,
   IconButton,
   SimpleGrid,
@@ -17,7 +18,6 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 
-import Link from "@/components/link";
 import MobileMenuButton from "./mobile-menu-button";
 import MobileMenuItem from "./mobile-menu-item";
 
@@ -55,8 +55,14 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                 borderTopRadius="6px"
                 bg={useColorModeValue("neutral.50", "neutralD.50")}
               >
-                <Drawer.CloseTrigger />
-                <Drawer.Header>Menu</Drawer.Header>
+                <Drawer.CloseTrigger asChild>
+                  <CloseButton size="sm" aria-label="Close menu" />
+                </Drawer.CloseTrigger>
+                <Drawer.Header>
+                  <Drawer.Title textStyle="sm" fontWeight="normal">
+                    Menu
+                  </Drawer.Title>
+                </Drawer.Header>
                 <Drawer.Body pb={4}>
                   <VStack gap={4}>
                     <VStack w="100%">
@@ -73,50 +79,66 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                     <Separator />
                     <HStack justifyContent="center" w="100%">
                       <HStack gap={2}>
-                        <Link href="https://twitter.com/wirtzdan/" isExternal unstyled>
-                          <IconButton
-                            aria-label="Twitter"
-                            size="sm"
-                            variant="ghost"
-                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                        <IconButton
+                          asChild
+                          aria-label="Twitter"
+                          size="sm"
+                          variant="ghost"
+                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                        >
+                          <a
+                            href="https://twitter.com/wirtzdan/"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             <TwitterLogo weight="fill" />
-                          </IconButton>
-                        </Link>
-                        <Link href="https://www.linkedin.com/in/wirtzdan/" isExternal unstyled>
-                          <IconButton
-                            aria-label="LinkedIn"
-                            size="sm"
-                            variant="ghost"
-                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                          </a>
+                        </IconButton>
+                        <IconButton
+                          asChild
+                          aria-label="LinkedIn"
+                          size="sm"
+                          variant="ghost"
+                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                        >
+                          <a
+                            href="https://www.linkedin.com/in/wirtzdan/"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             <LinkedinLogo weight="fill" />
-                          </IconButton>
-                        </Link>
-                        <Link href="https://github.com/wirtzdan" isExternal unstyled>
-                          <IconButton
-                            aria-label="GitHub"
-                            size="sm"
-                            variant="ghost"
-                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                          </a>
+                        </IconButton>
+                        <IconButton
+                          asChild
+                          aria-label="GitHub"
+                          size="sm"
+                          variant="ghost"
+                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                        >
+                          <a
+                            href="https://github.com/wirtzdan"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             <GithubLogo weight="fill" />
-                          </IconButton>
-                        </Link>
-                        <Link
-                          href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA"
-                          unstyled
-                          isExternal
+                          </a>
+                        </IconButton>
+                        <IconButton
+                          asChild
+                          aria-label="YouTube"
+                          size="sm"
+                          variant="ghost"
+                          color={useColorModeValue("neutral.1000", "neutralD.1000")}
                         >
-                          <IconButton
-                            aria-label="YouTube"
-                            size="sm"
-                            variant="ghost"
-                            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                          <a
+                            href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
                             <YoutubeLogo weight="fill" />
-                          </IconButton>
-                        </Link>
+                          </a>
+                        </IconButton>
                       </HStack>
                     </HStack>
                   </VStack>

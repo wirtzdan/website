@@ -19,10 +19,7 @@ const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
     colorMode === "dark" ? <SunIcon width={20} height={20} /> : <MoonIcon width={20} height={20} />;
 
   return (
-    <Tooltip
-      content={colorMode === "dark" ? "Light mode" : "Dark mode"}
-      aria-label="Theme mode tooltip"
-    >
+    <Tooltip content={colorMode === "dark" ? "Light mode" : "Dark mode"}>
       {mobile ? (
         <MobileMenuButton
           label={colorMode === "dark" ? "Light Mode" : "Dark Mode"}

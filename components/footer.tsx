@@ -5,7 +5,6 @@ import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-rea
 import NextLink from "next/link";
 
 import Container from "@/components/container";
-import Link from "@/components/link";
 
 interface FooterLinkProps {
   href: string;
@@ -31,46 +30,58 @@ const Footer = () => {
       <HStack justify="space-between" w="100%" display={{ base: "none", md: "flex" }} my={8}>
         <FooterLink href="mailto:daniel@danielwirtz.com" name="Contact" />
         <HStack gap={4}>
-          <Link href="https://twitter.com/wirtzdan/" isExternal unstyled>
-            <IconButton
-              size="sm"
-              variant="ghost"
-              aria-label="Twitter"
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-            >
+          <IconButton
+            asChild
+            size="sm"
+            variant="ghost"
+            aria-label="Twitter"
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+          >
+            <a href="https://twitter.com/wirtzdan/" target="_blank" rel="noopener noreferrer">
               <TwitterLogo weight="fill" />
-            </IconButton>
-          </Link>
-          <Link href="https://www.linkedin.com/in/wirtzdan/" isExternal unstyled>
-            <IconButton
-              size="sm"
-              variant="ghost"
-              aria-label="LinkedIn"
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            </a>
+          </IconButton>
+          <IconButton
+            asChild
+            size="sm"
+            variant="ghost"
+            aria-label="LinkedIn"
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+          >
+            <a
+              href="https://www.linkedin.com/in/wirtzdan/"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <LinkedinLogo weight="fill" />
-            </IconButton>
-          </Link>
-          <Link href="https://github.com/wirtzdan" isExternal unstyled>
-            <IconButton
-              size="sm"
-              variant="ghost"
-              aria-label="GitHub"
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
-            >
+            </a>
+          </IconButton>
+          <IconButton
+            asChild
+            size="sm"
+            variant="ghost"
+            aria-label="GitHub"
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+          >
+            <a href="https://github.com/wirtzdan" target="_blank" rel="noopener noreferrer">
               <GithubLogo weight="fill" />
-            </IconButton>
-          </Link>
-          <Link href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA" isExternal unstyled>
-            <IconButton
-              size="sm"
-              variant="ghost"
-              aria-label="YouTube"
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            </a>
+          </IconButton>
+          <IconButton
+            asChild
+            size="sm"
+            variant="ghost"
+            aria-label="YouTube"
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+          >
+            <a
+              href="https://www.youtube.com/channel/UCje_bQMr6F45x0Auii7IOvA"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <YoutubeLogo weight="fill" />
-            </IconButton>
-          </Link>
+            </a>
+          </IconButton>
         </HStack>
         <FooterLink href="/privacy" name="Privacy" />
       </HStack>
