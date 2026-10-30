@@ -6,7 +6,7 @@ import { groupPhotosByTrip } from "@/lib/notion/photos";
 
 export const metadata = photosMetadata;
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export default async function Page() {
   const trips = groupPhotosByTrip(await getPhotos());

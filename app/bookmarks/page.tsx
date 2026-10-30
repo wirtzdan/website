@@ -2,12 +2,13 @@ import { notFound } from "next/navigation";
 
 import BookmarksPage from "@/components/route-content/bookmarks-page";
 import Layout from "@/layouts/layout";
+import { CONTENT_CACHE_TAGS, CONTENT_REVALIDATE_SECONDS } from "@/lib/content-cache";
 import { bookmarksMetadata } from "@/lib/page-metadata";
 import type { BookmarkResponse } from "@/types/content";
 
 export const metadata = bookmarksMetadata;
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 async function getBookmarks(): Promise<BookmarkResponse | null> {
   const url =
@@ -19,6 +20,10 @@ async function getBookmarks(): Promise<BookmarkResponse | null> {
       Authorization: `Bearer ${process.env.RAINDROP_ACCESS_TOKEN}`,
       "Content-Type": "application/x-www-form-urlencoded",
     }),
+    next: {
+      revalidate: CONTENT_REVALIDATE_SECONDS,
+      tags: [CONTENT_CACHE_TAGS.bookmarks, CONTENT_CACHE_TAGS.all],
+    },
   });
 
   if (!response.ok) {

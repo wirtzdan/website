@@ -5,10 +5,10 @@ import { getBlogPosts } from "@/lib/notion/api";
 
 export const metadata = homeMetadata;
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export default async function Page() {
-  const posts = await getBlogPosts({ pageSize: 9999 });
+  const posts = await getBlogPosts();
 
   return (
     <Layout>

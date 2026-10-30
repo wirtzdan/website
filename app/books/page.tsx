@@ -5,7 +5,7 @@ import { getBooks } from "@/lib/notion/api";
 
 export const metadata = booksMetadata;
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export default async function Page() {
   const books = await getBooks();
