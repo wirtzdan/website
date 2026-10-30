@@ -1,5 +1,7 @@
 "use client";
 
+import { uiCopy } from "@/lib/ui-copy";
+
 export default function GlobalError({
   reset,
 }: {
@@ -17,13 +19,13 @@ export default function GlobalError({
           padding: "0 1.5rem",
         }}
       >
-        <h1>This page didn't load</h1>
-        <p>I hit a snag while putting this page together.</p>
+        <h1>{uiCopy.error.title}</h1>
+        <p>{uiCopy.error.description}</p>
         <button type="button" onClick={() => reset()}>
-          Try again
+          {uiCopy.error.retry}
         </button>
         <p>
-          <a href="/">Return home</a>
+          <a href="/">{uiCopy.error.home}</a>
         </p>
       </body>
     </html>

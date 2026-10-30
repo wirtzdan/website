@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 import type {
   BlogPostSummary,
   BookSummary,
@@ -6,6 +8,8 @@ import type {
   PaginatedResults,
 } from "@/types/content";
 
+import { CONTENT_CACHE_TAGS, CONTENT_REVALIDATE_SECONDS, singleflight } from "@/lib/content-cache";
+import { persist } from "@/lib/persist-cache";
 import {
   blogDatabaseId,
   booksDatabaseId,
@@ -14,20 +18,10 @@ import {
 } from "@/lib/notion/config";
 import { mapNotionBook } from "./books";
 import { notionAPI, notionPrivateAPI } from "./client";
+import { NOTION_DATABASE_PAGE_SIZE, collectPaginated } from "./paginate";
 import { mapNotionPhoto, type Photo } from "./photos";
 import { withNotionRetry } from "./rate-limited-fetch";
-import {
-  getBooleanProperty,
-  getDateProperty,
-  getFilesProperty,
-  getStringProperty,
-  isPublished,
-} from "./utils";
-
-interface QueryOptions {
-  pageSize: number;
-  startCursor?: string;
-}
+import { mapNotionBlogPost, mapNotionGenericPage, type NotionDatabaseItem } from "./summaries";
 
 type WrappedNotionBlock = {
   role?: string;
@@ -48,284 +42,156 @@ function hasNestedWrappedBlockValue(value: unknown): value is NestedWrappedBlock
   return Boolean(maybeWrapped.value && typeof maybeWrapped.value === "object");
 }
 
-type NotionDatabaseItem = {
-  id: string;
-  icon?: {
-    type?: string;
-    emoji?: string;
-  };
-  properties?: Record<string, any>;
-};
+const cacheOptions = (tags: string[]) => ({
+  revalidate: CONTENT_REVALIDATE_SECONDS,
+  tags,
+});
 
-/** Deduplicate identical DB queries within a single Node process (SSG build). */
-const blogPostsCache = new Map<string, Promise<PaginatedResults<BlogPostSummary>>>();
-const pagesCache = new Map<string, Promise<PaginatedResults<GenericPageSummary>>>();
-/** Deduplicate page body fetches (generateMetadata + Page share a slug). */
-const pageByIdCache = new Map<string, Promise<NotionRecordMap | null>>();
-
-function cacheKey(pageSize: number, startCursor?: string): string {
-  return `${pageSize}:${startCursor ?? ""}`;
+function mapQueryResults<T>(
+  results: readonly unknown[],
+  mapItem: (item: NotionDatabaseItem) => T | null,
+): T[] {
+  const mapped: T[] = [];
+  for (const item of results) {
+    if (!item || typeof item !== "object" || !("properties" in item)) {
+      continue;
+    }
+    const value = mapItem(item as NotionDatabaseItem);
+    if (value) {
+      mapped.push(value);
+    }
+  }
+  return mapped;
 }
 
-export const getBlogPosts = async ({
-  pageSize,
-  startCursor,
-}: QueryOptions): Promise<PaginatedResults<BlogPostSummary>> => {
-  const key = cacheKey(pageSize, startCursor);
-  const cached = blogPostsCache.get(key);
-  if (cached) {
-    return cached;
+async function queryDatabase<T>(
+  databaseId: string | undefined,
+  missingMessage: string,
+  mapItem: (item: NotionDatabaseItem) => T | null,
+): Promise<T[]> {
+  if (!databaseId) {
+    throw new Error(missingMessage);
   }
 
-  const request = queryBlogPosts({ pageSize, startCursor });
-  blogPostsCache.set(key, request);
-  try {
-    return await request;
-  } catch (error) {
-    blogPostsCache.delete(key);
-    throw error;
-  }
-};
-
-async function queryBlogPosts({
-  pageSize,
-  startCursor,
-}: QueryOptions): Promise<PaginatedResults<BlogPostSummary>> {
-  const query = {
-    database_id: blogDatabaseId,
-    page_size: pageSize,
-    start_cursor: startCursor,
-  };
-  const collection = await withNotionRetry(() => notionAPI.databases.query(query as any));
-  const blogList: BlogPostSummary[] = [];
-
-  collection.results.forEach((item) => {
-    if (!("properties" in item)) {
-      return;
-    }
-
-    const typedItem = item as unknown as NotionDatabaseItem;
-    const rawPost = {
-      id: typedItem.id,
-      title: getStringProperty(typedItem, "Title"),
-      slug: getStringProperty(typedItem, "Slug"),
-      description: getStringProperty(typedItem, "Description") || null,
-      publishDate:
-        getDateProperty(typedItem, "Publish date") || getDateProperty(typedItem, "Created time"),
-      modifiedDate: getDateProperty(typedItem, "Last edited time"),
-      isFeatured: getBooleanProperty(typedItem, "Featured") ?? false,
-      isPublished: isPublished(typedItem),
-      coverImage: getFilesProperty(typedItem, "Cover Image"),
-      coverVideo: getStringProperty(typedItem, "Cover Video") || null,
-      socialImage: getFilesProperty(typedItem, "Social Image"),
-    };
-
-    const requiredProperties = ["slug", "title"] as const;
-    const isComplete = requiredProperties.every((key) => Boolean(rawPost[key]));
-    const coverIcon = typedItem.icon?.type === "emoji" ? (typedItem.icon.emoji ?? null) : null;
-
-    if (isComplete && typeof rawPost.publishDate === "string") {
-      blogList.push({
-        ...rawPost,
-        publishDate: rawPost.publishDate,
-        modifiedDate: typeof rawPost.modifiedDate === "string" ? rawPost.modifiedDate : undefined,
-        readURL: `/blog/${rawPost.slug}`,
-        coverIcon,
-      });
-    }
-  });
-
-  return {
-    results: blogList,
-    hasMore: collection.has_more,
-    next_cursor: collection.next_cursor,
-  };
-}
-
-export const getPageByPageId = async (pageId: string): Promise<NotionRecordMap | null> => {
-  const cached = pageByIdCache.get(pageId);
-  if (cached) {
-    return cached;
-  }
-
-  const request = fetchPageByPageId(pageId);
-  pageByIdCache.set(pageId, request);
-  return request;
-};
-
-async function fetchPageByPageId(pageId: string): Promise<NotionRecordMap | null> {
-  try {
-    const recordMap = (await withNotionRetry(() =>
-      notionPrivateAPI.getPage(pageId),
-    )) as NotionRecordMap;
-    const normalizedBlock = Object.fromEntries(
-      Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
-        const typedBlock = block as WrappedNotionBlock | undefined;
-
-        if (hasNestedWrappedBlockValue(typedBlock?.value)) {
-          return [
-            blockId,
-            {
-              ...typedBlock,
-              role: typedBlock.role ?? typedBlock.value.role,
-              value: typedBlock.value.value,
-            },
-          ];
-        }
-
-        return [blockId, block];
+  return collectPaginated(async (startCursor) => {
+    const collection = await withNotionRetry(() =>
+      notionAPI.databases.query({
+        database_id: databaseId,
+        page_size: NOTION_DATABASE_PAGE_SIZE,
+        start_cursor: startCursor,
       }),
     );
 
     return {
-      ...recordMap,
-      block: normalizedBlock,
-    } as NotionRecordMap;
+      items: mapQueryResults(collection.results, mapItem),
+      hasMore: collection.has_more,
+      nextCursor: collection.next_cursor,
+    };
+  });
+}
+
+async function loadBlogPosts(): Promise<BlogPostSummary[]> {
+  return queryDatabase(blogDatabaseId, "NOTION_BLOG_DATABASE_ID is required", mapNotionBlogPost);
+}
+
+const readBlogPosts = persist(loadBlogPosts, ["notion-blog-posts-v1"], {
+  ...cacheOptions([CONTENT_CACHE_TAGS.blog, CONTENT_CACHE_TAGS.all]),
+});
+
+export const getBlogPosts = cache(async (): Promise<PaginatedResults<BlogPostSummary>> => {
+  const results = await singleflight("notion-blog-posts-v1", readBlogPosts);
+  return { results, hasMore: false, next_cursor: null };
+});
+
+function normalizeRecordMap(recordMap: NotionRecordMap): NotionRecordMap {
+  const normalizedBlock = Object.fromEntries(
+    Object.entries(recordMap?.block ?? {}).map(([blockId, block]) => {
+      const typedBlock = block as WrappedNotionBlock | undefined;
+
+      if (hasNestedWrappedBlockValue(typedBlock?.value)) {
+        return [
+          blockId,
+          {
+            ...typedBlock,
+            role: typedBlock.role ?? typedBlock.value.role,
+            value: typedBlock.value.value,
+          },
+        ];
+      }
+
+      return [blockId, block];
+    }),
+  );
+
+  return {
+    ...recordMap,
+    block: normalizedBlock,
+  } as NotionRecordMap;
+}
+
+async function loadPageByPageId(pageId: string): Promise<NotionRecordMap> {
+  const recordMap = (await withNotionRetry(() =>
+    notionPrivateAPI.getPage(pageId),
+  )) as NotionRecordMap;
+  if (!recordMap) {
+    throw new Error(`Notion page ${pageId} returned no record map`);
+  }
+  return normalizeRecordMap(recordMap);
+}
+
+const readPageByPageId = persist(loadPageByPageId, ["notion-page-record-map-v1"], {
+  ...cacheOptions([CONTENT_CACHE_TAGS.pages, CONTENT_CACHE_TAGS.all]),
+});
+
+/**
+ * Per-request dedupe for generateMetadata and the page. A thrown Notion error
+ * is not stored in the data cache. The null returned here lives only for this
+ * request, so the next render tries the page again instead of 404ing until
+ * the lambda goes cold.
+ */
+export const getPageByPageId = cache(async (pageId: string): Promise<NotionRecordMap | null> => {
+  try {
+    return await singleflight(`notion-page:${pageId}`, () => readPageByPageId(pageId));
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown Notion API error";
     console.error(`Error fetching page with ID ${pageId}:`, message);
-    // Soft-fail a single post rather than aborting the whole static export.
-    // Cached promise stays resolved-null so generateMetadata + Page share it.
     return null;
   }
+});
+
+async function loadAllPages(): Promise<GenericPageSummary[]> {
+  return queryDatabase(
+    pagesDatabaseId,
+    "NOTION_PAGES_DATABASE_ID is required",
+    mapNotionGenericPage,
+  );
 }
 
-export const getAllPages = async ({
-  pageSize,
-  startCursor,
-}: QueryOptions): Promise<PaginatedResults<GenericPageSummary>> => {
-  const key = cacheKey(pageSize, startCursor);
-  const cached = pagesCache.get(key);
-  if (cached) {
-    return cached;
-  }
+const readAllPages = persist(loadAllPages, ["notion-pages-v1"], {
+  ...cacheOptions([CONTENT_CACHE_TAGS.pages, CONTENT_CACHE_TAGS.all]),
+});
 
-  const request = queryAllPages({ pageSize, startCursor });
-  pagesCache.set(key, request);
-  try {
-    return await request;
-  } catch (error) {
-    pagesCache.delete(key);
-    throw error;
-  }
-};
+export const getAllPages = cache(async (): Promise<PaginatedResults<GenericPageSummary>> => {
+  const results = await singleflight("notion-pages-v1", readAllPages);
+  return { results, hasMore: false, next_cursor: null };
+});
 
-async function queryAllPages({
-  pageSize,
-  startCursor,
-}: QueryOptions): Promise<PaginatedResults<GenericPageSummary>> {
-  const query = {
-    database_id: pagesDatabaseId,
-    page_size: pageSize,
-    start_cursor: startCursor,
-  };
-  const collection = await withNotionRetry(() => notionAPI.databases.query(query as any));
-  const pageList: GenericPageSummary[] = [];
-
-  collection.results.forEach((item) => {
-    if (!("properties" in item)) {
-      return;
-    }
-
-    const typedItem = item as unknown as NotionDatabaseItem;
-    const rawPage = {
-      id: typedItem.id,
-      title: getStringProperty(typedItem, "Name"),
-      slug: getStringProperty(typedItem, "Slug"),
-      isPublished: getBooleanProperty(typedItem, "Published") ?? false,
-      showNavigation: getBooleanProperty(typedItem, "Show navigation") ?? false,
-    };
-
-    const requiredProperties = ["slug", "title"] as const;
-    const isComplete = requiredProperties.every((key) => Boolean(rawPage[key]));
-
-    if (isComplete) {
-      pageList.push({
-        ...rawPage,
-        title: rawPage.title as string,
-        slug: rawPage.slug as string,
-        readURL: `/${rawPage.slug}`,
-      });
-    }
-  });
-
-  return {
-    results: pageList,
-    hasMore: collection.has_more,
-    next_cursor: collection.next_cursor,
-  };
+async function loadBooks(): Promise<BookSummary[]> {
+  return queryDatabase(booksDatabaseId, "NOTION_BOOKS_DATABASE_ID is required", mapNotionBook);
 }
 
-const BOOKS_PAGE_SIZE = 100;
+const readBooks = persist(loadBooks, ["notion-books-v1"], {
+  ...cacheOptions([CONTENT_CACHE_TAGS.books, CONTENT_CACHE_TAGS.all]),
+});
 
-export async function getBooks(): Promise<BookSummary[]> {
-  if (!booksDatabaseId) {
-    throw new Error("NOTION_BOOKS_DATABASE_ID is required");
-  }
+export const getBooks = cache(() => singleflight("notion-books-v1", readBooks));
 
-  const books: BookSummary[] = [];
-  let startCursor: string | undefined;
-
-  do {
-    const collection = await withNotionRetry(() =>
-      notionAPI.databases.query({
-        database_id: booksDatabaseId,
-        page_size: BOOKS_PAGE_SIZE,
-        start_cursor: startCursor,
-      }),
-    );
-
-    for (const item of collection.results) {
-      if (!("properties" in item)) {
-        continue;
-      }
-
-      const book = mapNotionBook(item as NotionDatabaseItem);
-      if (book) {
-        books.push(book);
-      }
-    }
-
-    startCursor =
-      collection.has_more && collection.next_cursor ? collection.next_cursor : undefined;
-  } while (startCursor);
-
-  return books;
+async function loadPhotos(): Promise<Photo[]> {
+  return queryDatabase(photosDatabaseId, "NOTION_PHOTOS_DATABASE_ID is required", mapNotionPhoto);
 }
 
-const PHOTOS_PAGE_SIZE = 100;
+const readPhotos = persist(loadPhotos, ["notion-photos-v1"], {
+  ...cacheOptions([CONTENT_CACHE_TAGS.photos, CONTENT_CACHE_TAGS.all]),
+});
 
-export async function getPhotos(): Promise<Photo[]> {
-  if (!photosDatabaseId) {
-    throw new Error("NOTION_PHOTOS_DATABASE_ID is required");
-  }
-
-  const photos: Photo[] = [];
-  let startCursor: string | undefined;
-
-  do {
-    const collection = await withNotionRetry(() =>
-      notionAPI.databases.query({
-        database_id: photosDatabaseId,
-        page_size: PHOTOS_PAGE_SIZE,
-        start_cursor: startCursor,
-      }),
-    );
-
-    for (const item of collection.results) {
-      if (!("properties" in item)) {
-        continue;
-      }
-
-      const photo = mapNotionPhoto(item as NotionDatabaseItem);
-      if (photo) {
-        photos.push(photo);
-      }
-    }
-
-    startCursor =
-      collection.has_more && collection.next_cursor ? collection.next_cursor : undefined;
-  } while (startCursor);
-
-  return photos;
-}
+export const getPhotos = cache(() => singleflight("notion-photos-v1", readPhotos));

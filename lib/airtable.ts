@@ -1,5 +1,8 @@
+import { cache } from "react";
 import Airtable, { type FieldSet } from "airtable";
 
+import { CONTENT_CACHE_TAGS, CONTENT_REVALIDATE_SECONDS, singleflight } from "@/lib/content-cache";
+import { persist } from "@/lib/persist-cache";
 import type { AirtableRecord, BookFields, NewsletterFields, ToolFields } from "@/types/content";
 
 type BlogFields = FieldSet & {
@@ -36,9 +39,27 @@ const minifyRecord = <TFields extends FieldSet>(
   };
 };
 
-async function getTable<TFields extends FieldSet = FieldSet>(table: string) {
+async function loadTable<TFields extends FieldSet = FieldSet>(table: string) {
   const records = await getBase()<TFields>(table).select({}).all();
   return getMinifiedRecords(records);
+}
+
+async function loadTools() {
+  return loadTable<ToolFields>("Tools");
+}
+
+const readTools = persist(loadTools, ["airtable-tools-v1"], {
+  revalidate: CONTENT_REVALIDATE_SECONDS,
+  tags: [CONTENT_CACHE_TAGS.tools, CONTENT_CACHE_TAGS.all],
+});
+
+const readCachedTools = cache(() => singleflight("airtable-tools-v1", readTools));
+
+async function getTable<TFields extends FieldSet = FieldSet>(table: string) {
+  if (table === "Tools") {
+    return readCachedTools() as Promise<AirtableRecord<TFields>[]>;
+  }
+  return loadTable<TFields>(table);
 }
 
 async function getAllPosts() {
@@ -51,7 +72,7 @@ async function getAllPosts() {
   return getMinifiedRecords(records);
 }
 
-async function getAllNewsletters() {
+async function loadAllNewsletters() {
   const records = await getBase()<NewsletterFieldSet>("Newsletter")
     .select({
       filterByFormula: `{status} = "Published"`,
@@ -60,6 +81,13 @@ async function getAllNewsletters() {
 
   return getMinifiedRecords(records);
 }
+
+const readAllNewsletters = persist(loadAllNewsletters, ["airtable-newsletters-v1"], {
+  revalidate: CONTENT_REVALIDATE_SECONDS,
+  tags: [CONTENT_CACHE_TAGS.newsletters, CONTENT_CACHE_TAGS.all],
+});
+
+const getAllNewsletters = cache(() => singleflight("airtable-newsletters-v1", readAllNewsletters));
 
 async function getAllNewsletterPaths() {
   const newsletters = await getAllNewsletters();

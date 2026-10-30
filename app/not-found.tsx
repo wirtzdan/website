@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import NotFoundBody from "@/components/not-found-body";
+import Layout from "@/layouts/layout";
 
 export const metadata: Metadata = {
   title: "404",
@@ -9,5 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
-  return <NotFoundBody />;
+  return (
+    <Layout>
+      <NotFoundBody />
+    </Layout>
+  );
 }
