@@ -39,7 +39,9 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
             >
               {cover ? (
                 <Image src={cover} objectFit="cover" alt={title} loading="lazy" decoding="async" />
-              ) : null}
+              ) : (
+                <Box />
+              )}
             </AspectRatio>
           </Box>
 
