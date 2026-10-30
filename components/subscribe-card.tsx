@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { HStack, Image, Stack, Text, VStack } from "@chakra-ui/react";
 
 import Subscribe from "@/components/subscribe";
@@ -25,8 +24,8 @@ export const SubscribeCard = ({
       w="100%"
       rounded="lg"
       borderWidth={card ? "1px" : "0px"}
-      bg={card ? useColorModeValue("white", "neutralD.100") : "transparent"}
-      borderColor={card ? useColorModeValue("neutral.400", "neutralD.400") : "transparent"}
+      bg={card ? { _light: "white", _dark: "neutralD.100" } : "transparent"}
+      borderColor={card ? { _light: "neutral.400", _dark: "neutralD.400" } : "transparent"}
       p={card ? 6 : 0}
       gap={4}
     >
@@ -37,7 +36,7 @@ export const SubscribeCard = ({
             borderRadius="full"
             boxSize={{ base: "80px", md: "150px" }}
             boxShadow="xs"
-            filter={useColorModeValue("none", "invert(1)")}
+            filter={{ _light: "none", _dark: "invert(1)" }}
           />
         ) : null}
         <VStack align="start">
@@ -49,7 +48,7 @@ export const SubscribeCard = ({
           {description ? (
             <Text
               fontSize={{ base: "sm", md: "lg" }}
-              color={useColorModeValue("neutral.1000", "neutralD.1000")}
+              color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
             >
               {description}
             </Text>

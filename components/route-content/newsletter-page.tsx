@@ -36,7 +36,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
             <Box w="100%">
               <Box
                 border="1px solid"
-                borderColor={useColorModeValue("gray.200", "gray.700")}
+                borderColor={{ _light: "gray.200", _dark: "gray.700" }}
                 w="100%"
                 rounded="lg"
                 overflow="hidden"
@@ -45,7 +45,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
               >
                 <Box
                   w="100%"
-                  bg={useColorModeValue("gray.50", "neutralD.100")}
+                  bg={{ _light: "gray.50", _dark: "neutralD.100" }}
                   borderBottom="1px"
                   borderColor="gray.200"
                 >
@@ -58,7 +58,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                       <Text>
                         <Text
                           as="span"
-                          color={useColorModeValue("gray.600", "gray.400")}
+                          color={{ _light: "gray.600", _dark: "gray.400" }}
                           fontWeight="500"
                         >
                           From:
@@ -68,7 +68,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                       <Text>
                         <Text
                           as="span"
-                          color={useColorModeValue("gray.600", "gray.400")}
+                          color={{ _light: "gray.600", _dark: "gray.400" }}
                           fontWeight="500"
                         >
                           To:
@@ -118,7 +118,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                       <Text
                         display={["none", "block"]}
                         fontSize="md"
-                        color={useColorModeValue("neutral.800", "neutralD.800")}
+                        color={{ _light: "neutral.800", _dark: "neutralD.800" }}
                       >
                         {(post.fields.Issue ?? 0).toString().padStart(2, "0")}
                       </Text>
@@ -129,7 +129,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                   </Link>
                   <Text
                     display={["none", "block"]}
-                    color={useColorModeValue("neutral.800", "neutralD.800")}
+                    color={{ _light: "neutral.800", _dark: "neutralD.800" }}
                     fontSize="md"
                   >
                     {post.fields["Published on"]
