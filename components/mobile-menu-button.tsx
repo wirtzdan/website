@@ -26,22 +26,8 @@ const MobileMenuButton = ({ label, icon, as = "button", ...rest }: MobileMenuBut
       })
     : icon;
 
-  return (
-    <VStack
-      gap={0}
-      rounded="md"
-      px={6}
-      w="100%"
-      {...rest}
-      as={as}
-      minH="11"
-      justify="center"
-      type={as === "button" ? "button" : undefined}
-      userSelect="none"
-      style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
-      _active={{ bg: { _light: "neutral.200", _dark: "neutralD.300" } }}
-      color={useColorModeValue("neutral.1100", "neutralD.1100")}
-    >
+  const content = (
+    <>
       <Box
         boxSize={`${ICON_SIZE_PX}px`}
         flexShrink={0}
@@ -61,6 +47,25 @@ const MobileMenuButton = ({ label, icon, as = "button", ...rest }: MobileMenuBut
       >
         {label}
       </Text>
+    </>
+  );
+
+  return (
+    <VStack
+      gap={0}
+      rounded="md"
+      px={6}
+      w="100%"
+      {...rest}
+      asChild
+      minH="11"
+      justify="center"
+      userSelect="none"
+      style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
+      _active={{ bg: { _light: "neutral.200", _dark: "neutralD.300" } }}
+      color={useColorModeValue("neutral.1100", "neutralD.1100")}
+    >
+      {as === "button" ? <button type="button">{content}</button> : <Box as={as}>{content}</Box>}
     </VStack>
   );
 };
