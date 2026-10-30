@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 
+const path = require("path");
+const lapseProdStub = path.join(__dirname, "lib/lapse-prod-stub.js");
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   [
@@ -144,7 +147,32 @@ const nextConfig = {
       },
     ];
   },
+  webpack(config, { dev }) {
+    if (!dev) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "@aiforui/lapse$": lapseProdStub,
+        "@aiforui/lapse/install$": lapseProdStub,
+        "@aiforui/lapse/core$": lapseProdStub,
+        "@aiforui/lapse/panel$": lapseProdStub,
+      };
+    }
+    return config;
+  },
 };
+
+// Turbopack is the default production bundler. Alias the private package to a
+// no-op so a leftover import cannot ship the inspector. Dev keeps the real module.
+if (process.env.NODE_ENV === "production") {
+  nextConfig.turbopack = {
+    resolveAlias: {
+      "@aiforui/lapse": "./lib/lapse-prod-stub.js",
+      "@aiforui/lapse/install": "./lib/lapse-prod-stub.js",
+      "@aiforui/lapse/core": "./lib/lapse-prod-stub.js",
+      "@aiforui/lapse/panel": "./lib/lapse-prod-stub.js",
+    },
+  };
+}
 
 const withMDX = require("@next/mdx")();
 

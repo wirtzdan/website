@@ -163,6 +163,9 @@ importers:
         specifier: ^4.0.1
         version: 4.0.4(react@19.2.4)
     devDependencies:
+      '@aiforui/lapse':
+        specifier: ^0.19.0
+        version: 0.19.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@types/node':
         specifier: ^25.5.2
         version: 25.5.2
@@ -180,6 +183,17 @@ importers:
         version: 0.1.24(@types/node@25.5.2)(terser@5.39.2)(typescript@6.0.2)(vite@8.3.4(@types/node@25.5.2)(terser@5.39.2)(yaml@2.8.3))(yaml@2.8.3)
 
 packages:
+
+  '@aiforui/lapse@0.19.0':
+    resolution: {integrity: sha512-+QRQVPe/l5XQGcO3R52z3SLklmHoouFzG8uUwmvOLJwTzcV13dU62qoBZwdizOPSF5KgWIL3V5pJftZiT05ZNg==}
+    peerDependencies:
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+      react-dom:
+        optional: true
 
   '@ark-ui/react@5.37.2':
     resolution: {integrity: sha512-Q0R2Ah50kUhup0Ljxg65zGJq5yBV52BLm1coRkjHHid40d1yclaDGfhPL48kcF/xtjAFlGLkL6SiENkGvfh+mw==}
@@ -3210,6 +3224,11 @@ packages:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
 
 snapshots:
+
+  '@aiforui/lapse@0.19.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    optionalDependencies:
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
 
   '@ark-ui/react@5.37.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:

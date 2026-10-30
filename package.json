@@ -54,6 +54,7 @@
     "use-sound": "^4.0.1"
   },
   "devDependencies": {
+    "@aiforui/lapse": "^0.19.0",
     "@types/node": "^25.5.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
