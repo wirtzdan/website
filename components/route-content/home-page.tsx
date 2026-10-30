@@ -5,9 +5,11 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 import NextLink from "next/link";
 
 import BlogListItem from "@/components/blog-list-item";
+import EmptyState from "@/components/empty-state";
 import Link from "@/components/link";
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
+import { uiCopy } from "@/lib/ui-copy";
 import type { BlogPostSummary, PaginatedResults } from "@/types/content";
 
 type HomePageProps = {
@@ -65,11 +67,19 @@ export default function HomePage({ posts }: HomePageProps) {
               </NextLink>
             </Button>
           </HStack>
-          <SimpleGrid columns={1} gap={4} w="100%">
-            {latestPosts.map((post) => (
-              <BlogListItem key={post.id} {...post} />
-            ))}
-          </SimpleGrid>
+          {latestPosts.length === 0 ? (
+            <EmptyState
+              minH="28"
+              title={uiCopy.homeLatest.title}
+              description={uiCopy.homeLatest.description}
+            />
+          ) : (
+            <SimpleGrid columns={1} gap={4} w="100%">
+              {latestPosts.map((post) => (
+                <BlogListItem key={post.id} {...post} />
+              ))}
+            </SimpleGrid>
+          )}
         </VStack>
       </Section>
       <Section>

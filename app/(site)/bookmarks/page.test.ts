@@ -21,7 +21,7 @@ function bookmark(created: string, title: string): BookmarkItem {
 async function renderBookmarks() {
   const { default: Page } = await import("./page");
   const element = await Page();
-  return element.props.children.props.bookmarks.items as BookmarkItem[];
+  return element.props.bookmarks.items as BookmarkItem[];
 }
 
 test("a failed Raindrop response throws instead of rendering", async () => {

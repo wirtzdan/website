@@ -10,7 +10,6 @@ import AuthorCard from "@/components/author-card";
 import ReadingProgress from "@/components/reading-progress";
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
-import Layout from "@/layouts/layout";
 import type { BlogPostSummary, NotionRecordMap } from "@/types/content";
 
 interface BlogLayoutProps {
@@ -25,13 +24,13 @@ const PlayIconWrapper = () => (
   </Icon>
 );
 
-const BlogLayout = ({ children, post, recordMap }: BlogLayoutProps) => {
+const BlogLayout = ({ children, post }: BlogLayoutProps) => {
   const target = useRef<HTMLElement | null>(null);
   const hasCoverImage = Boolean(post.coverImage);
   const hasCoverVideo = Boolean(post.coverVideo);
 
   return (
-    <Layout>
+    <>
       <Section>
         <article ref={target}>
           <VStack w="100%" align="stretch" gap={6}>
@@ -81,7 +80,7 @@ const BlogLayout = ({ children, post, recordMap }: BlogLayoutProps) => {
         />
       </Section>
       <ReadingProgress target={target} />
-    </Layout>
+    </>
   );
 };
 

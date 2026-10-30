@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 
 import BookmarksPage from "@/components/route-content/bookmarks-page";
-import Layout from "@/layouts/layout";
 import { CONTENT_CACHE_TAGS, CONTENT_REVALIDATE_SECONDS } from "@/lib/content-cache";
 import { bookmarksMetadata } from "@/lib/page-metadata";
 import type { BookmarkResponse } from "@/types/content";
@@ -46,9 +45,5 @@ export default async function Page() {
     ),
   };
 
-  return (
-    <Layout>
-      <BookmarksPage bookmarks={bookmarks} />
-    </Layout>
-  );
+  return <BookmarksPage bookmarks={bookmarks} />;
 }

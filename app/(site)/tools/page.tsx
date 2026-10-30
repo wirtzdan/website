@@ -1,5 +1,4 @@
 import ToolsPage from "@/components/route-content/tools-page";
-import Layout from "@/layouts/layout";
 import { getTable, type ToolFields } from "@/lib/airtable";
 import { toolsMetadata } from "@/lib/page-metadata";
 
@@ -10,9 +9,5 @@ export const revalidate = 3600;
 export default async function Page() {
   const tools = await getTable<ToolFields>("Tools");
 
-  return (
-    <Layout>
-      <ToolsPage tools={tools} />
-    </Layout>
-  );
+  return <ToolsPage tools={tools} />;
 }
