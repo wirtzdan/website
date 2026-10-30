@@ -8,7 +8,7 @@
   /* Icons in tables */
   --fg-color-2: var(--chakra-colors-neutral-700);
   /* Row labels in tables */
-  --fg-color-3: var(--chakra-colors-neutral-900);
+  --fg-color-3: var(--chakra-colors-neutral-1000);
   /* External title */
   --fg-color-4: var(--chakra-colors-neutral-1100);
   /* Border tables */
@@ -90,7 +90,7 @@ html.dark,
   /* Icons in tables */
   --fg-color-2: var(--chakra-colors-neutral-d-700);
   /* Row labels in tables */
-  --fg-color-3: var(--chakra-colors-neutral-d-900);
+  --fg-color-3: var(--chakra-colors-neutral-d-1000);
   /* External title */
   --fg-color-4: var(--chakra-colors-neutral-d-1100);
   /* Border tables */
@@ -725,14 +725,17 @@ h5 .notion-link {
 
 .notion-link {
   font-weight: 400;
-  color: var(--chakra-colors-primary-900);
+  color: var(--chakra-colors-primary-1000);
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
   -webkit-transition: all 0.25s;
   transition: all 0.25s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .notion-link:hover {
-  color: var(--chakra-colors-primary-1000);
+  color: var(--chakra-colors-primary-1100);
   -webkit-text-decoration: underline;
   text-decoration: underline;
 }

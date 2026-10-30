@@ -88,13 +88,13 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
             <Text fontWeight="bold" fontSize="md" lineClamp={2}>
               {title}
             </Text>
-            <Text fontSize="md" color={useColorModeValue("neutral.900", "neutralD.1000")}>
+            <Text fontSize="md" color={useColorModeValue("neutral.1000", "neutralD.1000")}>
               {author}
             </Text>
           </VStack>
           <VStack gap={0} align="start">
             <StarIconRating rating={rating} />
-            <Text fontSize="xs" color="neutral.800">
+            <Text fontSize="xs" color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}>
               {dateRead ? format(dateRead) : ""}
             </Text>
           </VStack>

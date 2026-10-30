@@ -29,7 +29,7 @@ const StarIconRating = ({ rating = 0 }: StarIconRatingProps) => {
           key={`empty-${index}`}
           w={4}
           h={4}
-          color={useColorModeValue("gray.300", "gray.600")}
+          color={useColorModeValue("neutral.700", "neutralD.900")}
           asChild
         >
           <StarIcon />

@@ -25,12 +25,12 @@ const ExperienceCard = ({ company, logo, role, date, description }: ExperienceCa
         />
         <VStack align="start" gap={2}>
           <Text fontWeight="bold">{company}</Text>
-          <Text fontSize="md" color={useColorModeValue("gray.800", "gray.100")}>
+          <Text fontSize="md" color={useColorModeValue("neutral.1100", "neutralD.1100")}>
             {description}
           </Text>
           <Text
             fontSize="sm"
-            color={useColorModeValue("gray.600", "gray.200")}
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
             letterSpacing="wider"
           >
             {role} :: {date}

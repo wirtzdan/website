@@ -44,7 +44,7 @@ const BlogCard = ({ slug, publishDate, title, type }: BlogCardProps) => {
             fontSize="sm"
             fontWeight="500"
             gap={2}
-            color={useColorModeValue("neutral.900", "neutralD.900")}
+            color={useColorModeValue("neutral.1000", "neutralD.1000")}
           >
             <Text>Posted {format(publishDate)}</Text>
             <Text>·</Text>

@@ -14,14 +14,14 @@ export const prismLight = {
     {
       types: ["deleted"],
       style: {
-        color: "rgba(239, 83, 80, 0.56)",
+        color: "oklch(0.584 0.193 25.144)",
         fontStyle: "italic",
       },
     },
     {
       types: ["inserted", "attr-name"],
       style: {
-        color: "rgb(72, 118, 214)",
+        color: "oklch(0.567 0.156 263.151)",
         fontStyle: "italic",
       },
     },

@@ -29,7 +29,7 @@ function byDateReadDescending(left: BookSummary, right: BookSummary) {
 
 export default function BooksPage({ books }: BooksPageProps) {
   const tabBg = useColorModeValue("neutral.300", "neutralD.300");
-  const tabColor = useColorModeValue("neutral.900", "neutralD.900");
+  const tabColor = useColorModeValue("neutral.1100", "neutralD.1000");
 
   const allBooks = books.filter((book) => book.read === true).sort(byDateReadDescending);
   const favorites = books.filter((book) => book.favorite === true).sort(byDateReadDescending);
