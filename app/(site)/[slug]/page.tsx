@@ -45,7 +45,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   }
 
   return (
-    <PageLayout page={page} showNavigation={page.showNavigation ?? false}>
+    <PageLayout page={page}>
       <NotionPage recordMap={recordMap} />
     </PageLayout>
   );

@@ -4,10 +4,12 @@ import { useDisclosure } from "@/lib/use-disclosure";
 import { Avatar, Box, Button, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
 import sorter from "sort-isostring";
 
+import EmptyState from "@/components/empty-state";
 import Link from "@/components/link";
+import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
 import type { AirtableRecord, NewsletterFields } from "@/lib/airtable";
-import Section from "@/components/section";
+import { uiCopy } from "@/lib/ui-copy";
 
 type NewsletterPageProps = {
   posts: AirtableRecord<NewsletterFields>[];
@@ -15,6 +17,11 @@ type NewsletterPageProps = {
 
 export default function NewsletterPage({ posts }: NewsletterPageProps) {
   const { open, onOpen } = useDisclosure();
+  const published = posts
+    .filter((post) => post.fields.Status === "Published")
+    .sort((left, right) =>
+      sorter(right.fields["Published on"] ?? "", left.fields["Published on"] ?? ""),
+    );
 
   return (
     <Section>
@@ -98,13 +105,15 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
           <Heading as="h2" size="md">
             Read past newsletters
           </Heading>
-          <VStack alignItems="flex-start" gap={4} w="full">
-            {posts
-              .filter((post) => post.fields.Status === "Published")
-              .sort((left, right) =>
-                sorter(right.fields["Published on"] ?? "", left.fields["Published on"] ?? ""),
-              )
-              .map((post) => (
+          {published.length === 0 ? (
+            <EmptyState
+              minH="24"
+              title={uiCopy.newsletterArchive.title}
+              description={uiCopy.newsletterArchive.description}
+            />
+          ) : (
+            <VStack alignItems="flex-start" gap={4} w="full">
+              {published.map((post) => (
                 <Stack
                   key={post.id}
                   direction={["column", "row"]}
@@ -137,7 +146,8 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                   </Text>
                 </Stack>
               ))}
-          </VStack>
+            </VStack>
+          )}
         </VStack>
       </VStack>
     </Section>

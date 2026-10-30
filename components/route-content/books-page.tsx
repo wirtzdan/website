@@ -5,13 +5,43 @@ import { BookOpenIcon, HeartIcon } from "@heroicons/react/24/solid";
 import sorter from "sort-isostring";
 
 import BookCard from "@/components/book-card";
+import EmptyState from "@/components/empty-state";
 import Hero from "@/components/hero";
 import Section from "@/components/section";
+import { uiCopy } from "@/lib/ui-copy";
 import type { BookSummary } from "@/types/content";
 
 type BooksPageProps = {
   books: BookSummary[];
 };
+
+function BookGrid({
+  books,
+  empty,
+}: {
+  books: BookSummary[];
+  empty: { title: string; description: string };
+}) {
+  if (books.length === 0) {
+    return <EmptyState mt={8} minH="36" title={empty.title} description={empty.description} />;
+  }
+
+  return (
+    <SimpleGrid columns={[1, 2]} gap={4} rowGap={8} mt={8}>
+      {books.map((book) => (
+        <BookCard
+          key={book.id}
+          title={book.title}
+          author={book.author}
+          rating={book.rating ?? undefined}
+          isFavorite={book.favorite}
+          coverUrl={book.coverUrl ?? undefined}
+          dateRead={book.dateRead ?? undefined}
+        />
+      ))}
+    </SimpleGrid>
+  );
+}
 
 function byDateReadDescending(left: BookSummary, right: BookSummary) {
   if (!left.dateRead && !right.dateRead) {
@@ -68,34 +98,10 @@ export default function BooksPage({ books }: BooksPageProps) {
             </Tabs.Trigger>
           </Tabs.List>
           <Tabs.Content value="all" px={0}>
-            <SimpleGrid columns={[1, 2]} gap={4} rowGap={8} mt={8}>
-              {allBooks.map((book) => (
-                <BookCard
-                  key={book.id}
-                  title={book.title}
-                  author={book.author}
-                  rating={book.rating ?? undefined}
-                  isFavorite={book.favorite}
-                  coverUrl={book.coverUrl ?? undefined}
-                  dateRead={book.dateRead ?? undefined}
-                />
-              ))}
-            </SimpleGrid>
+            <BookGrid books={allBooks} empty={uiCopy.booksAll} />
           </Tabs.Content>
           <Tabs.Content value="favorites" px={0}>
-            <SimpleGrid columns={[1, 2]} gap={4} rowGap={8} mt={8}>
-              {favorites.map((book) => (
-                <BookCard
-                  key={book.id}
-                  title={book.title}
-                  author={book.author}
-                  rating={book.rating ?? undefined}
-                  isFavorite={book.favorite}
-                  coverUrl={book.coverUrl ?? undefined}
-                  dateRead={book.dateRead ?? undefined}
-                />
-              ))}
-            </SimpleGrid>
+            <BookGrid books={favorites} empty={uiCopy.booksFavorites} />
           </Tabs.Content>
         </Tabs.Root>
       </Section>

@@ -1,5 +1,4 @@
 import BooksPage from "@/components/route-content/books-page";
-import Layout from "@/layouts/layout";
 import { booksMetadata } from "@/lib/page-metadata";
 import { getBooks } from "@/lib/notion/api";
 
@@ -10,9 +9,5 @@ export const revalidate = 3600;
 export default async function Page() {
   const books = await getBooks();
 
-  return (
-    <Layout>
-      <BooksPage books={books} />
-    </Layout>
-  );
+  return <BooksPage books={books} />;
 }

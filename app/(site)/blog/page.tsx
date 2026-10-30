@@ -1,5 +1,4 @@
 import BlogIndexPage from "@/components/route-content/blog-index-page";
-import Layout from "@/layouts/layout";
 import { blogIndexMetadata } from "@/lib/page-metadata";
 import { getBlogPosts } from "@/lib/notion/api";
 
@@ -10,9 +9,5 @@ export const revalidate = 3600;
 export default async function Page() {
   const posts = await getBlogPosts();
 
-  return (
-    <Layout>
-      <BlogIndexPage posts={posts} />
-    </Layout>
-  );
+  return <BlogIndexPage posts={posts} />;
 }

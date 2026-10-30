@@ -4,11 +4,13 @@ import { HStack, SimpleGrid, Tabs, Text, VStack } from "@chakra-ui/react";
 import { AppleLogo, Compass, Desktop, DeviceMobile } from "phosphor-react";
 import sorter from "sort-isostring";
 
+import EmptyState from "@/components/empty-state";
 import Hero from "@/components/hero";
 import Section from "@/components/section";
 import ToolCard from "@/components/tool-card";
 import type { AirtableRecord, ToolFields } from "@/lib/airtable";
 import { TOOL_PLATFORM_TABS, toolsForPlatformTab } from "@/lib/tool-platforms";
+import { toolEmptyCopy } from "@/lib/ui-copy";
 
 type ToolsPageProps = {
   tools: AirtableRecord<ToolFields>[];
@@ -63,23 +65,37 @@ export default function ToolsPage({ tools }: ToolsPageProps) {
               );
             })}
           </Tabs.List>
-          {TOOL_PLATFORM_TABS.map((tab) => (
-            <Tabs.Content key={tab.id} value={tab.id} px={0}>
-              <SimpleGrid columns={[1, 2]} gap={4} mt={8}>
-                {toolsByPlatform(tools, tab.id).map((tool) => (
-                  <ToolCard
-                    key={tool.id}
-                    name={tool.fields.Name}
-                    description={tool.fields.Description}
-                    image={tool.fields.Image}
-                    platform={tool.fields.Platform}
-                    isAffiliate={tool.fields.Affiliate}
-                    link={tool.fields.Link}
+          {TOOL_PLATFORM_TABS.map((tab) => {
+            const platformTools = toolsByPlatform(tools, tab.id);
+            const empty = toolEmptyCopy[tab.id];
+
+            return (
+              <Tabs.Content key={tab.id} value={tab.id} px={0}>
+                {platformTools.length === 0 ? (
+                  <EmptyState
+                    mt={8}
+                    minH="24"
+                    title={empty.title}
+                    description={empty.description}
                   />
-                ))}
-              </SimpleGrid>
-            </Tabs.Content>
-          ))}
+                ) : (
+                  <SimpleGrid columns={[1, 2]} gap={4} mt={8}>
+                    {platformTools.map((tool) => (
+                      <ToolCard
+                        key={tool.id}
+                        name={tool.fields.Name}
+                        description={tool.fields.Description}
+                        image={tool.fields.Image}
+                        platform={tool.fields.Platform}
+                        isAffiliate={tool.fields.Affiliate}
+                        link={tool.fields.Link}
+                      />
+                    ))}
+                  </SimpleGrid>
+                )}
+              </Tabs.Content>
+            );
+          })}
         </Tabs.Root>
       </Section>
     </VStack>

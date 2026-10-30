@@ -1,5 +1,4 @@
 import HomePage from "@/components/route-content/home-page";
-import Layout from "@/layouts/layout";
 import { homeMetadata } from "@/lib/page-metadata";
 import { getBlogPosts } from "@/lib/notion/api";
 
@@ -10,9 +9,5 @@ export const revalidate = 3600;
 export default async function Page() {
   const posts = await getBlogPosts();
 
-  return (
-    <Layout>
-      <HomePage posts={posts} />
-    </Layout>
-  );
+  return <HomePage posts={posts} />;
 }

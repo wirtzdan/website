@@ -10,10 +10,20 @@ test("the page transition wraps the article and not the fixed chrome", () => {
   const transitionEnd = page.indexOf("</PageTransition>");
 
   expect(transitionStart).toBeGreaterThan(-1);
-  expect(page.indexOf("<Header />")).toBeLessThan(transitionStart);
-  expect(page.indexOf("<MobileNavigation />")).toBeGreaterThan(transitionEnd);
-  expect(page.indexOf("<Footer />")).toBeGreaterThan(transitionEnd);
   expect(page.slice(transitionStart, transitionEnd)).toContain("<article>");
+  expect(page).not.toContain("<Header />");
+  expect(page).not.toContain("<MobileNavigation />");
+  expect(page).not.toContain("<Footer />");
+
+  const chrome = read("../layouts/layout.tsx");
+  const content = chrome.indexOf("{children}");
+  expect(content).toBeGreaterThan(-1);
+  expect(chrome.indexOf("<Header />")).toBeLessThan(content);
+  expect(chrome.indexOf("<MobileNavigation />")).toBeGreaterThan(content);
+  expect(chrome.indexOf("<Footer />")).toBeGreaterThan(content);
+
+  const site = read("../app/(site)/layout.tsx");
+  expect(site).toContain("<Layout>{children}</Layout>");
 });
 
 test("the drawer sheet is not nested in the backdrop", () => {
