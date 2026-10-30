@@ -25,3 +25,15 @@ test("notion dark text follows the site color mode and dash-cased tokens", () =>
   expect(stylesheet).toContain("color: var(--chakra-colors-primary-d-900)");
   expect(stylesheet).toContain("color: var(--chakra-colors-primary-900)");
 });
+
+test("notion link and page-link hover only apply to fine pointers", () => {
+  for (const rule of [".notion-link:hover", ".notion-page-link:hover"]) {
+    const hoverIndex = stylesheet.indexOf(rule);
+    expect(hoverIndex).toBeGreaterThan(-1);
+    const mediaIndex = stylesheet.lastIndexOf(
+      "@media (hover: hover) and (pointer: fine)",
+      hoverIndex,
+    );
+    expect(mediaIndex).toBeGreaterThan(-1);
+  }
+});

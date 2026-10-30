@@ -537,6 +537,10 @@ function FullscreenPreview({ children, onClose }: { children: ReactNode; onClose
       direction="column"
       bg="#1E293B"
       color="white"
+      pt="var(--safe-top, 0px)"
+      pb="var(--safe-bottom, 0px)"
+      ps="var(--safe-left, 0px)"
+      pe="var(--safe-right, 0px)"
     >
       <Flex flex="none" align="center" gap={2} px={4} py={3}>
         <Text fontWeight="600" fontSize="md">
@@ -577,7 +581,7 @@ function FullscreenPreview({ children, onClose }: { children: ReactNode; onClose
 function EditorScroll({ children }: { children: ReactNode }) {
   return (
     <ScrollArea.Root flex={1} minH={0} h="full" variant="hover" size="sm">
-      <ScrollArea.Viewport>
+      <ScrollArea.Viewport overscrollBehavior="contain">
         <ScrollArea.Content>{children}</ScrollArea.Content>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar />
@@ -820,14 +824,33 @@ function DeviceItem({
                 <ColorField color={color} onChange={(value) => onChange({ color: value })} />
               </Box>
             ) : null}
-            <HStack gap={1}>
-              <Button size="xs" variant="ghost" disabled={isFirst} onClick={() => onMove(-1)}>
+            <HStack gap={1} wrap="wrap">
+              <Button
+                size="xs"
+                h={{ base: "11", md: "8" }}
+                variant="ghost"
+                disabled={isFirst}
+                onClick={() => onMove(-1)}
+              >
                 <CaretUp /> Move up
               </Button>
-              <Button size="xs" variant="ghost" disabled={isLast} onClick={() => onMove(1)}>
+              <Button
+                size="xs"
+                h={{ base: "11", md: "8" }}
+                variant="ghost"
+                disabled={isLast}
+                onClick={() => onMove(1)}
+              >
                 <CaretDown /> Move down
               </Button>
-              <Button size="xs" variant="ghost" colorPalette="red" ml="auto" onClick={onRemove}>
+              <Button
+                size="xs"
+                h={{ base: "11", md: "8" }}
+                variant="ghost"
+                colorPalette="red"
+                ml="auto"
+                onClick={onRemove}
+              >
                 <Trash /> Remove
               </Button>
             </HStack>
@@ -933,7 +956,7 @@ export default function FuseBoxPage() {
                 <IconButton
                   aria-label={`Remove row ${rowIndex + 1}`}
                   title="Remove row"
-                  size="xs"
+                  size={{ base: "lg", md: "xs" }}
                   variant="ghost"
                   ml="auto"
                   onClick={() =>
@@ -1058,7 +1081,15 @@ export default function FuseBoxPage() {
   return (
     <>
       <style>{printStyles}</style>
-      <Flex direction="column" h="100dvh" bg={canvasBg}>
+      <Flex
+        direction="column"
+        h="100dvh"
+        bg={canvasBg}
+        pt="var(--safe-top, 0px)"
+        pb="var(--safe-bottom, 0px)"
+        ps="var(--safe-left, 0px)"
+        pe="var(--safe-right, 0px)"
+      >
         <Flex
           as="header"
           flex="none"
@@ -1078,7 +1109,7 @@ export default function FuseBoxPage() {
             <IconButton
               aria-label="Load example"
               title="Load example"
-              size="sm"
+              size={{ base: "lg", md: "sm" }}
               variant="ghost"
               onClick={() => reset(examplePanel, "Replace your labels with the example?")}
             >
@@ -1087,7 +1118,7 @@ export default function FuseBoxPage() {
             <IconButton
               aria-label="Start blank"
               title="Start blank"
-              size="sm"
+              size={{ base: "lg", md: "sm" }}
               variant="ghost"
               onClick={() =>
                 reset({ rows: [createEmptyRow(), createEmptyRow()] }, "Clear all labels?")

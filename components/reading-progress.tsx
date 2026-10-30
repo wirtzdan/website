@@ -45,7 +45,7 @@ const ReadingProgress = ({ target }: ReadingProgressProps) => {
       left={0}
       right={0}
       top={{ base: "auto", md: "16" }}
-      bottom={{ base: "16", md: "auto" }}
+      bottom={{ base: "calc(4rem + var(--safe-bottom, 0px))", md: "auto" }}
       h="2px"
       transition="all 0.10s"
       transitionTimingFunction="spring(1 100 10 10)"

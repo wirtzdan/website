@@ -10,7 +10,7 @@ interface MobileMenuButtonProps extends StackProps {
   icon: ReactElement;
 }
 
-const MobileMenuButton = ({ label, icon, ...rest }: MobileMenuButtonProps) => {
+const MobileMenuButton = ({ label, icon, as = "button", ...rest }: MobileMenuButtonProps) => {
   // Force explicit SVG dimensions. Chakra Icon asChild + Heroicons was leaving the
   // theme moon/sun at ~2× the Blog/Menu icons and overflowing the mobile nav bar.
   const sizedIcon = isValidElement(icon)
@@ -28,11 +28,18 @@ const MobileMenuButton = ({ label, icon, ...rest }: MobileMenuButtonProps) => {
 
   return (
     <VStack
-      as="button"
       gap={0}
       rounded="md"
       px={6}
+      w="100%"
       {...rest}
+      as={as}
+      minH="11"
+      justify="center"
+      type={as === "button" ? "button" : undefined}
+      userSelect="none"
+      style={{ WebkitTouchCallout: "none", WebkitUserSelect: "none" }}
+      _active={{ bg: { _light: "neutral.200", _dark: "neutralD.300" } }}
       color={useColorModeValue("neutral.1100", "neutralD.1100")}
     >
       <Box

@@ -56,7 +56,11 @@ function MobileMenuItem({ href, title }: MobileMenuItemProps) {
         backgroundColor: hoverBackground,
       }}
     >
-      <NextLink href={href}>{title}</NextLink>
+      {href.startsWith("mailto:") || href.startsWith("http") ? (
+        <a href={href}>{title}</a>
+      ) : (
+        <NextLink href={href}>{title}</NextLink>
+      )}
     </Button>
   );
 }

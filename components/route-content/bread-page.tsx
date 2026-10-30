@@ -258,8 +258,12 @@ export default function BreadPage() {
                 }}
                 w="100%"
               >
-                <NumberInput.Input bg={cardBg} />
-                <NumberInput.Control>
+                <NumberInput.Input
+                  bg={cardBg}
+                  inputMode="numeric"
+                  pe={{ base: "3", md: "calc(var(--stepper-width) + 0.5rem)" }}
+                />
+                <NumberInput.Control display={{ base: "none", md: "flex" }}>
                   <NumberInput.IncrementTrigger />
                   <NumberInput.DecrementTrigger />
                 </NumberInput.Control>

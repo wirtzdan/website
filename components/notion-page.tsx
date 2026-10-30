@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import ReactPlayer from "react-player";
-import { Spinner as Loading } from "@chakra-ui/react";
+import { Box, Spinner as Loading } from "@chakra-ui/react";
 import { getPageTitle } from "notion-utils";
 import { NotionRenderer } from "react-notion-x";
 import TweetEmbed from "react-tweet-embed";
@@ -41,7 +41,11 @@ type NotionBlock = {
 };
 
 const Tweet = ({ id }: { id: string }) => {
-  return <TweetEmbed tweetId={id} />;
+  return (
+    <Box minH="250px" w="100%">
+      <TweetEmbed tweetId={id} />
+    </Box>
+  );
 };
 
 const NotionVideo = ({
@@ -124,6 +128,7 @@ const NotionVideo = ({
               attributes: {
                 crossOrigin: "anonymous",
                 ...props,
+                playsInline: true,
               },
             },
           }}
@@ -137,6 +142,7 @@ const NotionVideo = ({
       {...props}
       src={videoSrc}
       controls
+      playsInline
       className="notion-video-player"
       style={{ width: "100%", height: "auto" }}
       onError={handleError}

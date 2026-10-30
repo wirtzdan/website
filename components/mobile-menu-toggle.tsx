@@ -63,7 +63,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                     Menu
                   </Drawer.Title>
                 </Drawer.Header>
-                <Drawer.Body pb={4}>
+                <Drawer.Body pb="calc(1rem + var(--safe-bottom, 0px))">
                   <VStack gap={4}>
                     <VStack w="100%">
                       <MobileMenuItem href="/" title="Home" />
@@ -73,6 +73,8 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                         <MobileMenuItem href="/bookmarks" title="Bookmarks" />
                         <MobileMenuItem href="/books" title="Books" />
                         <MobileMenuItem href="/tools" title="Tools" />
+                        <MobileMenuItem href="/privacy" title="Privacy" />
+                        <MobileMenuItem href="mailto:daniel@danielwirtz.com" title="Contact" />
                       </SimpleGrid>
                     </VStack>
 
@@ -82,7 +84,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                         <IconButton
                           asChild
                           aria-label="Twitter"
-                          size="sm"
+                          size={{ base: "lg", md: "sm" }}
                           variant="ghost"
                           color={useColorModeValue("neutral.1000", "neutralD.1000")}
                         >
@@ -97,7 +99,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                         <IconButton
                           asChild
                           aria-label="LinkedIn"
-                          size="sm"
+                          size={{ base: "lg", md: "sm" }}
                           variant="ghost"
                           color={useColorModeValue("neutral.1000", "neutralD.1000")}
                         >
@@ -112,7 +114,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                         <IconButton
                           asChild
                           aria-label="GitHub"
-                          size="sm"
+                          size={{ base: "lg", md: "sm" }}
                           variant="ghost"
                           color={useColorModeValue("neutral.1000", "neutralD.1000")}
                         >
@@ -127,7 +129,7 @@ const MobileMenuToggle = ({ mobile }: MobileMenuToggleProps) => {
                         <IconButton
                           asChild
                           aria-label="YouTube"
-                          size="sm"
+                          size={{ base: "lg", md: "sm" }}
                           variant="ghost"
                           color={useColorModeValue("neutral.1000", "neutralD.1000")}
                         >
