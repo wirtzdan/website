@@ -5,7 +5,7 @@ import { newsletterMetadata } from "@/lib/page-metadata";
 
 export const metadata = newsletterMetadata;
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export default async function Page() {
   const posts = await getAllNewsletters();

@@ -7,10 +7,10 @@ import BlogLayout from "@/layouts/blog";
 import { buildBlogPostMetadata, getDescriptionFromRecordMap } from "@/lib/blog-metadata";
 import { getBlogPosts, getPageByPageId } from "@/lib/notion/api";
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
-  const posts = await getBlogPosts({ pageSize: 9999 });
+  const posts = await getBlogPosts();
   return posts.results.map((post) => ({ slug: post.slug }));
 }
 
@@ -20,7 +20,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const posts = await getBlogPosts({ pageSize: 9999 });
+  const posts = await getBlogPosts();
   const post = posts.results.find((entry) => entry.slug === slug);
   if (!post) {
     return { title: "Blog" };
@@ -38,7 +38,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const posts = await getBlogPosts({ pageSize: 9999 });
+  const posts = await getBlogPosts();
   const post = posts.results.find((entry) => entry.slug === slug) ?? null;
 
   if (!post) {

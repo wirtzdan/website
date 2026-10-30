@@ -5,7 +5,7 @@ import NotionPage from "@/components/notion-page";
 import PageLayout from "@/layouts/page";
 import { getAllPages, getPageByPageId } from "@/lib/notion/api";
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export async function generateMetadata({
   params,
@@ -13,7 +13,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const pages = await getAllPages({ pageSize: 9999 });
+  const pages = await getAllPages();
   const page = pages.results.find((entry) => entry.slug === slug && entry.isPublished);
   if (!page) {
     return { title: "Page" };
@@ -25,13 +25,13 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const pages = await getAllPages({ pageSize: 9999 });
+  const pages = await getAllPages();
   return pages.results.filter((page) => page.isPublished).map((page) => ({ slug: page.slug }));
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const pages = await getAllPages({ pageSize: 9999 });
+  const pages = await getAllPages();
   const page = pages.results.find((entry) => entry.slug === slug);
 
   if (!page || !page.isPublished) {

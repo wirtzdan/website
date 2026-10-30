@@ -5,7 +5,7 @@ import { toolsMetadata } from "@/lib/page-metadata";
 
 export const metadata = toolsMetadata;
 
-export const revalidate = 10;
+export const revalidate = 3600;
 
 export default async function Page() {
   const tools = await getTable<ToolFields>("Tools");
