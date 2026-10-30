@@ -11,8 +11,10 @@ import {
   Heading,
   HStack,
   Icon,
+  IconButton,
   Input,
   NumberInput,
+  Popover,
   Portal,
   Select,
   SimpleGrid,
@@ -36,7 +38,6 @@ import {
 
 import Hero from "@/components/hero";
 import Section from "@/components/section";
-import { Tooltip } from "@/components/ui/tooltip";
 import { buildBreadCalendar, breadCalendarFileName } from "@/lib/bread-calendar";
 import {
   bakeTimeFromSchedule,
@@ -125,13 +126,30 @@ const BAKE_TOOLTIP =
 
 function PhaseTooltip({ content }: { content: string }) {
   return (
-    <Tooltip content={content} showArrow>
-      <Box as="span" display="inline-flex" cursor="help" verticalAlign="middle">
-        <Icon size="sm" color="fg.muted">
-          <Info />
-        </Icon>
-      </Box>
-    </Tooltip>
+    <Popover.Root positioning={{ placement: "top" }}>
+      <Popover.Trigger asChild>
+        <IconButton
+          type="button"
+          size="2xs"
+          variant="ghost"
+          aria-label="About this field"
+          verticalAlign="middle"
+          ms="1"
+        >
+          <Icon size="sm" color="fg.muted">
+            <Info />
+          </Icon>
+        </IconButton>
+      </Popover.Trigger>
+      <Portal>
+        <Popover.Positioner>
+          <Popover.Content maxW="xs" width="auto">
+            <Popover.Arrow />
+            <Popover.Body fontSize="sm">{content}</Popover.Body>
+          </Popover.Content>
+        </Popover.Positioner>
+      </Portal>
+    </Popover.Root>
   );
 }
 

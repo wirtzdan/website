@@ -83,6 +83,29 @@ const condensed = IBM_Plex_Sans_Condensed({
   weight: ["500", "700"],
 });
 
+const UNDO_TIMEOUT_MS = 8000;
+
+function undoCopy(confirmMessage: string): string {
+  if (confirmMessage.startsWith("Remove row ")) {
+    return confirmMessage.replace("Remove", "Removed").replace(/\?$/, ".");
+  }
+  if (confirmMessage.startsWith("Replace your labels")) {
+    return "Loaded the example.";
+  }
+  if (confirmMessage.startsWith("Clear all labels")) {
+    return "Cleared all labels.";
+  }
+  return confirmMessage.replace(/\?$/, ".");
+}
+
+function removedDeviceCopy(device: Device | undefined): string {
+  if (!device || device.kind === "empty") {
+    return "Removed empty module.";
+  }
+  const title = device.title.trim();
+  return title ? `Removed ${title}.` : "Removed switch.";
+}
+
 const STORAGE_KEY = "fuse-box-labeler:v1";
 const STORAGE_VERSION = 2;
 const STRIP_CODES_KEY = "fuse-box-labeler:strip-codes";
@@ -845,6 +868,8 @@ export default function FuseBoxPage() {
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
   const [fullscreen, setFullscreen] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
+  const [undo, setUndo] = useState<{ previous: Panel; message: string } | null>(null);
+  const undoButtonRef = useRef<HTMLButtonElement>(null);
   // Server render uses the mobile layout; the client switches to desktop after mount.
   const isDesktop = useBreakpointValue({ base: false, lg: true }) ?? false;
   const closeFullscreen = useCallback(() => setFullscreen(false), []);
@@ -874,10 +899,10 @@ export default function FuseBoxPage() {
   }, []);
 
   useEffect(() => {
-    if (hydrated) {
+    if (hydrated && !undo) {
       savePanel(panel);
     }
-  }, [panel, hydrated]);
+  }, [panel, hydrated, undo]);
 
   useEffect(() => {
     if (hydrated) {
@@ -893,10 +918,49 @@ export default function FuseBoxPage() {
   const codes = useMemo(() => deviceCodes(panel), [panel]);
   const rcds = panel.rows.flat().filter((device) => device.kind === "rcd");
 
-  const updateRow = (rowIndex: number, update: (row: Device[]) => Device[]) =>
+  useEffect(() => {
+    if (!undo) {
+      return;
+    }
+    undoButtonRef.current?.focus();
+    const timeout = window.setTimeout(() => {
+      const banner = document.getElementById("fuse-box-undo");
+      const shouldMoveFocus = banner?.contains(document.activeElement) ?? false;
+      setUndo(null);
+      if (shouldMoveFocus) {
+        document.getElementById("fuse-box-title")?.focus();
+      }
+    }, UNDO_TIMEOUT_MS);
+    return () => window.clearTimeout(timeout);
+  }, [undo]);
+
+  const updateRow = (rowIndex: number, update: (row: Device[]) => Device[]) => {
+    setUndo(null);
     setPanel((current) => ({
       rows: current.rows.map((row, i) => (i === rowIndex ? update(row) : row)),
     }));
+  };
+
+  const commitPanel = (next: Panel, message: string) => {
+    const removedOpenItem =
+      openId !== null && !next.rows.some((row) => row.some((device) => device.id === openId));
+    setUndo({ previous: panel, message });
+    setPanel(next);
+    if (removedOpenItem) {
+      setOpenId(null);
+    }
+  };
+
+  const restoreUndo = () => {
+    if (!undo) {
+      return;
+    }
+    setPanel(undo.previous);
+    setUndo(null);
+    window.requestAnimationFrame(() => {
+      document.getElementById("fuse-box-title")?.focus();
+    });
+  };
 
   const moveDevice = (rowIndex: number, index: number, direction: -1 | 1) =>
     updateRow(rowIndex, (row) => {
@@ -907,9 +971,19 @@ export default function FuseBoxPage() {
     });
 
   const reset = (next: Panel, message: string) => {
-    if (window.confirm(message)) {
-      setPanel(next);
-    }
+    commitPanel(next, undoCopy(message));
+  };
+
+  const removeDevice = (rowIndex: number, deviceId: string) => {
+    const device = panel.rows[rowIndex]?.find((item) => item.id === deviceId);
+    commitPanel(
+      {
+        rows: panel.rows.map((row, index) =>
+          index === rowIndex ? row.filter((item) => item.id !== deviceId) : row,
+        ),
+      },
+      removedDeviceCopy(device),
+    );
   };
 
   const editor = (
@@ -971,11 +1045,7 @@ export default function FuseBoxPage() {
                     )
                   }
                   onMove={(direction) => moveDevice(rowIndex, index, direction)}
-                  onRemove={() =>
-                    updateRow(rowIndex, (current) =>
-                      current.filter((device) => device.id !== placed.device.id),
-                    )
-                  }
+                  onRemove={() => removeDevice(rowIndex, placed.device.id)}
                 />
               ))}
             </Accordion.Root>
@@ -998,7 +1068,10 @@ export default function FuseBoxPage() {
       {panel.rows.length < MAX_ROWS ? (
         <Button
           variant="outline"
-          onClick={() => setPanel((current) => ({ rows: [...current.rows, createEmptyRow()] }))}
+          onClick={() => {
+            setUndo(null);
+            setPanel((current) => ({ rows: [...current.rows, createEmptyRow()] }));
+          }}
         >
           <Plus /> Add row
         </Button>
@@ -1070,7 +1143,16 @@ export default function FuseBoxPage() {
           borderColor={border}
         >
           <AvatarNavigation />
-          <Text as="h1" fontFamily="heading" fontWeight="600" fontSize="md" truncate>
+          <Text
+            as="h1"
+            id="fuse-box-title"
+            tabIndex={-1}
+            fontFamily="heading"
+            fontWeight="600"
+            fontSize="md"
+            truncate
+            _focusVisible={{ outline: "2px solid", outlineOffset: "2px" }}
+          >
             Fuse Box Labeler
           </Text>
           <HStack gap={2} ml="auto" flex="none">
@@ -1166,6 +1248,53 @@ export default function FuseBoxPage() {
       {printRoot
         ? createPortal(<Sheet panel={panel} showStripCodes={showStripCodes} />, printRoot)
         : null}
+      {undo ? (
+        <Flex
+          id="fuse-box-undo"
+          role="status"
+          position="fixed"
+          zIndex="toast"
+          bottom="4"
+          left="50%"
+          transform="translateX(-50%)"
+          align="center"
+          justify="center"
+          wrap="wrap"
+          gap={3}
+          maxW="calc(100vw - 2rem)"
+          px={4}
+          py={2}
+          rounded="lg"
+          bg={panelBg}
+          boxShadow="lg"
+          borderWidth="1px"
+          borderColor={border}
+        >
+          <Text fontSize="sm">{undo.message}</Text>
+          <Button
+            ref={undoButtonRef}
+            size="sm"
+            variant="outline"
+            aria-label={`Undo. ${undo.message}`}
+            onClick={restoreUndo}
+          >
+            Undo
+          </Button>
+          <IconButton
+            aria-label="Dismiss undo"
+            size="sm"
+            variant="ghost"
+            onClick={() => {
+              setUndo(null);
+              window.requestAnimationFrame(() => {
+                document.getElementById("fuse-box-title")?.focus();
+              });
+            }}
+          >
+            <X />
+          </IconButton>
+        </Flex>
+      ) : null}
     </>
   );
 }
