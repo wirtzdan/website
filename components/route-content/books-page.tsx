@@ -7,7 +7,6 @@ import sorter from "sort-isostring";
 import BookCard from "@/components/book-card";
 import Hero from "@/components/hero";
 import Section from "@/components/section";
-import { useColorModeValue } from "@/components/ui/color-mode";
 import type { BookSummary } from "@/types/content";
 
 type BooksPageProps = {
@@ -28,8 +27,8 @@ function byDateReadDescending(left: BookSummary, right: BookSummary) {
 }
 
 export default function BooksPage({ books }: BooksPageProps) {
-  const tabBg = useColorModeValue("neutral.300", "neutralD.300");
-  const tabColor = useColorModeValue("neutral.1100", "neutralD.1000");
+  const tabBg = { _light: "neutral.300", _dark: "neutralD.300" };
+  const tabColor = { _light: "neutral.1100", _dark: "neutralD.1000" };
 
   const allBooks = books.filter((book) => book.read === true).sort(byDateReadDescending);
   const favorites = books.filter((book) => book.favorite === true).sort(byDateReadDescending);

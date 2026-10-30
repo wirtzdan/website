@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 
@@ -20,8 +19,8 @@ const BlogListItem = ({ slug, publishDate, title, videoLink }: BlogListItemProps
         w="100%"
         rounded="lg"
         borderWidth="1px"
-        bg={useColorModeValue("white", "neutralD.100")}
-        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+        bg={{ _light: "white", _dark: "neutralD.100" }}
+        borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
         position="relative"
         align="center"
         px={4}
@@ -44,7 +43,7 @@ const BlogListItem = ({ slug, publishDate, title, videoLink }: BlogListItemProps
             fontSize="sm"
             fontWeight="400"
             gap={2}
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
           >
             <Text>Posted {format(publishDate)}</Text>
             <Text>·</Text>

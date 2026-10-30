@@ -4,8 +4,6 @@ import NextLink from "next/link";
 import { Link as ChakraLink, type LinkProps as ChakraLinkProps } from "@chakra-ui/react";
 import { forwardRef } from "react";
 
-import { useColorModeValue } from "./ui/color-mode";
-
 export type CustomLinkProps = Omit<ChakraLinkProps, "href"> & {
   href: string;
   unstyled?: boolean;
@@ -17,8 +15,8 @@ const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
   ref,
 ) {
   const isInternalLink = href.startsWith("/") || href.startsWith("#");
-  const primaryColor = useColorModeValue("primary.1000", "primaryD.900");
-  const primaryHover = useColorModeValue("primary.1100", "primaryD.1000");
+  const primaryColor = { _light: "primary.1000", _dark: "primaryD.900" };
+  const primaryHover = { _light: "primary.1100", _dark: "primaryD.1000" };
 
   const styled = !unstyled
     ? {

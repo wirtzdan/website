@@ -1,6 +1,5 @@
 "use client";
 import { Box, Button, HStack, VStack } from "@chakra-ui/react";
-import { useColorModeValue } from "./ui/color-mode";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -31,11 +30,11 @@ function NavLink({ href, name, ...rest }: NavLinkProps) {
       variant="ghost"
       size="md"
       _currentPage={{
-        color: useColorModeValue("neutral.1100", "neutralD.1100"),
-        bg: useColorModeValue("neutral.100", "neutralD.300"),
+        color: { _light: "neutral.1100", _dark: "neutralD.1100" },
+        bg: { _light: "neutral.100", _dark: "neutralD.300" },
       }}
       _hover={{
-        bg: useColorModeValue("neutral.200", "neutralD.200"),
+        bg: { _light: "neutral.200", _dark: "neutralD.200" },
       }}
       px={4}
       {...rest}
@@ -47,8 +46,8 @@ function NavLink({ href, name, ...rest }: NavLinkProps) {
 }
 
 const Header = () => {
-  const menuBg = useColorModeValue("white", "neutralD.100");
-  const menuBorderColor = useColorModeValue("neutral.400", "neutralD.400");
+  const menuBg = { _light: "white", _dark: "neutralD.100" };
+  const menuBorderColor = { _light: "neutral.400", _dark: "neutralD.400" };
 
   return (
     <Box

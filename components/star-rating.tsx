@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { HStack, Icon } from "@chakra-ui/react";
 import { StarIcon } from "@heroicons/react/24/solid";
 
@@ -18,7 +17,7 @@ const StarIconRating = ({ rating = 0 }: StarIconRatingProps) => {
           key={`filled-${index}`}
           w={4}
           h={4}
-          color={useColorModeValue("yellow.400", "yellow.200")}
+          color={{ _light: "yellow.400", _dark: "yellow.200" }}
           asChild
         >
           <StarIcon />
@@ -29,7 +28,7 @@ const StarIconRating = ({ rating = 0 }: StarIconRatingProps) => {
           key={`empty-${index}`}
           w={4}
           h={4}
-          color={useColorModeValue("neutral.700", "neutralD.900")}
+          color={{ _light: "neutral.700", _dark: "neutralD.900" }}
           asChild
         >
           <StarIcon />

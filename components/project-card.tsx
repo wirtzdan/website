@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { Box, HStack, Tag, Text, VStack } from "@chakra-ui/react";
 import { usePalette } from "react-palette";
 
@@ -31,10 +30,10 @@ const ProjectCard = ({ name, description, logo, link = "#", type }: ProjectCardP
     <Link href={link} unstyled>
       <HStack
         p={4}
-        bg={useColorModeValue("white", "neutralD.100")}
+        bg={{ _light: "white", _dark: "neutralD.100" }}
         rounded="lg"
         borderWidth="1px"
-        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+        borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
         w="100%"
         h="100%"
         textAlign="left"
@@ -81,7 +80,7 @@ const ProjectCard = ({ name, description, logo, link = "#", type }: ProjectCardP
               </Tag.Root>
             </HStack>
 
-            <Text fontSize="sm" color={useColorModeValue("neutral.1000", "neutralD.1000")}>
+            <Text fontSize="sm" color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}>
               {description}
             </Text>
           </VStack>

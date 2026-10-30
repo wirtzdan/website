@@ -2,7 +2,6 @@
 
 import { useDisclosure } from "@/lib/use-disclosure";
 import { Avatar, Box, Button, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
-import { useColorModeValue } from "../ui/color-mode";
 import sorter from "sort-isostring";
 
 import Link from "@/components/link";
@@ -24,7 +23,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
           <Heading as="h1">Newsletter</Heading>
           <Text
             fontSize="2xl"
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
             maxW="lg"
             textAlign="center"
           >

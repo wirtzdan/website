@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { LightMode, useColorModeValue } from "./ui/color-mode";
+import { LightMode } from "./ui/color-mode";
 import { Button, Text, VStack } from "@chakra-ui/react";
 import { TwitterLogo } from "phosphor-react";
 
@@ -17,11 +17,11 @@ const TwitterCard = ({ title, slug }: TwitterCardProps) => {
   return (
     <VStack
       p={4}
-      bg={useColorModeValue("blue.50", "blue.100")}
+      bg={{ _light: "blue.50", _dark: "blue.100" }}
       rounded="lg"
       borderWidth="1px"
-      color={useColorModeValue("blue.800", "blue.800")}
-      borderColor={useColorModeValue("blue.100", "blue.200")}
+      color={"blue.800"}
+      borderColor={{ _light: "blue.100", _dark: "blue.200" }}
       textAlign="left"
       align="stretch"
       gap={4}

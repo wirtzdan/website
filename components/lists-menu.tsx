@@ -19,17 +19,16 @@ import {
   type ListsMenuEvent,
   type ListsMenuState,
 } from "@/lib/lists-menu";
-import { useColorModeValue } from "./ui/color-mode";
 
 const ListsMenu = () => {
   const [menu, setMenu] = useState<ListsMenuState>(initialListsMenuState);
   const menuRef = useRef(menu);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const menuButtonHoverBg = useColorModeValue("neutral.200", "neutralD.200");
-  const menuBg = useColorModeValue("white", "neutralD.100");
-  const menuIconColor = useColorModeValue("blue.500", "blue.200");
-  const triggerColor = useColorModeValue("neutral.1100", "neutralD.1100");
+  const menuButtonHoverBg = { _light: "neutral.200", _dark: "neutralD.200" };
+  const menuBg = { _light: "white", _dark: "neutralD.100" };
+  const menuIconColor = { _light: "blue.500", _dark: "blue.200" };
+  const triggerColor = { _light: "neutral.1100", _dark: "neutralD.1100" };
 
   const clearCloseTimer = useCallback(() => {
     if (closeTimerRef.current) {

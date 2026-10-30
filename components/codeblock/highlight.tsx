@@ -55,20 +55,19 @@ function Highlight({ codeString, language, showLines = false, ln }: HighlightPro
                   mr={4}
                   bg={
                     shouldHighlightLine(index)
-                      ? colorMode === "light"
-                        ? "blue.50"
-                        : "blue.800"
+                      ? { _light: "blue.50", _dark: "blue.800" }
                       : undefined
                   }
                   boxShadow={
                     shouldHighlightLine(index)
-                      ? colorMode === "light"
-                        ? "inset 3px 0px 0px 0px #4299E1"
-                        : "inset 3px 0px 0px 0px #90CDF4"
+                      ? {
+                          _light: "inset 3px 0px 0px 0px #4299E1",
+                          _dark: "inset 3px 0px 0px 0px #90CDF4",
+                        }
                       : undefined
                   }
                   _hover={{
-                    bg: colorMode === "light" ? "neutral.100" : "neutralD.200",
+                    bg: { _light: "neutral.100", _dark: "neutralD.200" },
                   }}
                   {...lineProps}
                 >

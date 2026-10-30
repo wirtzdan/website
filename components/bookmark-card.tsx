@@ -1,6 +1,5 @@
 "use client";
 
-import { useColorModeValue } from "./ui/color-mode";
 import { AspectRatio, Box, Image, Text, VStack, HStack } from "@chakra-ui/react";
 import { format } from "timeago.js";
 
@@ -21,8 +20,8 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
           w="100%"
           rounded="lg"
           borderWidth="1px"
-          bg={useColorModeValue("white", "neutralD.100")}
-          borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+          bg={{ _light: "white", _dark: "neutralD.100" }}
+          borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
           transition="all 0.25s"
           transitionTimingFunction="spring(1 100 10 10)"
           _hover={{
@@ -40,7 +39,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
               maxW="400px"
               w="100%"
               borderBottomWidth="1px"
-              borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+              borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
             >
               <Image src={cover} objectFit="cover" alt={title} />
             </AspectRatio>
@@ -54,7 +53,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
               <Text
                 fontSize="xs"
                 fontWeight="500"
-                color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
                 textTransform="capitalize"
               >
                 {type}
@@ -62,7 +61,7 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
               <Text
                 fontSize="xs"
                 fontWeight="400"
-                color={useColorModeValue("neutral.1000", "neutralD.1000")}
+                color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
               >
                 – {format(created)}
               </Text>

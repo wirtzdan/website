@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { HStack, Image, Text, VStack } from "@chakra-ui/react";
 
 interface ExperienceCardProps {
@@ -25,12 +24,12 @@ const ExperienceCard = ({ company, logo, role, date, description }: ExperienceCa
         />
         <VStack align="start" gap={2}>
           <Text fontWeight="bold">{company}</Text>
-          <Text fontSize="md" color={useColorModeValue("neutral.1100", "neutralD.1100")}>
+          <Text fontSize="md" color={{ _light: "neutral.1100", _dark: "neutralD.1100" }}>
             {description}
           </Text>
           <Text
             fontSize="sm"
-            color={useColorModeValue("neutral.1000", "neutralD.1000")}
+            color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
             letterSpacing="wider"
           >
             {role} :: {date}
