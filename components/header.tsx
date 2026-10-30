@@ -52,6 +52,7 @@ const Header = () => {
 
   return (
     <Box
+      as="header"
       bg={menuBg}
       display={{ base: "none", md: "block" }}
       position="fixed"
@@ -65,7 +66,7 @@ const Header = () => {
         <VStack align="start" gap={0}>
           <HStack justify="space-between" w="100%" h={16}>
             <AvatarNavigation />
-            <HStack ml={-4} gap={2}>
+            <HStack as="nav" aria-label="Main" ml={-4} gap={2}>
               <NavLink href="/blog" name="Blog" />
               <NavLink href="/about" name="About" />
               <ListsMenu />

@@ -22,7 +22,7 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
       <HStack>
         <Avatar.Root h={10} w={10}>
           <Avatar.Fallback />
-          <Avatar.Image src="/avatar-small.jpg" />
+          <Avatar.Image alt="" src="/avatar-small.jpg" />
         </Avatar.Root>
         <VStack gap={0} align="start">
           <Text fontSize="md" fontWeight="500">

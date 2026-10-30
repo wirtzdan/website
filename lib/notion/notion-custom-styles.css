@@ -63,3 +63,9 @@
 .notion-callout .notion-page-icon-inline.notion-page-icon-image:has(svg) {
   display: none;
 }
+
+/* Vendored Notion CSS sets outline: 0 on :focus. Restore a keyboard ring. */
+.notion :focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
