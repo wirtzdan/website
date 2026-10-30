@@ -7,7 +7,6 @@ import sorter from "sort-isostring";
 import Hero from "@/components/hero";
 import Section from "@/components/section";
 import ToolCard from "@/components/tool-card";
-import { useColorModeValue } from "@/components/ui/color-mode";
 import type { AirtableRecord, ToolFields } from "@/lib/airtable";
 import { TOOL_PLATFORM_TABS, toolsForPlatformTab } from "@/lib/tool-platforms";
 
@@ -28,11 +27,11 @@ const toolsByPlatform = (tools: AirtableRecord<ToolFields>[], platform: string) 
   );
 
 export default function ToolsPage({ tools }: ToolsPageProps) {
-  const tabBg = useColorModeValue("neutral.300", "neutralD.300");
-  const tabColor = useColorModeValue("neutral.1100", "neutralD.1000");
+  const tabBg = { _light: "neutral.300", _dark: "neutralD.300" };
+  const tabColor = { _light: "neutral.1100", _dark: "neutralD.1000" };
   const tabSelected = {
-    color: useColorModeValue("neutral.50", "neutralD.100"),
-    bg: useColorModeValue("neutral.1100", "neutralD.1100"),
+    color: { _light: "neutral.50", _dark: "neutralD.100" },
+    bg: { _light: "neutral.1100", _dark: "neutralD.1100" },
   };
 
   return (

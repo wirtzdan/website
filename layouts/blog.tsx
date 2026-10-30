@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { useColorModeValue } from "../components/ui/color-mode";
 import ReactPlayer from "react-player/youtube";
 import { AspectRatio, Box, Heading, Icon, VStack } from "@chakra-ui/react";
 import { PlayIcon } from "@heroicons/react/24/solid";
@@ -21,15 +20,7 @@ interface BlogLayoutProps {
 }
 
 const PlayIconWrapper = () => (
-  <Icon
-    w={16}
-    h={16}
-    color={useColorModeValue("neutral.900", "neutral.900")}
-    background="white"
-    rounded="full"
-    shadow="lg"
-    asChild
-  >
+  <Icon w={16} h={16} color={"neutral.900"} background="white" rounded="full" shadow="lg" asChild>
     <PlayIcon />
   </Icon>
 );

@@ -1,12 +1,11 @@
 "use client";
 import { Box, Text, VStack, type StackProps } from "@chakra-ui/react";
-import { useColorModeValue } from "./ui/color-mode";
-import { cloneElement, isValidElement, type ReactElement } from "react";
+import { cloneElement, isValidElement, type ReactElement, type ReactNode } from "react";
 
 const ICON_SIZE_PX = 20;
 
 interface MobileMenuButtonProps extends StackProps {
-  label: string;
+  label: ReactNode;
   icon: ReactElement;
 }
 
@@ -33,7 +32,7 @@ const MobileMenuButton = ({ label, icon, ...rest }: MobileMenuButtonProps) => {
       rounded="md"
       px={6}
       {...rest}
-      color={useColorModeValue("neutral.1100", "neutralD.1100")}
+      color={{ _light: "neutral.1100", _dark: "neutralD.1100" }}
     >
       <Box
         boxSize={`${ICON_SIZE_PX}px`}
@@ -50,7 +49,7 @@ const MobileMenuButton = ({ label, icon, ...rest }: MobileMenuButtonProps) => {
       <Text
         fontSize="xs"
         fontWeight="500"
-        color={useColorModeValue("neutral.1000", "neutralD.1000")}
+        color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
       >
         {label}
       </Text>

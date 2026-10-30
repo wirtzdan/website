@@ -4,7 +4,6 @@ import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "re
 import { Box, Icon, Image, Text, chakra } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import { useColorModeValue } from "@/components/ui/color-mode";
 import type { Photo, PhotoTrip } from "@/lib/notion/photos";
 
 const GAP = "6px";
@@ -35,7 +34,7 @@ function stopAnd(handler: () => void) {
 export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  const labelColor = useColorModeValue("neutral.1000", "neutralD.1000");
+  const labelColor = { _light: "neutral.1000", _dark: "neutralD.1000" };
   const photos = trip.photos;
   const active = activeIndex === null ? null : photos[activeIndex];
   const isOpen = active !== null;

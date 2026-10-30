@@ -1,6 +1,5 @@
 "use client";
 import { Center, HStack } from "@chakra-ui/react";
-import { useColorModeValue } from "./ui/color-mode";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
 import NextLink from "next/link";
@@ -29,9 +28,9 @@ const MobileNavigation = () => {
         py={2}
         mt="auto"
         height={16}
-        bg={useColorModeValue("white", "neutralD.100")}
+        bg={{ _light: "white", _dark: "neutralD.100" }}
         borderTopWidth="2px"
-        borderTopColor={useColorModeValue("neutral.400", "neutralD.400")}
+        borderTopColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
         shadow="0 -2px 10px 0 rgba(0,0,0, 0.035);"
         display={{ base: "flex", md: "none" }}
       >

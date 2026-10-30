@@ -1,6 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { Box, HStack, Icon, Image, Text, VStack } from "@chakra-ui/react";
 import { BookOpenIcon } from "@heroicons/react/24/solid";
 import { format } from "timeago.js";
@@ -40,10 +39,10 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
     >
       <HStack
         p={4}
-        bg={useColorModeValue("white", "neutralD.100")}
+        bg={{ _light: "white", _dark: "neutralD.100" }}
         rounded="lg"
         borderWidth="1px"
-        borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+        borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
         w="100%"
         textAlign="left"
         align="start"
@@ -88,7 +87,7 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
             <Text fontWeight="bold" fontSize="md" lineClamp={2}>
               {title}
             </Text>
-            <Text fontSize="md" color={useColorModeValue("neutral.1000", "neutralD.1000")}>
+            <Text fontSize="md" color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}>
               {author}
             </Text>
           </VStack>

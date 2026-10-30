@@ -7,7 +7,6 @@ import { getBlockTitle } from "notion-utils";
 import { useNotionContext } from "react-notion-x";
 
 import { useClipboard } from "@/lib/use-clipboard";
-import { useColorModeValue } from "../ui/color-mode";
 import Highlight from "./highlight";
 
 interface CodeblockProps {
@@ -35,10 +34,10 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
     <Box
       rounded="md"
       overflow="hidden"
-      bg={useColorModeValue("white", "neutralD.100")}
+      bg={{ _light: "white", _dark: "neutralD.100" }}
       my={4}
       borderWidth="1px"
-      borderColor={useColorModeValue("neutral.400", "neutralD.400")}
+      borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
       w="100%"
     >
       {title ? (

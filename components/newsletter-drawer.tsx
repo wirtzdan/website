@@ -2,7 +2,6 @@
 
 import { useDisclosure } from "@/lib/use-disclosure";
 import React from "react";
-import { useColorModeValue } from "./ui/color-mode";
 import { Box, Button, Drawer, Portal } from "@chakra-ui/react";
 import { EnvelopeIcon, RssIcon } from "@heroicons/react/24/outline";
 
@@ -41,7 +40,7 @@ const NewsletterDrawer = ({ placement }: NewsletterDrawerProps) => {
         <Portal>
           <Drawer.Backdrop>
             <Drawer.Positioner>
-              <Drawer.Content borderTopRadius="6px" bg={useColorModeValue("white", "neutralD.50")}>
+              <Drawer.Content borderTopRadius="6px" bg={{ _light: "white", _dark: "neutralD.50" }}>
                 <Drawer.CloseTrigger />
                 <Drawer.Header>Subscribe</Drawer.Header>
                 <Drawer.Body pb={4}>
