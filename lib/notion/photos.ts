@@ -11,6 +11,8 @@ export type Photo = {
   imageUrl: string;
   caption: string | null;
   date: string | null;
+  width?: number;
+  height?: number;
 };
 
 export type PhotoTrip = {

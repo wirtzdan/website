@@ -1,6 +1,6 @@
 "use client";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import ReactPlayer from "react-player/youtube";
 import { AspectRatio, Box, Heading, Icon, VStack } from "@chakra-ui/react";
 import { PlayIcon } from "@heroicons/react/24/solid";
 import type { ReactNode } from "react";
@@ -11,6 +11,8 @@ import ReadingProgress from "@/components/reading-progress";
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
 import type { BlogPostSummary, NotionRecordMap } from "@/types/content";
+
+const YouTubePlayer = dynamic(() => import("react-player/youtube"), { ssr: false });
 
 interface BlogLayoutProps {
   children: ReactNode;
@@ -38,7 +40,7 @@ const BlogLayout = ({ children, post }: BlogLayoutProps) => {
               <Box mt={4} rounded="lg" shadow="md" overflow="hidden" lineHeight={0}>
                 {hasCoverVideo ? (
                   <AspectRatio overflow="hidden" rounded="md" ratio={16 / 9}>
-                    <ReactPlayer
+                    <YouTubePlayer
                       width="100%"
                       height="100%"
                       url={post.coverVideo ?? undefined}
@@ -48,18 +50,20 @@ const BlogLayout = ({ children, post }: BlogLayoutProps) => {
                       playIcon={<PlayIconWrapper />}
                     />
                   </AspectRatio>
-                ) : (
+                ) : post.coverImage ? (
                   <Image
                     alt={post.title}
-                    src={post.coverImage ?? "/"}
+                    src={post.coverImage}
                     width={2240}
                     height={1260}
+                    priority
+                    sizes="(max-width: 672px) 100vw, 672px"
                     style={{
                       maxWidth: "100%",
                       height: "auto",
                     }}
                   />
-                )}
+                ) : null}
               </Box>
             ) : null}
             <VStack align="stretch" gap={6} mb={4}>

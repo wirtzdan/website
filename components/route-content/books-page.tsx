@@ -67,7 +67,14 @@ export default function BooksPage({ books }: BooksPageProps) {
     <VStack gap={8}>
       <Hero title="Books" subtitle="Take a stroll through my bookshelf" />
       <Section>
-        <Tabs.Root defaultValue="all" variant="subtle" colorPalette="blue" w="100%">
+        <Tabs.Root
+          defaultValue="all"
+          variant="subtle"
+          colorPalette="blue"
+          w="100%"
+          lazyMount
+          unmountOnExit
+        >
           <Tabs.List display="flex" flexWrap="wrap" justifyContent="center" w="100%">
             <Tabs.Trigger
               value="all"

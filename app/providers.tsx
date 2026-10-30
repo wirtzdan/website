@@ -9,7 +9,6 @@ import PlausibleProvider from "next-plausible";
 import { useServerInsertedHTML } from "next/navigation";
 
 import { ColorModeProvider } from "@/components/ui/color-mode";
-import FontFace from "@/components/font-face";
 import customTheme from "@/theme";
 
 function EmotionRegistry({ children }: { children: ReactNode }) {
@@ -69,7 +68,6 @@ export default function AppProviders({ children }: { children: ReactNode }) {
             }
           >
             {children}
-            <FontFace />
           </PlausibleProvider>
         </ColorModeProvider>
       </ChakraProvider>

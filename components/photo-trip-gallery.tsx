@@ -1,9 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
-import { Box, Icon, Image, Text, chakra } from "@chakra-ui/react";
+import Image from "next/image";
+import { Box, Icon, Image as ChakraImage, Text, chakra } from "@chakra-ui/react";
 import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
+import {
+  canUseNextImage,
+  isNotionImageProxy,
+  notionContentImageLoader,
+} from "@/lib/next-image-hosts";
 import type { Photo, PhotoTrip } from "@/lib/notion/photos";
 
 const GAP = "6px";
@@ -11,7 +17,10 @@ const PlainButton = chakra("button");
 
 type PhotoTripGalleryProps = {
   trip: PhotoTrip;
+  prioritizeFirstRow?: boolean;
 };
+
+const PHOTO_SIZES = "(max-width: 672px) 33vw, 200px";
 
 function placePhotos(photos: Photo[], columnCount: number) {
   const columns: { photo: Photo; index: number }[][] = Array.from(
@@ -31,7 +40,10 @@ function stopAnd(handler: () => void) {
   };
 }
 
-export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
+export default function PhotoTripGallery({
+  trip,
+  prioritizeFirstRow = false,
+}: PhotoTripGalleryProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const labelColor = { _light: "neutral.1000", _dark: "neutralD.1000" };
@@ -89,7 +101,13 @@ export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
         {placePhotos(photos, 3).map((column, columnIndex) => (
           <Box key={columnIndex} flex="1" minW={0} display="flex" flexDirection="column" gap={GAP}>
             {column.map(({ photo, index }) => (
-              <PhotoTile key={photo.id} photo={photo} onOpen={() => setActiveIndex(index)} />
+              <PhotoTile
+                key={photo.id}
+                photo={photo}
+                onOpen={() => setActiveIndex(index)}
+                priority={prioritizeFirstRow && index === 0}
+                eager={prioritizeFirstRow && index < 3}
+              />
             ))}
           </Box>
         ))}
@@ -157,7 +175,7 @@ export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
               </OverlayButton>
             </>
           ) : null}
-          <Image
+          <ChakraImage
             src={active.imageUrl}
             alt={active.caption ?? active.trip}
             maxW="92vw"
@@ -186,7 +204,20 @@ export default function PhotoTripGallery({ trip }: PhotoTripGalleryProps) {
   );
 }
 
-function PhotoTile({ photo, onOpen }: { photo: Photo; onOpen: () => void }) {
+function PhotoTile({
+  photo,
+  onOpen,
+  priority,
+  eager,
+}: {
+  photo: Photo;
+  onOpen: () => void;
+  priority: boolean;
+  eager: boolean;
+}) {
+  const alt = photo.caption ?? photo.trip;
+  const frame = photo.width && photo.height ? { width: photo.width, height: photo.height } : null;
+
   return (
     <PlainButton
       type="button"
@@ -199,11 +230,31 @@ function PhotoTile({ photo, onOpen }: { photo: Photo; onOpen: () => void }) {
       lineHeight={0}
       onClick={onOpen}
     >
-      <img
-        src={photo.imageUrl}
-        alt={photo.caption ?? photo.trip}
-        style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }}
-      />
+      {frame && canUseNextImage(photo.imageUrl) ? (
+        <Image
+          src={photo.imageUrl}
+          alt={alt}
+          width={frame.width}
+          height={frame.height}
+          sizes={PHOTO_SIZES}
+          {...(isNotionImageProxy(photo.imageUrl) ? { loader: notionContentImageLoader } : {})}
+          {...(priority
+            ? { priority: true }
+            : { loading: eager ? ("eager" as const) : ("lazy" as const) })}
+          style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }}
+        />
+      ) : (
+        <img
+          src={photo.imageUrl}
+          alt={alt}
+          width={frame?.width}
+          height={frame?.height}
+          loading={eager ? "eager" : "lazy"}
+          decoding="async"
+          fetchPriority={priority ? "high" : "auto"}
+          style={{ width: "100%", height: "auto", display: "block", borderRadius: "8px" }}
+        />
+      )}
     </PlainButton>
   );
 }

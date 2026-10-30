@@ -37,7 +37,11 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
               borderBottomWidth="1px"
               borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
             >
-              <Image src={cover} objectFit="cover" alt={title} />
+              {cover ? (
+                <Image src={cover} objectFit="cover" alt={title} loading="lazy" decoding="async" />
+              ) : (
+                <Box />
+              )}
             </AspectRatio>
           </Box>
 
