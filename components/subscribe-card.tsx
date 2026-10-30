@@ -33,6 +33,7 @@ export const SubscribeCard = ({
       <HStack gap={{ base: 4, md: 8 }} w="100%" justifyContent={center ? "center" : "start"}>
         {image ? (
           <Image
+            alt=""
             src="/newsletter-logo.png"
             borderRadius="full"
             boxSize={{ base: "80px", md: "150px" }}

@@ -52,7 +52,7 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
                   <HStack p={4} fontSize="sm" gap={4}>
                     <Avatar.Root h={8} w={8}>
                       <Avatar.Fallback />
-                      <Avatar.Image src="/avatar-small.jpg" />
+                      <Avatar.Image alt="" src="/avatar-small.jpg" />
                     </Avatar.Root>
                     <VStack gap={0} alignItems="flex-start">
                       <Text>

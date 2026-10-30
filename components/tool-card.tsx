@@ -54,7 +54,7 @@ const ToolCard = ({ name, image, link = "#", description }: ToolCardProps) => {
             opacity={0.25}
           />
 
-          <Image src={imageUrl} boxSize="36px" rounded="md" position="relative" alt={name} />
+          <Image src={imageUrl} boxSize="36px" rounded="md" position="relative" alt="" />
         </Box>
 
         <VStack align="start" justify="flex-start" gap={1} maxW="lg" h="100%">

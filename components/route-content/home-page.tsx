@@ -3,6 +3,7 @@
 import { Box, Button, Heading, HStack, Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
 import { motion } from "framer-motion";
+import NextLink from "next/link";
 
 import BlogListItem from "@/components/blog-list-item";
 import Link from "@/components/link";
@@ -67,15 +68,17 @@ export default function HomePage({ posts }: HomePageProps) {
         <VStack gap={4} align="start">
           <VStack gap={6} align="start">
             <HStack justify="space-between" w="100%" align="center" fontSize="2xl">
-              <Heading size="lg">Hey there. 👋</Heading>
-              <Link href="/about" unstyled>
-                <Button variant="ghost" size={["sm", "md"]}>
+              <Heading as="h1" size="lg">
+                Hey there. 👋
+              </Heading>
+              <Button variant="ghost" size={["sm", "md"]} asChild>
+                <NextLink href="/about">
                   Read more
                   <Icon asChild>
                     <ArrowUpRightIcon />
                   </Icon>
-                </Button>
-              </Link>
+                </NextLink>
+              </Button>
             </HStack>
             <Text fontSize={["lg", "2xl"]}>
               I&apos;m Daniel. I&apos;m a Senior Design Engineer at{" "}
@@ -94,14 +97,14 @@ export default function HomePage({ posts }: HomePageProps) {
         <VStack align="start" gap={8}>
           <HStack justify="space-between" w="100%" align="center">
             <Heading size="lg">Latest Posts</Heading>
-            <Link href="/blog" unstyled>
-              <Button size={["sm", "md"]} variant="ghost">
+            <Button size={["sm", "md"]} variant="ghost" asChild>
+              <NextLink href="/blog">
                 View all
                 <Icon asChild>
                   <ArrowUpRightIcon />
                 </Icon>
-              </Button>
-            </Link>
+              </NextLink>
+            </Button>
           </HStack>
           <SimpleGrid columns={1} gap={4} w="100%">
             {latestPosts.map((post) => (

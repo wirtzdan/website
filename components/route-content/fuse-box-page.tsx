@@ -868,6 +868,7 @@ export default function FuseBoxPage() {
 
     const root = document.createElement("div");
     root.className = "fbl-print-root";
+    root.setAttribute("aria-hidden", "true");
     document.body.appendChild(root);
     setPrintRoot(root);
     return () => root.remove();
@@ -1070,7 +1071,7 @@ export default function FuseBoxPage() {
           borderColor={border}
         >
           <AvatarNavigation />
-          <Text fontFamily="heading" fontWeight="600" fontSize="md" truncate>
+          <Text as="h1" fontFamily="heading" fontWeight="600" fontSize="md" truncate>
             Fuse Box Labeler
           </Text>
           <HStack gap={2} ml="auto" flex="none">
@@ -1100,61 +1101,63 @@ export default function FuseBoxPage() {
           </HStack>
         </Flex>
 
-        <HStack
-          display={{ base: "flex", lg: "none" }}
-          flex="none"
-          gap={1}
-          p={2}
-          bg={panelBg}
-          borderBottomWidth="1px"
-          borderColor={border}
-        >
-          {(["edit", "preview"] as const).map((tab) => (
-            <Button
-              key={tab}
-              flex={1}
-              size="sm"
-              variant={mobileTab === tab ? "subtle" : "ghost"}
-              onClick={() => setMobileTab(tab)}
-            >
-              {tab === "edit" ? <PencilSimple /> : <Eye />}
-              {tab === "edit" ? "Edit" : "Preview"}
-            </Button>
-          ))}
-        </HStack>
+        <Flex as="main" direction="column" flex="1" minH={0}>
+          <HStack
+            display={{ base: "flex", lg: "none" }}
+            flex="none"
+            gap={1}
+            p={2}
+            bg={panelBg}
+            borderBottomWidth="1px"
+            borderColor={border}
+          >
+            {(["edit", "preview"] as const).map((tab) => (
+              <Button
+                key={tab}
+                flex={1}
+                size="sm"
+                variant={mobileTab === tab ? "subtle" : "ghost"}
+                onClick={() => setMobileTab(tab)}
+              >
+                {tab === "edit" ? <PencilSimple /> : <Eye />}
+                {tab === "edit" ? "Edit" : "Preview"}
+              </Button>
+            ))}
+          </HStack>
 
-        {isDesktop ? (
-          <Splitter.Root
-            flex={1}
-            minH={0}
-            panels={[
-              { id: "editor", minSize: 22, maxSize: 60 },
-              { id: "preview", minSize: 35 },
-            ]}
-            defaultSize={loadSplitSizes()}
-            onResizeEnd={(details) => saveSplitSizes(details.size)}
-          >
-            <Splitter.Panel id="editor" display="flex" minH={0} bg={panelBg}>
-              <EditorScroll>{editor}</EditorScroll>
-            </Splitter.Panel>
-            <Splitter.ResizeTrigger id="editor:preview" aria-label="Resize panels">
-              <Splitter.ResizeTriggerSeparator />
-              <Splitter.ResizeTriggerIndicator />
-            </Splitter.ResizeTrigger>
-            <Splitter.Panel id="preview" display="flex" flexDirection="column" minW={0}>
-              {preview}
-            </Splitter.Panel>
-          </Splitter.Root>
-        ) : (
-          <Flex
-            flex={1}
-            minH={0}
-            direction="column"
-            bg={mobileTab === "edit" ? panelBg : undefined}
-          >
-            {mobileTab === "edit" ? <EditorScroll>{editor}</EditorScroll> : preview}
-          </Flex>
-        )}
+          {isDesktop ? (
+            <Splitter.Root
+              flex={1}
+              minH={0}
+              panels={[
+                { id: "editor", minSize: 22, maxSize: 60 },
+                { id: "preview", minSize: 35 },
+              ]}
+              defaultSize={loadSplitSizes()}
+              onResizeEnd={(details) => saveSplitSizes(details.size)}
+            >
+              <Splitter.Panel id="editor" display="flex" minH={0} bg={panelBg}>
+                <EditorScroll>{editor}</EditorScroll>
+              </Splitter.Panel>
+              <Splitter.ResizeTrigger id="editor:preview" aria-label="Resize panels">
+                <Splitter.ResizeTriggerSeparator />
+                <Splitter.ResizeTriggerIndicator />
+              </Splitter.ResizeTrigger>
+              <Splitter.Panel id="preview" display="flex" flexDirection="column" minW={0}>
+                {preview}
+              </Splitter.Panel>
+            </Splitter.Root>
+          ) : (
+            <Flex
+              flex={1}
+              minH={0}
+              direction="column"
+              bg={mobileTab === "edit" ? panelBg : undefined}
+            >
+              {mobileTab === "edit" ? <EditorScroll>{editor}</EditorScroll> : preview}
+            </Flex>
+          )}
+        </Flex>
       </Flex>
       {fullscreen ? (
         <FullscreenPreview onClose={closeFullscreen}>

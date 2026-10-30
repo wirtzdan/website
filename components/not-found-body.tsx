@@ -12,7 +12,9 @@ export default function NotFoundBody() {
       <Container>
         <Center>
           <VStack>
-            <Heading size="3xl">404</Heading>
+            <Heading as="h1" size="3xl">
+              404
+            </Heading>
             <Text mb={8}>Page not found</Text>
             <NextLink href="/">Return home</NextLink>
           </VStack>
