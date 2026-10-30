@@ -21,6 +21,15 @@ test("buttons are not selectable and press in", () => {
   });
 });
 
+test("in-page smooth scrolling is limited to motion-safe visitors", () => {
+  expect(globalCss).toContain(
+    '"scrollBehavior":"auto","--safe-top":"env(safe-area-inset-top, 0px)"',
+  );
+  expect(globalCss).toContain(
+    '"@media (prefers-reduced-motion: no-preference)":{"scrollBehavior":"smooth"}',
+  );
+});
+
 test("safe-area insets are available once the viewport covers the screen", () => {
   const layout = readFileSync(new URL("./app/layout.tsx", import.meta.url), "utf8");
 

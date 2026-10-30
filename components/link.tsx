@@ -24,8 +24,9 @@ const Link = forwardRef<HTMLAnchorElement, CustomLinkProps>(function Link(
         color: primaryColor,
         textDecoration: "underline" as const,
         textUnderlineOffset: "0.2em",
-        transition: "all 0.25s",
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        transitionProperty: "color",
+        transitionDuration: "150ms",
+        transitionTimingFunction: "ease",
         _hover: {
           color: primaryHover,
           textDecoration: "underline",

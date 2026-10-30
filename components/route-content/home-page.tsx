@@ -1,8 +1,7 @@
 "use client";
 
-import { Box, Button, Heading, HStack, Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
+import { Button, Heading, HStack, Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
 import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
-import { motion } from "framer-motion";
 import NextLink from "next/link";
 
 import BlogListItem from "@/components/blog-list-item";
@@ -14,45 +13,6 @@ import type { BlogPostSummary, PaginatedResults } from "@/types/content";
 type HomePageProps = {
   posts: PaginatedResults<BlogPostSummary>;
 };
-
-const RecordingDot = () => (
-  <Box position="relative" display="inline-flex" alignItems="center" mt="1px">
-    <motion.div
-      style={{
-        width: 6,
-        height: 6,
-        backgroundColor: "red",
-        borderRadius: "50%",
-        display: "inline-block",
-        position: "relative",
-        zIndex: 2,
-      }}
-    />
-    <motion.div
-      style={{
-        width: 6,
-        height: 6,
-        backgroundColor: "red",
-        borderRadius: "50%",
-        position: "absolute",
-        left: 0,
-      }}
-      animate={{
-        scale: 2.5,
-        opacity: 0,
-      }}
-      initial={{
-        scale: 1,
-        opacity: 0.3,
-      }}
-      transition={{
-        duration: 2,
-        repeat: Number.POSITIVE_INFINITY,
-        ease: "easeInOut",
-      }}
-    />
-  </Box>
-);
 
 export default function HomePage({ posts }: HomePageProps) {
   const latestPosts = posts.results
@@ -89,7 +49,6 @@ export default function HomePage({ posts }: HomePageProps) {
               <Link href="/bookmarks">bookmarks</Link> and to occasionally write{" "}
               <Link href="/blog">articles</Link>.
             </Text>
-            {false ? <RecordingDot /> : null}
           </VStack>
         </VStack>
       </Section>

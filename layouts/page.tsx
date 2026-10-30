@@ -16,15 +16,15 @@ interface PageLayoutProps {
 
 const PageLayout = ({ children, page, showNavigation = false }: PageLayoutProps) => {
   return (
-    <PageTransition>
-      <>
-        {showNavigation ? <Header /> : null}
-        <Box
-          as="main"
-          pt={{ base: 16, md: 32 }}
-          pb={{ base: "calc(6rem + var(--safe-bottom, 0px))", md: 16 }}
-        >
-          <Section>
+    <>
+      {showNavigation ? <Header /> : null}
+      <Box
+        as="main"
+        pt={{ base: 16, md: 32 }}
+        pb={{ base: "calc(6rem + var(--safe-bottom, 0px))", md: 16 }}
+      >
+        <Section>
+          <PageTransition>
             <article>
               <VStack w="100%" align="stretch" gap={6}>
                 <VStack align="stretch" gap={6} mb={4}>
@@ -33,12 +33,12 @@ const PageLayout = ({ children, page, showNavigation = false }: PageLayoutProps)
               </VStack>
               <div>{children}</div>
             </article>
-          </Section>
-        </Box>
-        {showNavigation ? <MobileNavigation /> : null}
-        {showNavigation ? <Footer /> : null}
-      </>
-    </PageTransition>
+          </PageTransition>
+        </Section>
+      </Box>
+      {showNavigation ? <MobileNavigation /> : null}
+      {showNavigation ? <Footer /> : null}
+    </>
   );
 };
 
