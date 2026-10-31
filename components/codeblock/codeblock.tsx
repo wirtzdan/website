@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Box, Button, HStack, Icon, Text } from "@chakra-ui/react";
-import { CheckIcon, DocumentDuplicateIcon } from "@heroicons/react/24/outline";
+import { RiCheckLine, RiFileCopyLine } from "@remixicon/react";
 import { getBlockTitle } from "notion-utils";
 import { useNotionContext } from "react-notion-x";
 
@@ -69,11 +69,11 @@ const Codeblock = ({ block, defaultLanguage = "typescript", ln }: CodeblockProps
           >
             {hasCopied ? (
               <Icon boxSize={4.5} asChild>
-                <CheckIcon />
+                <RiCheckLine />
               </Icon>
             ) : (
               <Icon boxSize={4.5} asChild>
-                <DocumentDuplicateIcon />
+                <RiFileCopyLine />
               </Icon>
             )}
             {hasCopied ? "Copied" : "Copy"}

@@ -1,7 +1,16 @@
 "use client";
 
 import { HStack, SimpleGrid, Tabs, Text, VStack } from "@chakra-ui/react";
-import { AppleLogo, Compass, Desktop, DeviceMobile } from "phosphor-react";
+import {
+  RiAppleFill,
+  RiAppleLine,
+  RiCompassFill,
+  RiCompassLine,
+  RiComputerFill,
+  RiComputerLine,
+  RiSmartphoneFill,
+  RiSmartphoneLine,
+} from "@remixicon/react";
 import sorter from "sort-isostring";
 
 import EmptyState from "@/components/empty-state";
@@ -19,10 +28,10 @@ type ToolsBrowserProps = {
 };
 
 const platformIcons = {
-  Mac: AppleLogo,
-  iOS: DeviceMobile,
-  Safari: Compass,
-  Web: Desktop,
+  Mac: { line: RiAppleLine, fill: RiAppleFill },
+  iOS: { line: RiSmartphoneLine, fill: RiSmartphoneFill },
+  Safari: { line: RiCompassLine, fill: RiCompassFill },
+  Web: { line: RiComputerLine, fill: RiComputerFill },
 } as const;
 
 const toolsByPlatform = (tools: AirtableRecord<ToolFields>[], platform: string) =>
@@ -55,7 +64,7 @@ export default function ToolsBrowser({ tools, tints }: ToolsBrowserProps) {
         >
           <Tabs.List display="flex" flexWrap="wrap" justifyContent="center">
             {TOOL_PLATFORM_TABS.map((tab) => {
-              const Icon = platformIcons[tab.id];
+              const icons = platformIcons[tab.id];
               return (
                 <Tabs.Trigger
                   key={tab.id}
@@ -67,7 +76,12 @@ export default function ToolsBrowser({ tools, tints }: ToolsBrowserProps) {
                   _selected={tabSelected}
                 >
                   <HStack gap={1}>
-                    <Icon weight="duotone" size={18} />
+                    <Tabs.Context>
+                      {(tabs) => {
+                        const Glyph = tabs.value === tab.id ? icons.fill : icons.line;
+                        return <Glyph size={18} />;
+                      }}
+                    </Tabs.Context>
                     <Text>{tab.label}</Text>
                   </HStack>
                 </Tabs.Trigger>

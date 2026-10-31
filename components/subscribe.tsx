@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Alert, Button, Icon, Input, Stack, chakra, Field } from "@chakra-ui/react";
-import { RssIcon } from "@heroicons/react/24/solid";
+import { RiCheckboxCircleLine, RiErrorWarningLine, RiRssLine } from "@remixicon/react";
 import { useForm } from "react-hook-form";
 
 import { HoneypotField } from "@/components/honeypot-field";
@@ -106,7 +106,9 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
             fontSize="sm"
             w="100%"
           >
-            <Alert.Indicator />
+            <Alert.Indicator>
+              <RiCheckboxCircleLine />
+            </Alert.Indicator>
             Success! Now check your email to confirm your subscription.
           </Alert.Root>
         ) : (
@@ -149,7 +151,7 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
                 rounded="lg"
               >
                 <Icon asChild>
-                  <RssIcon />
+                  <RiRssLine />
                 </Icon>
                 Subscribe
               </Button>
@@ -163,7 +165,9 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
                 fontSize="sm"
                 w="100%"
               >
-                <Alert.Indicator />
+                <Alert.Indicator>
+                  <RiErrorWarningLine />
+                </Alert.Indicator>
                 {errorMessage}
               </Alert.Root>
             ) : null}

@@ -2,7 +2,7 @@
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { AspectRatio, Box, Heading, Icon, VStack } from "@chakra-ui/react";
-import { PlayIcon } from "@heroicons/react/24/solid";
+import { RiPlayFill } from "@remixicon/react";
 import type { ReactNode } from "react";
 import { useRef } from "react";
 
@@ -22,7 +22,7 @@ interface BlogLayoutProps {
 
 const PlayIconWrapper = () => (
   <Icon w={16} h={16} color={"neutral.900"} background="white" rounded="full" shadow="lg" asChild>
-    <PlayIcon />
+    <RiPlayFill />
   </Icon>
 );
 

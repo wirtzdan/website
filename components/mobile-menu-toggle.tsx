@@ -12,8 +12,14 @@ import {
   Separator,
   Portal,
 } from "@chakra-ui/react";
-import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
-import { Bars3Icon } from "@heroicons/react/24/solid";
+import {
+  RiCloseLine,
+  RiGithubFill,
+  RiLinkedinFill,
+  RiMenuLine,
+  RiTwitterFill,
+  RiYoutubeFill,
+} from "@remixicon/react";
 
 import MobileMenuButton from "./mobile-menu-button";
 import MobileMenuItem from "./mobile-menu-item";
@@ -40,7 +46,7 @@ const MobileMenuToggle = () => {
 
   return (
     <Box>
-      <MobileMenuButton label="Menu" icon={<Bars3Icon width={20} height={20} />} onClick={onOpen} />
+      <MobileMenuButton label="Menu" icon={<RiMenuLine size={20} />} onClick={onOpen} />
       <Drawer.Root
         open={open}
         placement="bottom"
@@ -59,7 +65,9 @@ const MobileMenuToggle = () => {
               css={drawerMotion}
             >
               <Drawer.CloseTrigger asChild>
-                <CloseButton size="sm" aria-label="Close menu" />
+                <CloseButton size="sm" aria-label="Close menu">
+                  <RiCloseLine />
+                </CloseButton>
               </Drawer.CloseTrigger>
               <Drawer.Header>
                 <Drawer.Title textStyle="sm" fontWeight="normal">
@@ -96,7 +104,7 @@ const MobileMenuToggle = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <TwitterLogo weight="fill" />
+                          <RiTwitterFill />
                         </a>
                       </IconButton>
                       <IconButton
@@ -111,7 +119,7 @@ const MobileMenuToggle = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <LinkedinLogo weight="fill" />
+                          <RiLinkedinFill />
                         </a>
                       </IconButton>
                       <IconButton
@@ -126,7 +134,7 @@ const MobileMenuToggle = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <GithubLogo weight="fill" />
+                          <RiGithubFill />
                         </a>
                       </IconButton>
                       <IconButton
@@ -141,7 +149,7 @@ const MobileMenuToggle = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          <YoutubeLogo weight="fill" />
+                          <RiYoutubeFill />
                         </a>
                       </IconButton>
                     </HStack>

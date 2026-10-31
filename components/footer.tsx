@@ -1,6 +1,6 @@
 "use client";
 import { Button, HStack, IconButton } from "@chakra-ui/react";
-import { GithubLogo, LinkedinLogo, TwitterLogo, YoutubeLogo } from "phosphor-react";
+import { RiGithubFill, RiLinkedinFill, RiTwitterFill, RiYoutubeFill } from "@remixicon/react";
 import NextLink from "next/link";
 
 import Container from "@/components/container";
@@ -37,7 +37,7 @@ const Footer = () => {
             color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
           >
             <a href="https://twitter.com/wirtzdan/" target="_blank" rel="noopener noreferrer">
-              <TwitterLogo weight="fill" />
+              <RiTwitterFill />
             </a>
           </IconButton>
           <IconButton
@@ -52,7 +52,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <LinkedinLogo weight="fill" />
+              <RiLinkedinFill />
             </a>
           </IconButton>
           <IconButton
@@ -63,7 +63,7 @@ const Footer = () => {
             color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
           >
             <a href="https://github.com/wirtzdan" target="_blank" rel="noopener noreferrer">
-              <GithubLogo weight="fill" />
+              <RiGithubFill />
             </a>
           </IconButton>
           <IconButton
@@ -78,7 +78,7 @@ const Footer = () => {
               target="_blank"
               rel="noopener noreferrer"
             >
-              <YoutubeLogo weight="fill" />
+              <RiYoutubeFill />
             </a>
           </IconButton>
         </HStack>

@@ -1,7 +1,7 @@
 "use client";
 import { Box, IconButton } from "@chakra-ui/react";
 import type { CSSProperties } from "react";
-import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
+import { RiMoonLine, RiSunLine } from "@remixicon/react";
 
 import { Tooltip } from "@/components/ui/tooltip";
 
@@ -17,10 +17,10 @@ const iconStyle = { display: "block" } as const;
 const ThemeIcon = ({ style }: { style?: CSSProperties }) => (
   <Box boxSize="20px" style={style}>
     <Box display={{ base: "block", _dark: "none" }}>
-      <MoonIcon width={20} height={20} style={iconStyle} />
+      <RiMoonLine size={20} style={iconStyle} />
     </Box>
     <Box display={{ base: "none", _dark: "block" }}>
-      <SunIcon width={20} height={20} style={iconStyle} />
+      <RiSunLine size={20} style={iconStyle} />
     </Box>
   </Box>
 );

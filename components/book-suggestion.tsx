@@ -14,7 +14,7 @@ import {
   Dialog,
   Portal,
 } from "@chakra-ui/react";
-import { EnvelopeIcon } from "@heroicons/react/24/solid";
+import { RiCheckboxCircleLine, RiErrorWarningLine, RiMailLine } from "@remixicon/react";
 import { useForm } from "react-hook-form";
 
 import { HoneypotField } from "@/components/honeypot-field";
@@ -108,7 +108,9 @@ const BookSuggestion = () => {
                     </Field.Root>
                     {isSuccessful ? (
                       <Alert.Root status="success" rounded="lg">
-                        <Alert.Indicator />
+                        <Alert.Indicator>
+                          <RiCheckboxCircleLine />
+                        </Alert.Indicator>
                         Thanks for the suggestion!
                       </Alert.Root>
                     ) : (
@@ -119,13 +121,15 @@ const BookSuggestion = () => {
                         w="100%"
                         loading={isSubmitting}
                       >
-                        <EnvelopeIcon width={18} height={18} />
+                        <RiMailLine size={18} />
                         Send suggestion
                       </Button>
                     )}
                     {errorMessage ? (
                       <Alert.Root status="warning" rounded="lg">
-                        <Alert.Indicator />
+                        <Alert.Indicator>
+                          <RiErrorWarningLine />
+                        </Alert.Indicator>
                         {errorMessage}
                       </Alert.Root>
                     ) : null}

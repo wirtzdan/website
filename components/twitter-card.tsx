@@ -2,7 +2,7 @@
 import React from "react";
 import { LightMode } from "./ui/color-mode";
 import { Button, Text, VStack } from "@chakra-ui/react";
-import { TwitterLogo } from "phosphor-react";
+import { RiTwitterFill } from "@remixicon/react";
 
 import Link from "@/components/link";
 
@@ -42,7 +42,7 @@ const TwitterCard = ({ title, slug }: TwitterCardProps) => {
             transitionTimingFunction="spring(1 100 10 10)"
             _hover={{ transform: "translateY(-4px)", shadow: "sm" }}
           >
-            <TwitterLogo weight="fill" />
+            <RiTwitterFill />
             Share on Twitter
           </Button>
         </LightMode>

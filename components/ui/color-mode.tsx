@@ -5,7 +5,7 @@ import { ClientOnly, IconButton, Skeleton, Span } from "@chakra-ui/react";
 import { ThemeProvider, useTheme } from "next-themes";
 import type { ThemeProviderProps } from "next-themes";
 import * as React from "react";
-import { LuMoon, LuSun } from "react-icons/lu";
+import { RiMoonLine, RiSunLine } from "@remixicon/react";
 
 export type ColorModeProviderProps = ThemeProviderProps;
 
@@ -44,7 +44,7 @@ export function useColorMode(): UseColorModeReturn {
 
 export function ColorModeIcon() {
   const { colorMode } = useColorMode();
-  return colorMode === "dark" ? <LuMoon /> : <LuSun />;
+  return colorMode === "dark" ? <RiMoonLine /> : <RiSunLine />;
 }
 
 type ColorModeButtonProps = Omit<IconButtonProps, "aria-label">;

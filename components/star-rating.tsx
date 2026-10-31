@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { HStack, Icon } from "@chakra-ui/react";
-import { StarIcon } from "@heroicons/react/24/solid";
+import { RiStarFill, RiStarLine } from "@remixicon/react";
 
 interface StarIconRatingProps {
   rating?: number;
@@ -20,7 +20,7 @@ const StarIconRating = ({ rating = 0 }: StarIconRatingProps) => {
           color={{ _light: "yellow.400", _dark: "yellow.200" }}
           asChild
         >
-          <StarIcon />
+          <RiStarFill />
         </Icon>
       ))}
       {Array.from({ length: 5 - stars }, (_, index) => (
@@ -31,7 +31,7 @@ const StarIconRating = ({ rating = 0 }: StarIconRatingProps) => {
           color={{ _light: "neutral.700", _dark: "neutralD.900" }}
           asChild
         >
-          <StarIcon />
+          <RiStarLine />
         </Icon>
       ))}
     </HStack>

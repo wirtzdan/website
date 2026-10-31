@@ -1,8 +1,12 @@
 "use client";
 
 import { Button, HStack, Icon, Menu, Portal, Text } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { BoltIcon, BookOpenIcon, BookmarkIcon } from "@heroicons/react/24/solid";
+import {
+  RiArrowDownSLine,
+  RiBookOpenLine,
+  RiBookmarkLine,
+  RiFlashlightLine,
+} from "@remixicon/react";
 import NextLink from "next/link";
 import {
   useCallback,
@@ -100,7 +104,7 @@ const ListsMenu = () => {
         >
           Lists
           <Icon boxSize={5} asChild>
-            <ChevronDownIcon />
+            <RiArrowDownSLine />
           </Icon>
         </Button>
       </Menu.Trigger>
@@ -126,7 +130,7 @@ const ListsMenu = () => {
               <NextLink href="/books">
                 <HStack>
                   <Icon boxSize={4.5} color={menuIconColor} asChild>
-                    <BookOpenIcon />
+                    <RiBookOpenLine />
                   </Icon>
                   <Text>Books</Text>
                 </HStack>
@@ -136,7 +140,7 @@ const ListsMenu = () => {
               <NextLink href="/bookmarks">
                 <HStack>
                   <Icon boxSize={4.5} color={menuIconColor} asChild>
-                    <BookmarkIcon />
+                    <RiBookmarkLine />
                   </Icon>
                   <Text>Bookmarks</Text>
                 </HStack>
@@ -146,7 +150,7 @@ const ListsMenu = () => {
               <NextLink href="/tools">
                 <HStack>
                   <Icon boxSize={4.5} color={menuIconColor} asChild>
-                    <BoltIcon />
+                    <RiFlashlightLine />
                   </Icon>
                   <Text>Tools</Text>
                 </HStack>

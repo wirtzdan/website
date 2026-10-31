@@ -1,7 +1,7 @@
 "use client";
 
 import { HStack, Icon, SimpleGrid, Tabs, Text, VStack } from "@chakra-ui/react";
-import { BookOpenIcon, HeartIcon } from "@heroicons/react/24/solid";
+import { RiBookOpenFill, RiBookOpenLine, RiHeartFill, RiHeartLine } from "@remixicon/react";
 import sorter from "sort-isostring";
 
 import BookCard from "@/components/book-card";
@@ -84,9 +84,13 @@ export default function BooksPage({ books }: BooksPageProps) {
               mr={2}
             >
               <HStack gap={1}>
-                <Icon asChild>
-                  <BookOpenIcon />
-                </Icon>
+                <Tabs.Context>
+                  {(tabs) => (
+                    <Icon asChild>
+                      {tabs.value === "all" ? <RiBookOpenFill /> : <RiBookOpenLine />}
+                    </Icon>
+                  )}
+                </Tabs.Context>
                 <Text>All</Text>
               </HStack>
             </Tabs.Trigger>
@@ -97,9 +101,13 @@ export default function BooksPage({ books }: BooksPageProps) {
               _selected={{ color: "red.800", bg: "red.100" }}
             >
               <HStack gap={1}>
-                <Icon asChild>
-                  <HeartIcon />
-                </Icon>
+                <Tabs.Context>
+                  {(tabs) => (
+                    <Icon asChild>
+                      {tabs.value === "favorites" ? <RiHeartFill /> : <RiHeartLine />}
+                    </Icon>
+                  )}
+                </Tabs.Context>
                 <Text>Favorites</Text>
               </HStack>
             </Tabs.Trigger>

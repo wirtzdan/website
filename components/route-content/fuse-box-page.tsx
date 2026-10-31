@@ -34,18 +34,21 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import {
-  ArrowCounterClockwise,
-  CaretDown,
-  CaretUp,
-  CornersOut,
-  Eye,
-  FilePlus,
-  PencilSimple,
-  Plus,
-  Printer,
-  Trash,
-  X,
-} from "phosphor-react";
+  RiAddLine,
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiCheckLine,
+  RiCloseLine,
+  RiDeleteBinLine,
+  RiEyeFill,
+  RiEyeLine,
+  RiFileAddLine,
+  RiFullscreenLine,
+  RiPencilFill,
+  RiPencilLine,
+  RiPrinterLine,
+  RiResetLeftLine,
+} from "@remixicon/react";
 
 import AvatarNavigation from "@/components/avatar-navigation";
 import {
@@ -584,7 +587,7 @@ function FullscreenPreview({ children, onClose }: { children: ReactNode; onClose
           colorPalette="gray"
           onClick={onClose}
         >
-          <X />
+          <RiCloseLine />
         </IconButton>
       </Flex>
       {actualSize ? (
@@ -631,7 +634,9 @@ function SmallSelect({
       >
         {children}
       </NativeSelect.Field>
-      <NativeSelect.Indicator />
+      <NativeSelect.Indicator>
+        <RiArrowDownSLine />
+      </NativeSelect.Indicator>
     </NativeSelect.Root>
   );
 }
@@ -762,7 +767,9 @@ function DeviceItem({
         <Text fontSize="xs" color="fg.muted" whiteSpace="nowrap">
           {formatPosition(start, end)}
         </Text>
-        <Accordion.ItemIndicator />
+        <Accordion.ItemIndicator>
+          <RiArrowDownSLine />
+        </Accordion.ItemIndicator>
       </Accordion.ItemTrigger>
       <Accordion.ItemContent>
         <Accordion.ItemBody px={3} pt={1} pb={3}>
@@ -854,7 +861,7 @@ function DeviceItem({
                 disabled={isFirst}
                 onClick={() => onMove(-1)}
               >
-                <CaretUp /> Move up
+                <RiArrowUpSLine /> Move up
               </Button>
               <Button
                 size="xs"
@@ -863,7 +870,7 @@ function DeviceItem({
                 disabled={isLast}
                 onClick={() => onMove(1)}
               >
-                <CaretDown /> Move down
+                <RiArrowDownSLine /> Move down
               </Button>
               <Button
                 size="xs"
@@ -873,7 +880,7 @@ function DeviceItem({
                 ml="auto"
                 onClick={onRemove}
               >
-                <Trash /> Remove
+                <RiDeleteBinLine /> Remove
               </Button>
             </HStack>
           </VStack>
@@ -1039,7 +1046,7 @@ export default function FuseBoxPage() {
                     )
                   }
                 >
-                  <Trash />
+                  <RiDeleteBinLine />
                 </IconButton>
               ) : null}
             </Flex>
@@ -1082,7 +1089,7 @@ export default function FuseBoxPage() {
                 setOpenId(device.id);
               }}
             >
-              <Plus /> Add switch
+              <RiAddLine /> Add switch
             </Button>
           </VStack>
         );
@@ -1096,7 +1103,7 @@ export default function FuseBoxPage() {
             setPanel((current) => ({ rows: [...current.rows, createEmptyRow()] }));
           }}
         >
-          <Plus /> Add row
+          <RiAddLine /> Add row
         </Button>
       ) : null}
 
@@ -1137,11 +1144,13 @@ export default function FuseBoxPage() {
           onCheckedChange={(details) => setShowStripCodes(details.checked === true)}
         >
           <Checkbox.HiddenInput />
-          <Checkbox.Control />
+          <Checkbox.Control>
+            <Checkbox.Indicator checked={<RiCheckLine />} />
+          </Checkbox.Control>
           <Checkbox.Label>Show codes on strips</Checkbox.Label>
         </Checkbox.Root>
         <Button size="xs" variant="outline" ml="auto" onClick={() => setFullscreen(true)}>
-          <CornersOut /> Full screen
+          <RiFullscreenLine /> Full screen
         </Button>
       </Flex>
       <ScaledPreview>
@@ -1194,7 +1203,7 @@ export default function FuseBoxPage() {
               variant="ghost"
               onClick={() => reset(examplePanel, "Replace your labels with the example?")}
             >
-              <ArrowCounterClockwise />
+              <RiResetLeftLine />
             </IconButton>
             <IconButton
               aria-label="Start blank"
@@ -1205,10 +1214,10 @@ export default function FuseBoxPage() {
                 reset({ rows: [createEmptyRow(), createEmptyRow()] }, "Clear all labels?")
               }
             >
-              <FilePlus />
+              <RiFileAddLine />
             </IconButton>
             <Button size="sm" colorPalette="blue" onClick={() => window.print()}>
-              <Printer /> Print
+              <RiPrinterLine /> Print
             </Button>
           </HStack>
         </Flex>
@@ -1231,7 +1240,17 @@ export default function FuseBoxPage() {
                 variant={mobileTab === tab ? "subtle" : "ghost"}
                 onClick={() => setMobileTab(tab)}
               >
-                {tab === "edit" ? <PencilSimple /> : <Eye />}
+                {tab === "edit" ? (
+                  mobileTab === tab ? (
+                    <RiPencilFill />
+                  ) : (
+                    <RiPencilLine />
+                  )
+                ) : mobileTab === tab ? (
+                  <RiEyeFill />
+                ) : (
+                  <RiEyeLine />
+                )}
                 {tab === "edit" ? "Edit" : "Preview"}
               </Button>
             ))}
@@ -1322,7 +1341,7 @@ export default function FuseBoxPage() {
               });
             }}
           >
-            <X />
+            <RiCloseLine />
           </IconButton>
         </Flex>
       ) : null}

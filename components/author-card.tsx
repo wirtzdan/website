@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Avatar, Button, HStack, Icon, Stack, Text, VStack } from "@chakra-ui/react";
-import { CheckIcon, LinkIcon } from "@heroicons/react/20/solid";
+import { RiCheckLine, RiLink } from "@remixicon/react";
 import { format } from "timeago.js";
 
 import { useClipboard } from "@/lib/use-clipboard";
@@ -48,11 +48,11 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
         >
           {hasCopied ? (
             <Icon asChild>
-              <CheckIcon />
+              <RiCheckLine />
             </Icon>
           ) : (
             <Icon asChild>
-              <LinkIcon />
+              <RiLink />
             </Icon>
           )}
           {hasCopied ? "Copied" : "Copy link"}

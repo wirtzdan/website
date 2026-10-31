@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import Image from "next/image";
 import { Box, Icon, Image as ChakraImage, Text, chakra } from "@chakra-ui/react";
-import { ChevronLeftIcon, ChevronRightIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { RiArrowLeftSLine, RiArrowRightSLine, RiCloseLine } from "@remixicon/react";
 
 import {
   canUseNextImage,
@@ -146,7 +146,7 @@ export default function PhotoTripGallery({
             onClick={stopAnd(() => setActiveIndex(null))}
           >
             <Icon boxSize={6} asChild>
-              <XMarkIcon />
+              <RiCloseLine />
             </Icon>
           </PlainButton>
           {photos.length > 1 ? (
@@ -160,7 +160,7 @@ export default function PhotoTripGallery({
                   )
                 }
               >
-                <ChevronLeftIcon />
+                <RiArrowLeftSLine />
               </OverlayButton>
               <OverlayButton
                 label="Next photo"
@@ -171,7 +171,7 @@ export default function PhotoTripGallery({
                   )
                 }
               >
-                <ChevronRightIcon />
+                <RiArrowRightSLine />
               </OverlayButton>
             </>
           ) : null}

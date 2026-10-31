@@ -3,7 +3,7 @@
 import { useDisclosure } from "@/lib/use-disclosure";
 import React from "react";
 import { Box, Button, Drawer, Portal } from "@chakra-ui/react";
-import { EnvelopeIcon, RssIcon } from "@heroicons/react/24/outline";
+import { RiMailLine, RiRssLine } from "@remixicon/react";
 
 import MobileMenuButton from "./mobile-menu-button";
 import SubscribeCard from "@/components/subscribe-card";
@@ -20,11 +20,11 @@ const NewsletterDrawer = ({ placement }: NewsletterDrawerProps) => {
     <Box>
       {placement === "blog" ? (
         <Button onClick={onOpen} colorPalette="purple">
-          <RssIcon width={20} height={20} />
+          <RiRssLine size={20} />
           Subscribe
         </Button>
       ) : (
-        <MobileMenuButton label="Subscribe" icon={<EnvelopeIcon />} onClick={onOpen} />
+        <MobileMenuButton label="Subscribe" icon={<RiMailLine />} onClick={onOpen} />
       )}
       <Drawer.Root
         open={open}

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Box, HStack, Icon, Image, Text, VStack } from "@chakra-ui/react";
-import { BookOpenIcon } from "@heroicons/react/24/solid";
+import { RiBookOpenLine } from "@remixicon/react";
 import { format } from "timeago.js";
 
 import { bookCoverProxyPath, durableCoverUrl } from "@/lib/book-covers";
@@ -80,7 +80,7 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
               />
             ) : (
               <Icon boxSize={8} color="red.800" aria-hidden asChild>
-                <BookOpenIcon />
+                <RiBookOpenLine />
               </Icon>
             )}
           </Box>

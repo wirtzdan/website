@@ -10,8 +10,8 @@ interface MobileMenuButtonProps extends StackProps {
 }
 
 const MobileMenuButton = ({ label, icon, as = "button", ...rest }: MobileMenuButtonProps) => {
-  // Force explicit SVG dimensions. Chakra Icon asChild + Heroicons was leaving the
-  // theme moon/sun at ~2× the Blog/Menu icons and overflowing the mobile nav bar.
+  // Force explicit SVG dimensions. An unsized theme icon was ~2× the Blog/Menu
+  // icons and overflowed the mobile nav bar.
   const sizedIcon = isValidElement(icon)
     ? cloneElement(icon as ReactElement<Record<string, unknown>>, {
         width: ICON_SIZE_PX,

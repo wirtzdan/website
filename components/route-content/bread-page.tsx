@@ -19,23 +19,28 @@ import {
   Select,
   SimpleGrid,
   Table,
-  Text,
   Timeline,
   VStack,
   createListCollection,
   parseDate,
 } from "@chakra-ui/react";
+import type { RemixiconComponentType } from "@remixicon/react";
 import {
-  Calendar,
-  CalendarPlus,
-  Clock,
-  CookingPot,
-  Fire,
-  Hourglass,
-  Info,
-  Knife,
-} from "phosphor-react";
+  RiArrowDownSLine,
+  RiArrowUpSLine,
+  RiBowlLine,
+  RiCalendarLine,
+  RiCalendarScheduleLine,
+  RiCheckLine,
+  RiErrorWarningLine,
+  RiFireLine,
+  RiHourglassLine,
+  RiInformationLine,
+  RiKnifeLine,
+  RiTimeLine,
+} from "@remixicon/react";
 
+import { DatePickerHeader } from "@/components/date-picker-header";
 import Hero from "@/components/hero";
 import Section from "@/components/section";
 import { buildBreadCalendar, breadCalendarFileName } from "@/lib/bread-calendar";
@@ -112,13 +117,13 @@ const recipeCollection = createListCollection({
   items: breadRecipes.map((entry) => ({ label: entry.name, value: entry.id })),
 });
 
-const phaseIcons: Record<string, typeof CookingPot> = {
-  autolyse: Hourglass,
-  mix: CookingPot,
-  bulk: Clock,
-  shape: Knife,
-  proof: Hourglass,
-  preheat: Fire,
+const phaseIcons: Record<string, RemixiconComponentType> = {
+  autolyse: RiHourglassLine,
+  mix: RiBowlLine,
+  bulk: RiTimeLine,
+  shape: RiKnifeLine,
+  proof: RiHourglassLine,
+  preheat: RiFireLine,
 };
 
 const BAKE_TOOLTIP =
@@ -137,7 +142,7 @@ function PhaseTooltip({ content }: { content: string }) {
           ms="1"
         >
           <Icon size="sm" color="fg.muted">
-            <Info />
+            <RiInformationLine />
           </Icon>
         </IconButton>
       </Popover.Trigger>
@@ -246,7 +251,9 @@ export default function BreadPage() {
                   <Select.ValueText placeholder="Select recipe" />
                 </Select.Trigger>
                 <Select.IndicatorGroup>
-                  <Select.Indicator />
+                  <Select.Indicator>
+                    <RiArrowDownSLine />
+                  </Select.Indicator>
                 </Select.IndicatorGroup>
               </Select.Control>
               <Portal>
@@ -255,7 +262,9 @@ export default function BreadPage() {
                     {recipeCollection.items.map((item) => (
                       <Select.Item item={item} key={item.value}>
                         {item.label}
-                        <Select.ItemIndicator />
+                        <Select.ItemIndicator>
+                          <RiCheckLine />
+                        </Select.ItemIndicator>
                       </Select.Item>
                     ))}
                   </Select.Content>
@@ -281,8 +290,12 @@ export default function BreadPage() {
                   pe={{ base: "3", md: "calc(var(--stepper-width) + 0.5rem)" }}
                 />
                 <NumberInput.Control display={{ base: "none", md: "flex" }}>
-                  <NumberInput.IncrementTrigger />
-                  <NumberInput.DecrementTrigger />
+                  <NumberInput.IncrementTrigger>
+                    <RiArrowUpSLine />
+                  </NumberInput.IncrementTrigger>
+                  <NumberInput.DecrementTrigger>
+                    <RiArrowDownSLine />
+                  </NumberInput.DecrementTrigger>
                 </NumberInput.Control>
               </NumberInput.Root>
             </Field.Root>
@@ -307,7 +320,7 @@ export default function BreadPage() {
                     bg={cardBg}
                   >
                     {startDate ? formatStartAt(startDate) : "Select date and time"}
-                    <Calendar size={18} />
+                    <RiCalendarLine size={18} />
                   </Button>
                 </DatePicker.Trigger>
               </DatePicker.Control>
@@ -315,7 +328,7 @@ export default function BreadPage() {
                 <DatePicker.Positioner>
                   <DatePicker.Content>
                     <DatePicker.View view="day">
-                      <DatePicker.Header />
+                      <DatePickerHeader />
                       <DatePicker.DayTable />
                       <Field.Root px="3" pb="3">
                         <Field.Label>Time</Field.Label>
@@ -330,11 +343,11 @@ export default function BreadPage() {
                       </Field.Root>
                     </DatePicker.View>
                     <DatePicker.View view="month">
-                      <DatePicker.Header />
+                      <DatePickerHeader />
                       <DatePicker.MonthTable />
                     </DatePicker.View>
                     <DatePicker.View view="year">
-                      <DatePicker.Header />
+                      <DatePickerHeader />
                       <DatePicker.YearTable />
                     </DatePicker.View>
                   </DatePicker.Content>
@@ -405,7 +418,7 @@ export default function BreadPage() {
                   asChild
                 >
                   <Button variant="outline" size="sm" bg={cardBg}>
-                    <CalendarPlus size={16} />
+                    <RiCalendarScheduleLine size={16} />
                     Add to calendar
                   </Button>
                 </DownloadTrigger>
@@ -414,7 +427,9 @@ export default function BreadPage() {
 
             {startIsInPast ? (
               <Alert.Root status="warning" borderRadius="md">
-                <Alert.Indicator />
+                <Alert.Indicator>
+                  <RiErrorWarningLine />
+                </Alert.Indicator>
                 <Alert.Title>
                   Start time is in the past. Try a later start time
                   {recipe.id === "overnight" ? ", or switch to Saturday White Bread." : "."}
@@ -425,7 +440,7 @@ export default function BreadPage() {
             {schedule.length > 0 && bakeDate ? (
               <Timeline.Root size="xl" maxW="xl">
                 {schedule.map((step) => {
-                  const PhaseIcon = phaseIcons[step.id] ?? Clock;
+                  const PhaseIcon = phaseIcons[step.id] ?? RiTimeLine;
                   return (
                     <Timeline.Item key={step.id}>
                       <Timeline.Connector>
@@ -450,7 +465,7 @@ export default function BreadPage() {
                   <Timeline.Connector>
                     <Timeline.Separator />
                     <Timeline.Indicator>
-                      <Fire size={16} />
+                      <RiFireLine size={16} />
                     </Timeline.Indicator>
                   </Timeline.Connector>
                   <Timeline.Content>
