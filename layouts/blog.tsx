@@ -10,6 +10,7 @@ import AuthorCard from "@/components/author-card";
 import ReadingProgress from "@/components/reading-progress";
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
+import { absoluteUrl } from "@/lib/site-url";
 import type { BlogPostSummary, NotionRecordMap } from "@/types/content";
 
 const YouTubePlayer = dynamic(() => import("react-player/youtube"), { ssr: false });
@@ -68,10 +69,7 @@ const BlogLayout = ({ children, post }: BlogLayoutProps) => {
             ) : null}
             <VStack align="stretch" gap={6} mb={4}>
               <Heading as="h1">{post.title}</Heading>
-              <AuthorCard
-                publishedAt={post.publishDate}
-                url={`https://danielwirtz.com/blog/${post.slug}`}
-              />
+              <AuthorCard publishedAt={post.publishDate} url={absoluteUrl(`/blog/${post.slug}`)} />
             </VStack>
           </VStack>
           <div>{children}</div>

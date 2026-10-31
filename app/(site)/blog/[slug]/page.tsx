@@ -6,6 +6,7 @@ import NotionPage from "@/components/notion-page";
 import BlogLayout from "@/layouts/blog";
 import { buildBlogPostMetadata, getDescriptionFromRecordMap } from "@/lib/blog-metadata";
 import { getBlogPosts, getPageByPageId } from "@/lib/notion/api";
+import { absoluteUrl } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
@@ -60,7 +61,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         title={post.title}
         description={description}
         publishDate={post.publishDate}
-        url={`https://danielwirtz.com/blog/${post.slug}`}
+        url={absoluteUrl(`/blog/${post.slug}`)}
         socialImage={post.socialImage}
       />
       <BlogLayout post={postWithSocial} recordMap={postPage}>

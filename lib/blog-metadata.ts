@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { absoluteUrl } from "@/lib/site-url";
 import type { NotionBlockWithValue, NotionRecordMapWithBlocks } from "@/types/content";
 
 export const getDescriptionFromRecordMap = (recordMap?: NotionRecordMapWithBlocks | null) => {
@@ -39,7 +40,7 @@ export function buildBlogPostMetadata(input: {
   recordMap?: NotionRecordMapWithBlocks | null;
 }): Metadata {
   const { title, description, publishDate, slug, socialImage, recordMap } = input;
-  const url = `https://danielwirtz.com/blog/${slug}`;
+  const url = absoluteUrl(`/blog/${slug}`);
   const date = new Date(publishDate).toISOString();
   const finalDescription = description ?? getDescriptionFromRecordMap(recordMap);
 

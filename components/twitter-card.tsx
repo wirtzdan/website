@@ -5,6 +5,7 @@ import { Button, Text, VStack } from "@chakra-ui/react";
 import { TwitterLogo } from "phosphor-react";
 
 import Link from "@/components/link";
+import { absoluteUrl } from "@/lib/site-url";
 
 interface TwitterCardProps {
   title: string;
@@ -12,7 +13,7 @@ interface TwitterCardProps {
 }
 
 const TwitterCard = ({ title, slug }: TwitterCardProps) => {
-  const url = `https://danielwirtz.com/blog/${slug}`;
+  const url = absoluteUrl(`/blog/${slug}`);
 
   return (
     <VStack
