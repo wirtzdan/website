@@ -58,6 +58,7 @@ export interface GenericPageSummary {
   id: string;
   title: string;
   slug: string;
+  description?: string | null;
   isPublished: boolean;
   showNavigation: boolean;
   readURL: string;

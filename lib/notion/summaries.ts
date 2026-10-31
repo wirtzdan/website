@@ -67,6 +67,7 @@ export function mapNotionGenericPage(item: NotionDatabaseItem): GenericPageSumma
     id: item.id,
     title: getStringProperty(item, "Name"),
     slug: getStringProperty(item, "Slug"),
+    description: getStringProperty(item, "Description") || null,
     isPublished: getBooleanProperty(item, "Published") ?? false,
     showNavigation: getBooleanProperty(item, "Show navigation") ?? false,
   };
