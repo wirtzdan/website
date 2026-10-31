@@ -4,11 +4,12 @@ import { siteMetadata } from "@/lib/site-metadata";
 import { absoluteUrl } from "@/lib/site-url";
 
 // Pages inherit the site's Open Graph tags, so only the URL needs to change.
-// Next.js merges metadata shallowly: `openGraph` has to be spread, not replaced.
+// Next.js merges metadata shallowly: `alternates` (the RSS link) and `openGraph`
+// have to be spread, not replaced.
 export function pageUrls(path: string): Pick<Metadata, "alternates" | "openGraph"> {
   const url = absoluteUrl(path);
   return {
-    alternates: { canonical: url },
+    alternates: { ...siteMetadata.alternates, canonical: url },
     openGraph: { ...siteMetadata.openGraph, url },
   };
 }
