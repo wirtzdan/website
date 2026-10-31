@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 
-/** Canonical origin, without a trailing slash. */
-export const siteUrl = "https://danielwirtz.com";
+import { SITE_URL, absoluteUrl } from "@/lib/site-url";
 
 const siteTitle = "Daniel Wirtz";
 const siteDescription = "Senior Design Engineer at Giving What We Can, based in the Netherlands.";
@@ -9,7 +8,7 @@ const siteDescription = "Senior Design Engineer at Giving What We Can, based in 
 export const siteMetadata: Metadata = {
   title: { default: siteTitle, template: "%s – Daniel Wirtz" },
   description: siteDescription,
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   manifest: "/static/favicons/site.webmanifest",
   icons: {
     icon: [
@@ -23,12 +22,12 @@ export const siteMetadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IE",
-    url: "https://danielwirtz.com",
+    url: SITE_URL,
     title: siteTitle,
     description: siteDescription,
     images: [
       {
-        url: "https://danielwirtz.com/static/images/banner.jpg",
+        url: absoluteUrl("/static/images/banner.jpg"),
         alt: siteTitle,
         width: 2240,
         height: 1260,

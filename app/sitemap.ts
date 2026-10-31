@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 import { getAllPages, getBlogPosts } from "@/lib/notion/api";
-import { siteUrl } from "@/lib/site-metadata";
+import { absoluteUrl } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
@@ -25,7 +25,7 @@ async function blogEntries(): Promise<MetadataRoute.Sitemap> {
   return posts.results
     .filter((post) => post.isPublished)
     .map((post) => ({
-      url: `${siteUrl}/blog/${post.slug}`,
+      url: absoluteUrl(`/blog/${post.slug}`),
       lastModified: post.modifiedDate ?? post.publishDate,
     }));
 }
@@ -35,7 +35,7 @@ async function pageEntries(): Promise<MetadataRoute.Sitemap> {
   const staticPaths = new Set<string>(STATIC_ROUTES);
   return pages.results
     .filter((page) => page.isPublished && !staticPaths.has(`/${page.slug}`))
-    .map((page) => ({ url: `${siteUrl}/${page.slug}` }));
+    .map((page) => ({ url: absoluteUrl(`/${page.slug}`) }));
 }
 
 /** A failed Notion source drops its entries; the sitemap itself never fails. */
@@ -58,5 +58,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     settle("pages", pageEntries),
   ]);
 
-  return [...STATIC_ROUTES.map((path) => ({ url: `${siteUrl}${path}` })), ...posts, ...pages];
+  return [...STATIC_ROUTES.map((path) => ({ url: absoluteUrl(path) })), ...posts, ...pages];
 }

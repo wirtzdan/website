@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import NotionPage from "@/components/notion-page";
 import PageLayout from "@/layouts/page";
 import { getAllPages, getPageByPageId } from "@/lib/notion/api";
+import { pageUrls } from "@/lib/page-metadata";
 
 export const revalidate = 3600;
 
@@ -20,7 +21,7 @@ export async function generateMetadata({
   }
   return {
     title: page.title,
-    alternates: { canonical: `https://danielwirtz.com/${page.slug}` },
+    ...pageUrls(`/${page.slug}`),
   };
 }
 
