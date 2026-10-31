@@ -104,3 +104,17 @@ export function bookCoverProxyPath(title: string, author?: string) {
   }
   return `/api/book-cover?${params.toString()}`;
 }
+
+/** Airtable first, then Open Library. Drops duplicates and hosts we will not fetch. */
+export function usableCoverSources(urls: Array<string | null | undefined>) {
+  const seen = new Set<string>();
+  const sources: string[] = [];
+  for (const url of urls) {
+    if (!url || seen.has(url) || !isAllowedCoverFetchUrl(url)) {
+      continue;
+    }
+    seen.add(url);
+    sources.push(url);
+  }
+  return sources;
+}

@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { Box, HStack, Icon, Image, Text, VStack } from "@chakra-ui/react";
+import React, { useCallback, useState } from "react";
+import { Box, HStack, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { BookOpenIcon } from "@heroicons/react/24/solid";
 import { format } from "timeago.js";
 
@@ -18,19 +18,28 @@ interface BookCardProps {
   dateRead?: string;
 }
 
+const COVER_WIDTH = 90;
+const COVER_HEIGHT = 135;
+
+const placeholderIcon = {
+  width: 28,
+  height: 28,
+  display: "block",
+} as const;
+
 const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardProps) => {
   const proxySrc = title ? bookCoverProxyPath(title, author) : undefined;
   const directSrc = durableCoverUrl(coverUrl);
   const [src, setSrc] = useState(proxySrc ?? directSrc ?? undefined);
   const [failed, setFailed] = useState(!src);
 
-  const showFallback = () => {
+  const showFallback = useCallback(() => {
     if (directSrc && src !== directSrc) {
       setSrc(directSrc);
       return;
     }
     setFailed(true);
-  };
+  }, [directSrc, src]);
 
   return (
     <Box asChild {...cardStillProps}>
@@ -55,33 +64,41 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
         >
           <Box
             rounded="md"
-            w="90px"
-            minH="120px"
+            w={`${COVER_WIDTH}px`}
+            h={`${COVER_HEIGHT}px`}
+            flexShrink={0}
             overflow="hidden"
             shadow="lg"
             position="absolute"
             top={-4}
-            backgroundColor="red.300"
+            bg={{ _light: "neutral.300", _dark: "neutralD.400" }}
+            color={{ _light: "neutral.800", _dark: "neutralD.800" }}
             display="flex"
             alignItems="center"
             justifyContent="center"
           >
+            {!failed ? <Skeleton position="absolute" inset="0" zIndex={0} /> : null}
             {src && !failed ? (
-              <Image
+              <img
+                className="book-cover"
                 src={src}
-                objectFit="cover"
-                w="100%"
-                h="100%"
-                minH="120px"
-                alt={title ?? ""}
+                alt=""
+                width={COVER_WIDTH}
+                height={COVER_HEIGHT}
                 loading="lazy"
                 decoding="async"
                 onError={showFallback}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  zIndex: 1,
+                }}
               />
             ) : (
-              <Icon boxSize={8} color="red.800" aria-hidden asChild>
-                <BookOpenIcon />
-              </Icon>
+              <BookOpenIcon width={28} height={28} aria-hidden style={placeholderIcon} />
             )}
           </Box>
           <VStack align="start" justify="flex-start" gap={1} maxW="lg" pl={28} h="100%">

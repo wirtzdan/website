@@ -7,6 +7,7 @@ import {
   isAllowedCoverFetchUrl,
   isExpiringCoverUrl,
   matchAirtableCover,
+  usableCoverSources,
 } from "./book-covers";
 
 const records = [
@@ -75,4 +76,19 @@ test("builds a stable same-origin cover path", () => {
   expect(bookCoverProxyPath("Wild Dark Shore", "Charlotte McConaghy")).toBe(
     "/api/book-cover?title=Wild+Dark+Shore&author=Charlotte+McConaghy",
   );
+});
+
+test("keeps an Airtable URL ahead of Open Library and drops hosts we will not fetch", () => {
+  expect(
+    usableCoverSources([
+      "https://v5.airtableusercontent.com/v3/u/58/58/1/abc/cover.jpg",
+      "https://covers.openlibrary.org/b/id/499877-L.jpg",
+      "https://covers.openlibrary.org/b/id/499877-L.jpg",
+      "https://www.notion.so/image/expired",
+      "http://covers.openlibrary.org/b/id/1-L.jpg",
+    ]),
+  ).toEqual([
+    "https://v5.airtableusercontent.com/v3/u/58/58/1/abc/cover.jpg",
+    "https://covers.openlibrary.org/b/id/499877-L.jpg",
+  ]);
 });
