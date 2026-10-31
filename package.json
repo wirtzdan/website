@@ -8,6 +8,8 @@
     "start": "next start",
     "inspect": "NODE_OPTIONS='--inspect' next dev -p 5000",
     "typecheck": "tsc --noEmit",
+    "check": "vp check",
+    "test": "vp test run",
     "prepare": "vp config"
   },
   "dependencies": {
