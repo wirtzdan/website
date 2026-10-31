@@ -61,7 +61,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "typescript": "^6.0.2",
-    "vite-plus": "0.1.24"
+    "vite-plus": "1.4.0"
   },
   "engines": {
     "node": ">=20.9.0"
@@ -69,9 +69,8 @@
   "packageManager": "pnpm@10.33.0",
   "pnpm": {
     "overrides": {
-      "vite": "npm:@voidzero-dev/vite-plus-core@0.1.24",
-      "@voidzero-dev/vite-plus-test>vite": "8.3.4",
-      "vitest": "npm:@voidzero-dev/vite-plus-test@0.1.24",
+      "vite": "npm:@voidzero-dev/vite-plus-core@1.4.0",
+      "vitest": "5.0.5",
       "tinypool": "2.2.0",
       "sharp": "0.35.5",
       "postcss": "8.5.31",
@@ -90,7 +89,7 @@
       "mdast-util-to-hast@13": "13.2.1",
       "yaml@1": "1.10.3",
       "baseline-browser-mapping": "2.11.29",
-      "follow-redirects": "1.16.1",
+      "follow-redirects": "1.16.2",
       "webpack": "5.112.0",
       "min-document": "2.19.2"
     },
