@@ -14,16 +14,33 @@ I think the most interesting pages to look at are:
 
 ## Get it running locally
 
-To get this website running locally, type this into your terminal:
+You need Node.js 20.9 or newer and pnpm. The exact pnpm version is pinned in `package.json`, so `corepack enable` will pick it up.
 
 ```bash
 $ git clone https://github.com/wirtzdan/website danielwirtz.com
 $ cd danielwirtz.com
-$ yarn
-$ yarn dev
+$ pnpm install
+$ pnpm dev
 ```
 
-Make sure to add environmental variables, if you want to play around with the [Airtable](https://airtable.com/invite/r/HsvqbADg) and [Raindrop](https://raindrop.io) integration. To do so create a `.env.local` file similar to [`.env.example`](https://github.com/wirtzdan/website/blob/master/.env.example).
+The dev dependency `@aiforui/lapse` (an animation inspector that only loads in development) comes from a private registry, `https://aiforui.dev/npm/`. `pnpm install` fails with a 401 unless you have access. If you have a token, write it to your user-level npm config before installing. Never put it in the project `.npmrc`:
+
+```bash
+$ AIFORUI_TOKEN=<your-token> node scripts/configure-aiforui-npm-auth.mjs
+```
+
+Make sure to add environment variables if you want to play around with the [Airtable](https://airtable.com/invite/r/HsvqbADg), Notion and [Raindrop](https://raindrop.io) integrations. To do so, create a `.env.local` file similar to [`.env.example`](https://github.com/wirtzdan/website/blob/master/.env.example).
+
+### Scripts
+
+| Command          | What it does                                        |
+| ---------------- | --------------------------------------------------- |
+| `pnpm dev`       | Start the dev server                                |
+| `pnpm build`     | Production build                                    |
+| `pnpm start`     | Serve the production build                          |
+| `pnpm typecheck` | Type-check with `tsc --noEmit`                      |
+| `pnpm check`     | Format, lint and type-check with Vite+ (`vp check`) |
+| `pnpm test`      | Run the test suite once with Vite+ (`vp test run`)  |
 
 ## Using my code in your website
 
