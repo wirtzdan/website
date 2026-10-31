@@ -1,7 +1,12 @@
 import { expect, test } from "vite-plus/test";
 
 import { buildBlogPostMetadata } from "@/lib/blog-metadata";
-import { blogIndexMetadata, homeMetadata } from "@/lib/page-metadata";
+import {
+  aboutMetadata,
+  blogIndexMetadata,
+  buildPageMetadata,
+  homeMetadata,
+} from "@/lib/page-metadata";
 import { siteMetadata } from "@/lib/site-metadata";
 import type { BlogPostSummary } from "@/types/content";
 
@@ -172,7 +177,15 @@ test("every page keeps the feed link next to its canonical URL", () => {
     publishDate: "2024-01-01",
     slug: "hello",
   });
-  for (const metadata of [homeMetadata, blogIndexMetadata, postMetadata]) {
+  const notionPage = buildPageMetadata({ title: "Now", description: "Now", path: "/now" });
+  for (const metadata of [
+    homeMetadata,
+    aboutMetadata,
+    blogIndexMetadata,
+    postMetadata,
+    notionPage,
+  ]) {
     expect(metadata.alternates?.types?.["application/rss+xml"]).toEqual(feed);
+    expect(metadata.alternates?.canonical).toMatch(/^https:\/\/danielwirtz\.com/);
   }
 });

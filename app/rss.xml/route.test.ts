@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, expect, test, vi } from "vite-plus/test";
 
+import { trimDescription } from "@/lib/blog-metadata";
 import type { BlogPostSummary } from "@/types/content";
 
 const { getBlogPosts, getPageByPageId } = vi.hoisted(() => ({
@@ -74,15 +75,18 @@ test("serves the feed as RSS with the content revalidation window", async () => 
 
 test("uses the Notion description, else the first paragraph like the meta description", async () => {
   servePosts(post("described", { description: "From Notion & co" }), post("derived"), post("long"));
+  const longText = "A long opening paragraph that keeps going ".repeat(6);
   getPageByPageId.mockImplementation(async (id: string) =>
-    id === "id-long" ? recordMap("x".repeat(200)) : recordMap("Opening <paragraph>"),
+    id === "id-long" ? recordMap(longText) : recordMap("Opening <paragraph>"),
   );
 
   const xml = await (await GET()).text();
 
   expect(itemFor(xml, "described")).toContain("<description>From Notion &amp; co</description>");
   expect(itemFor(xml, "derived")).toContain("<description>Opening &lt;paragraph&gt;</description>");
-  expect(itemFor(xml, "long")).toContain(`<description>${"x".repeat(157)}...</description>`);
+  const trimmed = trimDescription(longText);
+  expect(trimmed.length).toBeLessThanOrEqual(160);
+  expect(itemFor(xml, "long")).toContain(`<description>${trimmed}</description>`);
   expect(getPageByPageId).not.toHaveBeenCalledWith("id-described");
 });
 
