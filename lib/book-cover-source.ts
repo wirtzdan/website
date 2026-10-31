@@ -3,7 +3,6 @@ import Airtable from "airtable";
 
 import {
   coverUrlFromOpenLibrarySearch,
-  isAllowedCoverFetchUrl,
   matchAirtableCover,
   type CoverCandidate,
 } from "@/lib/book-covers";
@@ -60,25 +59,29 @@ async function openLibraryCover(title: string, author: string) {
   return coverUrlFromOpenLibrarySearch(await response.json());
 }
 
-/** Fresh image URL for a book. Never returns an expired signed URL from the page payload. */
-export async function resolveBookCoverSource(title: string, author: string) {
+async function airtableCover(title: string, author: string) {
   try {
-    const fromAirtable = matchAirtableCover(await getAirtableCovers(), title, author);
-    if (fromAirtable && isAllowedCoverFetchUrl(fromAirtable)) {
-      return fromAirtable;
-    }
+    return matchAirtableCover(await getAirtableCovers(), title, author);
   } catch {
     console.error("Book cover Airtable lookup failed");
+    return null;
   }
+}
 
+async function openLibraryCoverUrl(title: string, author: string) {
   try {
-    const fromOpenLibrary = await openLibraryCover(title, author);
-    if (fromOpenLibrary && isAllowedCoverFetchUrl(fromOpenLibrary)) {
-      return fromOpenLibrary;
-    }
+    return await openLibraryCover(title, author);
   } catch {
     console.error("Book cover Open Library lookup failed");
+    return null;
   }
+}
 
-  return null;
+/**
+ * Lookup order for one cover. The route should fetch each URL and continue
+ * when the bytes fail: Airtable signatures expire, and a dead attachment
+ * must not hide the Open Library cover.
+ */
+export function bookCoverSourceAttempts(title: string, author: string) {
+  return [() => airtableCover(title, author), () => openLibraryCoverUrl(title, author)];
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { HStack, Icon, SimpleGrid, Tabs, Text, VStack } from "@chakra-ui/react";
+import { useState, type ReactNode } from "react";
+import { Box, HStack, SegmentGroup, SimpleGrid, VStack } from "@chakra-ui/react";
 import { BookOpenIcon, HeartIcon } from "@heroicons/react/24/solid";
 import sorter from "sort-isostring";
 
@@ -14,6 +15,15 @@ import type { BookSummary } from "@/types/content";
 type BooksPageProps = {
   books: BookSummary[];
 };
+
+type BookFilter = "all" | "favorites";
+
+const segmentIcon = {
+  width: 16,
+  height: 16,
+  display: "block",
+  flexShrink: 0,
+} as const;
 
 function BookGrid({
   books,
@@ -56,61 +66,99 @@ function byDateReadDescending(left: BookSummary, right: BookSummary) {
   return sorter(right.dateRead, left.dateRead);
 }
 
+function FilterIcon({ children }: { children: ReactNode }) {
+  return (
+    <Box boxSize="16px" flexShrink={0} display="flex" alignItems="center" justifyContent="center">
+      {children}
+    </Box>
+  );
+}
+
 export default function BooksPage({ books }: BooksPageProps) {
-  const tabBg = { _light: "neutral.300", _dark: "neutralD.300" };
-  const tabColor = { _light: "neutral.1100", _dark: "neutralD.1000" };
+  const [filter, setFilter] = useState<BookFilter>("all");
 
   const allBooks = books.filter((book) => book.read === true).sort(byDateReadDescending);
   const favorites = books.filter((book) => book.favorite === true).sort(byDateReadDescending);
+  const visible = filter === "favorites" ? favorites : allBooks;
+  const empty = filter === "favorites" ? uiCopy.booksFavorites : uiCopy.booksAll;
 
   return (
     <VStack gap={8}>
+      <style>{`
+        @keyframes book-cover-fade {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        .book-cover {
+          animation: book-cover-fade 240ms ease both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .book-cover { animation: none; }
+        }
+      `}</style>
       <Hero title="Books" subtitle="Take a stroll through my bookshelf" />
       <Section>
-        <Tabs.Root
-          defaultValue="all"
-          variant="subtle"
-          colorPalette="blue"
-          w="100%"
-          lazyMount
-          unmountOnExit
-        >
-          <Tabs.List display="flex" flexWrap="wrap" justifyContent="center" w="100%">
-            <Tabs.Trigger
+        <VStack gap={0}>
+          <SegmentGroup.Root
+            aria-label="Filter books"
+            name="book-filter"
+            size="md"
+            value={filter}
+            onValueChange={(details) => {
+              if (details.value === "all" || details.value === "favorites") {
+                setFilter(details.value);
+              }
+            }}
+            bg={{ _light: "neutral.300", _dark: "neutralD.400" }}
+            p="1"
+            borderRadius="lg"
+            boxShadow="none"
+          >
+            <SegmentGroup.Item
               value="all"
-              bg={tabBg}
-              color={tabColor}
-              _selected={{ color: "blue.800", bg: "blue.100" }}
-              mr={2}
+              minW="9rem"
+              justifyContent="center"
+              borderRadius="md"
+              bg="transparent"
+              color={{ _light: "neutral.1100", _dark: "neutralD.1100" }}
+              _checked={{
+                bg: { _light: "neutral.1100!", _dark: "neutralD.1100!" },
+                color: { _light: "white", _dark: "neutralD.50" },
+              }}
+              _before={{ display: "none" }}
             >
-              <HStack gap={1}>
-                <Icon asChild>
-                  <BookOpenIcon />
-                </Icon>
-                <Text>All</Text>
+              <HStack gap="1.5">
+                <FilterIcon>
+                  <BookOpenIcon width={16} height={16} aria-hidden style={segmentIcon} />
+                </FilterIcon>
+                <SegmentGroup.ItemText>All</SegmentGroup.ItemText>
               </HStack>
-            </Tabs.Trigger>
-            <Tabs.Trigger
+              <SegmentGroup.ItemHiddenInput />
+            </SegmentGroup.Item>
+            <SegmentGroup.Item
               value="favorites"
-              bg={tabBg}
-              color={tabColor}
-              _selected={{ color: "red.800", bg: "red.100" }}
+              minW="9rem"
+              justifyContent="center"
+              borderRadius="md"
+              bg="transparent"
+              color={{ _light: "neutral.1100", _dark: "neutralD.1100" }}
+              _checked={{
+                bg: { _light: "neutral.1100!", _dark: "neutralD.1100!" },
+                color: { _light: "white", _dark: "neutralD.50" },
+              }}
+              _before={{ display: "none" }}
             >
-              <HStack gap={1}>
-                <Icon asChild>
-                  <HeartIcon />
-                </Icon>
-                <Text>Favorites</Text>
+              <HStack gap="1.5">
+                <FilterIcon>
+                  <HeartIcon width={16} height={16} aria-hidden style={segmentIcon} />
+                </FilterIcon>
+                <SegmentGroup.ItemText>Favorites</SegmentGroup.ItemText>
               </HStack>
-            </Tabs.Trigger>
-          </Tabs.List>
-          <Tabs.Content value="all" px={0}>
-            <BookGrid books={allBooks} empty={uiCopy.booksAll} />
-          </Tabs.Content>
-          <Tabs.Content value="favorites" px={0}>
-            <BookGrid books={favorites} empty={uiCopy.booksFavorites} />
-          </Tabs.Content>
-        </Tabs.Root>
+              <SegmentGroup.ItemHiddenInput />
+            </SegmentGroup.Item>
+          </SegmentGroup.Root>
+          <BookGrid books={visible} empty={empty} />
+        </VStack>
       </Section>
     </VStack>
   );
