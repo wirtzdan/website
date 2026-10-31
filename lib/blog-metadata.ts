@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import { siteMetadata } from "@/lib/site-metadata";
 import { absoluteUrl } from "@/lib/site-url";
 import type { NotionBlockWithValue, NotionRecordMapWithBlocks } from "@/types/content";
 
@@ -59,7 +60,7 @@ export function buildBlogPostMetadata(input: {
   return {
     title,
     description: finalDescription,
-    alternates: { canonical: url },
+    alternates: { ...siteMetadata.alternates, canonical: url },
     openGraph: {
       type: "article",
       url,
