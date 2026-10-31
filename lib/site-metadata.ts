@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 
+/** Canonical origin, without a trailing slash. */
+export const siteUrl = "https://danielwirtz.com";
+
 const siteTitle = "Daniel Wirtz";
 const siteDescription = "Senior Design Engineer at Giving What We Can, based in the Netherlands.";
 
 export const siteMetadata: Metadata = {
   title: { default: siteTitle, template: "%s – Daniel Wirtz" },
   description: siteDescription,
-  metadataBase: new URL("https://danielwirtz.com"),
+  metadataBase: new URL(siteUrl),
   manifest: "/static/favicons/site.webmanifest",
   icons: {
     icon: [
