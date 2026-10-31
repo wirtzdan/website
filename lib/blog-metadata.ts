@@ -1,7 +1,37 @@
 import type { Metadata } from "next";
 
+import { SITE_NAME, siteMetadata } from "@/lib/site-metadata";
 import { absoluteUrl } from "@/lib/site-url";
 import type { NotionBlockWithValue, NotionRecordMapWithBlocks } from "@/types/content";
+
+const MAX_DESCRIPTION_LENGTH = 160;
+
+/**
+ * Shortens text to at most `max` characters. Prefers ending on a full sentence;
+ * otherwise cuts at the last word boundary and adds "…".
+ */
+export function trimDescription(text: string, max = MAX_DESCRIPTION_LENGTH): string {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (normalized.length <= max) {
+    return normalized;
+  }
+
+  const window = normalized.slice(0, max);
+  const sentenceEnd = Math.max(
+    window.lastIndexOf(". "),
+    window.lastIndexOf("! "),
+    window.lastIndexOf("? "),
+  );
+  // Only settle for a sentence if it keeps most of the description.
+  if (sentenceEnd >= max / 2) {
+    return window.slice(0, sentenceEnd + 1);
+  }
+
+  const room = normalized.slice(0, max - 1);
+  const wordEnd = room.lastIndexOf(" ");
+  const cut = wordEnd > 0 ? room.slice(0, wordEnd) : room;
+  return `${cut.replace(/[\s,;:.!?–—-]+$/, "")}…`;
+}
 
 export const getDescriptionFromRecordMap = (recordMap?: NotionRecordMapWithBlocks | null) => {
   if (!recordMap) {
@@ -26,54 +56,59 @@ export const getDescriptionFromRecordMap = (recordMap?: NotionRecordMapWithBlock
     return undefined;
   }
 
-  return extractedDescription.length > 160
-    ? `${extractedDescription.slice(0, 157)}...`
-    : extractedDescription;
+  return trimDescription(extractedDescription);
 };
+
+export const SOCIAL_CARD_SIZE = { width: 1200, height: 630 };
+
+/** URL of the generated title card used when a post has no Notion "Social Image". */
+export const blogCardUrl = (slug: string) => absoluteUrl(`/og/blog/${slug}`);
+
+export function blogPostImage(post: { title: string; slug: string; socialImage?: string | null }) {
+  return {
+    url: post.socialImage || blogCardUrl(post.slug),
+    ...SOCIAL_CARD_SIZE,
+    alt: post.title,
+  };
+}
 
 export function buildBlogPostMetadata(input: {
   title: string;
   description?: string | null;
   publishDate: string;
+  modifiedDate?: string | null;
   slug: string;
   socialImage?: string | null;
   recordMap?: NotionRecordMapWithBlocks | null;
 }): Metadata {
-  const { title, description, publishDate, slug, socialImage, recordMap } = input;
+  const { title, description, publishDate, modifiedDate, slug, socialImage, recordMap } = input;
   const url = absoluteUrl(`/blog/${slug}`);
-  const date = new Date(publishDate).toISOString();
+  const publishedTime = new Date(publishDate).toISOString();
+  const modifiedTime = modifiedDate ? new Date(modifiedDate).toISOString() : publishedTime;
   const finalDescription = description ?? getDescriptionFromRecordMap(recordMap);
-
-  const images =
-    socialImage != null && socialImage !== ""
-      ? [
-          {
-            url: socialImage,
-            width: 1200,
-            height: 630,
-            alt: `${title} social image`,
-          },
-        ]
-      : [];
+  const socialTitle = `${title} – ${SITE_NAME}`;
+  const image = blogPostImage({ title, slug, socialImage });
 
   return {
     title,
     description: finalDescription,
     alternates: { canonical: url },
     openGraph: {
+      ...siteMetadata.openGraph,
       type: "article",
       url,
-      title,
+      title: socialTitle,
       description: finalDescription,
-      publishedTime: date,
-      modifiedTime: date,
-      images,
+      publishedTime,
+      modifiedTime,
+      authors: [absoluteUrl("/about")],
+      images: [image],
     },
     twitter: {
-      card: "summary_large_image",
-      title,
+      ...siteMetadata.twitter,
+      title: socialTitle,
       description: finalDescription,
-      images: socialImage ? [socialImage] : undefined,
+      images: [image],
     },
   };
 }
