@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import BlogArticleJsonLd from "@/components/blog-article-json-ld";
+import JsonLd from "@/components/json-ld";
 import NotionPage from "@/components/notion-page";
 import BlogLayout from "@/layouts/blog";
 import { buildBlogPostMetadata, getDescriptionFromRecordMap } from "@/lib/blog-metadata";
+import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
 import { getBlogPosts, getPageByPageId } from "@/lib/notion/api";
-import { absoluteUrl } from "@/lib/site-url";
 
 export const revalidate = 3600;
 
@@ -31,6 +31,7 @@ export async function generateMetadata({
     title: post.title,
     description: post.description,
     publishDate: post.publishDate,
+    modifiedDate: post.modifiedDate,
     slug: post.slug,
     socialImage: post.socialImage ?? null,
     recordMap: recordMap ?? undefined,
@@ -57,12 +58,15 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return (
     <>
-      <BlogArticleJsonLd
-        title={post.title}
-        description={description}
-        publishDate={post.publishDate}
-        url={absoluteUrl(`/blog/${post.slug}`)}
-        socialImage={post.socialImage}
+      <JsonLd
+        data={[
+          blogPostingJsonLd({ ...post, description }),
+          breadcrumbJsonLd([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
       />
       <BlogLayout post={postWithSocial} recordMap={postPage}>
         <NotionPage recordMap={postPage} />
