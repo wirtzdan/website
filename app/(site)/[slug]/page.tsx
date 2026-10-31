@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 
 import NotionPage from "@/components/notion-page";
 import PageLayout from "@/layouts/page";
+import { getDescriptionFromRecordMap } from "@/lib/blog-metadata";
 import { getAllPages, getPageByPageId } from "@/lib/notion/api";
-import { pageUrls } from "@/lib/page-metadata";
+import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const revalidate = 3600;
 
@@ -19,10 +20,11 @@ export async function generateMetadata({
   if (!page) {
     return { title: "Page" };
   }
-  return {
-    title: page.title,
-    ...pageUrls(`/${page.slug}`),
-  };
+  const description =
+    page.description ??
+    getDescriptionFromRecordMap(await getPageByPageId(page.id)) ??
+    `${page.title} – a page on danielwirtz.com, the personal website of Daniel Wirtz.`;
+  return buildPageMetadata({ title: page.title, description, path: `/${page.slug}` });
 }
 
 export async function generateStaticParams() {

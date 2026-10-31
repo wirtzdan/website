@@ -34,7 +34,7 @@ export default function HomePage({ posts }: HomePageProps) {
                 Hey there. 👋
               </Heading>
               <Button variant="ghost" size={["sm", "md"]} asChild>
-                <NextLink href="/about">
+                <NextLink href="/about" aria-label="Read more about me">
                   Read more
                   <Icon asChild>
                     <ArrowUpRightIcon />

@@ -59,10 +59,24 @@ test("includes an unpublished Notion page and records that it is unpublished", (
     id: "page-1",
     title: "About",
     slug: "hello",
+    description: null,
     isPublished: false,
     showNavigation: false,
     readURL: "/hello",
   });
+});
+
+test("maps a Notion page's Description", () => {
+  const page = mapNotionGenericPage({
+    id: "page-1",
+    properties: {
+      Name: { type: "title", title: [{ plain_text: "About" }] },
+      Slug: slug,
+      Description: { type: "rich_text", rich_text: [{ plain_text: "All about me." }] },
+    },
+  });
+
+  expect(page?.description).toBe("All about me.");
 });
 
 test("drops a page row with no title", () => {
