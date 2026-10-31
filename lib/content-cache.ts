@@ -23,7 +23,7 @@ export type ContentCacheTag = (typeof CONTENT_CACHE_TAGS)[keyof typeof CONTENT_C
 
 const ALLOWED_TAGS = new Set<string>(Object.values(CONTENT_CACHE_TAGS));
 
-/** Listing routes whose HTML should refresh with the data cache. */
+/** Listing routes (and the sitemap) that should refresh with the data cache. */
 export const CONTENT_INDEX_PATHS = [
   "/",
   "/blog",
@@ -32,6 +32,7 @@ export const CONTENT_INDEX_PATHS = [
   "/tools",
   "/newsletter",
   "/bookmarks",
+  "/sitemap.xml",
 ] as const;
 
 /**
