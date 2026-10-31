@@ -30,6 +30,7 @@ function MobileMenuItem({ href, title }: MobileMenuItemProps) {
   return (
     <Button
       asChild
+      type={undefined}
       variant="ghost"
       display="flex"
       alignItems="center"

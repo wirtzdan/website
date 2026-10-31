@@ -33,9 +33,9 @@ export default function HomePage({ posts }: HomePageProps) {
               <Heading as="h1" size="lg">
                 Hey there. 👋
               </Heading>
-              <Button variant="ghost" size={["sm", "md"]} asChild>
-                <NextLink href="/about" aria-label="Read more about me">
-                  Read more
+              <Button variant="ghost" size={["sm", "md"]} asChild type={undefined}>
+                <NextLink href="/about">
+                  More about me
                   <Icon asChild>
                     <ArrowUpRightIcon />
                   </Icon>
@@ -58,9 +58,9 @@ export default function HomePage({ posts }: HomePageProps) {
         <VStack align="start" gap={8}>
           <HStack justify="space-between" w="100%" align="center">
             <Heading size="lg">Latest Posts</Heading>
-            <Button size={["sm", "md"]} variant="ghost" asChild>
+            <Button size={["sm", "md"]} variant="ghost" asChild type={undefined}>
               <NextLink href="/blog">
-                View all
+                All posts
                 <Icon asChild>
                   <ArrowUpRightIcon />
                 </Icon>

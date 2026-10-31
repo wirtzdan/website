@@ -17,6 +17,7 @@ const FooterLink = ({ href, name }: FooterLinkProps) => {
       _hover={{ color: { _light: "neutral.1100", _dark: "neutralD.1100" } }}
       unstyled
       asChild
+      type={undefined}
     >
       <NextLink href={href}>{name}</NextLink>
     </Button>
@@ -31,6 +32,7 @@ const Footer = () => {
         <HStack gap={4}>
           <IconButton
             asChild
+            type={undefined}
             size="sm"
             variant="ghost"
             aria-label="Twitter"
@@ -42,6 +44,7 @@ const Footer = () => {
           </IconButton>
           <IconButton
             asChild
+            type={undefined}
             size="sm"
             variant="ghost"
             aria-label="LinkedIn"
@@ -57,6 +60,7 @@ const Footer = () => {
           </IconButton>
           <IconButton
             asChild
+            type={undefined}
             size="sm"
             variant="ghost"
             aria-label="GitHub"
@@ -68,6 +72,7 @@ const Footer = () => {
           </IconButton>
           <IconButton
             asChild
+            type={undefined}
             size="sm"
             variant="ghost"
             aria-label="YouTube"
