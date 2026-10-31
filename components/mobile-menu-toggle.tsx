@@ -86,6 +86,7 @@ const MobileMenuToggle = () => {
                     <HStack gap={2}>
                       <IconButton
                         asChild
+                        type={undefined}
                         aria-label="Twitter"
                         size={{ base: "lg", md: "sm" }}
                         variant="ghost"
@@ -101,6 +102,7 @@ const MobileMenuToggle = () => {
                       </IconButton>
                       <IconButton
                         asChild
+                        type={undefined}
                         aria-label="LinkedIn"
                         size={{ base: "lg", md: "sm" }}
                         variant="ghost"
@@ -116,6 +118,7 @@ const MobileMenuToggle = () => {
                       </IconButton>
                       <IconButton
                         asChild
+                        type={undefined}
                         aria-label="GitHub"
                         size={{ base: "lg", md: "sm" }}
                         variant="ghost"
@@ -131,6 +134,7 @@ const MobileMenuToggle = () => {
                       </IconButton>
                       <IconButton
                         asChild
+                        type={undefined}
                         aria-label="YouTube"
                         size={{ base: "lg", md: "sm" }}
                         variant="ghost"

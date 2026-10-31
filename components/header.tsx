@@ -39,6 +39,7 @@ function NavLink({ href, name, ...rest }: NavLinkProps) {
       px={4}
       {...rest}
       asChild
+      type={undefined}
     >
       <NextLink href={href}>{name}</NextLink>
     </Button>
