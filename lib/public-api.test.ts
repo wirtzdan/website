@@ -1,4 +1,4 @@
-import { afterEach, expect, test, vi } from "vite-plus/test";
+import { afterEach, beforeEach, expect, test, vi } from "vite-plus/test";
 
 import { POST as postSubscriber } from "../app/api/addSubscriber/route";
 import { POST as postSuggestion } from "../app/api/sendSuggestion/route";
@@ -15,9 +15,16 @@ import {
   resetPublicApiRateLimitsForTests,
 } from "@/lib/public-api";
 
+beforeEach(() => {
+  vi.stubEnv("BUTTONDOWN_API_KEY", "test-buttondown-key");
+  vi.stubEnv("UPSTASH_REDIS_REST_URL", undefined);
+  vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", undefined);
+});
+
 afterEach(() => {
   resetPublicApiRateLimitsForTests();
   vi.restoreAllMocks();
+  vi.unstubAllEnvs();
 });
 
 function post(path: string, body: unknown, ip = "203.0.113.10") {
