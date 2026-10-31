@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import { SITE_NAME, SITE_TAGLINE, siteMetadata } from "@/lib/site-metadata";
 import { absoluteUrl } from "@/lib/site-url";
 
-// Next.js merges metadata shallowly, so a page that sets `openGraph` or
-// `twitter` replaces the root object. Spread the site defaults back in and
+// Next.js merges metadata shallowly, so a page that sets `alternates` (which
+// carries the RSS link), `openGraph` or `twitter` replaces the root object. Spread the site defaults back in and
 // override only what is page-specific.
 export function buildPageMetadata(input: {
   title: string;
@@ -19,7 +19,7 @@ export function buildPageMetadata(input: {
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: url },
+    alternates: { ...siteMetadata.alternates, canonical: url },
     openGraph: { ...siteMetadata.openGraph, url, title: socialTitle, description },
     twitter: { ...siteMetadata.twitter, title: socialTitle, description },
   };

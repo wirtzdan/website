@@ -1,46 +1,83 @@
-import sorter from "sort-isostring";
-import type { FieldSet } from "airtable";
+import type { BlogPostSummary } from "@/types/content";
 
-import type { AirtableRecord } from "@/types/content";
+import { absoluteUrl } from "@/lib/site-url";
 
-interface RssPostFields extends FieldSet {
-  slug?: string;
-  title?: string;
-  description?: string;
-  publishDate?: string;
-  status?: string;
-}
+const FEED_TITLE = "Blog – Daniel Wirtz";
+const FEED_DESCRIPTION = "Helpful tools, thoughtful articles and other findings from the web.";
 
-const generateRssItem = (post: AirtableRecord<RssPostFields>) => `
-  <item>
-    <guid>https://danielwirtz.com/blog/${post.fields.slug}</guid>
-    <title>${post.fields.title}</title>
-    <link>https://danielwirtz.com/blog/${post.fields.slug}</link>
-    <description>${post.fields.description}</description>
-    <pubDate>${new Date(post.fields.publishDate ?? "").toUTCString()}</pubDate>
-  </item>
-`;
-
-const generateRss = (posts: AirtableRecord<RssPostFields>[]) => {
-  const sortedPosts = posts
-    .filter((post) => post.fields.status === "Published")
-    .sort((left, right) => sorter(right.fields.publishDate ?? "", left.fields.publishDate ?? ""));
-
-  const latestPublishDate = sortedPosts[0]?.fields.publishDate ?? new Date().toISOString();
-
-  return `
-  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-    <channel>
-      <title>Blog - Daniel Wirtz</title>
-      <link>https://danielwirtz.com/blog</link>
-      <description>Senior Design Engineer at Giving What We Can.</description>
-      <language>en</language>
-      <lastBuildDate>${new Date(latestPublishDate).toUTCString()}</lastBuildDate>
-      <atom:link href="https://danielwirtz.com/rss.xml" rel="self" type="application/rss+xml"/>
-      ${sortedPosts.map(generateRssItem).join("")}
-    </channel>
-  </rss>
-`;
+const XML_ENTITIES: Record<string, string> = {
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&apos;",
 };
 
-export default generateRss;
+/** Escapes text for XML and drops characters XML 1.0 does not allow. */
+export function escapeXml(value: string): string {
+  return value
+    .replace(/[^\t\n\r\u0020-\uD7FF\uE000-\uFFFD\u{10000}-\u{10FFFF}]/gu, "")
+    .replace(/[&<>"']/g, (char) => XML_ENTITIES[char]);
+}
+
+function toRfc822(date: string): string | null {
+  const time = new Date(date).getTime();
+  return Number.isNaN(time) ? null : new Date(time).toUTCString();
+}
+
+function latestEdit(posts: readonly BlogPostSummary[]): Date | null {
+  const times = posts
+    .map((post) => new Date(post.modifiedDate ?? post.publishDate).getTime())
+    .filter((time) => !Number.isNaN(time));
+  return times.length > 0 ? new Date(Math.max(...times)) : null;
+}
+
+/** Published posts only (same filter as /blog), newest first. */
+export function feedPosts(posts: readonly BlogPostSummary[]): BlogPostSummary[] {
+  return posts
+    .filter((post) => post.isPublished)
+    .sort(
+      (left, right) => new Date(right.publishDate).getTime() - new Date(left.publishDate).getTime(),
+    );
+}
+
+function renderItem(post: BlogPostSummary): string {
+  const url = escapeXml(absoluteUrl(`/blog/${post.slug}`));
+  const pubDate = toRfc822(post.publishDate);
+  return [
+    "    <item>",
+    `      <title>${escapeXml(post.title)}</title>`,
+    `      <link>${url}</link>`,
+    `      <guid isPermaLink="true">${url}</guid>`,
+    pubDate ? `      <pubDate>${pubDate}</pubDate>` : null,
+    post.description ? `      <description>${escapeXml(post.description)}</description>` : null,
+    "    </item>",
+  ]
+    .filter((line) => line !== null)
+    .join("\n");
+}
+
+/**
+ * RSS 2.0 for every published blog post. `lastBuildDate` is the latest post
+ * edit, so the body only changes when the posts do.
+ */
+export function buildRssFeed(posts: readonly BlogPostSummary[], now = new Date()): string {
+  const items = feedPosts(posts);
+  const lastBuildDate = (latestEdit(items) ?? now).toUTCString();
+
+  return [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "  <channel>",
+    `    <title>${escapeXml(FEED_TITLE)}</title>`,
+    `    <link>${absoluteUrl("/blog")}</link>`,
+    `    <description>${escapeXml(FEED_DESCRIPTION)}</description>`,
+    "    <language>en</language>",
+    `    <lastBuildDate>${lastBuildDate}</lastBuildDate>`,
+    `    <atom:link href="${absoluteUrl("/rss.xml")}" rel="self" type="application/rss+xml"/>`,
+    ...items.map(renderItem),
+    "  </channel>",
+    "</rss>",
+    "",
+  ].join("\n");
+}

@@ -21,6 +21,9 @@ export const siteMetadata: Metadata = {
   description: siteDescription,
   metadataBase: new URL(SITE_URL),
   manifest: "/static/favicons/site.webmanifest",
+  alternates: {
+    types: { "application/rss+xml": [{ url: "/rss.xml", title: "Blog – Daniel Wirtz" }] },
+  },
   icons: {
     icon: [
       { url: "/static/favicons/favicon-32x32.png", sizes: "32x32", type: "image/png" },

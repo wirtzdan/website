@@ -92,7 +92,7 @@ export function buildBlogPostMetadata(input: {
   return {
     title,
     description: finalDescription,
-    alternates: { canonical: url },
+    alternates: { ...siteMetadata.alternates, canonical: url },
     openGraph: {
       ...siteMetadata.openGraph,
       type: "article",
