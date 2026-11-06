@@ -54,6 +54,12 @@ const linkRecipe = defineRecipe({
 
 const config = defineConfig({
   globalCss: {
+    // One focus ring everywhere: links and controls without a recipe get it
+    // here, and recipe-styled ones pick it up through gray.focusRing below.
+    "*": {
+      focusVisibleRing: "outside",
+      focusRingColor: "blue.500",
+    },
     html: {
       scrollBehavior: { base: "auto", _motionSafe: "smooth" },
       "--safe-top": "env(safe-area-inset-top, 0px)",
@@ -114,6 +120,13 @@ const config = defineConfig({
         neutralD: radixNeutralDark,
         primary: radixPrimary,
         primaryD: radixPrimaryDark,
+      },
+    },
+    semanticTokens: {
+      colors: {
+        gray: {
+          focusRing: { value: "{colors.blue.500}" },
+        },
       },
     },
     recipes: {
