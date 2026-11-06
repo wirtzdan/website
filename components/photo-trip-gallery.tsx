@@ -127,7 +127,7 @@ export default function PhotoTripGallery({
           position="fixed"
           inset={0}
           zIndex={200}
-          bg="blackAlpha.800"
+          bg={{ base: "black", md: "blackAlpha.800" }}
           display="flex"
           alignItems="center"
           justifyContent="center"
