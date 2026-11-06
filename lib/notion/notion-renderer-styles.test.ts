@@ -58,3 +58,7 @@ test("notion headings step down one size below md", () => {
 test("long notion links wrap instead of widening the page", () => {
   expect(ruleBody(".notion-link")).toContain("overflow-wrap: anywhere;");
 });
+
+test("code blocks are smaller than body text", () => {
+  expect(ruleBody(".notion pre")).toContain("font-size: 0.875rem;");
+});

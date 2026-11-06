@@ -926,6 +926,12 @@ html.dark .notion-asset-wrapper img,
   font-size: 85%;
 }
 
+/* Code blocks render through components/codeblock, a bare <pre> that would
+   otherwise inherit the 1.2em body size. */
+.notion pre {
+  font-size: 0.875rem;
+}
+
 .notion-code {
   position: relative;
   width: 100%;
