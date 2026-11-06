@@ -27,7 +27,7 @@ const FooterLink = ({ href, name }: FooterLinkProps) => {
 
 const Footer = () => {
   return (
-    <Container>
+    <Container as="footer">
       <HStack justify="space-between" w="100%" display={{ base: "none", md: "flex" }} my={8}>
         <FooterLink href="mailto:daniel@danielwirtz.com" name="Contact" />
         <HStack gap={4}>
