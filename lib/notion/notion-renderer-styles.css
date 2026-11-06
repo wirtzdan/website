@@ -485,6 +485,19 @@ html.dark,
   margin-top: 1em;
 }
 
+/* Step headings down one size on phones so they don't rival the title. */
+@media (max-width: 47.999em) {
+  .notion-h1 {
+    font-size: 1.5em;
+  }
+  .notion-h2 {
+    font-size: 1.25em;
+  }
+  .notion-h3 {
+    font-size: 1.125em;
+  }
+}
+
 .notion-h:hover .notion-hash-link {
   opacity: 1;
 }

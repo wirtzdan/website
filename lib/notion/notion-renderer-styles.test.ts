@@ -47,3 +47,10 @@ test("inline code uses the body text colour, not the low-contrast Notion red", (
   expect(ruleBody(".notion-inline-code")).toContain("color: inherit;");
   expect(stylesheet).not.toContain("#eb5757");
 });
+
+test("notion headings step down one size below md", () => {
+  const mobile = stylesheet.match(
+    /@media \(max-width: 47\.999em\) \{\s*\.notion-h1 \{\s*font-size: 1\.5em;\s*\}\s*\.notion-h2 \{\s*font-size: 1\.25em;\s*\}/,
+  );
+  expect(mobile).not.toBeNull();
+});
