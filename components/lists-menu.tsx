@@ -26,7 +26,6 @@ const ListsMenu = () => {
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const menuButtonHoverBg = { _light: "neutral.200", _dark: "neutralD.200" };
-  const menuBg = { _light: "white", _dark: "neutralD.100" };
   const menuIconColor = { _light: "blue.500", _dark: "blue.200" };
   const triggerColor = { _light: "neutral.1100", _dark: "neutralD.1100" };
 
@@ -122,7 +121,12 @@ const ListsMenu = () => {
           }}
         >
           <Menu.Content>
-            <Menu.Item bg={menuBg} _hover={{ bg: menuButtonHoverBg }} value="item-0" asChild>
+            <Menu.Item
+              _hover={{ bg: menuButtonHoverBg }}
+              _highlighted={{ bg: menuButtonHoverBg }}
+              value="item-0"
+              asChild
+            >
               <NextLink href="/books">
                 <HStack>
                   <Icon boxSize={4.5} color={menuIconColor} asChild>
@@ -132,7 +136,12 @@ const ListsMenu = () => {
                 </HStack>
               </NextLink>
             </Menu.Item>
-            <Menu.Item bg={menuBg} _hover={{ bg: menuButtonHoverBg }} value="item-1" asChild>
+            <Menu.Item
+              _hover={{ bg: menuButtonHoverBg }}
+              _highlighted={{ bg: menuButtonHoverBg }}
+              value="item-1"
+              asChild
+            >
               <NextLink href="/bookmarks">
                 <HStack>
                   <Icon boxSize={4.5} color={menuIconColor} asChild>
@@ -142,7 +151,12 @@ const ListsMenu = () => {
                 </HStack>
               </NextLink>
             </Menu.Item>
-            <Menu.Item bg={menuBg} _hover={{ bg: menuButtonHoverBg }} value="item-2" asChild>
+            <Menu.Item
+              _hover={{ bg: menuButtonHoverBg }}
+              _highlighted={{ bg: menuButtonHoverBg }}
+              value="item-2"
+              asChild
+            >
               <NextLink href="/tools">
                 <HStack>
                   <Icon boxSize={4.5} color={menuIconColor} asChild>
