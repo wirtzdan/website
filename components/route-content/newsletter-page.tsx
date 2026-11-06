@@ -88,7 +88,7 @@ export default function NewsletterPage(_props: NewsletterPageProps) {
             </Box>
           ) : (
             <Button onClick={onOpen} variant="plain">
-              ... or see how it looks first
+              …or see how it looks first
             </Button>
           )}
         </VStack>
