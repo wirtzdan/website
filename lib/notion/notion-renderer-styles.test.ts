@@ -54,3 +54,7 @@ test("notion headings step down one size below md", () => {
   );
   expect(mobile).not.toBeNull();
 });
+
+test("long notion links wrap instead of widening the page", () => {
+  expect(ruleBody(".notion-link")).toContain("overflow-wrap: anywhere;");
+});

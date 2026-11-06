@@ -738,6 +738,7 @@ h5 .notion-link {
 
 .notion-link {
   font-weight: 400;
+  overflow-wrap: anywhere;
   color: var(--chakra-colors-primary-1000);
   -webkit-text-decoration: underline;
   text-decoration: underline;
