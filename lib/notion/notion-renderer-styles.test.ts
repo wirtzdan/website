@@ -37,3 +37,32 @@ test("notion link and page-link hover only apply to fine pointers", () => {
     expect(mediaIndex).toBeGreaterThan(-1);
   }
 });
+
+function ruleBody(selector: string) {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return stylesheet.match(new RegExp(`(?:^|\\n)${escaped} \\{([^}]+)\\}`))?.[1] ?? "";
+}
+
+test("inline code uses the body text colour, not the low-contrast Notion red", () => {
+  expect(ruleBody(".notion-inline-code")).toContain("color: inherit;");
+  expect(stylesheet).not.toContain("#eb5757");
+});
+
+test("notion headings step down one size below md", () => {
+  const mobile = stylesheet.match(
+    /@media \(max-width: 47\.999em\) \{\s*\.notion-h1 \{\s*font-size: 1\.5em;\s*\}\s*\.notion-h2 \{\s*font-size: 1\.25em;\s*\}/,
+  );
+  expect(mobile).not.toBeNull();
+});
+
+test("long notion links wrap instead of widening the page", () => {
+  expect(ruleBody(".notion-link")).toContain("overflow-wrap: anywhere;");
+});
+
+test("code blocks are smaller than body text", () => {
+  expect(ruleBody(".notion pre")).toContain("font-size: 0.875rem;");
+});
+
+test("trailing blank notion blocks are hidden", () => {
+  expect(ruleBody(".notion-blank:not(:has(~ :not(.notion-blank)))")).toContain("display: none;");
+});

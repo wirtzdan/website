@@ -485,6 +485,19 @@ html.dark,
   margin-top: 1em;
 }
 
+/* Step headings down one size on phones so they don't rival the title. */
+@media (max-width: 47.999em) {
+  .notion-h1 {
+    font-size: 1.5em;
+  }
+  .notion-h2 {
+    font-size: 1.25em;
+  }
+  .notion-h3 {
+    font-size: 1.125em;
+  }
+}
+
 .notion-h:hover .notion-hash-link {
   opacity: 1;
 }
@@ -725,6 +738,7 @@ h5 .notion-link {
 
 .notion-link {
   font-weight: 400;
+  overflow-wrap: anywhere;
   color: var(--chakra-colors-primary-1000);
   -webkit-text-decoration: underline;
   text-decoration: underline;
@@ -764,6 +778,11 @@ html.dark .notion-link,
   padding: 3px 2px;
   margin-top: 1px;
   margin-bottom: 1px;
+}
+
+/* Empty paragraphs left at the end of a page only add a gap before what follows. */
+.notion-blank:not(:has(~ :not(.notion-blank))) {
+  display: none;
 }
 
 .notion-page-link {
@@ -809,7 +828,7 @@ html.dark .notion-link,
 }
 
 .notion-inline-code {
-  color: #eb5757;
+  color: inherit;
   padding: 0.2em 0.4em;
   background: var(--bg-color-2);
   border-radius: 4px;
@@ -910,6 +929,12 @@ html.dark .notion-asset-wrapper img,
 
 .notion .notion-code {
   font-size: 85%;
+}
+
+/* Code blocks render through components/codeblock, a bare <pre> that would
+   otherwise inherit the 1.2em body size. */
+.notion pre {
+  font-size: 0.875rem;
 }
 
 .notion-code {

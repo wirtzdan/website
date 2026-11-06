@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Heading, HStack, Icon, SimpleGrid, Text, VStack } from "@chakra-ui/react";
-import { ArrowUpRightIcon } from "@heroicons/react/24/solid";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import NextLink from "next/link";
 
 import BlogListItem from "@/components/blog-list-item";
@@ -37,7 +37,7 @@ export default function HomePage({ posts }: HomePageProps) {
                 <NextLink href="/about">
                   More about me
                   <Icon asChild>
-                    <ArrowUpRightIcon />
+                    <ArrowRightIcon />
                   </Icon>
                 </NextLink>
               </Button>
@@ -57,12 +57,12 @@ export default function HomePage({ posts }: HomePageProps) {
       <Section>
         <VStack align="start" gap={8}>
           <HStack justify="space-between" w="100%" align="center">
-            <Heading size="lg">Latest Posts</Heading>
+            <Heading size="lg">Latest posts</Heading>
             <Button size={["sm", "md"]} variant="ghost" asChild type={undefined}>
               <NextLink href="/blog">
                 All posts
                 <Icon asChild>
-                  <ArrowUpRightIcon />
+                  <ArrowRightIcon />
                 </Icon>
               </NextLink>
             </Button>

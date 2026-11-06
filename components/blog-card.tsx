@@ -9,10 +9,9 @@ interface BlogCardProps {
   slug: string;
   publishDate: string;
   title: string;
-  type?: string;
 }
 
-const BlogCard = ({ slug, publishDate, title, type }: BlogCardProps) => {
+const BlogCard = ({ slug, publishDate, title }: BlogCardProps) => {
   return (
     <Link href={`/blog/${slug}`} unstyled>
       <VStack
@@ -46,10 +45,6 @@ const BlogCard = ({ slug, publishDate, title, type }: BlogCardProps) => {
             color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
           >
             <Text>Posted {format(publishDate)}</Text>
-            <Text>·</Text>
-            <HStack gap={1}>
-              <Text>{type === "Video" ? "Video" : "Article"}</Text>
-            </HStack>
           </HStack>
         </VStack>
       </VStack>
