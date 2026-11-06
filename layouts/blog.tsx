@@ -75,7 +75,7 @@ const BlogLayout = ({ children, post }: BlogLayoutProps) => {
           <div>{children}</div>
         </article>
       </Section>
-      <Section mt={8}>
+      <Section mt={{ base: 4, md: 8 }}>
         <SubscribeCard
           title="Subscribe to my blog"
           description="Helpful tools, thoughtful articles and other findings from the web. From my desk to yours."
