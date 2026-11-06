@@ -39,7 +39,7 @@ const AuthorCard = ({ readingTime = "", publishedAt, url }: AuthorCardProps) => 
           ml={2}
           variant="outline"
           size="sm"
-          minW="28"
+          minW="7.5rem"
           color={
             hasCopied
               ? { _light: "green.600", _dark: "green.200" }
