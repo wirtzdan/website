@@ -124,7 +124,7 @@ const phaseIcons: Record<string, typeof CookingPot> = {
 const BAKE_TOOLTIP =
   "Preheat Dutch ovens to 245°C / 475°F for at least 45 minutes. Bake covered, then uncover to finish browning — about 45 minutes total.";
 
-function PhaseTooltip({ content }: { content: string }) {
+function PhaseTooltip({ label, content }: { label: string; content: string }) {
   return (
     <Popover.Root positioning={{ placement: "top" }}>
       <Popover.Trigger asChild>
@@ -132,7 +132,7 @@ function PhaseTooltip({ content }: { content: string }) {
           type="button"
           size="2xs"
           variant="ghost"
-          aria-label="About this field"
+          aria-label={`About ${label}`}
           verticalAlign="middle"
           ms="1"
         >
@@ -439,7 +439,9 @@ export default function BreadPage() {
                       <Timeline.Content>
                         <Timeline.Title>
                           {step.label}
-                          {step.tooltip ? <PhaseTooltip content={step.tooltip} /> : null}
+                          {step.tooltip ? (
+                            <PhaseTooltip label={step.label} content={step.tooltip} />
+                          ) : null}
                         </Timeline.Title>
                         <Timeline.Description fontVariantNumeric="tabular-nums">
                           {formatScheduleTime(step.start)} · {formatDuration(step.minutes)}
@@ -458,7 +460,7 @@ export default function BreadPage() {
                   <Timeline.Content>
                     <Timeline.Title>
                       Bake
-                      <PhaseTooltip content={BAKE_TOOLTIP} />
+                      <PhaseTooltip label="baking" content={BAKE_TOOLTIP} />
                     </Timeline.Title>
                     <Timeline.Description fontVariantNumeric="tabular-nums">
                       {formatScheduleTime(bakeDate)}
