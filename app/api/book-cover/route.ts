@@ -1,11 +1,22 @@
 import { bookCoverSourceAttempts } from "@/lib/book-cover-source";
 import { usableCoverSources } from "@/lib/book-covers";
 
-const MISSING = { status: 404, headers: { "Cache-Control": "no-store" } } as const;
+// Covers almost never change: keep them at the edge for 30 days and serve stale
+// while revalidating, so visitors never wait on Airtable or Open Library.
+const COVER_CACHE = "public, max-age=604800, s-maxage=2592000, stale-while-revalidate=31536000";
+// Cache a miss briefly so books without covers don't rerun the slow lookup chain on every view.
+const MISSING = {
+  status: 404,
+  headers: { "Cache-Control": "public, max-age=3600, s-maxage=3600" },
+} as const;
+const UPSTREAM_TIMEOUT_MS = 5000;
 
 async function fetchCover(source: string) {
   try {
-    const upstream = await fetch(source, { cache: "no-store" });
+    const upstream = await fetch(source, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+    });
     if (!upstream.ok) {
       return null;
     }
@@ -19,7 +30,7 @@ async function fetchCover(source: string) {
       status: 200,
       headers: {
         "Content-Type": contentType,
-        "Cache-Control": "public, max-age=86400, s-maxage=604800, stale-while-revalidate=86400",
+        "Cache-Control": COVER_CACHE,
       },
     });
   } catch {

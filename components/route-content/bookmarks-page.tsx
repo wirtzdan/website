@@ -26,11 +26,12 @@ export default function BookmarksPage({ bookmarks }: BookmarksPageProps) {
           />
         ) : (
           <SimpleGrid columns={[2, 3]} gap={4}>
-            {bookmarks.items.map((bookmark) => (
+            {bookmarks.items.map((bookmark, index) => (
               <BookmarkCard
                 key={`${bookmark.link}-${bookmark.created}`}
                 title={bookmark.title}
                 cover={bookmark.cover}
+                eager={index < 3}
                 created={bookmark.created}
                 excerpt={bookmark.excerpt}
                 type={bookmark.type}

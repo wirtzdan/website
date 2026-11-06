@@ -124,6 +124,9 @@ const nextConfig = {
     prerenderEarlyExit: false,
   },
   images: {
+    // Book covers are optimized from the /api/book-cover proxy, which takes title/author
+    // query params. Every other local image stays query-free, as before.
+    localPatterns: [{ pathname: "/api/book-cover" }, { pathname: "/**", search: "" }],
     remotePatterns: [
       { protocol: "https", hostname: "dl.airtable.com", pathname: "/**" },
       { protocol: "https", hostname: "v5.airtableusercontent.com", pathname: "/**" },

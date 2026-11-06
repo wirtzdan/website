@@ -18,6 +18,10 @@ type BooksPageProps = {
 
 type BookFilter = "all" | "favorites";
 
+// Two columns on desktop: about three rows sit above the fold; the first row gets priority.
+const EAGER_COVERS = 6;
+const HIGH_PRIORITY_COVERS = 2;
+
 const segmentIcon = {
   width: 16,
   height: 16,
@@ -38,9 +42,11 @@ function BookGrid({
 
   return (
     <SimpleGrid columns={[1, 2]} gap={4} rowGap={8} mt={8}>
-      {books.map((book) => (
+      {books.map((book, index) => (
         <BookCard
           key={book.id}
+          eager={index < EAGER_COVERS}
+          highPriority={index < HIGH_PRIORITY_COVERS}
           title={book.title}
           author={book.author}
           rating={book.rating ?? undefined}
