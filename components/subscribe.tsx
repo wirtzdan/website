@@ -135,7 +135,9 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
                   bg={{ _light: "white", _dark: "neutralD.100" }}
                 />
                 {errors.email_address?.message ? (
-                  <Field.ErrorText>{errors.email_address.message}</Field.ErrorText>
+                  <Field.ErrorText color={{ _light: "red.700", _dark: "fg.error" }}>
+                    {errors.email_address.message}
+                  </Field.ErrorText>
                 ) : null}
               </Field.Root>
               <Button
