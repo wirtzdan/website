@@ -1173,7 +1173,9 @@ export default function FuseBoxPage() {
           borderBottomWidth="1px"
           borderColor={border}
         >
-          <AvatarNavigation />
+          <Box display={{ base: "none", md: "flex" }}>
+            <AvatarNavigation />
+          </Box>
           <Text
             as="h1"
             id="fuse-box-title"
