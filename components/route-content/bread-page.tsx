@@ -227,7 +227,7 @@ export default function BreadPage() {
       />
       <VStack gap={12} mt={6} align="stretch">
         <Section>
-          <SimpleGrid columns={{ base: 1, md: 3 }} gap={6} w="100%">
+          <SimpleGrid templateColumns={{ base: "1fr", md: "1.5fr 1fr 1.25fr" }} gap={6} w="100%">
             <Select.Root
               collection={recipeCollection}
               value={[recipe.id]}
