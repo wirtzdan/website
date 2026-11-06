@@ -11,10 +11,9 @@ interface BlogListItemProps {
   slug: string;
   publishDate: string;
   title: string;
-  videoLink?: string | null;
 }
 
-const BlogListItem = ({ slug, publishDate, title, videoLink }: BlogListItemProps) => {
+const BlogListItem = ({ slug, publishDate, title }: BlogListItemProps) => {
   return (
     <Link href={`/blog/${slug}`} unstyled>
       <Box {...cardStillProps}>
@@ -47,10 +46,6 @@ const BlogListItem = ({ slug, publishDate, title, videoLink }: BlogListItemProps
               color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
             >
               <Text>Posted {format(publishDate)}</Text>
-              <Text>·</Text>
-              <HStack gap={1}>
-                <Text>{videoLink ? "Video" : "Article"}</Text>
-              </HStack>
             </HStack>
           </VStack>
         </HStack>
