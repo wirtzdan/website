@@ -1,27 +1,19 @@
 "use client";
 
 import { useDisclosure } from "@/lib/use-disclosure";
-import { Avatar, Box, Button, Heading, HStack, Stack, Text, VStack } from "@chakra-ui/react";
-import sorter from "sort-isostring";
+import { Avatar, Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 
-import EmptyState from "@/components/empty-state";
-import Link from "@/components/link";
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
 import type { AirtableRecord, NewsletterFields } from "@/lib/airtable";
-import { uiCopy } from "@/lib/ui-copy";
 
 type NewsletterPageProps = {
   posts: AirtableRecord<NewsletterFields>[];
 };
 
-export default function NewsletterPage({ posts }: NewsletterPageProps) {
+// The archive list is gone (its /archive links 404), so `posts` is unused for now.
+export default function NewsletterPage(_props: NewsletterPageProps) {
   const { open, onOpen } = useDisclosure();
-  const published = posts
-    .filter((post) => post.fields.Status === "Published")
-    .sort((left, right) =>
-      sorter(right.fields["Published on"] ?? "", left.fields["Published on"] ?? ""),
-    );
 
   return (
     <Section>
@@ -98,55 +90,6 @@ export default function NewsletterPage({ posts }: NewsletterPageProps) {
             <Button onClick={onOpen} variant="plain">
               ... or see how it looks first
             </Button>
-          )}
-        </VStack>
-
-        <VStack w="full" gap={8}>
-          <Heading as="h2" size="md">
-            Read past newsletters
-          </Heading>
-          {published.length === 0 ? (
-            <EmptyState
-              minH="24"
-              title={uiCopy.newsletterArchive.title}
-              description={uiCopy.newsletterArchive.description}
-            />
-          ) : (
-            <VStack alignItems="flex-start" gap={4} w="full">
-              {published.map((post) => (
-                <Stack
-                  key={post.id}
-                  direction={["column", "row"]}
-                  justify="space-between"
-                  align="flex-start"
-                  w="full"
-                >
-                  <Link href={`/archive/${post.fields.Slug ?? ""}`} unstyled>
-                    <HStack>
-                      <Text
-                        display={["none", "block"]}
-                        fontSize="md"
-                        color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
-                      >
-                        {(post.fields.Issue ?? 0).toString().padStart(2, "0")}
-                      </Text>
-                      <Text _hover={{ textDecoration: "underline" }} fontSize="md">
-                        {post.fields.Subject}
-                      </Text>
-                    </HStack>
-                  </Link>
-                  <Text
-                    display={["none", "block"]}
-                    color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
-                    fontSize="md"
-                  >
-                    {post.fields["Published on"]
-                      ? new Date(post.fields["Published on"]).toISOString().split("T")[0]
-                      : ""}
-                  </Text>
-                </Stack>
-              ))}
-            </VStack>
           )}
         </VStack>
       </VStack>
