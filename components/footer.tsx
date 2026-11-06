@@ -15,6 +15,7 @@ const FooterLink = ({ href, name }: FooterLinkProps) => {
     <Button
       color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
       _hover={{ color: { _light: "neutral.1100", _dark: "neutralD.1100" } }}
+      textStyle="sm"
       unstyled
       asChild
       type={undefined}
