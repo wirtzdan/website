@@ -145,6 +145,7 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
                 _hover={{ bg: "blue.700" }}
                 type="submit"
                 minW="36"
+                w={{ base: "full", md: "auto" }}
                 disabled={isSubmitting}
                 loading={isSubmitting}
                 loadingText="Subscribing…"
