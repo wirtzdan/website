@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 import { Tooltip } from "@/components/ui/tooltip";
+import { playThemeSound, primeThemeSound } from "@/lib/theme-sound";
 
 import MobileMenuButton from "./mobile-menu-button";
 import { useColorMode } from "./ui/color-mode";
@@ -37,7 +38,13 @@ const ModeLabel = ({ light, dark }: { light: string; dark: string }) => (
 );
 
 const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
-  const { toggleColorMode } = useColorMode();
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  // Sound must start inside the click so browsers treat it as user-initiated.
+  const handleClick = () => {
+    playThemeSound(colorMode === "dark" ? "on" : "off");
+    toggleColorMode();
+  };
 
   return (
     <Tooltip content={<ModeLabel light="Dark mode" dark="Light mode" />}>
@@ -45,7 +52,8 @@ const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
         <MobileMenuButton
           label={<ModeLabel light="Dark Mode" dark="Light Mode" />}
           icon={<ThemeIcon />}
-          onClick={toggleColorMode}
+          onPointerDown={primeThemeSound}
+          onClick={handleClick}
         />
       ) : (
         <IconButton
@@ -53,7 +61,8 @@ const ThemeToggle = ({ mobile = false }: ThemeToggleProps) => {
           borderRadius="full"
           aria-label="Switch theme"
           color={{ _light: "neutral.1100", _dark: "neutralD.1100" }}
-          onClick={toggleColorMode}
+          onPointerDown={primeThemeSound}
+          onClick={handleClick}
         >
           <ThemeIcon />
         </IconButton>
