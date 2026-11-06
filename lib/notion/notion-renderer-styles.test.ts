@@ -37,3 +37,13 @@ test("notion link and page-link hover only apply to fine pointers", () => {
     expect(mediaIndex).toBeGreaterThan(-1);
   }
 });
+
+function ruleBody(selector: string) {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return stylesheet.match(new RegExp(`(?:^|\\n)${escaped} \\{([^}]+)\\}`))?.[1] ?? "";
+}
+
+test("inline code uses the body text colour, not the low-contrast Notion red", () => {
+  expect(ruleBody(".notion-inline-code")).toContain("color: inherit;");
+  expect(stylesheet).not.toContain("#eb5757");
+});
