@@ -1,5 +1,6 @@
 "use client";
 import React, { useCallback, useState } from "react";
+import Image from "next/image";
 import { Box, HStack, Skeleton, Text, VStack } from "@chakra-ui/react";
 import { BookOpenIcon } from "@heroicons/react/24/solid";
 import { format } from "timeago.js";
@@ -16,6 +17,10 @@ interface BookCardProps {
   isFavorite?: boolean;
   coverUrl?: string;
   dateRead?: string;
+  /** Above-the-fold card: load the cover right away instead of lazily. */
+  eager?: boolean;
+  /** First row: also raise the cover's fetch priority. */
+  highPriority?: boolean;
 }
 
 const COVER_WIDTH = 90;
@@ -27,7 +32,15 @@ const placeholderIcon = {
   display: "block",
 } as const;
 
-const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardProps) => {
+const BookCard = ({
+  title,
+  author,
+  rating = 0,
+  coverUrl,
+  dateRead,
+  eager = false,
+  highPriority = false,
+}: BookCardProps) => {
   const proxySrc = title ? bookCoverProxyPath(title, author) : undefined;
   const directSrc = durableCoverUrl(coverUrl);
   const [src, setSrc] = useState(proxySrc ?? directSrc ?? undefined);
@@ -79,14 +92,17 @@ const BookCard = ({ title, author, rating = 0, coverUrl, dateRead }: BookCardPro
           >
             {!failed ? <Skeleton position="absolute" inset="0" zIndex={0} /> : null}
             {src && !failed ? (
-              <img
+              <Image
                 className="book-cover"
                 src={src}
                 alt=""
                 width={COVER_WIDTH}
                 height={COVER_HEIGHT}
-                loading="lazy"
-                decoding="async"
+                // The proxy goes through the image optimizer (~90 KB JPEG -> a few KB WebP).
+                // The direct fallback is an external host outside remotePatterns.
+                unoptimized={src === directSrc}
+                loading={eager ? "eager" : "lazy"}
+                fetchPriority={highPriority ? "high" : undefined}
                 onError={showFallback}
                 style={{
                   position: "absolute",

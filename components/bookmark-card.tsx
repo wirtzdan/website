@@ -12,9 +12,11 @@ interface BookmarkCardProps {
   type: string;
   link: string;
   created: string;
+  /** First row: fetch the cover right away at high priority instead of lazily. */
+  eager?: boolean;
 }
 
-const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) => {
+const BookmarkCard = ({ title, cover, type, link, created, eager = false }: BookmarkCardProps) => {
   return (
     <Box asChild {...cardStillProps} color="inherit" textDecoration="none" cursor="pointer">
       <a href={link} target="_blank" rel="noopener noreferrer">
@@ -38,7 +40,14 @@ const BookmarkCard = ({ title, cover, type, link, created }: BookmarkCardProps) 
               borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
             >
               {cover ? (
-                <Image src={cover} objectFit="cover" alt={title} loading="lazy" decoding="async" />
+                <Image
+                  src={cover}
+                  objectFit="cover"
+                  alt={title}
+                  loading={eager ? "eager" : "lazy"}
+                  fetchPriority={eager ? "high" : undefined}
+                  decoding="async"
+                />
               ) : (
                 <Box />
               )}

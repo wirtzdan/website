@@ -40,9 +40,20 @@ async function loadAirtableCovers(): Promise<CoverCandidate[]> {
   }));
 }
 
-const getAirtableCovers = unstable_cache(loadAirtableCovers, ["airtable-book-covers-v1"], {
+const cachedAirtableCovers = unstable_cache(loadAirtableCovers, ["airtable-book-covers-v1"], {
   revalidate: 60 * 30,
 });
+
+// A cold /books view fires ~20 cover requests at once. Share one Airtable listing
+// between them instead of each paging the whole table (and tripping its rate limit).
+let pendingAirtableCovers: Promise<CoverCandidate[]> | null = null;
+
+function getAirtableCovers() {
+  pendingAirtableCovers ??= cachedAirtableCovers().finally(() => {
+    pendingAirtableCovers = null;
+  });
+  return pendingAirtableCovers;
+}
 
 async function openLibraryCover(title: string, author: string) {
   const query = author ? `title:"${title}" author:"${author}"` : `title:"${title}"`;
@@ -51,7 +62,10 @@ async function openLibraryCover(title: string, author: string) {
   endpoint.searchParams.set("limit", "5");
   endpoint.searchParams.set("fields", "title,author_name,cover_i");
 
-  const response = await fetch(endpoint, { next: { revalidate: 60 * 60 * 24 } });
+  const response = await fetch(endpoint, {
+    next: { revalidate: 60 * 60 * 24 },
+    signal: AbortSignal.timeout(4000),
+  });
   if (!response.ok) {
     return null;
   }
