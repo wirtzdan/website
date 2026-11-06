@@ -37,3 +37,18 @@ test("safe-area insets are available once the viewport covers the screen", () =>
   expect(layout).toContain('viewportFit: "cover"');
   expect(layout).not.toMatch(/maximumScale|userScalable/);
 });
+
+test("html paints the same background as body in both modes", () => {
+  expect(globalCss).toMatch(/"&html":\{[^}]*"background":"var\(--chakra-colors-neutral-100\)"/);
+  expect(globalCss).toContain('"&.dark":{"background":"var(--chakra-colors-neutral-d-50)"');
+});
+
+test("every focus-visible element shares one 2px blue ring with a 2px offset", () => {
+  expect(globalCss).toContain(
+    '"--focus-ring-color":"var(--chakra-colors-blue-500)","&:is(:focus-visible, [data-focus-visible])":{"outlineWidth":"var(--focus-ring-width, 2px)","outlineOffset":"var(--focus-ring-offset, 2px)"',
+  );
+  // Recipe-styled controls take their ring from the palette; gray is the default.
+  expect(JSON.stringify(theme.getTokenCss())).toContain(
+    '"--chakra-colors-gray-focus-ring":"var(--chakra-colors-blue-500)"',
+  );
+});

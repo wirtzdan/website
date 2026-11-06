@@ -5,7 +5,7 @@ import NextLink from "next/link";
 
 const AvatarNavigation = () => {
   return (
-    <NextLink href="/" aria-label="Home" style={{ display: "inline-flex" }}>
+    <NextLink href="/" aria-label="Home" style={{ display: "inline-flex", borderRadius: "9999px" }}>
       <Avatar.Root
         as="span"
         size="sm"
