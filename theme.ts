@@ -60,6 +60,10 @@ const config = defineConfig({
       "--safe-right": "env(safe-area-inset-right, 0px)",
       "--safe-bottom": "env(safe-area-inset-bottom, 0px)",
       "--safe-left": "env(safe-area-inset-left, 0px)",
+      bg: "neutral.100",
+      "&.dark": {
+        bg: "neutralD.50",
+      },
     },
     body: {
       color: { _light: "neutral.1100", _dark: "neutralD.1100" },

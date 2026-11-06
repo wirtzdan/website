@@ -37,3 +37,8 @@ test("safe-area insets are available once the viewport covers the screen", () =>
   expect(layout).toContain('viewportFit: "cover"');
   expect(layout).not.toMatch(/maximumScale|userScalable/);
 });
+
+test("html paints the same background as body in both modes", () => {
+  expect(globalCss).toMatch(/"&html":\{[^}]*"background":"var\(--chakra-colors-neutral-100\)"/);
+  expect(globalCss).toContain('"&.dark":{"background":"var(--chakra-colors-neutral-d-50)"');
+});
