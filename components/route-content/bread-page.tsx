@@ -59,7 +59,7 @@ function getFallbackRecipe(): BreadRecipe {
 }
 
 function formatBakersPercent(value: number): string {
-  return `${value}%`;
+  return `${Number(value.toFixed(2))}%`;
 }
 
 function formatGrams(value: number, decimals: number): string {
@@ -124,7 +124,7 @@ const phaseIcons: Record<string, typeof CookingPot> = {
 const BAKE_TOOLTIP =
   "Preheat Dutch ovens to 245°C / 475°F for at least 45 minutes. Bake covered, then uncover to finish browning — about 45 minutes total.";
 
-function PhaseTooltip({ content }: { content: string }) {
+function PhaseTooltip({ label, content }: { label: string; content: string }) {
   return (
     <Popover.Root positioning={{ placement: "top" }}>
       <Popover.Trigger asChild>
@@ -132,7 +132,7 @@ function PhaseTooltip({ content }: { content: string }) {
           type="button"
           size="2xs"
           variant="ghost"
-          aria-label="About this field"
+          aria-label={`About ${label}`}
           verticalAlign="middle"
           ms="1"
         >
@@ -227,7 +227,7 @@ export default function BreadPage() {
       />
       <VStack gap={12} mt={6} align="stretch">
         <Section>
-          <SimpleGrid columns={{ base: 1, md: 3 }} gap={6} w="100%">
+          <SimpleGrid templateColumns={{ base: "1fr", md: "1.5fr 1fr 1.25fr" }} gap={6} w="100%">
             <Select.Root
               collection={recipeCollection}
               value={[recipe.id]}
@@ -361,7 +361,9 @@ export default function BreadPage() {
                   <Table.Row>
                     <Table.ColumnHeader>Ingredient</Table.ColumnHeader>
                     <Table.ColumnHeader textAlign="end">Weight</Table.ColumnHeader>
-                    <Table.ColumnHeader textAlign="end">Baker&apos;s %</Table.ColumnHeader>
+                    <Table.ColumnHeader textAlign="end" whiteSpace="nowrap">
+                      Baker&apos;s %
+                    </Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -415,10 +417,7 @@ export default function BreadPage() {
             {startIsInPast ? (
               <Alert.Root status="warning" borderRadius="md">
                 <Alert.Indicator />
-                <Alert.Title>
-                  Start time is in the past. Try a later start time
-                  {recipe.id === "overnight" ? ", or switch to Saturday White Bread." : "."}
-                </Alert.Title>
+                <Alert.Title>Start time is in the past. Pick a later start time.</Alert.Title>
               </Alert.Root>
             ) : null}
 
@@ -437,7 +436,9 @@ export default function BreadPage() {
                       <Timeline.Content>
                         <Timeline.Title>
                           {step.label}
-                          {step.tooltip ? <PhaseTooltip content={step.tooltip} /> : null}
+                          {step.tooltip ? (
+                            <PhaseTooltip label={step.label} content={step.tooltip} />
+                          ) : null}
                         </Timeline.Title>
                         <Timeline.Description fontVariantNumeric="tabular-nums">
                           {formatScheduleTime(step.start)} · {formatDuration(step.minutes)}
@@ -456,7 +457,7 @@ export default function BreadPage() {
                   <Timeline.Content>
                     <Timeline.Title>
                       Bake
-                      <PhaseTooltip content={BAKE_TOOLTIP} />
+                      <PhaseTooltip label="baking" content={BAKE_TOOLTIP} />
                     </Timeline.Title>
                     <Timeline.Description fontVariantNumeric="tabular-nums">
                       {formatScheduleTime(bakeDate)}

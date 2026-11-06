@@ -59,7 +59,7 @@ function getFallbackRecipe(): PizzaRecipe {
 }
 
 function formatBakersPercent(value: number): string {
-  return `${value}%`;
+  return `${Number(value.toFixed(2))}%`;
 }
 
 function formatGrams(value: number, decimals: number): string {
@@ -115,7 +115,7 @@ const phaseIcons: Record<string, typeof CookingPot> = {
 const BAKE_TOOLTIP =
   "Bake as hot as your oven allows — ideally 430–480°C / 800–900°F for 60–90 seconds in a pizza oven, or on a steel/stone at max heat.";
 
-function PhaseTooltip({ content }: { content: string }) {
+function PhaseTooltip({ label, content }: { label: string; content: string }) {
   return (
     <Popover.Root positioning={{ placement: "top" }}>
       <Popover.Trigger asChild>
@@ -123,7 +123,7 @@ function PhaseTooltip({ content }: { content: string }) {
           type="button"
           size="2xs"
           variant="ghost"
-          aria-label="About this field"
+          aria-label={`About ${label}`}
           verticalAlign="middle"
           ms="1"
         >
@@ -217,7 +217,7 @@ export default function PizzaPage() {
       />
       <VStack gap={12} mt={6} align="stretch">
         <Section>
-          <SimpleGrid columns={{ base: 1, md: 3 }} gap={6} w="100%">
+          <SimpleGrid templateColumns={{ base: "1fr", md: "1.5fr 1fr 1.25fr" }} gap={6} w="100%">
             <Select.Root
               collection={recipeCollection}
               value={[recipe.id]}
@@ -351,7 +351,9 @@ export default function PizzaPage() {
                   <Table.Row>
                     <Table.ColumnHeader>Ingredient</Table.ColumnHeader>
                     <Table.ColumnHeader textAlign="end">Weight</Table.ColumnHeader>
-                    <Table.ColumnHeader textAlign="end">Baker&apos;s %</Table.ColumnHeader>
+                    <Table.ColumnHeader textAlign="end" whiteSpace="nowrap">
+                      Baker&apos;s %
+                    </Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
@@ -406,8 +408,8 @@ export default function PizzaPage() {
               <Alert.Root status="warning" borderRadius="md">
                 <Alert.Indicator />
                 <Alert.Title>
-                  Start time is in the past. Try a later bake time, or switch to the Emergency
-                  dough.
+                  Start time is in the past. Try a later bake time
+                  {recipe.id === "emergency" ? "." : ", or switch to the Emergency dough."}
                 </Alert.Title>
               </Alert.Root>
             ) : null}
@@ -427,7 +429,9 @@ export default function PizzaPage() {
                       <Timeline.Content>
                         <Timeline.Title>
                           {step.label}
-                          {step.tooltip ? <PhaseTooltip content={step.tooltip} /> : null}
+                          {step.tooltip ? (
+                            <PhaseTooltip label={step.label} content={step.tooltip} />
+                          ) : null}
                         </Timeline.Title>
                         <Timeline.Description fontVariantNumeric="tabular-nums">
                           {formatScheduleTime(step.start)} · {formatDuration(step.minutes)}
@@ -446,7 +450,7 @@ export default function PizzaPage() {
                   <Timeline.Content>
                     <Timeline.Title>
                       Bake
-                      <PhaseTooltip content={BAKE_TOOLTIP} />
+                      <PhaseTooltip label="baking" content={BAKE_TOOLTIP} />
                     </Timeline.Title>
                     <Timeline.Description fontVariantNumeric="tabular-nums">
                       {formatScheduleTime(bakeDate)}
