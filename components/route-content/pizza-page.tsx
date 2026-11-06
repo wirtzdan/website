@@ -408,8 +408,8 @@ export default function PizzaPage() {
               <Alert.Root status="warning" borderRadius="md">
                 <Alert.Indicator />
                 <Alert.Title>
-                  Start time is in the past. Try a later bake time, or switch to the Emergency
-                  dough.
+                  Start time is in the past. Try a later bake time
+                  {recipe.id === "emergency" ? "." : ", or switch to the Emergency dough."}
                 </Alert.Title>
               </Alert.Root>
             ) : null}

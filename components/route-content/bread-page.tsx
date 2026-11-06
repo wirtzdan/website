@@ -417,10 +417,7 @@ export default function BreadPage() {
             {startIsInPast ? (
               <Alert.Root status="warning" borderRadius="md">
                 <Alert.Indicator />
-                <Alert.Title>
-                  Start time is in the past. Try a later start time
-                  {recipe.id === "overnight" ? ", or switch to Saturday White Bread." : "."}
-                </Alert.Title>
+                <Alert.Title>Start time is in the past. Pick a later start time.</Alert.Title>
               </Alert.Root>
             ) : null}
 
