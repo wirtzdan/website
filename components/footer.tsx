@@ -15,6 +15,7 @@ const FooterLink = ({ href, name }: FooterLinkProps) => {
     <Button
       color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}
       _hover={{ color: { _light: "neutral.1100", _dark: "neutralD.1100" } }}
+      textStyle="sm"
       unstyled
       asChild
       type={undefined}
@@ -26,7 +27,7 @@ const FooterLink = ({ href, name }: FooterLinkProps) => {
 
 const Footer = () => {
   return (
-    <Container>
+    <Container as="footer">
       <HStack justify="space-between" w="100%" display={{ base: "none", md: "flex" }} my={8}>
         <FooterLink href="mailto:daniel@danielwirtz.com" name="Contact" />
         <HStack gap={4}>
