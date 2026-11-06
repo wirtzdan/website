@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 interface MobileMenuItemProps {
   href: string;
   title: string;
+  onClick?: () => void;
 }
 
 function isMenuPathActive(pathname: string, href: string) {
@@ -16,7 +17,7 @@ function isMenuPathActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function MobileMenuItem({ href, title }: MobileMenuItemProps) {
+function MobileMenuItem({ href, title, onClick }: MobileMenuItemProps) {
   const pathname = usePathname();
   const isActive = isMenuPathActive(pathname, href);
 
@@ -57,9 +58,13 @@ function MobileMenuItem({ href, title }: MobileMenuItemProps) {
       }}
     >
       {href.startsWith("mailto:") || href.startsWith("http") ? (
-        <a href={href}>{title}</a>
+        <a href={href} onClick={onClick}>
+          {title}
+        </a>
       ) : (
-        <NextLink href={href}>{title}</NextLink>
+        <NextLink href={href} onClick={onClick}>
+          {title}
+        </NextLink>
       )}
     </Button>
   );

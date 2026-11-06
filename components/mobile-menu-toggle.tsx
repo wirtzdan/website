@@ -69,15 +69,19 @@ const MobileMenuToggle = () => {
               <Drawer.Body pb="calc(1rem + var(--safe-bottom, 0px))">
                 <VStack gap={4}>
                   <VStack w="100%">
-                    <MobileMenuItem href="/" title="Home" />
+                    <MobileMenuItem href="/" title="Home" onClick={onClose} />
                     <SimpleGrid columns={1} gap={2} w="100%">
-                      <MobileMenuItem href="/about" title="About" />
-                      <MobileMenuItem href="/blog" title="Blog" />
-                      <MobileMenuItem href="/bookmarks" title="Bookmarks" />
-                      <MobileMenuItem href="/books" title="Books" />
-                      <MobileMenuItem href="/tools" title="Tools" />
-                      <MobileMenuItem href="/privacy" title="Privacy" />
-                      <MobileMenuItem href="mailto:daniel@danielwirtz.com" title="Contact" />
+                      <MobileMenuItem href="/about" title="About" onClick={onClose} />
+                      <MobileMenuItem href="/blog" title="Blog" onClick={onClose} />
+                      <MobileMenuItem href="/bookmarks" title="Bookmarks" onClick={onClose} />
+                      <MobileMenuItem href="/books" title="Books" onClick={onClose} />
+                      <MobileMenuItem href="/tools" title="Tools" onClick={onClose} />
+                      <MobileMenuItem href="/privacy" title="Privacy" onClick={onClose} />
+                      <MobileMenuItem
+                        href="mailto:daniel@danielwirtz.com"
+                        title="Contact"
+                        onClick={onClose}
+                      />
                     </SimpleGrid>
                   </VStack>
 
