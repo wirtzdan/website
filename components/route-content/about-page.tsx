@@ -27,7 +27,7 @@ export default function AboutPage() {
             </Text>
             <Text>
               I&apos;m an advocate for working and learning in public, which I&apos;m doing on and
-              off on on <Link href="https://www.linkedin.com/in/wirtzdan/">LinkedIn</Link>,{" "}
+              off on <Link href="https://www.linkedin.com/in/wirtzdan/">LinkedIn</Link>,{" "}
               <Link href="https://x.com/wirtzdan">X</Link>,{" "}
               <Link href="https://bsky.app/profile/danielwirtz.com">Bluesky</Link> and my{" "}
               <Link href="https://www.youtube.com/@wirtzdan">YouTube channel</Link>.
