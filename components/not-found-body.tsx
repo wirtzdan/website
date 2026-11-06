@@ -1,9 +1,9 @@
 "use client";
 
-import NextLink from "next/link";
 import { Center, Heading, Text, VStack } from "@chakra-ui/react";
 
 import Container from "@/components/container";
+import Link from "@/components/link";
 
 export default function NotFoundBody() {
   return (
@@ -14,7 +14,7 @@ export default function NotFoundBody() {
             404
           </Heading>
           <Text mb={8}>Page not found</Text>
-          <NextLink href="/">Return home</NextLink>
+          <Link href="/">Return home</Link>
         </VStack>
       </Center>
     </Container>
