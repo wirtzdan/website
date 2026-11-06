@@ -604,7 +604,7 @@ function EditorScroll({ children }: { children: ReactNode }) {
   return (
     <ScrollArea.Root flex={1} minH={0} h="full" variant="hover" size="sm">
       <ScrollArea.Viewport overscrollBehavior="contain">
-        <ScrollArea.Content>{children}</ScrollArea.Content>
+        <ScrollArea.Content style={{ minWidth: 0 }}>{children}</ScrollArea.Content>
       </ScrollArea.Viewport>
       <ScrollArea.Scrollbar />
     </ScrollArea.Root>
@@ -1173,7 +1173,9 @@ export default function FuseBoxPage() {
           borderBottomWidth="1px"
           borderColor={border}
         >
-          <AvatarNavigation />
+          <Box display={{ base: "none", md: "flex" }}>
+            <AvatarNavigation />
+          </Box>
           <Text
             as="h1"
             id="fuse-box-title"

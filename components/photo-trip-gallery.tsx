@@ -87,9 +87,16 @@ export default function PhotoTripGallery({
   }, [isOpen, photos.length]);
 
   useEffect(() => {
-    if (isOpen) {
-      closeRef.current?.focus();
+    if (!isOpen) {
+      return;
     }
+    const opener = document.activeElement;
+    closeRef.current?.focus();
+    return () => {
+      if (opener instanceof HTMLElement) {
+        opener.focus();
+      }
+    };
   }, [isOpen]);
 
   return (
@@ -120,7 +127,7 @@ export default function PhotoTripGallery({
           position="fixed"
           inset={0}
           zIndex={200}
-          bg="blackAlpha.800"
+          bg={{ base: "black", md: "blackAlpha.800" }}
           display="flex"
           alignItems="center"
           justifyContent="center"

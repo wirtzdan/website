@@ -21,8 +21,8 @@ const ToolCard = ({ name, image, link = "#", description, tint }: ToolCardProps)
   const imageUrl = toolIconUrl(image);
 
   return (
-    <Link href={link} unstyled>
-      <Box {...cardStillProps}>
+    <Link href={link} unstyled color="inherit">
+      <Box {...cardStillProps} h="100%">
         <HStack
           {...cardLiftProps}
           p={4}
@@ -31,6 +31,7 @@ const ToolCard = ({ name, image, link = "#", description, tint }: ToolCardProps)
           borderWidth="1px"
           borderColor={{ _light: "neutral.400", _dark: "neutralD.400" }}
           w="100%"
+          h="100%"
           textAlign="left"
           align="start"
           gap={4}

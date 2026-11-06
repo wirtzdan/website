@@ -50,9 +50,10 @@ export const deviceKindLabels: Record<DeviceKind, string> = {
 };
 
 // Chakra UI's 600 shades: saturated enough to read as a thin band and to carry white text.
+// Orange uses 700, since white on orange.600 falls short of 4.5:1.
 export const colorSwatches = [
   { name: "Blue", value: "#2563eb" },
-  { name: "Orange", value: "#ea580c" },
+  { name: "Orange", value: "#c2410c" },
   { name: "Green", value: "#16a34a" },
   { name: "Purple", value: "#9333ea" },
   { name: "Pink", value: "#db2777" },
