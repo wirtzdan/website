@@ -780,6 +780,11 @@ html.dark .notion-link,
   margin-bottom: 1px;
 }
 
+/* Empty paragraphs left at the end of a page only add a gap before what follows. */
+.notion-blank:not(:has(~ :not(.notion-blank))) {
+  display: none;
+}
+
 .notion-page-link {
   display: flex;
   color: var(--fg-color);

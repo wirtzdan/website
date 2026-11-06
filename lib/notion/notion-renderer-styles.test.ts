@@ -62,3 +62,7 @@ test("long notion links wrap instead of widening the page", () => {
 test("code blocks are smaller than body text", () => {
   expect(ruleBody(".notion pre")).toContain("font-size: 0.875rem;");
 });
+
+test("trailing blank notion blocks are hidden", () => {
+  expect(ruleBody(".notion-blank:not(:has(~ :not(.notion-blank)))")).toContain("display: none;");
+});
