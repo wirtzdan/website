@@ -351,7 +351,9 @@ export default function PizzaPage() {
                   <Table.Row>
                     <Table.ColumnHeader>Ingredient</Table.ColumnHeader>
                     <Table.ColumnHeader textAlign="end">Weight</Table.ColumnHeader>
-                    <Table.ColumnHeader textAlign="end">Baker&apos;s %</Table.ColumnHeader>
+                    <Table.ColumnHeader textAlign="end" whiteSpace="nowrap">
+                      Baker&apos;s %
+                    </Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
