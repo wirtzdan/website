@@ -142,6 +142,7 @@ const Subscribe = ({ direction = "row", ...props }: SubscribeProps) => {
               </Field.Root>
               <Button
                 colorPalette="blue"
+                _hover={{ bg: "blue.700" }}
                 type="submit"
                 minW="36"
                 disabled={isSubmitting}
