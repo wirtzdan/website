@@ -59,7 +59,7 @@ function getFallbackRecipe(): PizzaRecipe {
 }
 
 function formatBakersPercent(value: number): string {
-  return `${value}%`;
+  return `${Number(value.toFixed(2))}%`;
 }
 
 function formatGrams(value: number, decimals: number): string {
