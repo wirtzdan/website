@@ -9,7 +9,7 @@ import ThemeToggle from "./theme-toggle";
 
 const MobileNavigation = () => {
   return (
-    <Box as="nav" position="fixed" bottom={0} right={0} left={0} display="block">
+    <Box as="nav" position="fixed" bottom={0} right={0} left={0} zIndex={99} display="block">
       <HStack
         justify="space-around"
         align="center"
