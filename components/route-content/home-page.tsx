@@ -57,7 +57,7 @@ export default function HomePage({ posts }: HomePageProps) {
       <Section>
         <VStack align="start" gap={8}>
           <HStack justify="space-between" w="100%" align="center">
-            <Heading size="lg">Latest Posts</Heading>
+            <Heading size="lg">Latest posts</Heading>
             <Button size={["sm", "md"]} variant="ghost" asChild type={undefined}>
               <NextLink href="/blog">
                 All posts
