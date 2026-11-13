@@ -90,7 +90,12 @@ async function queryDatabase<T>(
   });
 }
 
-async function loadBlogPosts(): Promise<BlogPostSummary[]> {
+/**
+ * Reads the blog database straight from Notion, outside the data cache.
+ * For prerendered routes that must not pick up the data cache's hourly
+ * revalidate (see app/rss.xml/route.ts). Pages should use getBlogPosts.
+ */
+export async function loadBlogPosts(): Promise<BlogPostSummary[]> {
   return queryDatabase(blogDatabaseId, "NOTION_BLOG_DATABASE_ID is required", mapNotionBlogPost);
 }
 
