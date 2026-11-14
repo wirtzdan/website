@@ -1,13 +1,8 @@
 import NewsletterPage from "@/components/route-content/newsletter-page";
-import { getAllNewsletters } from "@/lib/airtable";
 import { newsletterMetadata } from "@/lib/page-metadata";
 
 export const metadata = newsletterMetadata;
 
-export const revalidate = 3600;
-
-export default async function Page() {
-  const posts = await getAllNewsletters();
-
-  return <NewsletterPage posts={posts} />;
+export default function Page() {
+  return <NewsletterPage />;
 }

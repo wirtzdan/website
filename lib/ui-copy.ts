@@ -16,10 +16,6 @@ export const uiCopy = {
     title: "No bookmarks here yet.",
     description: "I’m still collecting things worth saving.",
   },
-  newsletterArchive: {
-    title: "No past issues yet.",
-    description: "The first one hasn’t gone out.",
-  },
   homeLatest: {
     title: "Nothing new on the blog yet.",
     description: "Check back soon.",

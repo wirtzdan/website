@@ -5,14 +5,8 @@ import { Avatar, Box, Button, Heading, HStack, Text, VStack } from "@chakra-ui/r
 
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
-import type { AirtableRecord, NewsletterFields } from "@/lib/airtable";
 
-type NewsletterPageProps = {
-  posts: AirtableRecord<NewsletterFields>[];
-};
-
-// The archive list is gone (its /archive links 404), so `posts` is unused for now.
-export default function NewsletterPage(_props: NewsletterPageProps) {
+export default function NewsletterPage() {
   const { open, onOpen } = useDisclosure();
 
   return (
