@@ -51,8 +51,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   const postPage = await getPageByPageId(post.id);
 
+  // A failed Notion fetch is not a missing page. Throwing keeps the last good
+  // render during ISR; notFound() would cache a 404 until the next revalidate.
   if (!postPage) {
-    notFound();
+    throw new Error(`Could not load Notion page ${post.id}`);
   }
 
   const postWithSocial = { ...post, socialImage: post.socialImage ?? null };

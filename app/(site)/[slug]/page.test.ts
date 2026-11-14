@@ -18,7 +18,7 @@ vi.mock("@/lib/notion/api", () => ({
 vi.mock("@/components/notion-page", () => ({ default: () => null }));
 vi.mock("@/layouts/page", () => ({ default: () => null }));
 
-const { generateMetadata } = await import("./page");
+const { default: Page, generateMetadata } = await import("./page");
 
 const metadataFor = (slug: string): Promise<Metadata> =>
   generateMetadata({ params: Promise.resolve({ slug }) });
@@ -40,4 +40,12 @@ test("Notion pages without a Description use their first paragraph", async () =>
 
 test("Notion pages without text get a page-specific fallback", async () => {
   expect((await metadataFor("uses")).description).toContain("Uses");
+});
+
+test("a failed Notion fetch throws instead of caching a 404", async () => {
+  // getPageByPageId returns null when Notion fails. notFound() would replace the
+  // last good ISR render with a 404 (audit X2); a thrown error keeps it.
+  await expect(Page({ params: Promise.resolve({ slug: "uses" }) })).rejects.toThrow(
+    "Could not load Notion page p3",
+  );
 });
