@@ -3,11 +3,12 @@ import { Box, HStack, Image, Text, VStack } from "@chakra-ui/react";
 
 import Link from "@/components/link";
 import type { AirtableImage } from "@/types/content";
-import { toolIconUrl } from "@/lib/tool-icon";
+import { toolIconProxyPath } from "@/lib/tool-icon";
 
 import { cardLiftProps, cardStillProps } from "./card-lift";
 
 interface ToolCardProps {
+  id: string;
   name?: string;
   image?: AirtableImage[];
   link?: string;
@@ -17,8 +18,8 @@ interface ToolCardProps {
   tint?: string;
 }
 
-const ToolCard = ({ name, image, link = "#", description, tint }: ToolCardProps) => {
-  const imageUrl = toolIconUrl(image);
+const ToolCard = ({ id, name, image, link = "#", description, tint }: ToolCardProps) => {
+  const imageUrl = toolIconProxyPath(id, image);
 
   return (
     <Link href={link} unstyled color="inherit">

@@ -6,8 +6,8 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
-      allow: ["/", "/api/book-cover"],
-      // Form and webhook endpoints. Book covers stay crawlable for /books.
+      allow: ["/", "/api/book-cover", "/api/tool-icon"],
+      // Form and webhook endpoints. Book covers and tool icons stay crawlable.
       disallow: "/api/",
     },
     sitemap: absoluteUrl("/sitemap.xml"),

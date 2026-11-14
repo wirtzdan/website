@@ -9,7 +9,7 @@ test("points crawlers at the sitemap and keeps assets crawlable", () => {
   expect(result.host).toBe("https://danielwirtz.com");
   expect(result.rules).toEqual({
     userAgent: "*",
-    allow: ["/", "/api/book-cover"],
+    allow: ["/", "/api/book-cover", "/api/tool-icon"],
     disallow: "/api/",
   });
 });
