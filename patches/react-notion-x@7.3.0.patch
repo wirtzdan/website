@@ -1,0 +1,13 @@
+diff --git a/build/index.js b/build/index.js
+index e247f7490a8971bf83ce0fd38ea38d216ec1c1e2..762751424ab35af748c9df87d4b45c470ce412a0 100644
+--- a/build/index.js
++++ b/build/index.js
+@@ -2464,7 +2464,7 @@ function Block(props) {
+           );
+         } else {
+           return /* @__PURE__ */ jsxs14(
+-            "main",
++            "div",
+             {
+               className: cs(
+                 "notion",

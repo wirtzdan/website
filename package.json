@@ -94,7 +94,8 @@
       "min-document": "2.19.2"
     },
     "patchedDependencies": {
-      "next-themes@0.4.6": "patches/next-themes@0.4.6.patch"
+      "next-themes@0.4.6": "patches/next-themes@0.4.6.patch",
+      "react-notion-x@7.3.0": "patches/react-notion-x@7.3.0.patch"
     }
   }
 }
