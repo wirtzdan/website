@@ -7,6 +7,7 @@ import type { ReactNode } from "react";
 import { useRef } from "react";
 
 import AuthorCard from "@/components/author-card";
+import { isNotionImageProxy, notionContentImageLoader } from "@/lib/next-image-hosts";
 import ReadingProgress from "@/components/reading-progress";
 import Section from "@/components/section";
 import SubscribeCard from "@/components/subscribe-card";
@@ -57,8 +58,11 @@ const BlogLayout = ({ children, post }: BlogLayoutProps) => {
                     src={post.coverImage}
                     width={2240}
                     height={1260}
-                    priority
+                    preload
                     sizes="(max-width: 672px) 100vw, 672px"
+                    {...(isNotionImageProxy(post.coverImage)
+                      ? { loader: notionContentImageLoader }
+                      : {})}
                     style={{
                       maxWidth: "100%",
                       height: "auto",

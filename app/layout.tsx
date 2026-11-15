@@ -7,9 +7,6 @@ import { THEME_COLOR, siteMetadata } from "@/lib/site-metadata";
 
 import AppProviders from "./providers";
 
-import "@/lib/notion/notion-renderer-styles.css";
-import "@/lib/notion/notion-custom-styles.css";
-
 export const metadata: Metadata = siteMetadata;
 
 export const viewport: Viewport = {

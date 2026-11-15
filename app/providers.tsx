@@ -51,7 +51,36 @@ function EmotionRegistry({ children }: { children: ReactNode }) {
 
 export default function AppProviders({ children }: { children: ReactNode }) {
   useEffect(() => {
-    clarity.init("kcefbongzq");
+    // Clarity is session analytics, not page content. Start it once the page
+    // has loaded and the main thread is idle so it does not compete with the
+    // first render on slow phones.
+    let idleHandle: number | undefined;
+    let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
+    const start = () => {
+      if (typeof window.requestIdleCallback === "function") {
+        idleHandle = window.requestIdleCallback(() => clarity.init("kcefbongzq"), {
+          timeout: 4000,
+        });
+      } else {
+        timeoutHandle = setTimeout(() => clarity.init("kcefbongzq"), 1000);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      start();
+    } else {
+      window.addEventListener("load", start, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener("load", start);
+      if (idleHandle !== undefined) {
+        window.cancelIdleCallback(idleHandle);
+      }
+      if (timeoutHandle !== undefined) {
+        clearTimeout(timeoutHandle);
+      }
+    };
   }, []);
 
   return (
