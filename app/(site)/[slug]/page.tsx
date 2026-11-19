@@ -8,6 +8,8 @@ import { getAllPages, getPageByPageId } from "@/lib/notion/api";
 import { buildPageMetadata } from "@/lib/page-metadata";
 
 export const revalidate = 3600;
+// ISR regeneration walks every nested Notion block; give it room past the 15 s function limit.
+export const maxDuration = 60;
 
 export async function generateMetadata({
   params,

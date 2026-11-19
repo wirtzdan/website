@@ -9,6 +9,8 @@ import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/json-ld";
 import { getBlogPosts, getPageByPageId } from "@/lib/notion/api";
 
 export const revalidate = 3600;
+// ISR regeneration walks every nested Notion block; give it room past the 15 s function limit.
+export const maxDuration = 60;
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();

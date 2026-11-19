@@ -20,7 +20,7 @@ import { mapNotionBook } from "./books";
 import { notionAPI, notionPrivateAPI } from "./client";
 import { NOTION_DATABASE_PAGE_SIZE, collectPaginated } from "./paginate";
 import { mapNotionPhoto, type Photo } from "./photos";
-import { withNotionRetry } from "./rate-limited-fetch";
+import { NEXT_PRODUCTION_BUILD_PHASE, withNotionRetry } from "./rate-limited-fetch";
 import { mapNotionBlogPost, mapNotionGenericPage, type NotionDatabaseItem } from "./summaries";
 
 type WrappedNotionBlock = {
@@ -150,9 +150,12 @@ const readPageByPageId = persist(loadPageByPageId, ["notion-page-record-map-v1"]
 
 /**
  * Per-request dedupe for generateMetadata and the page. A thrown Notion error
- * is not stored in the data cache. The null returned here lives only for this
- * request, so the next render tries the page again instead of 404ing until
- * the lambda goes cold.
+ * is not stored in the data cache.
+ *
+ * At runtime the error is rethrown: when an ISR regeneration throws, Next keeps
+ * serving the last good page, whereas returning null would make the route call
+ * notFound() and cache a 404 over it. During `next build` it still returns null
+ * so one failing post does not fail the deploy (see next.config.js).
  */
 export const getPageByPageId = cache(async (pageId: string): Promise<NotionRecordMap | null> => {
   try {
@@ -160,7 +163,10 @@ export const getPageByPageId = cache(async (pageId: string): Promise<NotionRecor
   } catch (error) {
     const message = error instanceof Error ? error.message : "Unknown Notion API error";
     console.error(`Error fetching page with ID ${pageId}:`, message);
-    return null;
+    if (process.env.NEXT_PHASE === NEXT_PRODUCTION_BUILD_PHASE) {
+      return null;
+    }
+    throw error;
   }
 });
 
