@@ -55,6 +55,11 @@ const readTools = persist(loadTools, ["airtable-tools-v1"], {
 
 const readCachedTools = cache(() => singleflight("airtable-tools-v1", readTools));
 
+/** Uncached. For refreshing an expired signed attachment URL only. */
+async function getFreshTools() {
+  return loadTools();
+}
+
 async function getTable<TFields extends FieldSet = FieldSet>(table: string) {
   if (table === "Tools") {
     return readCachedTools() as Promise<AirtableRecord<TFields>[]>;
@@ -146,6 +151,7 @@ async function getPostData(slug: string) {
 }
 
 export {
+  getFreshTools,
   getTable,
   getAllPosts,
   getPostData,

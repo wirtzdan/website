@@ -33,6 +33,9 @@ patchedDependencies:
   next-themes@0.4.6:
     hash: bd53b629b87c623573a4820734161918d9e5faf9a61770e1b59e8f87608bab1a
     path: patches/next-themes@0.4.6.patch
+  react-notion-x@7.3.0:
+    hash: 85e14eb5d1c1f8d97894969e339993e47f54af4a4fd65cc292ac84baf443034b
+    path: patches/react-notion-x@7.3.0.patch
 
 importers:
 
@@ -133,7 +136,7 @@ importers:
         version: 1.2.0
       react-notion-x:
         specifier: ^7.3.0
-        version: 7.3.0(@babel/runtime@7.27.1)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        version: 7.3.0(patch_hash=85e14eb5d1c1f8d97894969e339993e47f54af4a4fd65cc292ac84baf443034b)(@babel/runtime@7.27.1)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       react-palette:
         specifier: ^1.0.2
         version: 1.0.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -6118,7 +6121,7 @@ snapshots:
       react-lifecycles-compat: 3.0.4
       warning: 4.0.3
 
-  react-notion-x@7.3.0(@babel/runtime@7.27.1)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+  react-notion-x@7.3.0(patch_hash=85e14eb5d1c1f8d97894969e339993e47f54af4a4fd65cc292ac84baf443034b)(@babel/runtime@7.27.1)(@types/react@19.2.14)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@fisch0920/medium-zoom': 1.0.7
       '@matejmazur/react-katex': 3.1.3(katex@0.16.22)(react@19.2.4)

@@ -45,8 +45,10 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   const recordMap = await getPageByPageId(page.id);
 
+  // A failed Notion fetch is not a missing page. Throwing keeps the last good
+  // render during ISR; notFound() would cache a 404 until the next revalidate.
   if (!recordMap) {
-    notFound();
+    throw new Error(`Could not load Notion page ${page.id}`);
   }
 
   return (

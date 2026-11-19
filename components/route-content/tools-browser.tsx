@@ -94,6 +94,7 @@ export default function ToolsBrowser({ tools, tints }: ToolsBrowserProps) {
                       return (
                         <ToolCard
                           key={tool.id}
+                          id={tool.id}
                           name={tool.fields.Name}
                           description={tool.fields.Description}
                           image={tool.fields.Image}

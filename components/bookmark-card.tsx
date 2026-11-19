@@ -23,6 +23,7 @@ const BookmarkCard = ({ title, cover, type, link, created, eager = false }: Book
         <VStack
           {...cardLiftProps}
           w="100%"
+          h="100%"
           rounded="lg"
           borderWidth="1px"
           bg={{ _light: "white", _dark: "neutralD.100" }}
@@ -55,7 +56,7 @@ const BookmarkCard = ({ title, cover, type, link, created, eager = false }: Book
           </Box>
 
           <VStack py={2} px={4} gap={0} align="start">
-            <Text fontSize="sm" lineClamp={1} fontWeight="500">
+            <Text fontSize="sm" lineClamp={2} fontWeight="500">
               {title}
             </Text>
             <HStack gap={1}>
