@@ -24,6 +24,7 @@ const contentSecurityPolicy = [
     "https://notion.so",
     "https://file.notion.so",
     "https://secure.notion-static.com",
+    "https://img.notionusercontent.com",
     "https://prod-files-secure.s3.us-west-2.amazonaws.com",
     "https://prod-files-secure.s3.amazonaws.com",
     "https://dl.airtable.com",

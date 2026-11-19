@@ -10,8 +10,14 @@ import TweetEmbed from "react-tweet-embed";
 import type { NotionRecordMap } from "@/types/content";
 
 import Codeblock from "@/components/codeblock/codeblock";
-import NotionContentImage from "@/components/notion-content-image";
+import NotionContentImage, { NotionLeadingImageContext } from "@/components/notion-content-image";
 import { useColorMode } from "@/components/ui/color-mode";
+import { mapNotionContentImageUrl } from "@/lib/notion-image-frame";
+
+// Only pages that render Notion content need these. Importing them here instead
+// of in the root layout keeps them off the render-blocking path of every other page.
+import "@/lib/notion/notion-renderer-styles.css";
+import "@/lib/notion/notion-custom-styles.css";
 
 const Collection = dynamic(() =>
   import("react-notion-x/build/third-party/collection").then((module) => module.Collection),
@@ -51,38 +57,58 @@ interface NotionPageViewProps {
   recordMap: NotionRecordMap;
   rootPageId?: string;
   rootDomain?: string;
+  /** Src of the image likely to be the LCP element; loaded eagerly. */
+  leadingImageSrc?: string;
 }
 
-export default function NotionPageView({ recordMap, rootPageId, rootDomain }: NotionPageViewProps) {
+const mapImageUrl = (url: string, block: { id?: string; parent_table?: string }) =>
+  mapNotionContentImageUrl(url, block) ?? url;
+
+export default function NotionPageView({
+  recordMap,
+  rootPageId,
+  rootDomain,
+  leadingImageSrc,
+}: NotionPageViewProps) {
   const { colorMode } = useColorMode();
+  // The leading image loads right away, and www.notion.so answers it with a
+  // redirect to img.notionusercontent.com. Open that second connection early.
+  // React hoists this <link> into <head>.
+  const preconnectRedirectHost = leadingImageSrc?.startsWith("https://www.notion.so/image/");
 
   getPageTitle(recordMap);
 
   return (
-    <TypedNotionRenderer
-      recordMap={recordMap}
-      hideBlockId
-      darkMode={colorMode === "dark"}
-      rootDomain={rootDomain}
-      rootPageId={rootPageId}
-      previewImages
-      showTableOfContents={false}
-      showCollectionViewDropdown={false}
-      fullPage={false}
-      disableHeader
-      components={
-        {
-          nextImage: NotionContentImage,
-          nextLink: Link,
-          Code: Codeblock as React.ComponentType<{ block: NotionBlock }>,
-          Collection,
-          Equation,
-          Modal,
-          Tweet,
-          Property: () => null,
-          Header: () => null,
-        } as React.ComponentProps<typeof NotionRenderer>["components"]
-      }
-    />
+    <NotionLeadingImageContext.Provider value={leadingImageSrc}>
+      {preconnectRedirectHost ? (
+        <link rel="preconnect" href="https://img.notionusercontent.com" />
+      ) : null}
+      <TypedNotionRenderer
+        recordMap={recordMap}
+        mapImageUrl={mapImageUrl}
+        hideBlockId
+        darkMode={colorMode === "dark"}
+        rootDomain={rootDomain}
+        rootPageId={rootPageId}
+        previewImages
+        showTableOfContents={false}
+        showCollectionViewDropdown={false}
+        fullPage={false}
+        disableHeader
+        components={
+          {
+            nextImage: NotionContentImage,
+            nextLink: Link,
+            Code: Codeblock as React.ComponentType<{ block: NotionBlock }>,
+            Collection,
+            Equation,
+            Modal,
+            Tweet,
+            Property: () => null,
+            Header: () => null,
+          } as React.ComponentProps<typeof NotionRenderer>["components"]
+        }
+      />
+    </NotionLeadingImageContext.Provider>
   );
 }

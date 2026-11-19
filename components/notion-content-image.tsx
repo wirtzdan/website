@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { createContext, useContext, type CSSProperties } from "react";
 
 import {
   canUseNextImage,
@@ -20,6 +22,13 @@ type NotionContentImageProps = {
 
 const CONTENT_SIZES = "(max-width: 672px) 100vw, 672px";
 
+/**
+ * The src of the image that is likely the LCP element on this page (see
+ * leadingNotionImageSrc). That image loads eagerly with high fetch priority;
+ * every other content image stays lazy.
+ */
+export const NotionLeadingImageContext = createContext<string | undefined>(undefined);
+
 export default function NotionContentImage({
   src,
   alt,
@@ -29,9 +38,13 @@ export default function NotionContentImage({
   style,
   priority = false,
 }: NotionContentImageProps) {
+  const leadingSrc = useContext(NotionLeadingImageContext);
+
   if (!src) {
     return null;
   }
+
+  const eager = priority || (leadingSrc !== undefined && src === leadingSrc);
 
   const frameWidth = typeof width === "number" && width > 0 ? width : null;
   const frameHeight = typeof height === "number" && height > 0 ? height : null;
@@ -46,8 +59,8 @@ export default function NotionContentImage({
         height={frameHeight ?? undefined}
         className={className}
         decoding="async"
-        loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
+        loading={eager ? "eager" : "lazy"}
+        fetchPriority={eager ? "high" : "auto"}
         style={{ width: "100%", height: "auto", ...style }}
       />
     );
@@ -61,7 +74,8 @@ export default function NotionContentImage({
       height={frameHeight}
       sizes={CONTENT_SIZES}
       className={className}
-      priority={priority}
+      loading={eager ? "eager" : "lazy"}
+      fetchPriority={eager ? "high" : undefined}
       {...(isNotionImageProxy(src) ? { loader: notionContentImageLoader } : {})}
       style={{ width: "100%", height: "auto", ...style }}
     />

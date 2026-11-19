@@ -64,7 +64,52 @@ export function frameFromNotionFormat(
   return null;
 }
 
-// Same mapping react-notion-x uses before it looks up preview_images[src].
+// S3 query parameters that sign a Notion file URL. They change on every Notion
+// fetch and expire after about an hour.
+function isSignatureParam(key: string) {
+  return key.toLowerCase().startsWith("x-amz-");
+}
+
+function isNotionS3File(url: URL) {
+  return (
+    url.hostname.endsWith(".amazonaws.com") &&
+    (url.pathname.startsWith("/secure.notion-static.com") ||
+      url.hostname.startsWith("prod-files-secure"))
+  );
+}
+
+/**
+ * Drops the expiring S3 signature from a Notion file URL. Notion's image
+ * endpoint signs the file itself from the table/id permission record, so the
+ * unsigned URL keeps working and stays the same between Notion fetches.
+ */
+export function unsignedNotionFileUrl(url: string): string {
+  try {
+    const parsed = new URL(url);
+    if (!isNotionS3File(parsed)) {
+      return url;
+    }
+    for (const key of Array.from(parsed.searchParams.keys())) {
+      if (isSignatureParam(key)) {
+        parsed.searchParams.delete(key);
+      }
+    }
+    return parsed.toString();
+  } catch {
+    return url;
+  }
+}
+
+/**
+ * Maps a Notion image source to a stable www.notion.so/image URL.
+ *
+ * Mirrors react-notion-x's defaultMapImageUrl, with one difference: signed S3
+ * URLs lose their signature instead of being embedded as-is. The library
+ * version bakes the hourly signature into the src, so the URL changed on every
+ * revalidation and browsers re-downloaded every image. NotionPageView passes
+ * this function to the renderer as mapImageUrl, so the preview_images keys
+ * written here match the src the renderer asks for.
+ */
 export function mapNotionContentImageUrl(
   url: string | undefined,
   block: { id?: string; parent_table?: string },
@@ -79,21 +124,12 @@ export function mapNotionContentImageUrl(
     return url;
   }
   try {
-    const parsed = new URL(url);
-    if (
-      parsed.pathname.startsWith("/secure.notion-static.com") &&
-      parsed.hostname.endsWith(".amazonaws.com") &&
-      parsed.searchParams.has("X-Amz-Credential") &&
-      parsed.searchParams.has("X-Amz-Signature") &&
-      parsed.searchParams.has("X-Amz-Algorithm")
-    ) {
-      return url;
-    }
+    new URL(url, "https://www.notion.so");
   } catch {
     return undefined;
   }
 
-  let mapped = url;
+  let mapped = unsignedNotionFileUrl(url);
   if (mapped.startsWith("/images")) {
     mapped = `https://www.notion.so${mapped}`;
   }
@@ -131,6 +167,30 @@ export function notionImageTargets(recordMap: unknown): NotionImageTarget[] {
     }
   }
   return targets;
+}
+
+type PageBlockValue = NotionBlockValue & { content?: string[] };
+
+/**
+ * The src of an image among the first few top-level blocks of a page, if any.
+ * On a phone that image sits in or near the first viewport and is usually the
+ * LCP element, so it should load eagerly with high fetch priority.
+ */
+export function leadingNotionImageSrc(recordMap: unknown, maxBlocks = 3): string | undefined {
+  const source = recordMap as FrameRecordMap;
+  const blocks = source.block ?? {};
+  const pageId = Object.keys(blocks)[0];
+  if (!pageId) {
+    return undefined;
+  }
+  const page = unwrapBlock(blocks[pageId] as WrappedBlock | NotionBlockValue) as PageBlockValue;
+  for (const childId of (page?.content ?? []).slice(0, maxBlocks)) {
+    const child = unwrapBlock(blocks[childId] as WrappedBlock | NotionBlockValue | undefined);
+    if (child?.type === "image") {
+      return resolveImage(source, childId, child)?.src;
+    }
+  }
+  return undefined;
 }
 
 export function withNotionImageFrames<T>(recordMap: T): T {
