@@ -15,11 +15,19 @@ type NotionFetchResponse = {
 export type NotionFetch = (url: string, init?: NotionFetchInit) => Promise<NotionFetchResponse>;
 
 /**
- * Max in-flight Notion HTTP requests process-wide.
- * Keep at 1 on Vercel/CI: notion-compat fans out `blocks.children.list`, and Next
+ * Max in-flight Notion HTTP requests process-wide during `next build`.
+ * Keep at 1 there: notion-compat fans out `blocks.children.list`, and Next
  * prerenders many /blog/[slug] pages; even concurrency 2 stampedes the public API.
  */
 export const NOTION_FETCH_CONCURRENCY = 1;
+
+/**
+ * Max in-flight Notion HTTP requests at runtime (ISR regeneration, cache misses).
+ * A serial walk of a post with ~25 nested blocks took longer than the function
+ * limit. Starts stay spaced by NOTION_MIN_REQUEST_GAP_MS, so the average rate
+ * stays under ~3 req/s.
+ */
+export const NOTION_RUNTIME_FETCH_CONCURRENCY = 3;
 
 /** Attempts including the first try (HTTP layer). */
 export const NOTION_FETCH_MAX_ATTEMPTS = 4;
@@ -30,10 +38,43 @@ export const NOTION_MIN_REQUEST_GAP_MS = 350;
 const DEFAULT_RETRY_MS = 1000;
 const MAX_RETRY_MS = 60_000;
 
+export const NEXT_PRODUCTION_BUILD_PHASE = "phase-production-build";
+
+export type NotionPacing = {
+  /** Max in-flight requests. */
+  concurrency: number;
+  /** Wait after each response before the next request may start. */
+  minRequestGapMs: number;
+  /** Minimum time between two request starts, regardless of how many are in flight. */
+  minStartIntervalMs: number;
+};
+
+/**
+ * Build: one request at a time with a gap after each response (unchanged).
+ * Runtime: up to 3 in flight, with starts spaced by the same gap instead.
+ */
+export function notionPacingForPhase(phase: string | undefined): NotionPacing {
+  if (phase === NEXT_PRODUCTION_BUILD_PHASE) {
+    return {
+      concurrency: NOTION_FETCH_CONCURRENCY,
+      minRequestGapMs: NOTION_MIN_REQUEST_GAP_MS,
+      minStartIntervalMs: 0,
+    };
+  }
+  return {
+    concurrency: NOTION_RUNTIME_FETCH_CONCURRENCY,
+    minRequestGapMs: 0,
+    minStartIntervalMs: NOTION_MIN_REQUEST_GAP_MS,
+  };
+}
+
 export type RateLimitedFetchOptions = {
   concurrency?: number;
   maxAttempts?: number;
   minRequestGapMs?: number;
+  minStartIntervalMs?: number;
+  /** Next.js phase used for the defaults above. Defaults to process.env.NEXT_PHASE. */
+  phase?: string;
   /** Injected for tests. Defaults to global fetch. */
   fetchImpl?: NotionFetch;
   sleep?: (ms: number) => Promise<void>;
@@ -229,9 +270,11 @@ type AttemptResult =
  * between "release slot" and "extend cooldown".
  */
 export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): NotionFetch {
-  const concurrency = options.concurrency ?? NOTION_FETCH_CONCURRENCY;
+  const pacing = notionPacingForPhase(options.phase ?? process.env.NEXT_PHASE);
+  const concurrency = options.concurrency ?? pacing.concurrency;
   const maxAttempts = options.maxAttempts ?? NOTION_FETCH_MAX_ATTEMPTS;
-  const minRequestGapMs = options.minRequestGapMs ?? NOTION_MIN_REQUEST_GAP_MS;
+  const minRequestGapMs = options.minRequestGapMs ?? pacing.minRequestGapMs;
+  const minStartIntervalMs = options.minStartIntervalMs ?? pacing.minStartIntervalMs;
   const fetchImpl =
     options.fetchImpl ??
     (async (url, init) => {
@@ -271,8 +314,10 @@ export function createRateLimitedFetch(options: RateLimitedFetchOptions = {}): N
           return { kind: "cooldown" };
         }
 
+        // Reserve this start before awaiting so parallel callers space out.
+        nextAllowedAtMs = now() + minStartIntervalMs;
         const response = await fetchImpl(url, init);
-        nextAllowedAtMs = now() + minRequestGapMs;
+        nextAllowedAtMs = Math.max(nextAllowedAtMs, now() + minRequestGapMs);
 
         if (response.status !== 429) {
           return { kind: "ok", response };
