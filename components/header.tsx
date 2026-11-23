@@ -69,6 +69,7 @@ const Header = () => {
             <HStack as="nav" aria-label="Main" ml={-4} gap={2}>
               <NavLink href="/blog" name="Blog" />
               <NavLink href="/about" name="About" />
+              <NavLink href="/projects" name="Projects" />
               <ListsMenu />
             </HStack>
             <HStack>

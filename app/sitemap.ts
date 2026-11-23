@@ -16,6 +16,7 @@ const STATIC_ROUTES = [
   "/fuse-box",
   "/newsletter",
   "/photos",
+  "/projects",
   "/pizza",
   "/tools",
 ] as const;

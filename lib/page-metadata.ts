@@ -46,6 +46,13 @@ export const blogIndexMetadata = buildPageMetadata({
   path: "/blog",
 });
 
+export const projectsMetadata = buildPageMetadata({
+  title: "Projects",
+  description:
+    "Small apps Daniel Wirtz builds in his own time: Clipper, Markway, UploadFloorplan, Jumpstack, and Bordmate.",
+  path: "/projects",
+});
+
 export const toolsMetadata = buildPageMetadata({
   title: "Tools",
   description: "Apps and tools I use on Mac, iOS, Safari, and the web.",
