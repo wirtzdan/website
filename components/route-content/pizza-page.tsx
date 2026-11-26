@@ -19,6 +19,7 @@ import {
   Select,
   SimpleGrid,
   Table,
+  Text,
   Timeline,
   VStack,
   createListCollection,
@@ -29,6 +30,7 @@ import {
   CalendarPlus,
   Clock,
   CookingPot,
+  Drop,
   Fire,
   Hourglass,
   Info,
@@ -36,13 +38,17 @@ import {
 } from "phosphor-react";
 
 import Hero from "@/components/hero";
+import Link from "@/components/link";
 import Section from "@/components/section";
 import { buildPizzaCalendar, pizzaCalendarFileName } from "@/lib/pizza-calendar";
 import {
   buildSchedule,
+  doughIngredients,
   formatDuration,
   formatScheduleTime,
   pizzaRecipes,
+  recipeBake,
+  recipeItem,
   roundUpToNextHalfHour,
   scaleIngredients,
   sumBakersPercent,
@@ -104,16 +110,15 @@ const recipeCollection = createListCollection({
 });
 
 const phaseIcons: Record<string, typeof CookingPot> = {
+  activate: Drop,
   mix: CookingPot,
+  rise: Hourglass,
   bulk: Clock,
   rest: Hourglass,
   divide: Knife,
   proof: Hourglass,
   preheat: Fire,
 };
-
-const BAKE_TOOLTIP =
-  "Bake as hot as your oven allows — ideally 430–480°C / 800–900°F for 60–90 seconds in a pizza oven, or on a steel/stone at max heat.";
 
 function PhaseTooltip({ label, content }: { label: string; content: string }) {
   return (
@@ -146,9 +151,10 @@ function PhaseTooltip({ label, content }: { label: string; content: string }) {
 
 export default function PizzaPage() {
   const [recipeIndex, setRecipeIndex] = useState(0);
-  const recipe = pizzaRecipes[recipeIndex] ?? getFallbackRecipe();
+  const recipe: PizzaRecipe = pizzaRecipes[recipeIndex] ?? getFallbackRecipe();
+  const item = recipeItem(recipe);
 
-  const [pizzaCount, setPizzaCount] = useState(2);
+  const [pizzaCount, setPizzaCount] = useState(item.defaultCount);
   const [bakeDay, setBakeDay] = useState("");
   const [bakeTime, setBakeTime] = useState("18:00");
   const [hasManualBakeTime, setHasManualBakeTime] = useState(false);
@@ -159,7 +165,7 @@ export default function PizzaPage() {
   const ingredients = useMemo(() => scaleIngredients(recipe, pizzaCount), [recipe, pizzaCount]);
   const totals = useMemo(() => totalMinutes(recipe, {}), [recipe]);
   const totalIngredientGrams = useMemo(
-    () => ingredients.reduce((sum, ingredient) => sum + ingredient.grams, 0),
+    () => doughIngredients(ingredients).reduce((sum, ingredient) => sum + ingredient.grams, 0),
     [ingredients],
   );
 
@@ -224,7 +230,12 @@ export default function PizzaPage() {
               onValueChange={(details) => {
                 const nextId = details.value[0];
                 const index = pizzaRecipes.findIndex((entry) => entry.id === nextId);
-                if (index >= 0) {
+                const next = pizzaRecipes[index];
+                if (next) {
+                  const nextItem = recipeItem(next);
+                  if (nextItem.singular !== item.singular) {
+                    setPizzaCount(nextItem.defaultCount);
+                  }
                   setRecipeIndex(index);
                 }
               }}
@@ -254,7 +265,7 @@ export default function PizzaPage() {
             </Select.Root>
 
             <Field.Root>
-              <Field.Label>Number of pizzas</Field.Label>
+              <Field.Label>Number of {item.plural}</Field.Label>
               <NumberInput.Root
                 min={1}
                 value={String(pizzaCount)}
@@ -357,9 +368,14 @@ export default function PizzaPage() {
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
-                  {ingredients.map((ingredient) => (
+                  {doughIngredients(ingredients).map((ingredient) => (
                     <Table.Row key={ingredient.key}>
-                      <Table.Cell>{ingredient.label}</Table.Cell>
+                      <Table.Cell>
+                        {ingredient.label}
+                        {ingredient.tooltip ? (
+                          <PhaseTooltip label={ingredient.label} content={ingredient.tooltip} />
+                        ) : null}
+                      </Table.Cell>
                       <Table.Cell fontVariantNumeric="tabular-nums" textAlign="end">
                         {formatGrams(ingredient.grams, ingredient.decimals)}
                       </Table.Cell>
@@ -377,9 +393,36 @@ export default function PizzaPage() {
                       {formatBakersPercent(sumBakersPercent(recipe))}
                     </Table.Cell>
                   </Table.Row>
+                  {ingredients
+                    .filter((ingredient) => ingredient.finish)
+                    .map((ingredient) => (
+                      <Table.Row key={ingredient.key}>
+                        <Table.Cell>
+                          {ingredient.label}
+                          {ingredient.tooltip ? (
+                            <PhaseTooltip label={ingredient.label} content={ingredient.tooltip} />
+                          ) : null}
+                        </Table.Cell>
+                        <Table.Cell fontVariantNumeric="tabular-nums" textAlign="end">
+                          {formatGrams(ingredient.grams, ingredient.decimals)}
+                        </Table.Cell>
+                        <Table.Cell fontVariantNumeric="tabular-nums" textAlign="end">
+                          {formatBakersPercent(ingredient.bakersPercent)}
+                        </Table.Cell>
+                      </Table.Row>
+                    ))}
                 </Table.Body>
               </Table.Root>
             </Box>
+            {recipe.source ? (
+              <Text fontSize="sm" color="fg.muted">
+                Adapted for a pizza oven from{" "}
+                <Link href={recipe.source.url} isExternal>
+                  {recipe.source.title}
+                </Link>{" "}
+                by {recipe.source.author} on {recipe.source.site}.
+              </Text>
+            ) : null}
           </VStack>
         </Section>
 
@@ -409,7 +452,9 @@ export default function PizzaPage() {
                 <Alert.Indicator />
                 <Alert.Title>
                   Start time is in the past. Try a later bake time
-                  {recipe.id === "emergency" ? "." : ", or switch to the Emergency dough."}
+                  {recipe.id === "master" || recipe.id === "avpn"
+                    ? ", or switch to the Emergency dough."
+                    : "."}
                 </Alert.Title>
               </Alert.Root>
             ) : null}
@@ -450,7 +495,7 @@ export default function PizzaPage() {
                   <Timeline.Content>
                     <Timeline.Title>
                       Bake
-                      <PhaseTooltip label="baking" content={BAKE_TOOLTIP} />
+                      <PhaseTooltip label="baking" content={recipeBake(recipe).tooltip} />
                     </Timeline.Title>
                     <Timeline.Description fontVariantNumeric="tabular-nums">
                       {formatScheduleTime(bakeDate)}

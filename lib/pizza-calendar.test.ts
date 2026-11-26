@@ -1,7 +1,15 @@
 import { expect, test } from "vite-plus/test";
 
 import { BAKE_EVENT_MINUTES, buildPizzaCalendar, pizzaCalendarFileName } from "./pizza-calendar";
-import { PREHEAT_MINUTES, buildSchedule, getRecipeById, scaleIngredients } from "./pizza-recipes";
+import {
+  NAAN_PREHEAT_MINUTES,
+  PREHEAT_MINUTES,
+  buildSchedule,
+  getRecipeById,
+  scaleIngredients,
+  sumBakersPercent,
+  type ScheduleStep,
+} from "./pizza-recipes";
 
 const recipe = getRecipeById("emergency");
 const bakeAt = new Date("2026-08-26T18:00:00.000Z");
@@ -136,6 +144,150 @@ test("names the file from the recipe and local bake day", () => {
   expect(pizzaCalendarFileName(recipe, localBake)).toBe("pizza-emergency-2026-08-26.ics");
   expect(pizzaCalendarFileName(getRecipeById("master"), localBake)).toBe(
     "pizza-master-2026-08-26.ics",
+  );
+});
+
+const naan = getRecipeById("naan");
+
+function naanGrams(count: number): Record<string, number> {
+  return Object.fromEntries(
+    scaleIngredients(naan, count).map((ingredient) => [ingredient.key, ingredient.grams]),
+  );
+}
+
+test("pizza recipes still scale from 4 × 250 g balls", () => {
+  const master = scaleIngredients(getRecipeById("master"), 4);
+  expect(master.find((ingredient) => ingredient.key === "flour")?.grams).toBe(610);
+  expect(master.find((ingredient) => ingredient.key === "water")?.grams).toBe(380);
+});
+
+test("naan scales from the 8-piece source yield", () => {
+  expect(naanGrams(8)).toEqual({
+    flour: 300,
+    water: 120,
+    yogurt: 120,
+    oil: 14,
+    salt: 6,
+    sugar: 4,
+    yeast: 7,
+    butter: 42,
+  });
+  expect(naanGrams(4)).toMatchObject({ flour: 150, water: 60, yogurt: 60, yeast: 3.5, butter: 21 });
+  expect(naanGrams(16)).toMatchObject({ flour: 600, water: 240, yogurt: 240, salt: 12, yeast: 14 });
+});
+
+test("naan dough excludes the garlic butter finish", () => {
+  const dough = scaleIngredients(naan, 8).filter((ingredient) => !ingredient.finish);
+  expect(dough.reduce((sum, ingredient) => sum + ingredient.grams, 0)).toBe(571);
+  expect(sumBakersPercent(naan)).toBeCloseTo(190.33, 2);
+  const flour = naan.ingredients.find((ingredient) => ingredient.key === "flour");
+  expect(flour?.tooltip).toContain("300–350 g");
+});
+
+test("naan schedule works backwards from bake with a 30 min preheat over the late rise", () => {
+  const naanSchedule = buildSchedule({ recipe: naan, overrides: {}, bakeAt });
+  const minutes = (step: { start: Date; end: Date }) =>
+    (step.end.getTime() - step.start.getTime()) / 60_000;
+
+  expect(naanSchedule.map((step) => step.id)).toEqual([
+    "activate",
+    "mix",
+    "rise",
+    "divide",
+    "preheat",
+  ]);
+  const [activate, mix, rise, divide, naanPreheat] = naanSchedule as [
+    ScheduleStep,
+    ScheduleStep,
+    ScheduleStep,
+    ScheduleStep,
+    ScheduleStep,
+  ];
+  expect(minutes(activate)).toBe(10);
+  expect(minutes(mix)).toBe(10);
+  expect(minutes(rise)).toBe(60);
+  expect(divide.end.getTime()).toBe(bakeAt.getTime());
+  expect(activate.end.getTime()).toBe(mix.start.getTime());
+  expect(mix.end.getTime()).toBe(rise.start.getTime());
+  expect(rise.end.getTime()).toBe(divide.start.getTime());
+
+  expect(NAAN_PREHEAT_MINUTES).toBe(30);
+  expect(naanPreheat.minutes).toBe(30);
+  expect(naanPreheat.end.getTime()).toBe(bakeAt.getTime());
+  expect(naanPreheat.start.getTime()).toBe(bakeAt.getTime() - 30 * 60_000);
+  expect(naanPreheat.start.getTime()).toBeLessThan(rise.end.getTime());
+  expect(naanPreheat.start.getTime()).toBeGreaterThan(rise.start.getTime());
+  expect(naanPreheat.tooltip).toContain("400–450°C");
+});
+
+test("naan rise can be adjusted for climate within 45–90 min", () => {
+  const rise = (minutes: number) =>
+    buildSchedule({ recipe: naan, overrides: { rise: minutes }, bakeAt }).find(
+      (step) => step.id === "rise",
+    )?.minutes;
+  expect(rise(45)).toBe(45);
+  expect(rise(90)).toBe(90);
+  expect(rise(180)).toBe(90);
+});
+
+test("naan calendar has one event per phase plus bake with the pizza-oven method", () => {
+  const naanSchedule = buildSchedule({ recipe: naan, overrides: {}, bakeAt });
+  const ics = unfolded(
+    buildPizzaCalendar({
+      recipe: naan,
+      pizzaCount: 8,
+      ingredients: scaleIngredients(naan, 8),
+      schedule: naanSchedule,
+      bakeAt,
+      generatedAt,
+    }),
+  );
+
+  expect(ics.match(/BEGIN:VEVENT/g)?.length).toBe(naanSchedule.length + 1);
+  for (const summary of [
+    "Naan: Activate yeast",
+    "Naan: Mix & knead",
+    "Naan: Rise",
+    "Naan: Divide & shape",
+    "Naan: Preheat",
+    "Naan: Bake",
+  ]) {
+    expect(ics).toContain(`SUMMARY:${summary}`);
+  }
+  expect(ics).not.toContain("SUMMARY:Pizza:");
+
+  const mix = eventProperty(ics, "Naan: Mix & knead", "DESCRIPTION");
+  expect(mix).toContain("Naan (pizza oven) · 8 naan");
+  expect(mix).toContain("All-purpose flour: 300 g");
+  expect(mix).toContain("Plain yogurt: 120 g");
+  expect(mix).toContain("Active dry yeast: 7.0 g");
+
+  const bake = eventProperty(ics, "Naan: Bake", "DESCRIPTION");
+  expect(bake).toContain("stone");
+  expect(bake).toContain("400–450°C");
+  expect(bake).toContain("60–90 seconds");
+  expect(bake).toContain("turning once");
+  expect(bake).toContain("garlic butter");
+  expect(bake).toContain("about 30 min");
+  expect(bake.toLowerCase()).not.toContain("skillet");
+  expect(bake).not.toContain("430–480°C");
+  expect(bake).not.toContain("topping");
+  expect(eventProperty(ics, "Naan: Bake", "DTEND")).toBe(
+    toIcsUtc(new Date(bakeAt.getTime() + 15 * 60_000)),
+  );
+
+  expect(eventProperty(ics, "Naan: Activate yeast", "TRANSP")).toBe("OPAQUE");
+  expect(eventProperty(ics, "Naan: Rise", "TRANSP")).toBe("TRANSPARENT");
+  expect(eventProperty(ics, "Naan: Preheat", "TRANSP")).toBe("TRANSPARENT");
+  expect(eventHasAlarm(ics, "Naan: Activate yeast", "-PT0S")).toBe(true);
+  expect(eventHasAlarm(ics, "Naan: Preheat", "-PT0S")).toBe(true);
+  expect(eventHasAlarm(ics, "Naan: Bake", "-PT0S")).toBe(true);
+  expect(eventHasAlarm(ics, "Naan: Rise", "-PT0S")).toBe(false);
+});
+
+test("names the naan calendar file like the pizza ones", () => {
+  expect(pizzaCalendarFileName(naan, new Date(2026, 7, 26, 18, 0, 0))).toBe(
+    "pizza-naan-2026-08-26.ics",
   );
 });
 

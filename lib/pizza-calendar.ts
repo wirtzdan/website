@@ -1,5 +1,9 @@
 import {
+  BAKE_EVENT_MINUTES,
   formatDuration,
+  formatItemCount,
+  recipeBake,
+  recipeItem,
   type PizzaRecipe,
   type ScaledIngredient,
   type ScheduleStep,
@@ -10,12 +14,12 @@ const CALENDAR_SOURCE_URL = "https://danielwirtz.com/pizza";
 const ICS_PRODID = "-//Daniel Wirtz//Pizza Dough Calculator//EN";
 const ICS_LINE_LIMIT = 75;
 
-export const BAKE_EVENT_MINUTES = 45;
+export { BAKE_EVENT_MINUTES };
 /** @deprecated Prefer PREHEAT_MINUTES from pizza-recipes; kept for calendar callers. */
 export { PREHEAT_MINUTES as BAKE_PREHEAT_ALARM_MINUTES };
 
-const BUSY_STEP_IDS = new Set(["mix", "divide", "bake"]);
-const ALARM_AT_START_IDS = new Set(["mix", "divide", "preheat", "bake"]);
+const BUSY_STEP_IDS = new Set(["activate", "mix", "divide", "bake"]);
+const ALARM_AT_START_IDS = new Set(["activate", "mix", "divide", "preheat", "bake"]);
 
 export type PizzaCalendarInput = {
   recipe: PizzaRecipe;
@@ -90,7 +94,7 @@ function toCalendarEvent(args: {
     uid: eventUid({ recipeId: recipe.id, stepId: step.id, stamp }),
     start: step.start,
     end: step.end,
-    summary: `Pizza: ${step.label}`,
+    summary: `${recipeItem(recipe).title}: ${step.label}`,
     description: lines.join("\n\n"),
     busy: BUSY_STEP_IDS.has(step.id),
     alarms: alarmsFor(step.id, step.label),
@@ -104,16 +108,17 @@ function bakeCalendarEvent(args: {
   bakeAt: Date;
 }): CalendarEvent {
   const { recipe, pizzaCount, stamp, bakeAt } = args;
+  const bake = recipeBake(recipe);
   return {
     uid: eventUid({ recipeId: recipe.id, stepId: "bake", stamp }),
     start: bakeAt,
-    end: new Date(bakeAt.getTime() + BAKE_EVENT_MINUTES * 60_000),
-    summary: "Pizza: Bake",
+    end: new Date(bakeAt.getTime() + bake.eventMinutes * 60_000),
+    summary: `${recipeItem(recipe).title}: Bake`,
     description: [
       eventHeading({ recipe, pizzaCount }),
-      `About ${formatDuration(BAKE_EVENT_MINUTES)} for stretching, topping, and baking.`,
-      "Bake as hot as your oven allows — ideally 430–480°C / 800–900°F for 60–90 seconds in a pizza oven, or on a steel/stone at max heat.",
-      `Preheat for about ${formatDuration(PREHEAT_MINUTES)} so the oven is ready when bake starts.`,
+      bake.eventSummary,
+      bake.tooltip,
+      `Preheat for about ${formatDuration(bake.preheatMinutes)} so the oven is ready when bake starts.`,
     ].join("\n\n"),
     busy: true,
     alarms: alarmsFor("bake", "Bake"),
@@ -121,8 +126,7 @@ function bakeCalendarEvent(args: {
 }
 
 function eventHeading(args: { recipe: PizzaRecipe; pizzaCount: number }): string {
-  const pizzaLabel = args.pizzaCount === 1 ? "1 pizza" : `${args.pizzaCount} pizzas`;
-  return `${args.recipe.name} · ${pizzaLabel}`;
+  return `${args.recipe.name} · ${formatItemCount(args.recipe, args.pizzaCount)}`;
 }
 
 function ingredientBlock(ingredients: ScaledIngredient[]): string {
