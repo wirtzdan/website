@@ -1,3 +1,18 @@
+# danielwirtz.com
+
+## Pull requests
+
+Every feature or fix PR into `master` uses the same review package, whichever runner opens it (T3, Claude Code, a Cursor cloud agent, or a person). The contract is [`docs/pr-review-package.md`](docs/pr-review-package.md). Build it with the in-repo `create-pr-description` skill. A Linear Planning brief (Problem / Solution / Requirements / Open Questions) belongs on the Linear issue, not at the top of the PR.
+
+Use exactly these sections, in this order. Drop Testing or Visuals only when there is truly nothing to click or see (for example backend-only, or an extension change with no website preview). Never leave placeholders.
+
+1. **Summary.** One to three plain sentences on the user-facing outcome, plus the Linear link (`https://linear.app/danielwirtz/issue/KEY-123/…`). If there is no issue, write `Linear: none, <reason>`.
+2. **Testing.** Deep links on the stable Vercel `-git-` alias, one per case, checked headless for page content (not just status). Drop any link that is a Vercel login, a cancelled deployment, or a 404. Then a `QA checklist:` of `- [ ]` steps with the expected result. If a case cannot be reached by URL (for example a browser extension), say how to load the local build and still include the checklist.
+3. **Visuals.** A before/after table at desktop (~1440px) and mobile (~390px). For UI changes, also a short video on its own line. Capture headless only. Attach files with `gh pr create/edit --attach` so they render as `github.com/user-attachments/assets/…`. Do not commit screenshots into the repo.
+4. **Details.** A collapsed `<details><summary>Full details and changelog</summary>` block for everything else, including local test commands and results.
+
+No "Made with Cursor", "Generated with Claude Code", "Generated with coding agent", or "— <bot> bot" attribution, and no tool-added footers. Run the repo's `pr-body-lint` script before you call the PR done. Do not merge unless the owner asked.
+
 <!--VITE PLUS START-->
 
 # Using Vite+, the Unified Toolchain for the Web

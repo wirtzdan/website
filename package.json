@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "author": "Daniel Wirtz",
   "scripts": {
+    "pr-body-lint": "node scripts/pr-body-lint.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
