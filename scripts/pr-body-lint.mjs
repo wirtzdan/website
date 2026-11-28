@@ -18,14 +18,20 @@ import { fileURLToPath } from "node:url";
 const SUMMARY_RE = /^##[ \t]+Summary\b/m;
 const TESTING_RE = /^##[ \t]+Testing\b/m;
 const VISUALS_RE = /^##[ \t]+Visuals\b/m;
-const DETAILS_RE =
-  /<details>\s*<summary>\s*Full details and changelog\s*<\/summary>/i;
+const NEXT_HEADING_RE = /^##[ \t]+/m;
+const DETAILS_RE = /<details>\s*<summary>\s*Full details and changelog\s*<\/summary>/i;
 
 const ATTRIBUTION_CHECKS = [
   { name: '"Generated with" attribution', re: /Generated with/i },
   { name: '"Made with Cursor" attribution', re: /Made with Cursor/i },
-  { name: '"— <bot> bot" footer', re: /(?:^|\n)\s*(?:—|--|–)\s+\S.*\bbot\s*$/im },
-  { name: "robot / coding-agent footer", re: /🤖|Generated with coding agent/i },
+  {
+    name: '"— <bot> bot" footer',
+    re: /(?:^|\n)\s*(?:—|--|–)\s+\S.*\bbot\s*$/im,
+  },
+  {
+    name: "robot / coding-agent footer",
+    re: /🤖|Generated with coding agent/i,
+  },
 ];
 
 const BRIEF_ABOVE_CHECKS = [
@@ -49,17 +55,90 @@ const MEDIA_RE =
 
 function sectionAfter(body, headingRe) {
   const match = headingRe.exec(body);
-  if (!match) return null;
+  if (!match) {
+    return null;
+  }
   const start = match.index + match[0].length;
   const rest = body.slice(start);
-  const next = /^##[ \t]+/m.exec(rest);
+  const next = NEXT_HEADING_RE.exec(rest);
   return (next ? rest.slice(0, next.index) : rest).trim();
 }
 
 function textBefore(body, headingRe) {
   const match = headingRe.exec(body);
-  if (!match) return body;
+  if (!match) {
+    return body;
+  }
   return body.slice(0, match.index);
+}
+
+function checkSummary(text) {
+  const errors = [];
+  if (SUMMARY_RE.test(text)) {
+    const before = textBefore(text, SUMMARY_RE);
+    for (const check of BRIEF_ABOVE_CHECKS) {
+      if (check.re.test(before)) {
+        errors.push(
+          `${check.name}. A Linear brief belongs on the issue, not at the top of the PR.`,
+        );
+      }
+    }
+    return errors;
+  }
+  errors.push("Missing `## Summary` heading.");
+  return errors;
+}
+
+function checkTesting(text) {
+  const errors = [];
+  if (TESTING_RE.test(text)) {
+    const section = sectionAfter(text, TESTING_RE) || "";
+    const hasEvidence =
+      CHECKLIST_RE.test(section) || URL_RE.test(section) || TESTING_OMISSION_RE.test(section);
+    if (!hasEvidence) {
+      errors.push(
+        "`## Testing` has no checklist, no link, and no reason there is nothing to click.",
+      );
+    }
+    return errors;
+  }
+  if (!TESTING_OMISSION_RE.test(text)) {
+    errors.push("Missing `## Testing` heading, and no reason that there is nothing to click.");
+  }
+  return errors;
+}
+
+function checkVisuals(text) {
+  const errors = [];
+  if (VISUALS_RE.test(text)) {
+    const section = sectionAfter(text, VISUALS_RE) || "";
+    const hasEvidence = MEDIA_RE.test(section) || VISUALS_OMISSION_RE.test(section);
+    if (!hasEvidence) {
+      errors.push("`## Visuals` has no before/after media and no explicit omission reason.");
+    }
+    return errors;
+  }
+  if (!VISUALS_OMISSION_RE.test(text)) {
+    errors.push("Missing `## Visuals` heading, and no explicit reason Visuals were omitted.");
+  }
+  return errors;
+}
+
+function checkDetails(text) {
+  if (DETAILS_RE.test(text)) {
+    return [];
+  }
+  return ["Missing `<details><summary>Full details and changelog</summary>` block."];
+}
+
+function checkAttribution(text) {
+  const errors = [];
+  for (const check of ATTRIBUTION_CHECKS) {
+    if (check.re.test(text)) {
+      errors.push(`Body contains ${check.name}.`);
+    }
+  }
+  return errors;
 }
 
 function lint(body) {
@@ -71,73 +150,19 @@ function lint(body) {
     return errors;
   }
 
-  if (!SUMMARY_RE.test(text)) {
-    errors.push("Missing `## Summary` heading.");
-  } else {
-    const before = textBefore(text, SUMMARY_RE);
-    for (const check of BRIEF_ABOVE_CHECKS) {
-      if (check.re.test(before)) {
-        errors.push(
-          `${check.name}. A Linear brief belongs on the issue, not at the top of the PR.`,
-        );
-      }
-    }
-  }
-
-  if (!TESTING_RE.test(text)) {
-    const omitted = TESTING_OMISSION_RE.test(text);
-    if (!omitted) {
-      errors.push(
-        "Missing `## Testing` heading, and no reason that there is nothing to click.",
-      );
-    }
-  } else {
-    const section = sectionAfter(text, TESTING_RE) || "";
-    const hasEvidence =
-      CHECKLIST_RE.test(section) ||
-      URL_RE.test(section) ||
-      TESTING_OMISSION_RE.test(section);
-    if (!hasEvidence) {
-      errors.push(
-        "`## Testing` has no checklist, no link, and no reason there is nothing to click.",
-      );
-    }
-  }
-
-  if (!VISUALS_RE.test(text)) {
-    if (!VISUALS_OMISSION_RE.test(text)) {
-      errors.push(
-        "Missing `## Visuals` heading, and no explicit reason Visuals were omitted.",
-      );
-    }
-  } else {
-    const section = sectionAfter(text, VISUALS_RE) || "";
-    const hasEvidence = MEDIA_RE.test(section) || VISUALS_OMISSION_RE.test(section);
-    if (!hasEvidence) {
-      errors.push(
-        "`## Visuals` has no before/after media and no explicit omission reason.",
-      );
-    }
-  }
-
-  if (!DETAILS_RE.test(text)) {
-    errors.push(
-      'Missing `<details><summary>Full details and changelog</summary>` block.',
-    );
-  }
-
-  for (const check of ATTRIBUTION_CHECKS) {
-    if (check.re.test(text)) {
-      errors.push(`Body contains ${check.name}.`);
-    }
-  }
-
+  errors.push(...checkSummary(text));
+  errors.push(...checkTesting(text));
+  errors.push(...checkVisuals(text));
+  errors.push(...checkDetails(text));
+  errors.push(...checkAttribution(text));
   return errors;
 }
 
 function readBodyFromGh(pr) {
   const args = ["pr", "view", "--json", "body"];
-  if (pr) args.push(String(pr));
+  if (pr) {
+    args.push(String(pr));
+  }
   const raw = execFileSync("gh", args, { encoding: "utf8" });
   const parsed = JSON.parse(raw);
   return parsed.body ?? "";
@@ -145,19 +170,23 @@ function readBodyFromGh(pr) {
 
 function parseArgs(argv) {
   const out = { file: null, pr: null, selfTest: false };
-  for (let i = 0; i < argv.length; i += 1) {
-    const arg = argv[i];
-    if (arg === "--self-test") out.selfTest = true;
-    else if (arg === "--pr") {
-      i += 1;
-      out.pr = argv[i];
-      if (!out.pr) throw new Error("--pr needs a pull request number.");
+  const pending = [...argv];
+  while (pending.length > 0) {
+    const arg = pending.shift();
+    if (arg === "--self-test") {
+      out.selfTest = true;
+    } else if (arg === "--pr") {
+      const value = pending.shift();
+      if (!value) {
+        throw new Error("--pr needs a pull request number.");
+      }
+      out.pr = value;
     } else if (arg.startsWith("-")) {
       throw new Error(`Unknown flag: ${arg}`);
-    } else if (!out.file) {
-      out.file = arg;
-    } else {
+    } else if (out.file) {
       throw new Error(`Unexpected argument: ${arg}`);
+    } else {
+      out.file = arg;
     }
   }
   return out;
@@ -191,12 +220,11 @@ Visuals omitted: docs and tooling only, no UI change.
 
 const FAILING_CASES = [
   {
-    name: "empty body",
     body: "",
     expect: /empty/i,
+    name: "empty body",
   },
   {
-    name: "brief above summary",
     body: `## Brief
 
 Problem: format drift.
@@ -223,9 +251,9 @@ Notes.
 </details>
 `,
     expect: /Brief/i,
+    name: "brief above summary",
   },
   {
-    name: "missing details and attribution",
     body: `## Summary
 
 A change.
@@ -243,11 +271,12 @@ Visuals omitted: docs only.
 — uploadfloorplan.com bot
 `,
     expect: /details|footer|bot/i,
+    name: "missing details and attribution",
   },
   {
-    name: "generated-with footer",
     body: `${PASSING_BODY}\n\n<sub>🤖 Generated with coding agent</sub>\n`,
     expect: /Generated with|robot/i,
+    name: "generated-with footer",
   },
 ];
 
@@ -259,7 +288,7 @@ function selfTest() {
   }
   for (const test of FAILING_CASES) {
     const found = lint(test.body);
-    if (!found.length || !found.some((e) => test.expect.test(e))) {
+    if (!found.some((entry) => test.expect.test(entry))) {
       errors.push(
         `expected ${test.name} to fail matching ${test.expect}, got: ${JSON.stringify(found)}`,
       );
@@ -280,9 +309,7 @@ function main(argv) {
     return;
   }
 
-  let body;
-  if (opts.file) body = readFileSync(opts.file, "utf8");
-  else body = readBodyFromGh(opts.pr);
+  const body = opts.file ? readFileSync(opts.file, "utf8") : readBodyFromGh(opts.pr);
 
   const errors = lint(body);
   if (errors.length) {
@@ -294,9 +321,7 @@ function main(argv) {
 
 export { lint };
 
-const isMain =
-  process.argv[1] &&
-  fileURLToPath(import.meta.url) === process.argv[1];
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
 
 if (isMain) {
   try {
