@@ -16,7 +16,7 @@ test("home title is brand-first and not templated", () => {
 
 test("each static page has its own Open Graph and Twitter card", () => {
   const all = Object.values(pages).filter((value) => typeof value === "object");
-  expect(all.length).toBe(11);
+  expect(all.length).toBe(12);
   const ogTitles = new Set<unknown>();
   for (const metadata of all) {
     const og = metadata.openGraph as Record<string, unknown>;

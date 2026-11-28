@@ -71,6 +71,7 @@ const MobileMenuToggle = () => {
                     <SimpleGrid columns={1} gap={2} w="100%">
                       <MobileMenuItem href="/blog" title="Blog" onClick={onClose} />
                       <MobileMenuItem href="/about" title="About" onClick={onClose} />
+                      <MobileMenuItem href="/projects" title="Projects" onClick={onClose} />
                       <MobileMenuItem href="/books" title="Books" onClick={onClose} />
                       <MobileMenuItem href="/bookmarks" title="Bookmarks" onClick={onClose} />
                       <MobileMenuItem href="/tools" title="Tools" onClick={onClose} />

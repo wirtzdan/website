@@ -8,7 +8,9 @@ import BlogListItem from "@/components/blog-list-item";
 import EmptyState from "@/components/empty-state";
 import Link from "@/components/link";
 import Section from "@/components/section";
+import StudioProjectCard from "@/components/studio-project-card";
 import SubscribeCard from "@/components/subscribe-card";
+import { PROJECTS } from "@/lib/projects";
 import { uiCopy } from "@/lib/ui-copy";
 import type { BlogPostSummary, PaginatedResults } from "@/types/content";
 
@@ -52,6 +54,31 @@ export default function HomePage({ posts }: HomePageProps) {
               <Link href="/blog">articles</Link>.
             </Text>
           </VStack>
+        </VStack>
+      </Section>
+      <Section>
+        <VStack align="start" gap={8}>
+          <VStack align="start" gap={2} w="100%">
+            <HStack justify="space-between" w="100%" align="center">
+              <Heading size="lg">Projects</Heading>
+              <Button size={["sm", "md"]} variant="ghost" asChild type={undefined}>
+                <NextLink href="/projects">
+                  All projects
+                  <Icon asChild>
+                    <ArrowRightIcon />
+                  </Icon>
+                </NextLink>
+              </Button>
+            </HStack>
+            <Text color={{ _light: "neutral.1000", _dark: "neutralD.1000" }}>
+              A few things I am building alongside my work at Giving What We Can.
+            </Text>
+          </VStack>
+          <SimpleGrid columns={1} gap={4} w="100%">
+            {PROJECTS.map((project) => (
+              <StudioProjectCard key={project.name} project={project} compact />
+            ))}
+          </SimpleGrid>
         </VStack>
       </Section>
       <Section>
